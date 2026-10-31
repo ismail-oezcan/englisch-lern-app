@@ -440,7 +440,19 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
       <div id="prefill-banner" style="display:none;margin-bottom:8px">
         <button onclick="spPrefillAll()" style="width:100%;background:var(--gold);color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer">📥 Stundenplan-Daten laden</button>
       </div>
-      <div class="day-tabs" id="day-tabs"></div>
+      <!-- Kalender / Woche Toggle -->
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <button id="sp-view-cal" onclick="spShowView('cal')" style="flex:1;padding:8px;border-radius:8px;border:2px solid var(--accent);background:var(--accent);color:#fff;font-size:13px;font-weight:700;cursor:pointer">📅 Kalender</button>
+        <button id="sp-view-week" onclick="spShowView('week')" style="flex:1;padding:8px;border-radius:8px;border:2px solid var(--border);background:var(--bg-2);color:var(--fg);font-size:13px;font-weight:700;cursor:pointer">📋 Woche</button>
+      </div>
+      <!-- Monatskalender -->
+      <div id="sp-cal-view" style="display:block">
+        <div id="sp-cal"></div>
+      </div>
+      <!-- Wochenansicht -->
+      <div id="sp-week-view" style="display:none">
+        <div class="day-tabs" id="day-tabs"></div>
+      </div>
       <div id="day-content"></div>
     </div>
 
@@ -2290,14 +2302,139 @@ function resetChallenge() {
 }
 
 /* ========== STUNDENPLAN ========== */
-function initStundenplan() {
-  const now = new Date();
-  const start = new Date('2026-09-14');
-  const end = new Date('2026-12-04');
+/* ===== KALENDER ===== */
+let _spCalYear  = new Date().getFullYear();
+let _spCalMonth = new Date().getMonth(); // 0-based
 
-  // Build week days around today
+const KURS_START = new Date('2026-10-26');
+const KURS_END   = new Date('2026-11-06');
+
+function spShowView(v) {
+  const isCalendar = v === 'cal';
+  document.getElementById('sp-cal-view').style.display  = isCalendar ? 'block' : 'none';
+  document.getElementById('sp-week-view').style.display = isCalendar ? 'none'  : 'block';
+  document.getElementById('day-content').style.display  = isCalendar ? 'none'  : 'block';
+  document.getElementById('sp-view-cal').style.cssText  = `flex:1;padding:8px;border-radius:8px;border:2px solid var(--accent);background:${isCalendar?'var(--accent)':'var(--bg-2)'};color:${isCalendar?'#fff':'var(--fg)'};font-size:13px;font-weight:700;cursor:pointer`;
+  document.getElementById('sp-view-week').style.cssText = `flex:1;padding:8px;border-radius:8px;border:2px solid var(--border);background:${isCalendar?'var(--bg-2)':'var(--accent)'};color:${isCalendar?'var(--fg)':'#fff'};font-size:13px;font-weight:700;cursor:pointer`;
+  if (isCalendar) renderCalendar(_spCalYear, _spCalMonth);
+}
+
+function renderCalendar(year, month) {
+  _spCalYear = year; _spCalMonth = month;
+  const now = new Date();
+  const monthNames = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  const dayNames = ['Mo','Di','Mi','Do','Fr','Sa','So'];
+
+  const firstDay = new Date(year, month, 1);
+  const lastDay  = new Date(year, month + 1, 0);
+  // Wochentag des 1. (0=Mo … 6=So)
+  let startDow = (firstDay.getDay() + 6) % 7;
+
+  let html = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <button onclick="renderCalendar(${month===0?year-1:year},${month===0?11:month-1})" style="background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-size:16px;cursor:pointer">◀</button>
+      <span style="font-weight:700;font-size:15px">${monthNames[month]} ${year}</span>
+      <button onclick="renderCalendar(${month===11?year+1:year},${month===11?0:month+1})" style="background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-size:16px;cursor:pointer">▶</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:4px">
+      ${dayNames.map(d=>`<div style="text-align:center;font-size:11px;font-weight:700;color:var(--fg-muted);padding:4px 0">${d}</div>`).join('')}
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px">`;
+
+  // Leere Zellen vor dem 1.
+  for (let i = 0; i < startDow; i++) html += `<div></div>`;
+
+  for (let day = 1; day <= lastDay.getDate(); day++) {
+    const d = new Date(year, month, day);
+    const dow = (d.getDay() + 6) % 7; // 0=Mo
+    const isWeekend = dow >= 5;
+    const isToday = d.toDateString() === now.toDateString();
+    const isKurs = d >= KURS_START && d <= KURS_END && !isWeekend;
+    const dateStr = d.toISOString().slice(0,10);
+    const hasPrefill = !!SP_PREFILL[dateStr];
+
+    let bg = 'var(--bg-2)';
+    let color = 'var(--fg)';
+    let border = '1px solid var(--border)';
+    let extra = '';
+
+    if (isToday)   { bg = 'var(--accent)'; color = '#fff'; border = '2px solid var(--accent)'; }
+    else if (hasPrefill) { bg = 'var(--accent-lt)'; border = '1px solid var(--accent)'; }
+    else if (isKurs)     { bg = 'var(--gold-lt)'; border = '1px solid var(--gold)'; }
+    if (isWeekend) { color = 'var(--fg-muted)'; }
+
+    const click = isKurs || hasPrefill
+      ? `onclick="spCalDayClick('${dateStr}')"`
+      : '';
+    const cursor = (isKurs || hasPrefill) ? 'pointer' : 'default';
+
+    html += `<div ${click} style="text-align:center;padding:7px 2px;border-radius:7px;font-size:13px;font-weight:${isToday?'700':'500'};background:${bg};color:${color};border:${border};cursor:${cursor}">${day}${hasPrefill?'<div style="font-size:7px;margin-top:1px">●</div>':''}</div>`;
+  }
+
+  html += `</div>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;font-size:11px">
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:3px;background:var(--accent-lt);border:1px solid var(--accent);display:inline-block"></span> Kurstag mit Plan</span>
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:3px;background:var(--gold-lt);border:1px solid var(--gold);display:inline-block"></span> Kurstag</span>
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:3px;background:var(--accent);display:inline-block"></span> Heute</span>
+    </div>`;
+
+  document.getElementById('sp-cal').innerHTML = html;
+}
+
+function spCalDayClick(dateStr) {
+  // Wechsel zu Wochenansicht und zeige diesen Tag
+  spShowView('week');
+  const d = new Date(dateStr);
+  // Berechne weekOffset für diese Woche
+  const now = new Date();
+  const mondayNow = new Date(now);
+  mondayNow.setDate(now.getDate() - ((now.getDay()+6)%7));
+  const mondayTarget = new Date(d);
+  mondayTarget.setDate(d.getDate() - ((d.getDay()+6)%7));
+  const diff = Math.round((mondayTarget - mondayNow) / (7*24*3600*1000));
+  initStundenplan(diff);
+  // Klicke auf den richtigen Tag-Tab
+  setTimeout(() => {
+    const dow = (d.getDay()+6)%7; // 0=Mo
+    const btns = document.querySelectorAll('#day-tabs .dt');
+    if (btns[dow]) {
+      btns.forEach(b=>b.classList.remove('active'));
+      btns[dow].classList.add('active');
+      renderDay(d);
+      document.getElementById('day-content').style.display = 'block';
+    }
+  }, 50);
+}
+
+let _spWeekOffset = 0; // 0 = aktuelle Woche, -1 = letzte Woche, +1 = nächste Woche
+
+function initStundenplan(weekOffset) {
+  if (weekOffset !== undefined) _spWeekOffset = weekOffset;
+  const now = new Date();
+
+  // Montag der aktuellen Woche + Offset
   const monday = new Date(now);
-  monday.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+  monday.setDate(now.getDate() - ((now.getDay() + 6) % 7) + _spWeekOffset * 7);
+
+  // Woche Label z.B. "KW 44 · 26.10 – 30.10"
+  const fri = new Date(monday); fri.setDate(monday.getDate() + 4);
+  const fmt = d => `${d.getDate()}.${d.getMonth()+1}`;
+  const kw = Math.ceil((((monday - new Date(monday.getFullYear(),0,1))/86400000) + new Date(monday.getFullYear(),0,1).getDay()+1)/7);
+
+  // Woche-Navigation einfügen (einmalig)
+  let weekNav = document.getElementById('sp-week-nav');
+  if (!weekNav) {
+    weekNav = document.createElement('div');
+    weekNav.id = 'sp-week-nav';
+    weekNav.style.cssText = 'display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;gap:8px';
+    const tabs = document.getElementById('day-tabs');
+    tabs.parentNode.insertBefore(weekNav, tabs);
+  }
+  weekNav.innerHTML = `
+    <button onclick="initStundenplan(${_spWeekOffset-1})" style="background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:14px;cursor:pointer">◀</button>
+    <span style="font-size:13px;color:var(--fg-muted);font-weight:600">KW ${kw} · ${fmt(monday)} – ${fmt(fri)}</span>
+    <button onclick="initStundenplan(${_spWeekOffset+1})" style="background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:14px;cursor:pointer">▶</button>
+  `;
 
   const tabs = document.getElementById('day-tabs');
   const shortDays = ['Mo','Di','Mi','Do','Fr','Sa','So'];
@@ -2317,7 +2454,14 @@ function initStundenplan() {
       renderDay(dd);
     };
     tabs.appendChild(btn);
-    if (isToday) renderDay(d);
+    if (isToday || (i === 0 && _spWeekOffset !== 0)) {
+      if (i === 0 || isToday) renderDay(d);
+    }
+  }
+  // Ersten Tag anzeigen wenn nicht aktuelle Woche
+  if (_spWeekOffset !== 0) {
+    const firstBtn = tabs.querySelector('.dt');
+    if (firstBtn) { firstBtn.classList.add('active'); renderDay(monday); }
   }
 }
 
@@ -2861,6 +3005,7 @@ renderVok();
 renderGram();
 initChallenge();
 initStundenplan();
+spShowView('cal');
 spCheckPrefillBanner();
 initHausaufgaben();
 renderLinks();
