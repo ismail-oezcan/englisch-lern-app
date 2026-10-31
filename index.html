@@ -2349,52 +2349,52 @@ function spDefault() {
 
 // Vordefinierte Stundenplan-Daten (Woche 1: 27.10–31.10.2026, Woche 2: 03.11–07.11.2026)
 const SP_PREFILL = {
-  '2026-10-27': [
+  '2026-10-26': [
     {time:'09:30 – 11:00', teacher:'Jamie',   topic:'Introduction to course\nSelect optional slot content · Vocab option x3 · Communication skills option x2 · Language/structure input option x2'},
     {time:'11:15 – 12:45', teacher:'Jamie',   topic:'Speaking: Handling Unexpected Situations in Conversation'},
     {time:'13:15 – 14:45', teacher:'Dominic', topic:'Grammar: Second Conditional'}
   ],
-  '2026-10-28': [
+  '2026-10-27': [
     {time:'09:30 – 11:00', teacher:'Holly',   topic:'Correct homework\nVocab Option 1'},
     {time:'11:15 – 12:45', teacher:'Holly',   topic:'Communication Skills Option 1'},
     {time:'13:15 – 14:45', teacher:'Jamie',   topic:'Listening: Comprehending Short Narratives and Stories'}
   ],
-  '2026-10-29': [
+  '2026-10-28': [
     {time:'09:30 – 11:00', teacher:'Dominic', topic:'Correct homework\nVocab: Product Development\nSet homework'},
     {time:'11:15 – 12:45', teacher:'Dominic', topic:'Presentation Preparation 1: Setting Expectations\nSet presentation as HW for next week\nHomework for Monday: Plan short bullet point outline of presentation and rehearse opening minute'},
     {time:'13:15 – 14:45', teacher:'Dominic', topic:'Writing development slot: Describing charts (work/study)'}
   ],
-  '2026-10-30': [
+  '2026-10-29': [
     {time:'09:30 – 11:00', teacher:'Chiara',  topic:'Correct homework\nVocab Option 2'},
     {time:'11:15 – 12:45', teacher:'Chiara',  topic:'Language/Functions Option 1\nSet homework'},
     {time:'13:15 – 14:45', teacher:'David M', topic:'Vocabulary review (10 minutes)\nReading development skills slot: Spotting fake news'}
   ],
-  '2026-10-31': [
+  '2026-10-30': [
     {time:'09:30 – 11:00', teacher:'Holly',   topic:'Correct homework\nVocab: Describing Places\nNo HW – see Wed slot 2 above'},
     {time:'11:15 – 12:45', teacher:'Chiara',  topic:'Progress assessment task & feedback\nMid-course feedback'},
     {time:'13:15 – 14:45', teacher:'David M', topic:'Vocabulary review (10 minutes)\nLive Listening'}
   ],
-  '2026-11-03': [
+  '2026-11-02': [
     {time:'09:30 – 11:00', teacher:'',        topic:'Vocabulary review (10 minutes)\nVocab: Workplace Health and Safety'},
     {time:'11:15 – 12:45', teacher:'',        topic:'Presentation Preparation 2: Focused rehearsal/editing\nRehearse opening minute, get feedback on bullet point structure, check resource requirements'},
     {time:'13:15 – 14:45', teacher:'',        topic:'Reading Workshop: Students will have some idea of what to present'}
   ],
-  '2026-11-04': [
+  '2026-11-03': [
     {time:'09:30 – 11:00', teacher:'',        topic:'Correct homework\nGrammar: Passive Voice (Present and Past Simple)'},
     {time:'11:15 – 12:45', teacher:'',        topic:'Vocabulary review (10 minutes)\nLanguage/Functions Option 2\nSet homework'},
     {time:'13:15 – 14:45', teacher:'',        topic:'Listening Skills Development: Video / other media'}
   ],
-  '2026-11-05': [
+  '2026-11-04': [
     {time:'09:30 – 11:00', teacher:'',        topic:'Correct homework\nVocab Option 3\nSet HW reminder about presentations tomorrow'},
     {time:'11:15 – 12:45', teacher:'',        topic:'Writing: Structuring Paragraphs with Simple Organisation'},
     {time:'13:15 – 14:45', teacher:'',        topic:'Vocabulary review (10 minutes)\nOpen Slot'}
   ],
-  '2026-11-06': [
+  '2026-11-05': [
     {time:'09:30 – 11:00', teacher:'',        topic:'Correct homework\nReading: Distinguishing fact from opinion'},
     {time:'11:15 – 12:45', teacher:'',        topic:'Vocabulary review (10 minutes)\nGrammar: Reported Speech (Statements and Questions)\nSet homework'},
     {time:'13:15 – 14:45', teacher:'',        topic:'Presentations with Feedback'}
   ],
-  '2026-11-07': [
+  '2026-11-06': [
     {time:'09:30 – 11:00', teacher:'',        topic:'Check HW\nReview of Cycle'},
     {time:'11:15 – 12:45', teacher:'',        topic:'Communication Skills Option 2\nEnd of cycle feedback and reflection'},
     {time:'13:15 – 14:45', teacher:'',        topic:'Open Slot\nGoodbyes / Auf Wiedersehen'}
@@ -2518,6 +2518,19 @@ async function spPrefillAll() {
   const btn = document.querySelector('#prefill-banner button');
   btn.textContent = '⏳ Wird geladen…';
   btn.disabled = true;
+  // Erst alle alten Einträge löschen (damit falsche Daten überschrieben werden)
+  const allDates = ['2026-10-26','2026-10-27','2026-10-28','2026-10-29','2026-10-30',
+                    '2026-10-31','2026-11-02','2026-11-03','2026-11-04','2026-11-05','2026-11-06','2026-11-07'];
+  for (const datum of allDates) {
+    try {
+      await fetch(`${SUPA_URL}/rest/v1/stundenplan?user_code=eq.${USER_CODE}&datum=eq.${datum}`, {
+        method: 'DELETE',
+        headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
+      });
+    } catch(e) {}
+    delete _spCache[datum];
+  }
+  // Dann neue Daten schreiben
   for (const [datum, blocks] of Object.entries(SP_PREFILL)) {
     const d = new Date(datum);
     await spSave(d, blocks);
