@@ -2485,14 +2485,21 @@ async function renderDay(d) {
       <div style="display:grid;gap:8px">
         <div>
           <div style="font-size:11px;color:var(--fg-muted);font-weight:600;margin-bottom:4px">👤 LEHRER</div>
-          <input class="sp-input" placeholder="Lehrername…" value="${b.teacher}" oninput="spUpdate(${i},'teacher',this.value)" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;font-size:14px;font-family:var(--font);background:var(--bg-2);color:var(--fg);outline:none" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
+          <input class="sp-input" id="sp-teacher-${i}" placeholder="Lehrername…" oninput="spUpdate(${i},'teacher',this.value)" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;font-size:14px;font-family:var(--font);background:var(--bg-2);color:var(--fg);outline:none" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
         </div>
         <div>
           <div style="font-size:11px;color:var(--fg-muted);font-weight:600;margin-bottom:4px">📚 THEMA / NOTIZ</div>
-          <textarea class="sp-input" placeholder="Was war heute Thema? Notizen…" oninput="spUpdate(${i},'topic',this.value)" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;font-size:14px;font-family:var(--font);background:var(--bg-2);color:var(--fg);outline:none;resize:none;min-height:60px;line-height:1.5" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">${b.topic}</textarea>
+          <textarea class="sp-input" id="sp-topic-${i}" placeholder="Was war heute Thema? Notizen…" oninput="spUpdate(${i},'topic',this.value)" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;font-size:14px;font-family:var(--font);background:var(--bg-2);color:var(--fg);outline:none;resize:none;min-height:60px;line-height:1.5" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"></textarea>
         </div>
       </div>
     </div>`).join('')}`;
+  // Werte per JS setzen (sicher gegen HTML-Sonderzeichen)
+  blocks.forEach((b, i) => {
+    const ti = document.getElementById('sp-teacher-' + i);
+    const to = document.getElementById('sp-topic-' + i);
+    if (ti) ti.value = b.teacher || '';
+    if (to) to.value = b.topic || '';
+  });
 }
 
 function spUpdate(blockIdx, field, value) {
