@@ -2411,17 +2411,16 @@ async function spPrefillIfEmpty(d, blocks) {
 async function spLoad(d) {
   const key = spKey(d);
   if (_spCache[key]) return JSON.parse(JSON.stringify(_spCache[key]));
+  let blocks = spDefault();
   try {
     const res = await fetch(`${SUPA_URL}/rest/v1/stundenplan?user_code=eq.${USER_CODE}&datum=eq.${key}&select=data`, {
       headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
     });
     const rows = await res.json();
     if (rows && rows.length > 0) {
-      _spCache[key] = rows[0].data;
-      return JSON.parse(JSON.stringify(rows[0].data));
+      blocks = rows[0].data;
     }
   } catch(e) {}
-  const blocks = spDefault();
   return await spPrefillIfEmpty(d, blocks);
 }
 
