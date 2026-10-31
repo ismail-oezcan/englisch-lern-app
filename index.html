@@ -160,18 +160,18 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 .gram-item{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
 .gram-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer}
 .gram-hdr-left{display:flex;align-items:center;gap:10px}
-.gram-icon{width:34px;height:34px;border-radius:8px;background:var(--accent-lt);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.gram-name{font-size:14px;font-weight:600;color:var(--fg)}
-.gram-level{font-size:11px;color:var(--fg-muted);margin-top:1px}
-.gram-arrow{font-size:16px;color:var(--fg-muted);transition:transform .2s}
+.gram-icon{width:38px;height:38px;border-radius:8px;background:var(--accent-lt);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.gram-name{font-size:16px;font-weight:700;color:var(--fg)}
+.gram-level{font-size:13px;color:var(--fg-muted);margin-top:2px;font-weight:600}
+.gram-arrow{font-size:18px;color:var(--fg-muted);transition:transform .2s}
 .gram-arrow.open{transform:rotate(90deg)}
 .gram-body{display:none;padding:0 16px 16px;border-top:1px solid var(--border)}
 .gram-body.open{display:block}
-.gram-rule{font-size:13px;color:var(--fg);line-height:1.6;margin-bottom:10px;margin-top:12px}
-.gram-example{background:var(--bg-2);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:8px;font-size:13px}
+.gram-rule{font-size:15px;color:var(--fg);line-height:1.7;margin-bottom:12px;margin-top:14px}
+.gram-example{background:var(--bg-2);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:10px;font-size:15px}
 .gram-en{font-weight:600;color:var(--fg)}
-.gram-de{font-size:12px;color:var(--fg-muted);margin-top:2px}
-.gram-quiz-btn{margin-top:12px;background:var(--accent-lt);color:var(--accent);border:none;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);width:100%}
+.gram-de{font-size:14px;color:var(--fg-muted);margin-top:4px}
+.gram-quiz-btn{margin-top:12px;background:var(--accent-lt);color:var(--accent);border:none;border-radius:8px;padding:12px 14px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);width:100%}
 
 /* ---- CHALLENGE ---- */
 .challenge-card{background:linear-gradient(135deg,var(--gold) 0%,#E8950A 100%);border-radius:16px;padding:22px;color:#fff;margin-bottom:18px;text-align:center}
@@ -379,7 +379,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 
     <!-- GRAMMATIK -->
     <div class="screen" id="sc-grammatik">
-      <div class="sec-lbl">Grammatik-Regeln</div>
+      <div class="sec-lbl" style="font-size:13px">Grammatik-Regeln</div>
       <div class="gram-list" id="gram-list"></div>
     </div>
 
@@ -524,6 +524,35 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
     <div class="screen" id="sc-links">
       <div class="sec-lbl">🔗 Lernressourcen</div>
       <div style="font-size:13px;color:var(--fg-muted);margin-bottom:16px">Kuratierte Links für dein Englisch-Lernen</div>
+
+      <!-- Eigene Links -->
+      <button onclick="openLinkForm()" style="width:100%;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:8px">
+        ＋ Eigenen Link hinzufügen
+      </button>
+      <!-- Link-Formular (versteckt) -->
+      <div id="link-form" style="display:none;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:12px">Neuer Link</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div>
+            <label style="font-size:12px;color:var(--fg-muted);font-weight:600">🌐 URL</label>
+            <input type="url" id="link-url" placeholder="https://..." style="width:100%;margin-top:4px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:var(--bg-2);color:var(--fg);font-family:var(--font);box-sizing:border-box">
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--fg-muted);font-weight:600">📌 Titel</label>
+            <input type="text" id="link-titel" placeholder="z.B. BBC Learning English" style="width:100%;margin-top:4px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:var(--bg-2);color:var(--fg);font-family:var(--font);box-sizing:border-box">
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--fg-muted);font-weight:600">📝 Beschreibung (optional)</label>
+            <input type="text" id="link-desc" placeholder="z.B. Gute Grammatik-Erklärungen" style="width:100%;margin-top:4px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:var(--bg-2);color:var(--fg);font-family:var(--font);box-sizing:border-box">
+          </div>
+          <div style="display:flex;gap:8px;margin-top:4px">
+            <button onclick="saveLink()" style="flex:1;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">💾 Speichern</button>
+            <button onclick="closeLinkForm()" style="flex:1;background:var(--bg-2);color:var(--fg-muted);border:1px solid var(--border);border-radius:8px;padding:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font)">Abbrechen</button>
+          </div>
+        </div>
+      </div>
+      <!-- Meine Links -->
+      <div id="links-list-eigene"></div>
 
       <!-- Kategorien -->
       <div class="sec-lbl" style="font-size:11px;margin-bottom:8px">🎥 YouTube – Grammatik &amp; Vokabeln</div>
@@ -1920,6 +1949,67 @@ function renderLinks() {
   render('links-list-ex', LINKS_DATA.ex);
   render('links-list-listen', LINKS_DATA.listen);
   render('links-list-apps', LINKS_DATA.apps);
+  renderEigeneLinks();
+}
+
+/* ========== EIGENE LINKS ========== */
+const EIGENE_LINKS_KEY = 'ela_eigene_links';
+
+function loadEigeneLinks() {
+  try { return JSON.parse(localStorage.getItem(EIGENE_LINKS_KEY) || '[]'); } catch(e) { return []; }
+}
+
+function saveEigeneLinksData(list) {
+  try { localStorage.setItem(EIGENE_LINKS_KEY, JSON.stringify(list)); } catch(e) {}
+}
+
+function renderEigeneLinks() {
+  const list = loadEigeneLinks();
+  const el = document.getElementById('links-list-eigene');
+  if (!el) return;
+  if (list.length === 0) { el.innerHTML = ''; return; }
+  el.innerHTML = `
+    <div class="sec-lbl" style="font-size:11px;margin-bottom:8px">⭐ Meine Links</div>
+    ${list.map((link, i) => `
+      <div style="display:flex;align-items:flex-start;gap:12px;background:var(--gold-lt);border:1px solid var(--gold);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px">
+        <span style="font-size:22px;flex-shrink:0;margin-top:2px">🔗</span>
+        <div style="flex:1;min-width:0">
+          <a href="${link.url}" target="_blank" rel="noopener noreferrer" style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:3px;display:block;text-decoration:none">${link.title}</a>
+          ${link.desc ? `<div style="font-size:12px;color:var(--fg-muted);line-height:1.4">${link.desc}</div>` : ''}
+        </div>
+        <button onclick="deleteEigenerLink(${i})" style="background:var(--red-lt);color:var(--red);border:none;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0">✕</button>
+      </div>`).join('')}
+  `;
+}
+
+function openLinkForm() {
+  document.getElementById('link-form').style.display = 'block';
+  document.getElementById('link-url').value = '';
+  document.getElementById('link-titel').value = '';
+  document.getElementById('link-desc').value = '';
+}
+
+function closeLinkForm() {
+  document.getElementById('link-form').style.display = 'none';
+}
+
+function saveLink() {
+  const url = document.getElementById('link-url').value.trim();
+  const title = document.getElementById('link-titel').value.trim();
+  const desc = document.getElementById('link-desc').value.trim();
+  if (!url || !title) { alert('Bitte URL und Titel eingeben.'); return; }
+  const list = loadEigeneLinks();
+  list.unshift({ url, title, desc });
+  saveEigeneLinksData(list);
+  closeLinkForm();
+  renderEigeneLinks();
+}
+
+function deleteEigenerLink(i) {
+  const list = loadEigeneLinks();
+  list.splice(i, 1);
+  saveEigeneLinksData(list);
+  renderEigeneLinks();
 }
 
 /* ========== ZERTIFIKAT ========== */
