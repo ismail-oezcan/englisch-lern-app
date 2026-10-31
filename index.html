@@ -2344,6 +2344,70 @@ function spDefault() {
   ];
 }
 
+// Vordefinierte Stundenplan-Daten (Woche 1: 27.10–31.10.2026, Woche 2: 03.11–07.11.2026)
+const SP_PREFILL = {
+  '2026-10-27': [
+    {time:'09:30 – 11:00', teacher:'Jamie',   topic:'Introduction to course\nSelect optional slot content · Vocab option x3 · Communication skills option x2 · Language/structure input option x2'},
+    {time:'11:15 – 12:45', teacher:'Jamie',   topic:'Speaking: Handling Unexpected Situations in Conversation'},
+    {time:'13:15 – 14:45', teacher:'Dominic', topic:'Grammar: Second Conditional'}
+  ],
+  '2026-10-28': [
+    {time:'09:30 – 11:00', teacher:'Holly',   topic:'Correct homework\nVocab Option 1'},
+    {time:'11:15 – 12:45', teacher:'Holly',   topic:'Communication Skills Option 1'},
+    {time:'13:15 – 14:45', teacher:'Jamie',   topic:'Listening: Comprehending Short Narratives and Stories'}
+  ],
+  '2026-10-29': [
+    {time:'09:30 – 11:00', teacher:'Dominic', topic:'Correct homework\nVocab: Product Development\nSet homework'},
+    {time:'11:15 – 12:45', teacher:'Dominic', topic:'Presentation Preparation 1: Setting Expectations\nSet presentation as HW for next week\nHomework for Monday: Plan short bullet point outline of presentation and rehearse opening minute'},
+    {time:'13:15 – 14:45', teacher:'Dominic', topic:'Writing development slot: Describing charts (work/study)'}
+  ],
+  '2026-10-30': [
+    {time:'09:30 – 11:00', teacher:'Chiara',  topic:'Correct homework\nVocab Option 2'},
+    {time:'11:15 – 12:45', teacher:'Chiara',  topic:'Language/Functions Option 1\nSet homework'},
+    {time:'13:15 – 14:45', teacher:'David M', topic:'Vocabulary review (10 minutes)\nReading development skills slot: Spotting fake news'}
+  ],
+  '2026-10-31': [
+    {time:'09:30 – 11:00', teacher:'Holly',   topic:'Correct homework\nVocab: Describing Places\nNo HW – see Wed slot 2 above'},
+    {time:'11:15 – 12:45', teacher:'Chiara',  topic:'Progress assessment task & feedback\nMid-course feedback'},
+    {time:'13:15 – 14:45', teacher:'David M', topic:'Vocabulary review (10 minutes)\nLive Listening'}
+  ],
+  '2026-11-03': [
+    {time:'09:30 – 11:00', teacher:'',        topic:'Vocabulary review (10 minutes)\nVocab: Workplace Health and Safety'},
+    {time:'11:15 – 12:45', teacher:'',        topic:'Presentation Preparation 2: Focused rehearsal/editing\nRehearse opening minute, get feedback on bullet point structure, check resource requirements'},
+    {time:'13:15 – 14:45', teacher:'',        topic:'Reading Workshop: Students will have some idea of what to present'}
+  ],
+  '2026-11-04': [
+    {time:'09:30 – 11:00', teacher:'',        topic:'Correct homework\nGrammar: Passive Voice (Present and Past Simple)'},
+    {time:'11:15 – 12:45', teacher:'',        topic:'Vocabulary review (10 minutes)\nLanguage/Functions Option 2\nSet homework'},
+    {time:'13:15 – 14:45', teacher:'',        topic:'Listening Skills Development: Video / other media'}
+  ],
+  '2026-11-05': [
+    {time:'09:30 – 11:00', teacher:'',        topic:'Correct homework\nVocab Option 3\nSet HW reminder about presentations tomorrow'},
+    {time:'11:15 – 12:45', teacher:'',        topic:'Writing: Structuring Paragraphs with Simple Organisation'},
+    {time:'13:15 – 14:45', teacher:'',        topic:'Vocabulary review (10 minutes)\nOpen Slot'}
+  ],
+  '2026-11-06': [
+    {time:'09:30 – 11:00', teacher:'',        topic:'Correct homework\nReading: Distinguishing fact from opinion'},
+    {time:'11:15 – 12:45', teacher:'',        topic:'Vocabulary review (10 minutes)\nGrammar: Reported Speech (Statements and Questions)\nSet homework'},
+    {time:'13:15 – 14:45', teacher:'',        topic:'Presentations with Feedback'}
+  ],
+  '2026-11-07': [
+    {time:'09:30 – 11:00', teacher:'',        topic:'Check HW\nReview of Cycle'},
+    {time:'11:15 – 12:45', teacher:'',        topic:'Communication Skills Option 2\nEnd of cycle feedback and reflection'},
+    {time:'13:15 – 14:45', teacher:'',        topic:'Open Slot\nGoodbyes / Auf Wiedersehen'}
+  ]
+};
+
+async function spPrefillIfEmpty(d, blocks) {
+  const key = spKey(d);
+  const hasData = blocks.some(b => b.teacher || b.topic);
+  if (hasData) return blocks;
+  const prefill = SP_PREFILL[key];
+  if (!prefill) return blocks;
+  await spSave(d, prefill);
+  return JSON.parse(JSON.stringify(prefill));
+}
+
 async function spLoad(d) {
   const key = spKey(d);
   if (_spCache[key]) return JSON.parse(JSON.stringify(_spCache[key]));
@@ -2357,7 +2421,8 @@ async function spLoad(d) {
       return JSON.parse(JSON.stringify(rows[0].data));
     }
   } catch(e) {}
-  return spDefault();
+  const blocks = spDefault();
+  return await spPrefillIfEmpty(d, blocks);
 }
 
 async function spSave(d, blocks) {
