@@ -437,6 +437,9 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
       <div class="countdown-end">
         <p>📅 Kursende: <strong id="kursende-display">Freitag, 04. Dezember 2026</strong></p>
       </div>
+      <div id="prefill-banner" style="display:none;margin-bottom:8px">
+        <button onclick="spPrefillAll()" style="width:100%;background:var(--gold);color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer">📥 Stundenplan-Daten laden</button>
+      </div>
       <div class="day-tabs" id="day-tabs"></div>
       <div id="day-content"></div>
     </div>
@@ -2464,9 +2467,10 @@ async function renderDay(d) {
 
   const dayNames = ['','Montag','Dienstag','Mittwoch','Donnerstag','Freitag'];
   _spBlocks = await spLoad(d);
-  // Prefill erzwingen falls noch leer
+  // Prefill erzwingen falls Daten unvollständig (kein vollständiger Lehrername oder kein Thema)
   const _pfKey = spKey(d);
-  if (_spBlocks.every(b => !b.teacher && !b.topic) && SP_PREFILL[_pfKey]) {
+  const _needsPrefill = _spBlocks.every(b => (!b.teacher || b.teacher.trim().length < 2) && !b.topic);
+  if (_needsPrefill && SP_PREFILL[_pfKey]) {
     _spBlocks = JSON.parse(JSON.stringify(SP_PREFILL[_pfKey]));
     spSave(d, _spBlocks);
   }
@@ -2508,6 +2512,24 @@ async function renderDay(d) {
     if (ti) ti.value = b.teacher || '';
     if (to) to.value = b.topic || '';
   });
+}
+
+async function spPrefillAll() {
+  const btn = document.querySelector('#prefill-banner button');
+  btn.textContent = '⏳ Wird geladen…';
+  btn.disabled = true;
+  for (const [datum, blocks] of Object.entries(SP_PREFILL)) {
+    const d = new Date(datum);
+    await spSave(d, blocks);
+    _spCache[datum] = JSON.parse(JSON.stringify(blocks));
+  }
+  document.getElementById('prefill-banner').style.display = 'none';
+  alert('Stundenplan-Daten erfolgreich geladen!');
+  initStundenplan();
+}
+
+function spCheckPrefillBanner() {
+  document.getElementById('prefill-banner').style.display = 'block';
 }
 
 function spUpdate(blockIdx, field, value) {
@@ -2826,6 +2848,7 @@ renderVok();
 renderGram();
 initChallenge();
 initStundenplan();
+spCheckPrefillBanner();
 initHausaufgaben();
 renderLinks();
 
