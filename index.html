@@ -2303,11 +2303,12 @@ function resetChallenge() {
 
 /* ========== STUNDENPLAN ========== */
 /* ===== KALENDER ===== */
+// Kalender startet im aktuellen Monat
 let _spCalYear  = new Date().getFullYear();
-let _spCalMonth = new Date().getMonth(); // 0-based
+let _spCalMonth = new Date().getMonth();
 
-const KURS_START = new Date('2026-10-26');
-const KURS_END   = new Date('2026-11-06');
+const KURS_START = new Date(2026, 8, 14);  // 14. September 2026 (lokale Zeit)
+const KURS_END   = new Date(2026, 11, 4);  // 4. Dezember 2026 (lokale Zeit)
 
 function spShowView(v) {
   const isCalendar = v === 'cal';
