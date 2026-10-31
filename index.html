@@ -2464,6 +2464,12 @@ async function renderDay(d) {
 
   const dayNames = ['','Montag','Dienstag','Mittwoch','Donnerstag','Freitag'];
   _spBlocks = await spLoad(d);
+  // Prefill erzwingen falls noch leer
+  const _pfKey = spKey(d);
+  if (_spBlocks.every(b => !b.teacher && !b.topic) && SP_PREFILL[_pfKey]) {
+    _spBlocks = JSON.parse(JSON.stringify(SP_PREFILL[_pfKey]));
+    spSave(d, _spBlocks);
+  }
   const blocks = _spBlocks;
 
   content.innerHTML = `
