@@ -2400,17 +2400,17 @@ const SP_PREFILL = {
 
 async function spPrefillIfEmpty(d, blocks) {
   const key = spKey(d);
-  const hasData = blocks.some(b => b.teacher || b.topic);
-  if (hasData) return blocks;
   const prefill = SP_PREFILL[key];
   if (!prefill) return blocks;
+  // Prefill anwenden wenn alle Blöcke leer sind
+  const allEmpty = blocks.every(b => !b.teacher && !b.topic);
+  if (!allEmpty) return blocks;
   await spSave(d, prefill);
   return JSON.parse(JSON.stringify(prefill));
 }
 
 async function spLoad(d) {
   const key = spKey(d);
-  if (_spCache[key]) return JSON.parse(JSON.stringify(_spCache[key]));
   let blocks = spDefault();
   try {
     const res = await fetch(`${SUPA_URL}/rest/v1/stundenplan?user_code=eq.${USER_CODE}&datum=eq.${key}&select=data`, {
@@ -2421,7 +2421,9 @@ async function spLoad(d) {
       blocks = rows[0].data;
     }
   } catch(e) {}
-  return await spPrefillIfEmpty(d, blocks);
+  const result = await spPrefillIfEmpty(d, blocks);
+  _spCache[key] = JSON.parse(JSON.stringify(result));
+  return JSON.parse(JSON.stringify(result));
 }
 
 async function spSave(d, blocks) {
