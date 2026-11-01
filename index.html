@@ -2794,8 +2794,34 @@ function renderPDFList() {
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
       <span style="flex:1;font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.name}</span>
       <span style="font-size:11px;color:var(--fg-muted)">${p.doc.numPages} S.</span>
+      <button onclick="event.stopPropagation();sharePDF(${i})" title="Teilen" style="background:none;border:none;cursor:pointer;font-size:16px;padding:0 4px">📤</button>
       <button onclick="event.stopPropagation();deletePDF(${i})" style="background:none;border:none;cursor:pointer;color:var(--red);font-size:16px;padding:0 4px">✕</button>
     </div>`).join('');
+}
+
+async function sharePDF(i) {
+  const p = pdfList[i];
+  if (!p) return;
+  try {
+    // Fetch blob from object URL
+    const resp = await fetch(p.url);
+    const blob = await resp.blob();
+    const file = new File([blob], p.name, { type: 'application/pdf' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file], title: p.name });
+    } else if (navigator.share) {
+      // Fallback: share without file (link/title only)
+      await navigator.share({ title: p.name, text: p.name });
+    } else {
+      // Fallback: download
+      const a = document.createElement('a');
+      a.href = p.url;
+      a.download = p.name;
+      a.click();
+    }
+  } catch(e) {
+    if (e.name !== 'AbortError') alert('Teilen nicht möglich: ' + e.message);
+  }
 }
 
 function deletePDF(i) {
