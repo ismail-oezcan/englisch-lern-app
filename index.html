@@ -3272,7 +3272,7 @@ spShowView('cal');
 spCheckPrefillBanner();
 initHausaufgaben();
 renderLinks();
-initPDFs();
+// initPDFs wird nach pdf.js-Laden aufgerufen (siehe Script-Tag unten)
 
 // Kursende-Display im Stundenplan initial setzen
 (function() {
@@ -3379,4 +3379,4 @@ function copyTranslation() {
   });
 }
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" onload="initPDFs()"></script>
