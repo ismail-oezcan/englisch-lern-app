@@ -335,6 +335,8 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
         <button class="vf" onclick="filterVok(this,'future')">🔮 Zukunft &amp; Pläne</button>
         <button class="vf" onclick="filterVok(this,'kitchen')">🍳 Küche &amp; Kochen</button>
         <button class="vf" onclick="filterVok(this,'unit6a')">🎬 Unit 6A – Drehorte</button>
+        <button class="vf" onclick="filterVok(this,'nov02')">📝 02.11 – Allgemein</button>
+        <button class="vf" onclick="filterVok(this,'nov02b')">🏙️ 02.11 – Stadt &amp; Feste</button>
       </div>
 
       <div class="vok-progress" id="vok-prog"></div>
@@ -581,6 +583,9 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 
       <div class="sec-lbl" style="font-size:11px;margin-bottom:8px;margin-top:4px">📱 Apps &amp; Sonstiges</div>
       <div id="links-list-apps"></div>
+
+      <div class="sec-lbl" style="font-size:11px;margin-bottom:8px;margin-top:16px">📖 Lese-Übungen (Kurs-Texte)</div>
+      <div id="links-list-texte"></div>
     </div>
 
     <!-- DeepL Übersetzer -->
@@ -1200,6 +1205,84 @@ const VOKABELN = [
   {w:'permit (noun)',ph:'/ˈpɜːmɪt/',t:'die Genehmigung / der Erlaubnisschein',ex:'"You need a PERmit to film here."',cat:'unit6a',forms:[{en:'PERmit (noun)',de:'Betonung auf 1. Silbe → die Genehmigung'},{en:'perMIT (verb)',de:'Betonung auf 2. Silbe → erlauben/gestatten'}]},
   {w:'present (noun/adj)',ph:'/ˈpreznt/',t:'das Geschenk / anwesend / gegenwärtig',ex:'"This is a PREsent for you."',cat:'unit6a',forms:[{en:'PREsent (noun/adj)',de:'Betonung auf 1. Silbe → das Geschenk / anwesend'},{en:'preSENT (verb)',de:'Betonung auf 2. Silbe → präsentieren/vorstellen'}]},
   {w:'object (noun)',ph:'/ˈɒbdʒɪkt/',t:'das Objekt / der Gegenstand',ex:'"What is that OBject over there?"',cat:'unit6a',forms:[{en:'OBject (noun)',de:'Betonung auf 1. Silbe → der Gegenstand'},{en:'obJECT (verb)',de:'Betonung auf 2. Silbe → einwenden/ablehnen'}]},
+  // Vokabelliste 5: Allgemein (BSE Kurs, 02.11.2026 – Liste 1)
+  {w:'highlights',ph:'/ˈhaɪlaɪts/',t:'die Highlights / die Höhepunkte',ex:'"The highlights of the trip were the castle and the market."',cat:'nov02'},
+  {w:'concept',ph:'/ˈkɒnsept/',t:'das Konzept / die Idee',ex:'"It is a difficult concept to understand."',cat:'nov02'},
+  {w:'maze',ph:'/meɪz/',t:'das Labyrinth / der Irrgarten',ex:'"We got lost in the maze for an hour."',cat:'nov02'},
+  {w:'pundit',ph:'/ˈpʌndɪt/',t:'der Experte / der Fachmann',ex:'"The TV pundit gave his opinion on the match."',cat:'nov02'},
+  {w:'fed up',ph:'/fed ʌp/',t:'genervt sein / die Nase voll haben',ex:'"I am fed up with waiting!"',cat:'nov02'},
+  {w:'DIY',ph:'/ˌdiː aɪ ˈwaɪ/',t:'Heimwerken / Do it yourself',ex:'"He loves DIY projects at home."',cat:'nov02'},
+  {w:'hangover',ph:'/ˈhæŋəʊvə/',t:'der Kater (nach Alkohol)',ex:'"He had a terrible hangover the next morning."',cat:'nov02'},
+  {w:'to snatch',ph:'/tə snætʃ/',t:'schnappen / entreißen',ex:'"Someone snatched her bag in the street."',cat:'nov02'},
+  {w:'homeless',ph:'/ˈhəʊmləs/',t:'obdachlos',ex:'"There are many homeless people in the city centre."',cat:'nov02'},
+  {w:'beggar',ph:'/ˈbeɡə/',t:'der Bettler',ex:'"A beggar asked him for some money."',cat:'nov02'},
+  {w:'to beg',ph:'/tə beɡ/',t:'betteln',ex:'"He had to beg for food."',cat:'nov02'},
+  {w:'headscarf',ph:'/ˈhedskɑːf/',t:'das Kopftuch',ex:'"She wore a colourful headscarf."',cat:'nov02'},
+  {w:'shift (work)',ph:'/ʃɪft/',t:'die Schicht (Arbeit)',ex:'"She works the night shift at the hospital."',cat:'nov02'},
+  {w:'vacancies',ph:'/ˈveɪkənsɪz/',t:'freie Stellen / Stellenangebote',ex:'"There are three vacancies in our department."',cat:'nov02'},
+  {w:'to match',ph:'/tə mætʃ/',t:'passen / übereinstimmen',ex:'"Your skills match the job requirements."',cat:'nov02'},
+  {w:'to break in',ph:'/tə breɪk ɪn/',t:'einbrechen',ex:'"Someone broke in through the back window."',cat:'nov02'},
+  {w:'to trust',ph:'/tə trʌst/',t:'vertrauen',ex:'"I trust her completely."',cat:'nov02'},
+  {w:'advisor',ph:'/ədˈvaɪzə/',t:'der Berater / der Ratgeber',ex:'"He spoke to a financial advisor."',cat:'nov02'},
+  {w:'to stamp',ph:'/tə stæmp/',t:'stempeln / stampfen',ex:'"Please stamp the document here."',cat:'nov02'},
+  {w:'to litter',ph:'/tə ˈlɪtə/',t:'Müll wegwerfen / verschmutzen',ex:'"Do not litter — use the bins!"',cat:'nov02'},
+  {w:'humidity',ph:'/hjuːˈmɪdɪti/',t:'die Luftfeuchtigkeit / die Feuchtigkeit',ex:'"The humidity in the rainforest is very high."',cat:'nov02'},
+  {w:'poisonous',ph:'/ˈpɔɪzənəs/',t:'giftig',ex:'"Some mushrooms are poisonous."',cat:'nov02'},
+  {w:'subcontractor',ph:'/ˈsʌbkəntræktə/',t:'der Subunternehmer',ex:'"The company hired a subcontractor for the electrical work."',cat:'nov02'},
+  {w:'involves',ph:'/ɪnˈvɒlvz/',t:'beinhaltet / umfasst',ex:'"The job involves a lot of travelling."',cat:'nov02'},
+  {w:'in case of',ph:'/ɪn keɪs əv/',t:'im Falle von / falls',ex:'"In case of emergency, call 112."',cat:'nov02'},
+  {w:'barber',ph:'/ˈbɑːbə/',t:'der Friseur (Herren) / der Barbier',ex:'"He goes to the barber every three weeks."',cat:'nov02'},
+  {w:'part-time',ph:'/ˌpɑːt ˈtaɪm/',t:'Teilzeit',ex:'"She works part-time — three days a week."',cat:'nov02'},
+  {w:'with pleasure',ph:'/wɪð ˈpleʒə/',t:'mit Vergnügen / gerne',ex:'"Can you help me?" — "With pleasure!"',cat:'nov02'},
+  {w:'to afford',ph:'/tə əˈfɔːd/',t:'sich leisten können',ex:'"I cannot afford a new car right now."',cat:'nov02'},
+  {w:'to behave',ph:'/tə bɪˈheɪv/',t:'sich benehmen / sich verhalten',ex:'"Please behave well in class."',cat:'nov02'},
+  {w:'various',ph:'/ˈveəriəs/',t:'verschiedene / mehrere',ex:'"There are various ways to solve this problem."',cat:'nov02'},
+  {w:'lorry',ph:'/ˈlɒri/',t:'der LKW / der Lastwagen (British English)',ex:'"A lorry blocked the road for an hour."',cat:'nov02'},
+  {w:'warehouse',ph:'/ˈweəhaʊs/',t:'das Lager / das Lagerhaus',ex:'"The goods are stored in a large warehouse."',cat:'nov02'},
+  {w:'optimism',ph:'/ˈɒptɪmɪzəm/',t:'der Optimismus',ex:'"Her optimism helped the whole team."',cat:'nov02'},
+  {w:'haptic',ph:'/ˈhæptɪk/',t:'haptisch / die Berührung betreffend',ex:'"The phone has haptic feedback when you type."',cat:'nov02'},
+  {w:'slogan',ph:'/ˈsləʊɡən/',t:'der Slogan / der Werbespruch',ex:'"Their slogan is: Just do it."',cat:'nov02'},
+  {w:'to achieve',ph:'/tə əˈtʃiːv/',t:'erreichen / erzielen',ex:'"She achieved her goal after years of hard work."',cat:'nov02'},
+  {w:'extension request',ph:'/ɪkˈstenʃn rɪˈkwest/',t:'der Verlängerungsantrag',ex:'"He sent an extension request for his visa."',cat:'nov02'},
+  {w:'tricky',ph:'/ˈtrɪki/',t:'knifflig / schwierig',ex:'"This question is tricky — think carefully."',cat:'nov02'},
+  {w:'to bombard',ph:'/tə bɒmˈbɑːd/',t:'bombardieren / überhäufen (mit Fragen)',ex:'"The journalists bombarded him with questions."',cat:'nov02'},
+  {w:'distracted',ph:'/dɪˈstræktɪd/',t:'abgelenkt / zerstreut',ex:'"She was distracted by her phone during class."',cat:'nov02'},
+  {w:'New Year\'s Eve',ph:'/njuː jɪəz iːv/',t:'Silvester',ex:'"We always celebrate New Year\'s Eve with friends."',cat:'nov02'},
+  {w:'foreigners',ph:'/ˈfɒrɪnəz/',t:'Ausländer / Ausländerinnen',ex:'"Many foreigners live and work in Berlin."',cat:'nov02'},
+  {w:'whereabouts',ph:'/ˈweərəbaʊts/',t:'der Aufenthaltsort / Wo?',ex:'"Nobody knew his whereabouts."',cat:'nov02'},
+  {w:'in advance',ph:'/ɪn ədˈvɑːns/',t:'im Voraus',ex:'"Please book your ticket in advance."',cat:'nov02'},
+  {w:'to spread',ph:'/tə spred/',t:'verbreiten / ausbreiten',ex:'"The news spread quickly on social media."',cat:'nov02'},
+  {w:'spouse',ph:'/spaʊs/',t:'der Ehepartner / die Ehepartnerin',ex:'"You must list your spouse on the form."',cat:'nov02'},
+  {w:'behaviour',ph:'/bɪˈheɪvjə/',t:'das Verhalten / das Benehmen',ex:'"His behaviour in class has improved a lot."',cat:'nov02'},
+  // Vokabelliste 6: Stadt & Feste (BSE Kurs, 02.11.2026 – Liste 2)
+  {w:'lift',ph:'/lɪft/',t:'der Aufzug / der Fahrstuhl (British English)',ex:'"Take the lift to the third floor."',cat:'nov02b'},
+  {w:'palace',ph:'/ˈpæləs/',t:'der Palast / das Schloss',ex:'"Buckingham Palace is visited by millions of tourists."',cat:'nov02b'},
+  {w:'castle',ph:'/ˈkɑːsl/',t:'die Burg / das Schloss',ex:'"Edinburgh Castle stands on a large rock."',cat:'nov02b'},
+  {w:'criminal',ph:'/ˈkrɪmɪnəl/',t:'der Kriminelle / der Verbrecher',ex:'"The criminal was caught by the police."',cat:'nov02b'},
+  {w:'chased',ph:'/tʃeɪst/',t:'verfolgt (Vergangenheit von: to chase)',ex:'"The police chased the thief through the alley."',cat:'nov02b'},
+  {w:'giant',ph:'/ˈdʒaɪənt/',t:'riesig / der Riese',ex:'"There was a giant pumpkin at the festival."',cat:'nov02b'},
+  {w:'interior',ph:'/ɪnˈtɪəriə/',t:'der Innenraum / innen',ex:'"The interior of the castle was beautifully decorated."',cat:'nov02b'},
+  {w:'exterior',ph:'/ɪkˈstɪəriə/',t:'der Außenbereich / außen',ex:'"The exterior of the building was painted white."',cat:'nov02b'},
+  {w:'metropolis',ph:'/mɪˈtrɒpəlɪs/',t:'die Großstadt / die Metropole',ex:'"Berlin is a modern metropolis with a rich history."',cat:'nov02b'},
+  {w:'alley',ph:'/ˈæli/',t:'die Gasse / die Seitenstraße',ex:'"There is a small café in the alley behind the station."',cat:'nov02b'},
+  {w:'uninvited',ph:'/ˌʌnɪnˈvaɪtɪd/',t:'uneingeladen / ungebeten',ex:'"He arrived uninvited and nobody was happy."',cat:'nov02b'},
+  {w:'sweets',ph:'/swiːts/',t:'die Süßigkeiten (British English)',ex:'"Children love sweets at Halloween."',cat:'nov02b'},
+  {w:'to collect',ph:'/tə kəˈlekt/',t:'sammeln / abholen',ex:'"Children collect sweets on Halloween night."',cat:'nov02b'},
+  {w:'pumpkin',ph:'/ˈpʌmpkɪn/',t:'der Kürbis',ex:'"We carved a pumpkin for Halloween."',cat:'nov02b'},
+  {w:'to honour',ph:'/tə ˈɒnə/',t:'ehren / würdigen',ex:'"We honour the dead on this special day."',cat:'nov02b'},
+  {w:'grave',ph:'/ɡreɪv/',t:'das Grab / ernst (Adjektiv)',ex:'"People put flowers on the graves of their loved ones."',cat:'nov02b'},
+  {w:'participant',ph:'/pɑːˈtɪsɪpənt/',t:'der Teilnehmer',ex:'"Every participant received a certificate."',cat:'nov02b'},
+  {w:'spectator',ph:'/spekˈteɪtə/',t:'der Zuschauer',ex:'"The spectators cheered loudly."',cat:'nov02b'},
+  {w:'treats',ph:'/triːts/',t:'die Leckereien / die Belohnungen',ex:'"Trick or treat — give us sweets or treats!"',cat:'nov02b'},
+  {w:'silly',ph:'/ˈsɪli/',t:'albern / dumm',ex:'"Don\'t be silly — it is just a costume!"',cat:'nov02b'},
+  {w:'sporty',ph:'/ˈspɔːti/',t:'sportlich',ex:'"She is very sporty — she runs every morning."',cat:'nov02b'},
+  {w:'entertaining',ph:'/ˌentəˈteɪnɪŋ/',t:'unterhaltsam / amüsant',ex:'"The show was very entertaining."',cat:'nov02b'},
+  {w:'to take turns',ph:'/tə teɪk tɜːnz/',t:'sich abwechseln',ex:'"We take turns doing the dishes."',cat:'nov02b'},
+  {w:'to throw',ph:'/tə θrəʊ/',t:'werfen / schmeißen',ex:'"Throw the ball to your partner."',cat:'nov02b'},
+  {w:'contest',ph:'/ˈkɒntest/',t:'der Wettbewerb / der Wettkampf',ex:'"She won the costume contest."',cat:'nov02b'},
+  {w:'competition',ph:'/ˌkɒmpəˈtɪʃn/',t:'der Wettbewerb / die Konkurrenz',ex:'"There is a lot of competition for this job."',cat:'nov02b'},
+  {w:'jury',ph:'/ˈdʒʊəri/',t:'die Jury / die Geschworenen',ex:'"The jury chose the best costume."',cat:'nov02b'},
+  {w:'to judge',ph:'/tə dʒʌdʒ/',t:'beurteilen / bewerten',ex:'"Three teachers will judge the competition."',cat:'nov02b'},
   // Vokabelliste 3: Küche & Kochen (BSE Kurs, Unit 14, 29.10.2026)
   // Küchen-Verben (Kitchen Verbs)
   {w:'to chop',ph:'/tə tʃɒp/',t:'hacken / klein schneiden / zerkleinern',ex:'"Chop the onions into small pieces."',cat:'kitchen'},
@@ -2001,6 +2084,9 @@ const LINKS_DATA = {
     {title:'Linguee – Kontextwörterbuch', desc:'Übersetzungen mit echten Beispielsätzen aus dem Web', url:'https://www.linguee.de/', emoji:'🔍'},
     {title:'Deepl – KI-Übersetzer', desc:'Beste KI-Übersetzung Deutsch ↔ Englisch', url:'https://www.deepl.com/de/translator', emoji:'🤖'},
     {title:'OALD – Oxford Advanced Learner\'s Dictionary', desc:'Das komplette Oxford Wörterbuch kostenlos online', url:'https://www.oxfordlearnersdictionaries.com/', emoji:'📖'},
+  ],
+  texte: [
+    {title:'Freundschaft: Emma & Chloe (02.11.2026)', desc:'A friendship coming to an end – Feeling left out\n\nEmma and Chloe have been close friends since secondary school. They used to spend almost every weekend together, but things changed when Chloe started dating someone new. She gradually stopped replying to messages and frequently cancelled their plans. Last Saturday, Emma was walking through the shopping centre when she unexpectedly saw Chloe having lunch with a group of friends. Chloe noticed her but didn\'t invite her to join them. Emma felt embarrassed and hurt because she had always considered Chloe her closest friend. She is now wondering whether she should confront her or simply accept that people sometimes grow apart.\n\n❓ What would you do if you were Emma?', emoji:'📖', typ:'text'},
   ]
 };
 
@@ -2022,7 +2108,30 @@ function renderLinks() {
   render('links-list-ex', LINKS_DATA.ex);
   render('links-list-listen', LINKS_DATA.listen);
   render('links-list-apps', LINKS_DATA.apps);
+  renderTexte();
   renderEigeneLinks();
+}
+
+/* ========== LESE-TEXTE ========== */
+function renderTexte() {
+  const el = document.getElementById('links-list-texte');
+  if (!el) return;
+  el.innerHTML = LINKS_DATA.texte.map((t, i) => `
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px">
+      <div onclick="toggleText(${i})" style="display:flex;align-items:flex-start;gap:12px;cursor:pointer">
+        <span style="font-size:22px;flex-shrink:0;margin-top:2px">${t.emoji}</span>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:3px">${t.title}</div>
+          <div style="font-size:12px;color:var(--fg-muted)">Tippen zum Lesen ▼</div>
+        </div>
+      </div>
+      <div id="text-body-${i}" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:13px;line-height:1.7;color:var(--fg);white-space:pre-line">${t.desc}</div>
+    </div>`).join('');
+}
+function toggleText(i) {
+  const el = document.getElementById('text-body-' + i);
+  if (!el) return;
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
 }
 
 /* ========== EIGENE LINKS ========== */
