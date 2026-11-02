@@ -2727,15 +2727,25 @@ async function spPrefillIfEmpty(d, blocks) {
 async function spLoad(d) {
   const key = spKey(d);
   let blocks = spDefault();
+  let loaded = false;
+  // 1. Supabase als primäre Quelle
   try {
     const res = await fetch(`${SUPA_URL}/rest/v1/stundenplan?user_code=eq.${USER_CODE}&datum=eq.${key}&select=data`, {
       headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
     });
     const rows = await res.json();
-    if (rows && rows.length > 0) {
+    if (rows && rows.length > 0 && rows[0].data) {
       blocks = rows[0].data;
+      loaded = true;
     }
   } catch(e) {}
+  // 2. Fallback: localStorage (falls Supabase fehlschlägt oder offline)
+  if (!loaded) {
+    try {
+      const cached = localStorage.getItem('sp_' + key);
+      if (cached) { blocks = JSON.parse(cached); loaded = true; }
+    } catch(e) {}
+  }
   const result = await spPrefillIfEmpty(d, blocks);
   _spCache[key] = JSON.parse(JSON.stringify(result));
   return JSON.parse(JSON.stringify(result));
@@ -2779,13 +2789,6 @@ async function renderDay(d) {
 
   const dayNames = ['','Montag','Dienstag','Mittwoch','Donnerstag','Freitag'];
   _spBlocks = await spLoad(d);
-  // Prefill erzwingen falls Daten unvollständig (kein vollständiger Lehrername oder kein Thema)
-  const _pfKey = spKey(d);
-  const _needsPrefill = _spBlocks.every(b => (!b.teacher || b.teacher.trim().length < 2) && !b.topic);
-  if (_needsPrefill && SP_PREFILL[_pfKey]) {
-    _spBlocks = JSON.parse(JSON.stringify(SP_PREFILL[_pfKey]));
-    spSave(d, _spBlocks);
-  }
   const blocks = _spBlocks;
 
   content.innerHTML = `
