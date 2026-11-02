@@ -2650,7 +2650,12 @@ function getUserCode() {
 const USER_CODE = getUserCode();
 
 const _spCache = {};
-function spKey(d) { return d.toISOString().slice(0,10); }
+function spKey(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
 function spDefault() {
   return [
     {time:'09:30 – 11:00', teacher:'', topic:''},
