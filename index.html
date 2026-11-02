@@ -516,7 +516,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
           <span style="font-size:14px;font-weight:600;color:var(--accent)">+ PDF hinzufügen</span>
           <input type="file" id="pdf-input" accept="application/pdf" style="display:none" onchange="addPDF(this)">
         </label>
-        <p style="font-size:11px;color:var(--fg-muted);margin-top:8px;text-align:center">Nur solange der Tab offen ist gespeichert</p>
+        <p style="font-size:11px;color:var(--fg-muted);margin-top:8px;text-align:center">📂 Dauerhaft gespeichert — bleibt nach Reload erhalten</p>
       </div>
 
       <!-- Liste der PDFs -->
@@ -2883,18 +2883,82 @@ function loadState() {
 }
 
 /* ========== PDF PRÄSENTATION ========== */
-const pdfList = []; // {name, url, doc}
+const pdfList = []; // {name, url, doc, dbId}
 let activePdfIdx = -1, pdfPage = 1;
+let _pdfDB = null;
+
+function openPdfDB() {
+  return new Promise((resolve, reject) => {
+    if (_pdfDB) { resolve(_pdfDB); return; }
+    const req = indexedDB.open('ela_pdfs', 1);
+    req.onupgradeneeded = e => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains('pdfs')) {
+        db.createObjectStore('pdfs', { keyPath: 'id', autoIncrement: true });
+      }
+    };
+    req.onsuccess = e => { _pdfDB = e.target.result; resolve(_pdfDB); };
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function savePdfToDB(name, arrayBuffer) {
+  const db = await openPdfDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('pdfs', 'readwrite');
+    const req = tx.objectStore('pdfs').add({ name, data: arrayBuffer, saved: Date.now() });
+    req.onsuccess = () => resolve(req.result); // returns id
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function deletePdfFromDB(id) {
+  const db = await openPdfDB();
+  return new Promise((resolve) => {
+    const tx = db.transaction('pdfs', 'readwrite');
+    tx.objectStore('pdfs').delete(id);
+    tx.oncomplete = resolve;
+  });
+}
+
+async function loadAllPdfsFromDB() {
+  const db = await openPdfDB();
+  return new Promise((resolve) => {
+    const tx = db.transaction('pdfs', 'readonly');
+    const req = tx.objectStore('pdfs').getAll();
+    req.onsuccess = () => resolve(req.result || []);
+    req.onerror = () => resolve([]);
+  });
+}
+
+async function initPDFs() {
+  const pdfjsLib = window['pdfjs-dist/build/pdf'];
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  try {
+    const rows = await loadAllPdfsFromDB();
+    for (const row of rows) {
+      const blob = new Blob([row.data], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const doc = await pdfjsLib.getDocument(url).promise;
+      pdfList.push({ name: row.name, url, doc, dbId: row.id });
+    }
+    renderPDFList();
+  } catch(e) {}
+}
 
 async function addPDF(input) {
   const file = input.files[0];
   if (!file) return;
   input.value = '';
-  const url = URL.createObjectURL(file);
+  const arrayBuffer = await file.arrayBuffer();
+  const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
+  const url = URL.createObjectURL(blob);
   const pdfjsLib = window['pdfjs-dist/build/pdf'];
   pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
   const doc = await pdfjsLib.getDocument(url).promise;
-  pdfList.push({name: file.name, url, doc});
+  let dbId = null;
+  try { dbId = await savePdfToDB(file.name, arrayBuffer); } catch(e) {}
+  pdfList.push({ name: file.name, url, doc, dbId });
   renderPDFList();
   openPDF(pdfList.length - 1);
 }
@@ -2937,8 +3001,10 @@ async function sharePDF(i) {
   }
 }
 
-function deletePDF(i) {
-  URL.revokeObjectURL(pdfList[i].url);
+async function deletePDF(i) {
+  const p = pdfList[i];
+  URL.revokeObjectURL(p.url);
+  if (p.dbId != null) { try { await deletePdfFromDB(p.dbId); } catch(e) {} }
   pdfList.splice(i, 1);
   if (activePdfIdx === i) closePDFViewer();
   else if (activePdfIdx > i) activePdfIdx--;
@@ -3206,6 +3272,7 @@ spShowView('cal');
 spCheckPrefillBanner();
 initHausaufgaben();
 renderLinks();
+initPDFs();
 
 // Kursende-Display im Stundenplan initial setzen
 (function() {
