@@ -1674,7 +1674,8 @@ function initHome() {
   if (ei) ei.value = getKursEnde();
 
   const days = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
-  document.getElementById('home-day').textContent = days[now.getDay()];
+  const months = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  document.getElementById('home-day').textContent = days[now.getDay()] + ', ' + now.getDate() + '. ' + months[now.getMonth()] + ' ' + now.getFullYear();
 
   // Clock
   function tick() {
