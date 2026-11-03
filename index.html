@@ -2802,7 +2802,8 @@ async function spSave(d, blocks) {
         'apikey': SUPA_KEY,
         'Authorization': 'Bearer ' + SUPA_KEY,
         'Content-Type': 'application/json',
-        'Prefer': 'resolution=merge-duplicates'
+        'Prefer': 'return=minimal,resolution=merge-duplicates',
+        'on-conflict': 'user_code,datum'
       },
       body: JSON.stringify({ user_code: USER_CODE, datum: key, data: blocks, updated_at: new Date().toISOString() })
     });
