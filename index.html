@@ -2796,18 +2796,18 @@ async function spSave(d, blocks) {
   _spCache[key] = JSON.parse(JSON.stringify(blocks));
   try { localStorage.setItem('sp_'+key, JSON.stringify(blocks)); } catch(e) {}
   try {
-    await fetch(`${SUPA_URL}/rest/v1/stundenplan`, {
+    const r = await fetch(`${SUPA_URL}/rest/v1/stundenplan?on_conflict=user_code,datum`, {
       method: 'POST',
       headers: {
         'apikey': SUPA_KEY,
         'Authorization': 'Bearer ' + SUPA_KEY,
         'Content-Type': 'application/json',
-        'Prefer': 'return=minimal,resolution=merge-duplicates',
-        'on-conflict': 'user_code,datum'
+        'Prefer': 'resolution=merge-duplicates,return=minimal'
       },
       body: JSON.stringify({ user_code: USER_CODE, datum: key, data: blocks, updated_at: new Date().toISOString() })
     });
-  } catch(e) {}
+    if (!r.ok) { const t = await r.text(); console.error('spSave error', r.status, t); }
+  } catch(e) { console.error('spSave fetch failed', e); }
 }
 
 let _spDay = null;
