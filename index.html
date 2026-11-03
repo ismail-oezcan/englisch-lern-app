@@ -1326,6 +1326,21 @@ const VOKABELN = [
   {w:'sugar',ph:'/ˈʃʊɡə/',t:'der Zucker (nicht zählbar: some sugar)',ex:'"Add a spoonful of sugar."',cat:'kitchen',forms:[{en:'some sugar (U)',de:'etwas Zucker — nicht zählbar ✅'},{en:'a spoonful of sugar',de:'ein Löffel Zucker'}]},
   {w:'banana',ph:'/bəˈnɑːnə/',t:'die Banane (zählbar: a banana, bananas)',ex:'"I eat a banana every morning."',cat:'kitchen',forms:[{en:'a banana (C)',de:'eine Banane — zählbar ✅'},{en:'two bananas',de:'zwei Bananen'}]},
   {w:'cheese',ph:'/tʃiːz/',t:'der Käse (nicht zählbar: some cheese)',ex:'"Grate some cheese on top."',cat:'kitchen',forms:[{en:'some cheese (U)',de:'etwas Käse — nicht zählbar ✅'},{en:'a slice of cheese',de:'eine Scheibe Käse'}]},
+  // Vokabelliste 7: Unit 8B — Comment Adverbs (BSE Kurs, 03.11.2026)
+  {w:'thankfully',ph:'/ˈθæŋkfəli/',t:'zum Glück / glücklicherweise (positiv)',ex:'"Thankfully, she survived the accident."',cat:'unit8b'},
+  {w:'sadly',ph:'/ˈsædli/',t:'leider / traurigerweise (negativ)',ex:'"Sadly, one member of the team was killed."',cat:'unit8b'},
+  {w:'luckily',ph:'/ˈlʌkɪli/',t:'zum Glück / glücklicherweise (positiv)',ex:'"Luckily, it didn\'t rain during our picnic."',cat:'unit8b'},
+  {w:'unluckily',ph:'/ʌnˈlʌkɪli/',t:'unglücklicherweise / leider (negativ)',ex:'"Unluckily, he missed the last train home."',cat:'unit8b'},
+  {w:'hopefully',ph:'/ˈhəʊpfəli/',t:'hoffentlich (Wunsch/Hoffnung)',ex:'"Hopefully, the weather will be better tomorrow."',cat:'unit8b'},
+  {w:'obviously',ph:'/ˈɒbviəsli/',t:'offensichtlich / natürlich (klare Tatsache)',ex:'"Obviously, providing sport for disabled people is expensive."',cat:'unit8b'},
+  {w:'surprisingly',ph:'/səˈpraɪzɪŋli/',t:'überraschenderweise',ex:'"Surprisingly, several publishers refused her first novel."',cat:'unit8b'},
+  {w:'not surprisingly',ph:'/nɒt səˈpraɪzɪŋli/',t:'nicht überraschend / wie erwartet',ex:'"Not surprisingly, Van Gogh only sold one painting in his lifetime."',cat:'unit8b'},
+  {w:'fortunately',ph:'/ˈfɔːtʃənətli/',t:'glücklicherweise / zum Glück (positiv)',ex:'"Fortunately, nobody was hurt in the fire."',cat:'unit8b'},
+  {w:'unfortunately',ph:'/ʌnˈfɔːtʃənətli/',t:'leider / unglücklicherweise (negativ)',ex:'"Unfortunately, the concert was cancelled."',cat:'unit8b'},
+  {w:'amazingly',ph:'/əˈmeɪzɪŋli/',t:'erstaunlicherweise / unglaublich',ex:'"Amazingly, he ran the marathon in under three hours."',cat:'unit8b'},
+  {w:'strangely',ph:'/ˈstreɪndʒli/',t:'seltsamerweise / merkwürdigerweise',ex:'"Strangely, nobody saw what happened."',cat:'unit8b'},
+  {w:'tragically',ph:'/ˈtrædʒɪkli/',t:'tragischerweise / auf tragische Weise',ex:'"Tragically, the young athlete lost both legs in the accident."',cat:'unit8b'},
+  {w:'happily',ph:'/ˈhæpɪli/',t:'glücklicherweise / glücklich (positiv)',ex:'"Happily, everything turned out well in the end."',cat:'unit8b'},
 ];
 
 const GRAMMATIK = [
@@ -1345,21 +1360,23 @@ const GRAMMATIK = [
   },
   {
     icon:'🔀', name:'Passive Voice', level:'B1',
-    rule:'Das Passiv betont die Handlung, nicht die Person. Bildung: be + Partizip II (Past Participle). Active: Paula closes the shop. → Passive: The shop is closed (by Paula). Zeitformen: Present: is/are + V3 | Past: was/were + V3 | Future: will be + V3 | Present Perfect: has/have been + V3 | Modal: can/must/should be + V3',
+    rule:'Das Passiv betont die Handlung, nicht die Person. Bildung: be + Partizip II (Past Participle). Zeitformen: Present Simple: is/are + V3 | Past Simple: was/were + V3 | Present Continuous: is/are being + V3 | Past Continuous: was/were being + V3 | Future: will be + V3 | Present Perfect: has/have been + V3 | Modal: can/must/should be + V3. "by + Person" nur wenn wichtig, wer die Aktion ausführt.',
     examples:[
-      {en:'The shop is closed at 6 pm. (Present)',de:'Der Laden wird um 18 Uhr geschlossen.'},
-      {en:'The film was shot on location in Oxford. (Past)',de:'Der Film wurde an Originalschauplätzen in Oxford gedreht.'},
-      {en:'Christ Church was built in 1546. (Past)',de:'Christ Church wurde 1546 gebaut.'},
+      {en:'The rooms are cleaned every day. (Present Simple)',de:'Die Zimmer werden jeden Tag gereinigt.'},
+      {en:'The film was shot in Oxford. (Past Simple)',de:'Der Film wurde in Oxford gedreht.'},
+      {en:'My computer is being repaired at the moment. (Present Continuous)',de:'Mein Computer wird gerade repariert.'},
+      {en:'The road was being repaired last week. (Past Continuous)',de:'Die Straße wurde letzte Woche gerade repariert.'},
       {en:'The hall has been used in many films. (Present Perfect)',de:'Die Halle wurde in vielen Filmen benutzt.'},
-      {en:'The scenes will be filmed next month. (Future)',de:'Die Szenen werden nächsten Monat gedreht.'},
-      {en:'Visitors can be seen all year round. (Modal)',de:'Besucher können das ganze Jahr gesehen werden.'},
+      {en:'He was found by the rescue team. (by + Agent)',de:'Er wurde vom Rettungsteam gefunden. (wer = wichtig → "by")'},
     ],
     quizzes:[
-      {q:'Passive von "They shot the film in Oxford" (Past):',opts:['The film shot in Oxford.','The film was shot in Oxford.','The film is shot in Oxford.','The film has shot in Oxford.'],a:1},
-      {q:'Passive von "They are building a new office" (Present):',opts:['A new office builds.','A new office is being built.','A new office was built.','A new office built.'],a:1},
-      {q:'Passive von "They have used the hall many times" (Present Perfect):',opts:['The hall used many times.','The hall has been used many times.','The hall was used many times.','The hall is used many times.'],a:1},
-      {q:'Wann benutzt man das Passiv?',opts:['Wenn die handelnde Person wichtiger ist','Wenn die Handlung/das Ergebnis wichtiger ist','Nur in der Vergangenheit','Nur im Präsens'],a:1},
+      {q:'Passive von "They shot the film in Oxford" (Past Simple):',opts:['The film shot in Oxford.','The film was shot in Oxford.','The film is shot in Oxford.','The film has shot in Oxford.'],a:1},
+      {q:'Passive von "They are repairing my computer" (Present Continuous):',opts:['My computer repairs.','My computer is being repaired.','My computer was repaired.','My computer has been repaired.'],a:1},
+      {q:'Passive von "They were following the car" (Past Continuous):',opts:['The car followed.','The car was following.','The car was being followed.','The car is being followed.'],a:2},
+      {q:'Wann benutzt man "by + Person" im Passiv?',opts:['Immer','Nie','Nur wenn wichtig ist, wer die Aktion ausführt','Nur im Präsens'],a:2},
+      {q:'"Fifty people ___ during the protest." — richtige Passivform (Past):',opts:['are arrested','were arrested','are being arrested','arrested'],a:1},
       {q:'"Christ Church ___ in 1546." — richtige Passivform:',opts:['is built','builds','was built','has built'],a:2},
+      {q:'Passive von "They have used the hall many times" (Present Perfect):',opts:['The hall used many times.','The hall has been used many times.','The hall was used many times.','The hall is used many times.'],a:1},
     ]
   },
   {
