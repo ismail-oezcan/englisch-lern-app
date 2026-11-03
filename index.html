@@ -2796,17 +2796,21 @@ async function spSave(d, blocks) {
   _spCache[key] = JSON.parse(JSON.stringify(blocks));
   try { localStorage.setItem('sp_'+key, JSON.stringify(blocks)); } catch(e) {}
   try {
-    const r = await fetch(`${SUPA_URL}/rest/v1/stundenplan?on_conflict=user_code,datum`, {
-      method: 'POST',
-      headers: {
-        'apikey': SUPA_KEY,
-        'Authorization': 'Bearer ' + SUPA_KEY,
-        'Content-Type': 'application/json',
-        'Prefer': 'resolution=merge-duplicates,return=minimal'
-      },
-      body: JSON.stringify({ user_code: USER_CODE, datum: key, data: blocks, updated_at: new Date().toISOString() })
+    const payload = JSON.stringify({ user_code: USER_CODE, datum: key, data: blocks, updated_at: new Date().toISOString() });
+    const headers = { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' };
+    // Erst versuchen zu updaten
+    const patch = await fetch(`${SUPA_URL}/rest/v1/stundenplan?user_code=eq.${USER_CODE}&datum=eq.${key}`, {
+      method: 'PATCH', headers, body: JSON.stringify({ data: blocks, updated_at: new Date().toISOString() })
     });
-    if (!r.ok) { const t = await r.text(); console.error('spSave error', r.status, t); }
+    if (patch.ok) {
+      // Prüfen ob Zeile existierte (PATCH updated 0 Zeilen wenn nicht vorhanden)
+      const count = patch.headers.get('content-range');
+      if (!count || count === '*/0') {
+        // Keine Zeile vorhanden → INSERT
+        const post = await fetch(`${SUPA_URL}/rest/v1/stundenplan`, { method: 'POST', headers, body: payload });
+        if (!post.ok) { const t = await post.text(); console.error('spSave insert error', post.status, t); }
+      }
+    } else { const t = await patch.text(); console.error('spSave patch error', patch.status, t); }
   } catch(e) { console.error('spSave fetch failed', e); }
 }
 
