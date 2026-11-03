@@ -343,6 +343,47 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 
       <div class="vok-progress" id="vok-prog"></div>
 
+      <!-- Vokabel hinzufügen -->
+      <div id="vok-add-wrap" style="margin-bottom:16px">
+        <button onclick="document.getElementById('vok-add-form').style.display=document.getElementById('vok-add-form').style.display==='none'?'block':'none'" style="width:100%;padding:9px;border-radius:10px;border:1.5px dashed var(--accent);background:transparent;color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font)">➕ Eigene Vokabel hinzufügen</button>
+        <div id="vok-add-form" style="display:none;margin-top:10px;background:var(--bg-card);border-radius:12px;padding:14px;border:1px solid var(--border)">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--fg-muted);margin-bottom:4px">🇬🇧 ENGLISCH *</div>
+              <input id="vok-new-en" placeholder="z.B. grateful" style="width:100%;box-sizing:border-box;padding:8px 10px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg-2);color:var(--fg);font-size:14px;font-family:var(--font);outline:none" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--fg-muted);margin-bottom:4px">🇩🇪 DEUTSCH *</div>
+              <input id="vok-new-de" placeholder="z.B. dankbar" style="width:100%;box-sizing:border-box;padding:8px 10px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg-2);color:var(--fg);font-size:14px;font-family:var(--font);outline:none" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--fg-muted);margin-bottom:4px">🔊 AUSSPRACHE</div>
+              <input id="vok-new-ph" placeholder="z.B. /ˈɡreɪtfəl/" style="width:100%;box-sizing:border-box;padding:8px 10px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg-2);color:var(--fg);font-size:14px;font-family:var(--font);outline:none" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--fg-muted);margin-bottom:4px">📂 KATEGORIE *</div>
+              <select id="vok-new-cat" style="width:100%;box-sizing:border-box;padding:8px 10px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg-2);color:var(--fg);font-size:14px;font-family:var(--font);outline:none">
+                <option value="unit8b">💬 Unit 8B</option>
+                <option value="generations">👨‍👩‍👧 Generationen</option>
+                <option value="kitchen">🍳 Küche & Kochen</option>
+                <option value="nov02b">🏙️ Stadt & Feste</option>
+                <option value="general">📝 Allgemein</option>
+                <option value="comm">💬 Kommunikation</option>
+                <option value="tech">💻 Technologie</option>
+                <option value="verbs">🔧 Verben</option>
+                <option value="phrasal">🔀 Phrasal Verbs</option>
+                <option value="travel">✈️ Reise/Hotel</option>
+                <option value="feelings">😊 Gefühle</option>
+              </select>
+            </div>
+          </div>
+          <button onclick="addCustomVok()" style="width:100%;padding:10px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">✓ Vokabel speichern</button>
+          <div id="vok-add-msg" style="text-align:center;font-size:12px;margin-top:8px;color:var(--accent);display:none"></div>
+        </div>
+      </div>
+
       <div class="flashcard-wrap" onclick="flipCard()">
         <div class="flashcard" id="flashcard">
           <div class="fc-front">
@@ -1809,6 +1850,45 @@ function initHome() {
 function updateVokStat() {
   document.getElementById('vok-stat').textContent = vokState.known.size + ' von ' + VOKABELN.length + ' gelernt';
   document.getElementById('s-known').textContent = vokState.known.size;
+}
+
+/* ========== EIGENE VOKABELN ========== */
+function loadCustomVoks() {
+  try { return JSON.parse(localStorage.getItem('custom_voks') || '[]'); } catch(e) { return []; }
+}
+function saveCustomVoks(arr) {
+  try { localStorage.setItem('custom_voks', JSON.stringify(arr)); } catch(e) {}
+}
+// Eigene Vokabeln beim Start in VOKABELN-Array einlesen
+(function() {
+  const custom = loadCustomVoks();
+  custom.forEach(v => VOKABELN.push(v));
+})();
+
+function addCustomVok() {
+  const en = document.getElementById('vok-new-en').value.trim();
+  const de = document.getElementById('vok-new-de').value.trim();
+  const ph = document.getElementById('vok-new-ph').value.trim();
+  const cat = document.getElementById('vok-new-cat').value;
+  const msg = document.getElementById('vok-add-msg');
+  if (!en || !de) {
+    msg.style.display='block'; msg.style.color='var(--red)'; msg.textContent='⚠️ Englisch und Deutsch sind Pflichtfelder.';
+    return;
+  }
+  const entry = { w: en, ph: ph || '', t: de, ex: '', cat: cat, custom: true };
+  VOKABELN.push(entry);
+  const custom = loadCustomVoks();
+  custom.push(entry);
+  saveCustomVoks(custom);
+  // Felder leeren
+  document.getElementById('vok-new-en').value = '';
+  document.getElementById('vok-new-de').value = '';
+  document.getElementById('vok-new-ph').value = '';
+  msg.style.display='block'; msg.style.color='var(--accent)'; msg.textContent='✓ Vokabel gespeichert!';
+  setTimeout(() => { msg.style.display='none'; document.getElementById('vok-add-form').style.display='none'; }, 1500);
+  // Filter neu anwenden (aktuelle Ansicht aktualisieren)
+  const activeBtn = document.querySelector('.vf.active');
+  if (activeBtn) filterVok(activeBtn, vokState.filter || 'alle');
 }
 
 /* ========== VOKABELN ========== */
