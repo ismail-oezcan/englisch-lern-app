@@ -339,6 +339,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
         <button class="vf" onclick="filterVok(this,'nov02b')">🏙️ 02.11 – Stadt &amp; Feste</button>
         <button class="vf" onclick="filterVok(this,'generations')">👨‍👩‍👧 Generationen</button>
         <button class="vf" onclick="filterVok(this,'unit8b')">💬 Unit 8B – Comment Adverbs</button>
+        <button class="vf" onclick="filterVok(this,'nov04')">🏙️ 04.11 – In the city</button>
       </div>
 
       <div class="vok-progress" id="vok-prog"></div>
@@ -365,6 +366,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
             <div>
               <div style="font-size:11px;font-weight:600;color:var(--fg-muted);margin-bottom:4px">📂 KATEGORIE *</div>
               <select id="vok-new-cat" style="width:100%;box-sizing:border-box;padding:8px 10px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg-2);color:var(--fg);font-size:14px;font-family:var(--font);outline:none">
+                <option value="nov04">🏙️ 04.11 – In the city</option>
                 <option value="unit8b">💬 Unit 8B – Comment Adverbs</option>
                 <option value="generations">👨‍👩‍👧 Generationen</option>
                 <option value="kitchen">🍳 Küche &amp; Kochen</option>
@@ -1345,6 +1347,20 @@ const VOKABELN = [
   {w:'competition',ph:'/ˌkɒmpəˈtɪʃn/',t:'der Wettbewerb / die Konkurrenz',ex:'"There is a lot of competition for this job."',cat:'nov02b'},
   {w:'jury',ph:'/ˈdʒʊəri/',t:'die Jury / die Geschworenen',ex:'"The jury chose the best costume."',cat:'nov02b'},
   {w:'to judge',ph:'/tə dʒʌdʒ/',t:'beurteilen / bewerten',ex:'"Three teachers will judge the competition."',cat:'nov02b'},
+
+  // Unit 6A — In the city (BSE Kurs, 04.11.2026)
+  {w:'tree-lined avenues',ph:'/triː laɪnd ˈævənjuːz/',t:'baumgesäumte Alleen',ex:'"We walked through tree-lined avenues in the old part of the city."',cat:'nov04'},
+  {w:'historic buildings',ph:'/hɪˈstɒrɪk ˈbɪldɪŋz/',t:'historische Gebäude',ex:'"The city centre is full of historic buildings from the 18th century."',cat:'nov04'},
+  {w:'tourist spot',ph:'/ˈtʊərɪst spɒt/',t:'der Touristenspot / die Touristenattraktion',ex:'"The old market became such a popular tourist spot that it lost its appeal."',cat:'nov04'},
+  {w:'high-rise buildings',ph:'/haɪ raɪz ˈbɪldɪŋz/',t:'Hochhäuser',ex:'"There are lots of high-rise buildings in the city centre."',cat:'nov04'},
+  {w:'an ideal spot for',ph:'/ən aɪˈdɪəl spɒt fɔː/',t:'ein idealer Ort für',ex:'"The square is an ideal spot for a coffee in the morning."',cat:'nov04'},
+  {w:'run-down',ph:'/rʌn daʊn/',t:'heruntergekommen / verfallen',ex:'"They found a great café in a run-down part of the city."',cat:'nov04'},
+  {w:'wealthy areas',ph:'/ˈwelθi ˈeəriəz/',t:'wohlhabende Viertel',ex:'"Away from the wealthy areas, you can find more authentic neighbourhoods."',cat:'nov04'},
+  {w:'lively nightlife',ph:'/ˈlaɪvli ˈnaɪtlaɪf/',t:'lebhaftes Nachtleben',ex:'"The area is known for its lively nightlife and music scene."',cat:'nov04'},
+  {w:'busy street market',ph:'/ˈbɪzi striːt ˈmɑːkɪt/',t:'belebter Straßenmarkt',ex:'"The busy street market attracts people from all over the city."',cat:'nov04'},
+  {w:'sense of community',ph:'/sens əv kəˈmjuːnɪti/',t:'Gemeinschaftsgefühl',ex:'"What makes this neighbourhood special is its strong sense of community."',cat:'nov04'},
+  {w:'colourful murals',ph:'/ˈkʌlərfl ˈmjʊərəlz/',t:'bunte Wandgemälde',ex:'"The walls are covered with colourful murals painted by local artists."',cat:'nov04'},
+  {w:'relaxed atmosphere',ph:'/rɪˈlækst ˈætməsfɪə/',t:'entspannte Atmosphäre',ex:'"The old square has a relaxed atmosphere where people come to sit and watch the world go by."',cat:'nov04'},
   // Vokabelliste 3: Küche & Kochen (BSE Kurs, Unit 14, 29.10.2026)
   // Küchen-Verben (Kitchen Verbs)
   {w:'to chop',ph:'/tə tʃɒp/',t:'hacken / klein schneiden / zerkleinern',ex:'"Chop the onions into small pieces."',cat:'kitchen'},
@@ -1704,6 +1720,24 @@ const GRAMMATIK = [
       {q:'Kurzantwort auf "Do you work here?" — Ja:',opts:['Yes, I work.','Yes, I am.','Yes, I do.','Yes, do I.'],a:2},
       {q:'Kurzantwort auf "Did he call?" — Nein:',opts:['No, he didn\'t.','No, he don\'t.','No, he called not.','No, did he.'],a:0},
       {q:'Kurzantwort auf "Are they ready?" — Ja:',opts:['Yes, they do.','Yes, they are.','Yes, they be.','Yes, they have.'],a:1},
+    ]
+  },
+  {
+    icon:'🏙️', name:'So and Such', level:'B1',
+    rule:'So und such drücken Intensität aus (= sehr/so ein). Regeln: (1) SO + Adjektiv (ohne Nomen): "It was so beautiful." (2) SO + much/many/few/little: "There is so much to do." (3) SUCH (a/an) + (Adjektiv) + Nomen: "It has such a friendly atmosphere." / "Such lively nightlife!" Oft mit that-Satz für Ergebnis/Konsequenz: "It was so popular that it lost its appeal."',
+    examples:[
+      {en:'It\'s so beautiful to walk around.',de:'Es ist so schön, dort spazieren zu gehen. (so + Adjektiv)'},
+      {en:'There\'s so much to do in Yarraville.',de:'Es gibt so viel zu tun in Yarraville. (so + much)'},
+      {en:'There are so many diverse neighbourhoods in Toronto.',de:'Es gibt so viele verschiedene Viertel in Toronto. (so + many)'},
+      {en:'It has such a friendly, welcoming atmosphere.',de:'Es hat so eine freundliche, einladende Atmosphäre. (such a + Adj + Nomen)'},
+      {en:'It has such lively nightlife.',de:'Es hat so ein lebhaftes Nachtleben. (such + Adj + Nomen, kein Artikel)'},
+      {en:'The area became so popular that it turned into a tourist spot.',de:'Das Viertel wurde so beliebt, dass es zum Touristenspot wurde. (so...that = Konsequenz)'},
+    ],
+    quizzes:[
+      {q:'Welches Wort passt? "It was ___ beautiful that we went back the next day."',opts:['such','such a','so','so a'],a:2},
+      {q:'Welches Wort passt? "It has ___ friendly atmosphere."',opts:['so','so a','such','such a'],a:3},
+      {q:'Welches Wort passt? "There is ___ much to see in this city."',opts:['such','such a','so','so a'],a:2},
+      {q:'"Such lively nightlife" — warum kein Artikel?',opts:['"nightlife" ist ein Pluralnomen','Artikel ist optional','"nightlife" ist ein unzählbares Nomen','Fehler im Satz'],a:2},
     ]
   },
   {
