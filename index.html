@@ -120,6 +120,46 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 .qc-gram{background:linear-gradient(135deg,#C9860A,#F0A832)}
 .qc-chal{background:linear-gradient(135deg,#166534,#22C55E)}
 .qc-hw{background:linear-gradient(135deg,#9B1C1C,#EF4444)}
+.qc-ref{background:linear-gradient(135deg,#1e3a5f,#2563eb)}
+/* ---- Grammatik-Übersicht Modal ---- */
+#gram-ref-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.55);overflow-y:auto}
+#gram-ref-modal.open{display:block}
+.gram-ref-inner{background:var(--bg-2);border-radius:18px 18px 0 0;min-height:60vh;margin-top:60px;padding:0 0 40px}
+.gram-ref-header{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 12px;position:sticky;top:0;background:var(--bg-2);border-radius:18px 18px 0 0;border-bottom:1px solid var(--border);z-index:1}
+.gram-ref-header h2{font-size:16px;font-weight:800;color:var(--fg)}
+.gram-ref-close{background:var(--border);border:none;color:var(--fg);font-size:18px;width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700}
+.gram-tabs{display:flex;gap:6px;overflow-x:auto;padding:12px 14px 4px;scrollbar-width:none}
+.gram-tabs::-webkit-scrollbar{display:none}
+.gram-tab{flex-shrink:0;padding:6px 12px;border-radius:999px;border:1.5px solid var(--border);background:var(--bg);color:var(--fg-muted);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:var(--font)}
+.gram-tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.gram-sec{display:none;padding:12px 14px}
+.gram-sec.active{display:block}
+.gram-cards{display:grid;gap:10px}
+@media(min-width:600px){.gram-cards{grid-template-columns:repeat(2,1fr)}}
+.gc{background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.gc-name{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.gc-formula{font-family:monospace;font-size:12px;background:var(--border);padding:5px 9px;border-radius:6px;color:var(--fg)}
+.gc-ex{font-size:13px;color:var(--fg-muted);font-style:italic}
+.gc-ex strong{font-style:normal;color:var(--fg);font-weight:700}
+.gc-de{font-size:11px;color:var(--fg-muted)}
+.gc-chip{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;margin-top:2px;width:fit-content}
+.gtbl-wrap{overflow-x:auto}
+.gtbl-wrap table{width:100%;border-collapse:collapse;font-size:13px;min-width:380px}
+.gtbl-wrap th{background:var(--border);font-weight:700;padding:7px 10px;text-align:left;color:var(--fg-muted);font-size:11px;letter-spacing:.05em;text-transform:uppercase}
+.gtbl-wrap td{padding:7px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+.gtbl-wrap td:first-child{font-family:monospace;font-size:12px;font-weight:600;color:var(--accent);white-space:nowrap}
+.gtbl-wrap tr:last-child td{border-bottom:none}
+.gtbl-card{background:var(--bg);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:12px}
+.gtbl-card h3{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:8px 12px 6px;color:var(--accent)}
+.gram-note{background:rgba(37,99,235,.12);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:8px 12px;font-size:13px;color:var(--fg-muted);margin-bottom:10px}
+.c1{color:#2563eb}.c1s{background:#dbeafe;color:#2563eb}
+.c2{color:#0891b2}.c2s{background:#cffafe;color:#0891b2}
+.c3{color:#7c3aed}.c3s{background:#ede9fe;color:#7c3aed}
+.c4{color:#059669}.c4s{background:#d1fae5;color:#059669}
+.c5{color:#d97706}.c5s{background:#fef3c7;color:#d97706}
+@media(prefers-color-scheme:dark){
+  .c1s{background:#1e3270}.c2s{background:#0a4050}.c3s{background:#3b1f6e}.c4s{background:#064532}.c5s{background:#5c3200}
+}
 .qc p{font-size:11px;color:var(--fg-muted);margin-top:2px}
 
 /* ---- VOKABELN ---- */
@@ -281,6 +321,11 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
           <div class="qc-icon">📋</div>
           <h3>Hausaufgaben</h3>
           <p id="hw-stat">Aufgaben ansehen</p>
+        </div>
+        <div class="qc qc-ref" onclick="openGramRef()" style="grid-column:1/-1">
+          <div class="qc-icon">📚</div>
+          <h3>Grammatik-Übersicht</h3>
+          <p>Zeitformen · Sätze · Verben · Pronomen</p>
         </div>
       </div>
 
@@ -3592,6 +3637,161 @@ function copyTranslation() {
     document.execCommand('copy');
     document.body.removeChild(ta);
   });
+}
+</script>
+<!-- ===== GRAMMATIK-ÜBERSICHT MODAL ===== -->
+<div id="gram-ref-modal" onclick="closeGramRefOutside(event)">
+  <div class="gram-ref-inner">
+    <div class="gram-ref-header">
+      <h2>📚 Grammatik-Übersicht</h2>
+      <button class="gram-ref-close" onclick="closeGramRef()">✕</button>
+    </div>
+    <div class="gram-tabs">
+      <button class="gram-tab active" onclick="showGramSec('gs1',this)">⏱ Zeitformen</button>
+      <button class="gram-tab" onclick="showGramSec('gs2',this)">📐 Sätze</button>
+      <button class="gram-tab" onclick="showGramSec('gs3',this)">👤 Pronomen</button>
+      <button class="gram-tab" onclick="showGramSec('gs4',this)">🔧 Verben</button>
+      <button class="gram-tab" onclick="showGramSec('gs5',this)">📌 Sonstiges</button>
+    </div>
+
+    <!-- ZEITFORMEN -->
+    <div class="gram-sec active" id="gs1">
+      <div class="gram-cards">
+        <div class="gc"><div class="gc-name c1">Simple Present</div><div class="gc-formula">S + V / V+s (he/she/it)</div><div class="gc-ex"><strong>"She works here every day."</strong></div><div class="gc-de">Gewohnheiten, Fakten, Zustände</div><span class="gc-chip c1s">always · often · never · every day</span></div>
+        <div class="gc"><div class="gc-name c1">Present Progressive</div><div class="gc-formula">S + am/is/are + V-ing</div><div class="gc-ex"><strong>"She is working right now."</strong></div><div class="gc-de">Gerade passierend · Vorübergehend</div><span class="gc-chip c1s">now · at the moment · currently</span></div>
+        <div class="gc"><div class="gc-name c1">Present Perfect</div><div class="gc-formula">S + have/has + V3</div><div class="gc-ex"><strong>"She has worked here for 3 years."</strong></div><div class="gc-de">Ergebnis/Verbindung zur Gegenwart</div><span class="gc-chip c1s">just · already · yet · ever · since · for</span></div>
+        <div class="gc"><div class="gc-name c1">Present Perfect Progressive</div><div class="gc-formula">S + have/has been + V-ing</div><div class="gc-ex"><strong>"She has been working all day."</strong></div><div class="gc-de">Dauer einer andauernden Handlung</div><span class="gc-chip c1s">for · since · all day · how long</span></div>
+        <div class="gc"><div class="gc-name c1">Simple Past</div><div class="gc-formula">S + V-ed (reg.) / V2 (irreg.)</div><div class="gc-ex"><strong>"She worked yesterday."</strong></div><div class="gc-de">Abgeschlossene Vergangenheit</div><span class="gc-chip c1s">yesterday · last year · ago · in 1990</span></div>
+        <div class="gc"><div class="gc-name c1">Past Progressive</div><div class="gc-formula">S + was/were + V-ing</div><div class="gc-ex"><strong>"She was working when I called."</strong></div><div class="gc-de">Gleichzeitig in der Vergangenheit</div><span class="gc-chip c1s">while · when · at that time</span></div>
+        <div class="gc"><div class="gc-name c1">Past Perfect</div><div class="gc-formula">S + had + V3</div><div class="gc-ex"><strong>"She had worked before she left."</strong></div><div class="gc-de">Vor einem anderen Vergangenheitspunkt</div><span class="gc-chip c1s">before · after · already · by the time</span></div>
+        <div class="gc"><div class="gc-name c1">Will-Future</div><div class="gc-formula">S + will + V</div><div class="gc-ex"><strong>"I'll help you with that."</strong></div><div class="gc-de">Spontane Entscheidung · Prognose</div><span class="gc-chip c1s">I think · probably · I'm sure · maybe</span></div>
+        <div class="gc"><div class="gc-name c1">Going-to-Future</div><div class="gc-formula">S + am/is/are going to + V</div><div class="gc-ex"><strong>"I'm going to visit Berlin."</strong></div><div class="gc-de">Geplante Absicht · sichtbarer Beweis</div><span class="gc-chip c1s">tomorrow · next week · this summer</span></div>
+        <div class="gc"><div class="gc-name c1">Future Perfect</div><div class="gc-formula">S + will have + V3</div><div class="gc-ex"><strong>"By Friday, she will have finished."</strong></div><div class="gc-de">Bis zu einem Zeitpunkt abgeschlossen</div><span class="gc-chip c1s">by … · until … · before …</span></div>
+      </div>
+    </div>
+
+    <!-- SÄTZE -->
+    <div class="gram-sec" id="gs2">
+      <div class="gram-note"><strong>Grundregel:</strong> Englisch = Subject + Verb + Object (SVO). Das Verb steht immer an 2. Stelle.</div>
+      <div class="gram-cards">
+        <div class="gc"><div class="gc-name c2">Satzbau</div><div class="gc-formula">S + V + O + (Place) + (Time)</div><div class="gc-ex"><strong>"She reads books at home every day."</strong></div><div class="gc-de">Ort vor Zeit; Häufigkeitsadverbien vor dem Verb</div></div>
+        <div class="gc"><div class="gc-name c2">If-Clause Type 1</div><div class="gc-formula">If + Simple Present, … will + V</div><div class="gc-ex"><strong>"If it rains, we will cancel the trip."</strong></div><div class="gc-de">Reale, mögliche Situation in der Zukunft</div><span class="gc-chip c2s">möglich · wahrscheinlich</span></div>
+        <div class="gc"><div class="gc-name c2">If-Clause Type 2</div><div class="gc-formula">If + Simple Past, … would + V</div><div class="gc-ex"><strong>"If I had more money, I would travel."</strong></div><div class="gc-de">Hypothetische / unwahrscheinliche Situation</div><span class="gc-chip c2s">unreal · hypothetisch</span></div>
+        <div class="gc"><div class="gc-name c2">If-Clause Type 3</div><div class="gc-formula">If + Past Perfect, … would have + V3</div><div class="gc-ex"><strong>"If I had studied, I would have passed."</strong></div><div class="gc-de">Verpasste Möglichkeit in der Vergangenheit</div><span class="gc-chip c2s">irreale Vergangenheit</span></div>
+        <div class="gc"><div class="gc-name c2">Relative Clause</div><div class="gc-formula">… who / which / that + V …</div><div class="gc-ex"><strong>"The man who called is my boss."</strong></div><div class="gc-de">who = Personen · which = Dinge · that = beides</div></div>
+        <div class="gc"><div class="gc-name c2">Contact Clause</div><div class="gc-formula">… (ohne Relativpronomen) + V …</div><div class="gc-ex"><strong>"The book (that) I read was great."</strong></div><div class="gc-de">Relativpronomen kann wegfallen, wenn es Objekt ist</div></div>
+        <div class="gc"><div class="gc-name c2">Participle Construction</div><div class="gc-formula">V-ing / V3 … (statt Relativsatz)</div><div class="gc-ex"><strong>"The woman sitting there is my teacher."</strong></div><div class="gc-de">Kurzform des Relativsatzes · formeller Stil</div></div>
+      </div>
+    </div>
+
+    <!-- PRONOMEN -->
+    <div class="gram-sec" id="gs3">
+      <div class="gtbl-card">
+        <h3 class="c3">Personalpronomen &amp; Possessivpronomen</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Subjekt</th><th>Objekt</th><th>Besitz (adj.)</th><th>Besitz (noun)</th><th>Reflexiv</th></tr></thead>
+          <tbody>
+            <tr><td>I</td><td>me</td><td>my</td><td>mine</td><td>myself</td></tr>
+            <tr><td>you</td><td>you</td><td>your</td><td>yours</td><td>yourself</td></tr>
+            <tr><td>he</td><td>him</td><td>his</td><td>his</td><td>himself</td></tr>
+            <tr><td>she</td><td>her</td><td>her</td><td>hers</td><td>herself</td></tr>
+            <tr><td>it</td><td>it</td><td>its</td><td>its</td><td>itself</td></tr>
+            <tr><td>we</td><td>us</td><td>our</td><td>ours</td><td>ourselves</td></tr>
+            <tr><td>they</td><td>them</td><td>their</td><td>theirs</td><td>themselves</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gtbl-card">
+        <h3 class="c3">Fragewörter (Question Words)</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Wort</th><th>Bedeutung</th><th>Beispiel</th></tr></thead>
+          <tbody>
+            <tr><td>Who</td><td>Wer / Wen</td><td>"Who called you?"</td></tr>
+            <tr><td>What</td><td>Was</td><td>"What do you want?"</td></tr>
+            <tr><td>Where</td><td>Wo / Wohin</td><td>"Where are you going?"</td></tr>
+            <tr><td>When</td><td>Wann</td><td>"When does it start?"</td></tr>
+            <tr><td>Why</td><td>Warum</td><td>"Why are you late?"</td></tr>
+            <tr><td>How</td><td>Wie</td><td>"How did you do that?"</td></tr>
+            <tr><td>Which</td><td>Welche(r/s)</td><td>"Which one do you prefer?"</td></tr>
+            <tr><td>Whose</td><td>Wessen</td><td>"Whose bag is this?"</td></tr>
+            <tr><td>How much</td><td>Wie viel (unzählbar)</td><td>"How much does it cost?"</td></tr>
+            <tr><td>How many</td><td>Wie viele (zählbar)</td><td>"How many people are there?"</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- VERBEN -->
+    <div class="gram-sec" id="gs4">
+      <div class="gtbl-card">
+        <h3 class="c4">Modalverben</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Modal</th><th>Bedeutung</th><th>Beispiel</th></tr></thead>
+          <tbody>
+            <tr><td>can / could</td><td>können / konnte</td><td>"I can speak English."</td></tr>
+            <tr><td>may / might</td><td>darf / könnte</td><td>"It might rain today."</td></tr>
+            <tr><td>must</td><td>muss (Pflicht)</td><td>"You must wear a seatbelt."</td></tr>
+            <tr><td>have to</td><td>muss (Notwendigkeit)</td><td>"I have to finish this."</td></tr>
+            <tr><td>should</td><td>sollte (Empfehlung)</td><td>"You should see a doctor."</td></tr>
+            <tr><td>will</td><td>wird (Zukunft)</td><td>"I will help you."</td></tr>
+            <tr><td>would</td><td>würde (Höflichkeit)</td><td>"Would you like some tea?"</td></tr>
+            <tr><td>needn't</td><td>muss nicht</td><td>"You needn't hurry."</td></tr>
+            <tr><td>mustn't</td><td>darf nicht</td><td>"You mustn't smoke here."</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gtbl-card">
+        <h3 class="c4">Passiv (Passive Voice)</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Zeitform</th><th>Formel</th><th>Beispiel</th></tr></thead>
+          <tbody>
+            <tr><td>Present</td><td>is/are + V3</td><td>"English is spoken here."</td></tr>
+            <tr><td>Past</td><td>was/were + V3</td><td>"The car was stolen."</td></tr>
+            <tr><td>Present Perfect</td><td>has/have been + V3</td><td>"It has been done."</td></tr>
+            <tr><td>Will</td><td>will be + V3</td><td>"It will be delivered."</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gtbl-card">
+        <h3 class="c4">Wichtige Phrasal Verbs</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Phrasal Verb</th><th>Bedeutung</th><th>Beispiel</th></tr></thead>
+          <tbody>
+            <tr><td>get along with</td><td>auskommen mit</td><td>"I get along with my colleagues."</td></tr>
+            <tr><td>find out</td><td>herausfinden</td><td>"I found out the truth."</td></tr>
+            <tr><td>give up</td><td>aufgeben</td><td>"Don't give up!"</td></tr>
+            <tr><td>look forward to</td><td>sich freuen auf</td><td>"I look forward to meeting you."</td></tr>
+            <tr><td>set up</td><td>einrichten / gründen</td><td>"They set up a new company."</td></tr>
+            <tr><td>carry out</td><td>durchführen</td><td>"We carried out a survey."</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- SONSTIGES -->
+    <div class="gram-sec" id="gs5">
+      <div class="gram-cards">
+        <div class="gc"><div class="gc-name c5">Steigerung der Adjektive</div><div class="gc-formula">kurz: -er/-est · lang: more/most</div><div class="gc-ex"><strong>fast → faster → the fastest</strong></div><div class="gc-ex"><strong>interesting → more interesting → the most interesting</strong></div><div class="gc-de">Unregelmäßig: good→better→best · bad→worse→worst</div></div>
+        <div class="gc"><div class="gc-name c5">much / many / a lot of</div><div class="gc-formula">much + unzählbar · many + zählbar</div><div class="gc-ex"><strong>"How much time?" / "How many people?"</strong></div><div class="gc-de">a lot of geht mit beiden; much/many in Fragen &amp; Verneinungen</div><span class="gc-chip c5s">little/few (wenig) · a little/a few (etwas)</span></div>
+        <div class="gc"><div class="gc-name c5">Gerund vs. Infinitiv</div><div class="gc-formula">V-ing = Gerund · to + V = Infinitiv</div><div class="gc-ex"><strong>"I enjoy swimming." / "I want to swim."</strong></div><div class="gc-de">enjoy/finish/avoid + Gerund · want/need/decide + Infinitiv</div></div>
+        <div class="gc"><div class="gc-name c5">Präpositionen (Zeit)</div><div class="gc-formula">at · in · on</div><div class="gc-ex"><strong>at 9 o'clock · in January · on Monday</strong></div><div class="gc-de">at = Uhrzeit · in = Monat/Jahr · on = Tag/Datum</div></div>
+        <div class="gc"><div class="gc-name c5">Präpositionen (Ort)</div><div class="gc-formula">at · in · on</div><div class="gc-ex"><strong>at the station · in Berlin · on the table</strong></div><div class="gc-de">at = Punkt/Adresse · in = Ort/Stadt · on = Oberfläche</div></div>
+        <div class="gc"><div class="gc-name c5">Häufigkeitsadverbien</div><div class="gc-formula">Position: vor Hauptverb / nach be</div><div class="gc-ex"><strong>"She always works hard."</strong></div><div class="gc-de">always(100%) → usually → often → sometimes → rarely → never(0%)</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function openGramRef(){document.getElementById('gram-ref-modal').classList.add('open');document.body.style.overflow='hidden';}
+function closeGramRef(){document.getElementById('gram-ref-modal').classList.remove('open');document.body.style.overflow='';}
+function closeGramRefOutside(e){if(e.target===document.getElementById('gram-ref-modal'))closeGramRef();}
+function showGramSec(id,btn){
+  document.querySelectorAll('.gram-sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.gram-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
 }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" onload="initPDFs()"></script>
