@@ -137,21 +137,24 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 .gram-cards{display:grid;gap:10px}
 @media(min-width:600px){.gram-cards{grid-template-columns:repeat(2,1fr)}}
 .gc{background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
-.gc-name{font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
-.gc-formula{font-family:monospace;font-size:14px;background:var(--border);padding:6px 10px;border-radius:6px;color:var(--fg)}
-.gc-ex{font-size:15px;color:var(--fg-muted);font-style:italic}
+.gc-name{font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.gc-formula{font-family:monospace;font-size:15px;background:var(--border);padding:7px 11px;border-radius:6px;color:var(--fg)}
+.gc-ex{font-size:16px;color:var(--fg-muted);font-style:italic}
 .gc-ex strong{font-style:normal;color:var(--fg);font-weight:700}
-.gc-de{font-size:13px;color:var(--fg-muted)}
-.gc-chip{display:inline-block;font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;margin-top:2px;width:fit-content}
+.gc-de{font-size:14px;color:var(--fg-muted)}
+.gc-chip{display:inline-block;font-size:14px;font-weight:700;padding:3px 10px;border-radius:999px;margin-top:2px;width:fit-content}
 .gtbl-wrap{overflow-x:auto}
-.gtbl-wrap table{width:100%;border-collapse:collapse;font-size:15px;min-width:380px}
-.gtbl-wrap th{background:var(--border);font-weight:700;padding:9px 12px;text-align:left;color:var(--fg-muted);font-size:12px;letter-spacing:.05em;text-transform:uppercase}
-.gtbl-wrap td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top}
-.gtbl-wrap td:first-child{font-family:monospace;font-size:14px;font-weight:600;color:var(--accent);white-space:nowrap}
+.gtbl-wrap table{width:100%;border-collapse:collapse;font-size:16px;min-width:380px}
+.gtbl-wrap th{background:var(--border);font-weight:700;padding:9px 12px;text-align:left;color:var(--fg-muted);font-size:13px;letter-spacing:.05em;text-transform:uppercase}
+.gtbl-wrap td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.gtbl-wrap td:first-child{font-family:monospace;font-size:15px;font-weight:600;color:var(--accent);white-space:nowrap}
 .gtbl-wrap tr:last-child td{border-bottom:none}
 .gtbl-card{background:var(--bg);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:12px}
 .gtbl-card h3{font-size:13px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:10px 14px 8px;color:var(--accent)}
 .gram-note{background:rgba(37,99,235,.12);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:10px 14px;font-size:15px;color:var(--fg-muted);margin-bottom:10px}
+.gram-legend{background:var(--gold-lt);border:1.5px solid var(--gold);border-radius:10px;padding:10px 14px;font-size:14px;margin-bottom:12px;display:flex;flex-wrap:wrap;gap:8px 16px}
+.gram-legend span{color:var(--fg-muted)}.gram-legend strong{color:var(--gold);font-family:monospace;font-size:15px}
+.gc-ex-de{font-size:14px;color:var(--accent);font-style:normal;margin-top:2px}
 .c1{color:#2563eb}.c1s{background:#dbeafe;color:#2563eb}
 .c2{color:#0891b2}.c2s{background:#cffafe;color:#0891b2}
 .c3{color:#7c3aed}.c3s{background:#ede9fe;color:#7c3aed}
@@ -3656,17 +3659,23 @@ function copyTranslation() {
 
     <!-- ZEITFORMEN -->
     <div class="gram-sec active" id="gs1">
+      <div class="gram-legend">
+        <span><strong>V</strong> = Grundform (go, work)</span>
+        <span><strong>V2</strong> = Simple Past (went, worked)</span>
+        <span><strong>V3</strong> = Partizip (gone, worked)</span>
+        <span><strong>S</strong> = Subjekt &nbsp;<strong>O</strong> = Objekt</span>
+      </div>
       <div class="gram-cards">
-        <div class="gc"><div class="gc-name c1">Simple Present</div><div class="gc-formula">S + V / V+s (he/she/it)</div><div class="gc-ex"><strong>"She works here every day."</strong></div><div class="gc-de">Gewohnheiten, Fakten, Zustände</div><span class="gc-chip c1s">always · often · never · every day</span></div>
-        <div class="gc"><div class="gc-name c1">Present Progressive</div><div class="gc-formula">S + am/is/are + V-ing</div><div class="gc-ex"><strong>"She is working right now."</strong></div><div class="gc-de">Gerade passierend · Vorübergehend</div><span class="gc-chip c1s">now · at the moment · currently</span></div>
-        <div class="gc"><div class="gc-name c1">Present Perfect</div><div class="gc-formula">S + have/has + V3</div><div class="gc-ex"><strong>"She has worked here for 3 years."</strong></div><div class="gc-de">Ergebnis/Verbindung zur Gegenwart</div><span class="gc-chip c1s">just · already · yet · ever · since · for</span></div>
-        <div class="gc"><div class="gc-name c1">Present Perfect Progressive</div><div class="gc-formula">S + have/has been + V-ing</div><div class="gc-ex"><strong>"She has been working all day."</strong></div><div class="gc-de">Dauer einer andauernden Handlung</div><span class="gc-chip c1s">for · since · all day · how long</span></div>
-        <div class="gc"><div class="gc-name c1">Simple Past</div><div class="gc-formula">S + V-ed (reg.) / V2 (irreg.)</div><div class="gc-ex"><strong>"She worked yesterday."</strong></div><div class="gc-de">Abgeschlossene Vergangenheit</div><span class="gc-chip c1s">yesterday · last year · ago · in 1990</span></div>
-        <div class="gc"><div class="gc-name c1">Past Progressive</div><div class="gc-formula">S + was/were + V-ing</div><div class="gc-ex"><strong>"She was working when I called."</strong></div><div class="gc-de">Gleichzeitig in der Vergangenheit</div><span class="gc-chip c1s">while · when · at that time</span></div>
-        <div class="gc"><div class="gc-name c1">Past Perfect</div><div class="gc-formula">S + had + V3</div><div class="gc-ex"><strong>"She had worked before she left."</strong></div><div class="gc-de">Vor einem anderen Vergangenheitspunkt</div><span class="gc-chip c1s">before · after · already · by the time</span></div>
-        <div class="gc"><div class="gc-name c1">Will-Future</div><div class="gc-formula">S + will + V</div><div class="gc-ex"><strong>"I'll help you with that."</strong></div><div class="gc-de">Spontane Entscheidung · Prognose</div><span class="gc-chip c1s">I think · probably · I'm sure · maybe</span></div>
-        <div class="gc"><div class="gc-name c1">Going-to-Future</div><div class="gc-formula">S + am/is/are going to + V</div><div class="gc-ex"><strong>"I'm going to visit Berlin."</strong></div><div class="gc-de">Geplante Absicht · sichtbarer Beweis</div><span class="gc-chip c1s">tomorrow · next week · this summer</span></div>
-        <div class="gc"><div class="gc-name c1">Future Perfect</div><div class="gc-formula">S + will have + V3</div><div class="gc-ex"><strong>"By Friday, she will have finished."</strong></div><div class="gc-de">Bis zu einem Zeitpunkt abgeschlossen</div><span class="gc-chip c1s">by … · until … · before …</span></div>
+        <div class="gc"><div class="gc-name c1">Simple Present</div><div class="gc-formula">S + V / V+s (he/she/it)</div><div class="gc-ex"><strong>"She works here every day."</strong></div><div class="gc-ex-de">„Sie arbeitet hier jeden Tag."</div><div class="gc-de">Gewohnheiten, Fakten, Zustände</div><span class="gc-chip c1s">always · often · never · every day</span></div>
+        <div class="gc"><div class="gc-name c1">Present Progressive</div><div class="gc-formula">S + am/is/are + V-ing</div><div class="gc-ex"><strong>"She is working right now."</strong></div><div class="gc-ex-de">„Sie arbeitet gerade jetzt."</div><div class="gc-de">Gerade passierend · Vorübergehend</div><span class="gc-chip c1s">now · at the moment · currently</span></div>
+        <div class="gc"><div class="gc-name c1">Present Perfect</div><div class="gc-formula">S + have/has + V3</div><div class="gc-ex"><strong>"She has worked here for 3 years."</strong></div><div class="gc-ex-de">„Sie hat hier 3 Jahre lang gearbeitet."</div><div class="gc-de">Ergebnis/Verbindung zur Gegenwart</div><span class="gc-chip c1s">just · already · yet · ever · since · for</span></div>
+        <div class="gc"><div class="gc-name c1">Present Perfect Progressive</div><div class="gc-formula">S + have/has been + V-ing</div><div class="gc-ex"><strong>"She has been working all day."</strong></div><div class="gc-ex-de">„Sie arbeitet schon den ganzen Tag."</div><div class="gc-de">Dauer einer andauernden Handlung</div><span class="gc-chip c1s">for · since · all day · how long</span></div>
+        <div class="gc"><div class="gc-name c1">Simple Past</div><div class="gc-formula">S + V-ed (reg.) / V2 (irreg.)</div><div class="gc-ex"><strong>"She worked yesterday."</strong></div><div class="gc-ex-de">„Sie hat gestern gearbeitet."</div><div class="gc-de">Abgeschlossene Vergangenheit</div><span class="gc-chip c1s">yesterday · last year · ago · in 1990</span></div>
+        <div class="gc"><div class="gc-name c1">Past Progressive</div><div class="gc-formula">S + was/were + V-ing</div><div class="gc-ex"><strong>"She was working when I called."</strong></div><div class="gc-ex-de">„Sie arbeitete gerade, als ich anrief."</div><div class="gc-de">Gleichzeitig in der Vergangenheit</div><span class="gc-chip c1s">while · when · at that time</span></div>
+        <div class="gc"><div class="gc-name c1">Past Perfect</div><div class="gc-formula">S + had + V3</div><div class="gc-ex"><strong>"She had worked before she left."</strong></div><div class="gc-ex-de">„Sie hatte gearbeitet, bevor sie ging."</div><div class="gc-de">Vor einem anderen Vergangenheitspunkt</div><span class="gc-chip c1s">before · after · already · by the time</span></div>
+        <div class="gc"><div class="gc-name c1">Will-Future</div><div class="gc-formula">S + will + V</div><div class="gc-ex"><strong>"I'll help you with that."</strong></div><div class="gc-ex-de">„Ich werde dir dabei helfen."</div><div class="gc-de">Spontane Entscheidung · Prognose</div><span class="gc-chip c1s">I think · probably · I'm sure · maybe</span></div>
+        <div class="gc"><div class="gc-name c1">Going-to-Future</div><div class="gc-formula">S + am/is/are going to + V</div><div class="gc-ex"><strong>"I'm going to visit Berlin."</strong></div><div class="gc-ex-de">„Ich werde Berlin besuchen." (geplant)</div><div class="gc-de">Geplante Absicht · sichtbarer Beweis</div><span class="gc-chip c1s">tomorrow · next week · this summer</span></div>
+        <div class="gc"><div class="gc-name c1">Future Perfect</div><div class="gc-formula">S + will have + V3</div><div class="gc-ex"><strong>"By Friday, she will have finished."</strong></div><div class="gc-ex-de">„Bis Freitag wird sie fertig sein."</div><div class="gc-de">Bis zu einem Zeitpunkt abgeschlossen</div><span class="gc-chip c1s">by … · until … · before …</span></div>
       </div>
     </div>
 
@@ -3674,13 +3683,13 @@ function copyTranslation() {
     <div class="gram-sec" id="gs2">
       <div class="gram-note"><strong>Grundregel:</strong> Englisch = Subject + Verb + Object (SVO). Das Verb steht immer an 2. Stelle.</div>
       <div class="gram-cards">
-        <div class="gc"><div class="gc-name c2">Satzbau</div><div class="gc-formula">S + V + O + (Place) + (Time)</div><div class="gc-ex"><strong>"She reads books at home every day."</strong></div><div class="gc-de">Ort vor Zeit; Häufigkeitsadverbien vor dem Verb</div></div>
-        <div class="gc"><div class="gc-name c2">If-Clause Type 1</div><div class="gc-formula">If + Simple Present, … will + V</div><div class="gc-ex"><strong>"If it rains, we will cancel the trip."</strong></div><div class="gc-de">Reale, mögliche Situation in der Zukunft</div><span class="gc-chip c2s">möglich · wahrscheinlich</span></div>
-        <div class="gc"><div class="gc-name c2">If-Clause Type 2</div><div class="gc-formula">If + Simple Past, … would + V</div><div class="gc-ex"><strong>"If I had more money, I would travel."</strong></div><div class="gc-de">Hypothetische / unwahrscheinliche Situation</div><span class="gc-chip c2s">unreal · hypothetisch</span></div>
-        <div class="gc"><div class="gc-name c2">If-Clause Type 3</div><div class="gc-formula">If + Past Perfect, … would have + V3</div><div class="gc-ex"><strong>"If I had studied, I would have passed."</strong></div><div class="gc-de">Verpasste Möglichkeit in der Vergangenheit</div><span class="gc-chip c2s">irreale Vergangenheit</span></div>
-        <div class="gc"><div class="gc-name c2">Relative Clause</div><div class="gc-formula">… who / which / that + V …</div><div class="gc-ex"><strong>"The man who called is my boss."</strong></div><div class="gc-de">who = Personen · which = Dinge · that = beides</div></div>
-        <div class="gc"><div class="gc-name c2">Contact Clause</div><div class="gc-formula">… (ohne Relativpronomen) + V …</div><div class="gc-ex"><strong>"The book (that) I read was great."</strong></div><div class="gc-de">Relativpronomen kann wegfallen, wenn es Objekt ist</div></div>
-        <div class="gc"><div class="gc-name c2">Participle Construction</div><div class="gc-formula">V-ing / V3 … (statt Relativsatz)</div><div class="gc-ex"><strong>"The woman sitting there is my teacher."</strong></div><div class="gc-de">Kurzform des Relativsatzes · formeller Stil</div></div>
+        <div class="gc"><div class="gc-name c2">Satzbau</div><div class="gc-formula">S + V + O + (Place) + (Time)</div><div class="gc-ex"><strong>"She reads books at home every day."</strong></div><div class="gc-ex-de">„Sie liest jeden Tag zu Hause Bücher."</div><div class="gc-de">Ort vor Zeit; Häufigkeitsadverbien vor dem Verb</div></div>
+        <div class="gc"><div class="gc-name c2">If-Clause Type 1</div><div class="gc-formula">If + Simple Present, … will + V</div><div class="gc-ex"><strong>"If it rains, we will cancel the trip."</strong></div><div class="gc-ex-de">„Wenn es regnet, sagen wir die Reise ab."</div><div class="gc-de">Reale, mögliche Situation in der Zukunft</div><span class="gc-chip c2s">möglich · wahrscheinlich</span></div>
+        <div class="gc"><div class="gc-name c2">If-Clause Type 2</div><div class="gc-formula">If + Simple Past, … would + V</div><div class="gc-ex"><strong>"If I had more money, I would travel."</strong></div><div class="gc-ex-de">„Wenn ich mehr Geld hätte, würde ich reisen."</div><div class="gc-de">Hypothetische / unwahrscheinliche Situation</div><span class="gc-chip c2s">unreal · hypothetisch</span></div>
+        <div class="gc"><div class="gc-name c2">If-Clause Type 3</div><div class="gc-formula">If + Past Perfect, … would have + V3</div><div class="gc-ex"><strong>"If I had studied, I would have passed."</strong></div><div class="gc-ex-de">„Wenn ich gelernt hätte, hätte ich bestanden."</div><div class="gc-de">Verpasste Möglichkeit in der Vergangenheit</div><span class="gc-chip c2s">irreale Vergangenheit</span></div>
+        <div class="gc"><div class="gc-name c2">Relative Clause</div><div class="gc-formula">… who / which / that + V …</div><div class="gc-ex"><strong>"The man who called is my boss."</strong></div><div class="gc-ex-de">„Der Mann, der angerufen hat, ist mein Chef."</div><div class="gc-de">who = Personen · which = Dinge · that = beides</div></div>
+        <div class="gc"><div class="gc-name c2">Contact Clause</div><div class="gc-formula">… (ohne Relativpronomen) + V …</div><div class="gc-ex"><strong>"The book (that) I read was great."</strong></div><div class="gc-ex-de">„Das Buch, das ich gelesen habe, war toll."</div><div class="gc-de">Relativpronomen kann wegfallen, wenn es Objekt ist</div></div>
+        <div class="gc"><div class="gc-name c2">Participle Construction</div><div class="gc-formula">V-ing / V3 … (statt Relativsatz)</div><div class="gc-ex"><strong>"The woman sitting there is my teacher."</strong></div><div class="gc-ex-de">„Die Frau, die dort sitzt, ist meine Lehrerin."</div><div class="gc-de">Kurzform des Relativsatzes · formeller Stil</div></div>
       </div>
     </div>
 
