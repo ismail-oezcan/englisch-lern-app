@@ -340,6 +340,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
         <button class="vf" onclick="filterVok(this,'generations')">👨‍👩‍👧 Generationen</button>
         <button class="vf" onclick="filterVok(this,'unit8b')">💬 Unit 8B – Comment Adverbs</button>
         <button class="vf" onclick="filterVok(this,'nov04')">🏙️ 04.11 – In the city</button>
+        <button class="vf" onclick="filterVok(this,'nov06')">💬 06.11 – Giving Opinions</button>
       </div>
 
       <div class="vok-progress" id="vok-prog"></div>
@@ -367,6 +368,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
               <div style="font-size:11px;font-weight:600;color:var(--fg-muted);margin-bottom:4px">📂 KATEGORIE *</div>
               <select id="vok-new-cat" style="width:100%;box-sizing:border-box;padding:8px 10px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg-2);color:var(--fg);font-size:14px;font-family:var(--font);outline:none">
                 <option value="nov04">🏙️ 04.11 – In the city</option>
+                <option value="nov06">💬 06.11 – Giving Opinions</option>
                 <option value="unit8b">💬 Unit 8B – Comment Adverbs</option>
                 <option value="generations">👨‍👩‍👧 Generationen</option>
                 <option value="kitchen">🍳 Küche &amp; Kochen</option>
@@ -1435,6 +1437,18 @@ const VOKABELN = [
   {w:'strangely',ph:'/ˈstreɪndʒli/',t:'seltsamerweise / merkwürdigerweise',ex:'"Strangely, nobody saw what happened."',cat:'unit8b'},
   {w:'tragically',ph:'/ˈtrædʒɪkli/',t:'tragischerweise / auf tragische Weise',ex:'"Tragically, the young athlete lost both legs in the accident."',cat:'unit8b'},
   {w:'happily',ph:'/ˈhæpɪli/',t:'glücklicherweise / glücklich (positiv)',ex:'"Happily, everything turned out well in the end."',cat:'unit8b'},
+  {w:'What do you think about …?', ph:'/wɒt duː juː θɪŋk əˈbaʊt/', t:'Was denkst du über …?', ex:'"What do you think about this new project?"', cat:'nov06'},
+  {w:"What's your opinion of that?", ph:'/wɒts jɔːr əˈpɪnjən əv ðæt/', t:'Was ist deine Meinung dazu?', ex:'"What\'s your opinion of that idea?"', cat:'nov06'},
+  {w:'From a financial point of view, …', ph:'/frɒm ə faɪˈnænʃəl pɔɪnt əv vjuː/', t:'Aus finanzieller Sicht …', ex:'"From a financial point of view, it\'s a good idea."', cat:'nov06'},
+  {w:'Personally, I think …', ph:'/ˈpɜːsənəli aɪ θɪŋk/', t:'Persönlich denke ich …', ex:'"Personally, I think we need more time."', cat:'nov06'},
+  {w:'I think we should …', ph:'/aɪ θɪŋk wiː ʃʊd/', t:'Ich denke, wir sollten …', ex:'"I think we should do some research first."', cat:'nov06'},
+  {w:'In my opinion, we should …', ph:'/ɪn maɪ əˈpɪnjən wiː ʃʊd/', t:'Meiner Meinung nach sollten wir …', ex:'"In my opinion, we should ask the customers."', cat:'nov06'},
+  {w:'I completely agree.', ph:'/aɪ kəmˈpliːtli əˈɡriː/', t:'Ich stimme völlig zu.', ex:'"Yes, I completely agree with you."', cat:'nov06'},
+  {w:"Yes, that's a good point. I agree.", ph:'/jɛs ðæts ə ɡʊd pɔɪnt aɪ əˈɡriː/', t:'Ja, das ist ein guter Punkt. Ich stimme zu.', ex:'"Yes, that\'s a good point. I agree we need a plan."', cat:'nov06'},
+  {w:"I'm afraid I completely disagree.", ph:'/aɪm əˈfreɪd aɪ kəmˈpliːtli ˌdɪsəˈɡriː/', t:'Leider bin ich völlig anderer Meinung.', ex:'"I\'m afraid I completely disagree with that approach."', cat:'nov06'},
+  {w:"I'm sorry, but I don't agree.", ph:'/aɪm ˈsɒri bʌt aɪ dəʊnt əˈɡriː/', t:'Es tut mir leid, aber ich stimme nicht zu.', ex:'"I\'m sorry, but I don\'t agree with this plan."', cat:'nov06'},
+  {w:'I see what you mean.', ph:'/aɪ siː wɒt juː miːn/', t:'Ich verstehe, was du meinst.', ex:'"I see what you mean, but there are other options."', cat:'nov06'},
+  {w:'I take your point, but …', ph:'/aɪ teɪk jɔː pɔɪnt bʌt/', t:'Ich nehme deinen Punkt zur Kenntnis, aber …', ex:'"I take your point, but I still think it\'s risky."', cat:'nov06'},
 ];
 
 const GRAMMATIK = [
@@ -1757,6 +1771,22 @@ const GRAMMATIK = [
     ]
   },
 ];
+
+  {
+    icon:'💬', name:'Giving Opinions', level:'A2/B1',
+    rule:'Um Meinungen auf Englisch auszudrücken, gibt es feste Phrasen für 5 Situationen: (1) Meinung erfragen: "What do you think about …?" / "What\'s your opinion of that?" (2) Meinung äußern: "Personally, I think …" / "From a … point of view, …" / "In my opinion, …" (3) Zustimmen: "I completely agree." / "Yes, that\'s a good point." (4) Widersprechen: "I\'m afraid I completely disagree." / "I\'m sorry, but I don\'t agree." (5) Standpunkt anerkennen: "I see what you mean." / "I take your point, but …"',
+    examples:[
+      {en:"From a financial point of view, it's a good idea.", de:'Aus finanzieller Sicht ist es eine gute Idee.'},
+      {en:"I'm afraid I completely disagree — our customers like the mix of ages.", de:'Leider bin ich völlig anderer Meinung — unsere Kunden mögen die Mischung der Altersgruppen.'},
+      {en:"I take your point, but maybe there's a new market out there.", de:'Ich nehme deinen Punkt zur Kenntnis, aber vielleicht gibt es einen neuen Markt.'},
+    ],
+    quizzes:[
+      {q:'Welche Phrase fragt nach einer Meinung?', opts:['I completely agree.',"What do you think about this?","I'm sorry, but I don't agree.",'I take your point.'], a:1},
+      {q:'Welche Phrase stimmt ZU?', opts:["I'm afraid I completely disagree.",'From a financial point of view …',"Yes, that's a good point. I agree.",'I see what you mean, but …'], a:2},
+      {q:'Welche Phrase widerspricht höflich?', opts:['Personally, I think …','I completely agree.',"What's your opinion?","I'm sorry, but I don't agree."], a:3},
+      {q:'Was bedeutet "I take your point, but …"?', opts:['Ich stimme völlig zu.','Ich nehme deinen Punkt zur Kenntnis, aber …','Ich verstehe dich nicht.','Meiner Meinung nach …'], a:1},
+    ]
+  },
 
 const CHALLENGE_QS = [
   {q:'Was bedeutet "cutting-edge technology"?',opts:['alte Technologie','günstige Technologie','modernste Technologie','einfache Technologie'],a:2},
