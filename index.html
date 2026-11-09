@@ -389,6 +389,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
         <button class="vf" onclick="filterVok(this,'unit8b')">💬 Unit 8B – Comment Adverbs</button>
         <button class="vf" onclick="filterVok(this,'nov04')">🏙️ 04.11 – In the city</button>
         <button class="vf" onclick="filterVok(this,'nov06')">💬 06.11 – Giving Opinions</button>
+        <button class="vf" onclick="filterVok(this,'nov09')">💬 09.11 – Conversation & Icons</button>
       </div>
 
       <div class="vok-progress" id="vok-prog"></div>
@@ -416,6 +417,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
               <div style="font-size:11px;font-weight:600;color:var(--fg-muted);margin-bottom:4px">📂 KATEGORIE *</div>
               <select id="vok-new-cat" style="width:100%;box-sizing:border-box;padding:8px 10px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg-2);color:var(--fg);font-size:14px;font-family:var(--font);outline:none">
                 <option value="nov04">🏙️ 04.11 – In the city</option>
+                <option value="nov09">💬 09.11 – Conversation & Icons</option>
                 <option value="nov06">💬 06.11 – Giving Opinions</option>
                 <option value="unit8b">💬 Unit 8B – Comment Adverbs</option>
                 <option value="generations">👨‍👩‍👧 Generationen</option>
@@ -1497,9 +1499,55 @@ const VOKABELN = [
   {w:"I'm sorry, but I don't agree.", ph:'/aɪm ˈsɒri bʌt aɪ dəʊnt əˈɡriː/', t:'Es tut mir leid, aber ich stimme nicht zu.', ex:'"I\'m sorry, but I don\'t agree with this plan."', cat:'nov06'},
   {w:'I see what you mean.', ph:'/aɪ siː wɒt juː miːn/', t:'Ich verstehe, was du meinst.', ex:'"I see what you mean, but there are other options."', cat:'nov06'},
   {w:'I take your point, but …', ph:'/aɪ teɪk jɔː pɔɪnt bʌt/', t:'Ich nehme deinen Punkt zur Kenntnis, aber …', ex:'"I take your point, but I still think it\'s risky."', cat:'nov06'},
+
+  // === 09.11.2026 – Unit 1C: Let's talk! (Conversation) ===
+  {w:'stranger',ph:'/ˈstreɪndʒə/',t:'der Fremde / die Fremde',ex:'"Starting a conversation with a stranger can make you feel happier."',cat:'nov09'},
+  {w:'bench',ph:'/bentʃ/',t:'die Bank (Sitzbank)',ex:'"She put a sign on the park bench: Happy to chat!"',cat:'nov09'},
+  {w:'comfortable',ph:'/ˈkʌmftəbl/',t:'komfortabel / wohl',ex:'"She felt uncomfortable talking to the man on the bench."',cat:'nov09'},
+  {w:'suitable',ph:'/ˈsuːɪtəbl/',t:'geeignet / passend',ex:'"The weather is a suitable topic for talking to strangers."',cat:'nov09'},
+  {w:'fluency',ph:'/ˈfluːənsi/',t:'die Sprachflüssigkeit / das Fließende',ex:'"After six months she spoke with great fluency."',cat:'nov09'},
+  {w:'intonation',ph:'/ˌɪntəˈneɪʃn/',t:'die Intonation / der Tonfall',ex:'"Good intonation makes your English sound more natural."',cat:'nov09'},
+  {w:'to keep a conversation going',ph:'/tə kiːp ə ˌkɒnvəˈseɪʃn ˈɡəʊɪŋ/',t:'ein Gespräch am Laufen halten',ex:'"Ask questions like How about you? to keep a conversation going."',cat:'nov09'},
+  {w:'Go ahead.',ph:'/ɡəʊ əˈhed/',t:'Bitte sehr. / Nur zu.',ex:'"Can I sit here? – Go ahead."',cat:'nov09'},
+  {w:'Be my guest.',ph:'/biː maɪ ɡest/',t:'Aber gerne. / Bitte sehr.',ex:'"Do you mind if I charge my phone here? – Be my guest."',cat:'nov09'},
+  {w:'Not at all.',ph:'/nɒt ət ɔːl/',t:'Überhaupt nicht. / Gerne.',ex:'"Sorry, is this your seat? – Not at all, please sit down."',cat:'nov09'},
+  {w:'I\'ve got to go.',ph:'/aɪv ɡɒt tə ɡəʊ/',t:'Ich muss gehen.',ex:'"Nice talking to you, but I\'ve got to go – my train is here."',cat:'nov09'},
+  {w:'Nice talking to you.',ph:'/naɪs ˈtɔːkɪŋ tə juː/',t:'Es war schön, mit Ihnen zu reden.',ex:'"Nice talking to you! Have a great evening."',cat:'nov09'},
+  {w:'What about you?',ph:'/wɒt əˈbaʊt juː/',t:'Und Sie? / Und du?',ex:'"I go to the festival every year. What about you?"',cat:'nov09'},
+  {w:'reserved',ph:'/rɪˈzɜːvd/',t:'zurückhaltend / reserviert',ex:'"People in big cities are often more reserved than in small towns."',cat:'nov09'},
+
+  // === 09.11.2026 – Unit 10A: Modern Icons (Steve Jobs) ===
+  {w:'icon',ph:'/ˈaɪkɒn/',t:'die Ikone / das Symbol',ex:'"Steve Jobs is a modern icon of technology and design."',cat:'nov09'},
+  {w:'to drop out',ph:'/tə drɒp aʊt/',t:'abbrechen / die Schule verlassen',ex:'"He dropped out of college after just six months."',cat:'nov09'},
+  {w:'to co-found',ph:'/tə kəʊ faʊnd/',t:'mitgründen',ex:'"Jobs and Wozniak co-founded Apple in 1976."',cat:'nov09'},
+  {w:'to adopt',ph:'/tə əˈdɒpt/',t:'adoptieren',ex:'"Steve Jobs was adopted when he was born."',cat:'nov09'},
+  {w:'biological mother',ph:'/ˌbaɪəˈlɒdʒɪkl ˈmʌðə/',t:'die leibliche Mutter',ex:'"In the 1980s he found his biological mother."',cat:'nov09'},
+  {w:'tribute',ph:'/ˈtrɪbjuːt/',t:'die Hommage / die Ehrung',ex:'"The logo was designed as a tribute to Steve Jobs."',cat:'nov09'},
+  {w:'silhouette',ph:'/ˌsɪluˈet/',t:'die Silhouette / der Schattenriss',ex:'"The design used Jobs\'s silhouette in the Apple logo."',cat:'nov09'},
+  {w:'sensation',ph:'/senˈseɪʃn/',t:'die Sensation / der Aufsehen',ex:'"The logo became a worldwide internet sensation."',cat:'nov09'},
+  {w:'to inspire',ph:'/tə ɪnˈspaɪə/',t:'inspirieren / begeistern',ex:'"Jobs inspired millions of people around the world."',cat:'nov09'},
+  {w:'commercially successful',ph:'/kəˈmɜːʃəli səkˈsesfəl/',t:'kommerziell erfolgreich',ex:'"The Macintosh was their first commercially successful computer."',cat:'nov09'},
 ];
 
 const GRAMMATIK = [
+  {
+    icon:'🔗', name:'Relativsätze (Relative Clauses)', level:'B1',
+    rule:'Relativsätze verbinden zwei Sätze. WHO = Personen | WHICH = Dinge/Objekte | WHOSE = Besitz (dessen/deren) | WHERE = Orte. Definierend (kein Komma) = notwendige Info. Nicht-definierend (mit Komma) = Zusatzinfo, die man weglassen kann.',
+    examples:[
+      {en:'The man who designed the logo was from Hong Kong.',de:'Der Mann, der das Logo entworfen hat, war aus Hongkong. (WHO = Person)'},
+      {en:'The Macintosh was the computer which Apple made in 1990.',de:'Der Macintosh war der Computer, den Apple 1990 herstellte. (WHICH = Ding)'},
+      {en:'Mountain View is the town where Steve Jobs grew up.',de:'Mountain View ist die Stadt, wo Steve Jobs aufwuchs. (WHERE = Ort)'},
+      {en:'Stephen Wozniak is the engineer whose designs became the Apple I.',de:'Stephen Wozniak ist der Ingenieur, dessen Designs zum Apple I wurden. (WHOSE = Besitz)'},
+      {en:'Pablo Picasso, who was born in Malaga, is famous worldwide.',de:'Pablo Picasso, der in Malaga geboren wurde, ist weltweit berühmt. (nicht-definierend = Komma!)'},
+    ],
+    quizzes:[
+      {q:'Welches Relativpronomen passt? "The woman ___ inspired me to love languages."',opts:['which','where','who','whose'],a:2},
+      {q:'Welches Relativpronomen passt? "Mountain View is the area ___ Jobs grew up."',opts:['who','which','whose','where'],a:3},
+      {q:'Welches Relativpronomen passt? "The engineer ___ designs became famous worked at HP."',opts:['who','which','whose','where'],a:2},
+      {q:'Wann benutzt man ein Komma beim Relativsatz?',opts:['Immer','Nie','Beim definierenden Relativsatz','Beim nicht-definierenden Relativsatz'],a:3},
+      {q:'"That" kann WHO/WHICH ersetzen — aber nur bei...',opts:['nicht-definierenden Relativsätzen (mit Komma)','definierenden Relativsätzen (ohne Komma)','Relativsätzen mit WHERE','Relativsätzen mit WHOSE'],a:1},
+    ]
+  },
   {
     icon:'🙏', name:'Modal Verbs: Ratschläge', level:'B1',
     rule:'Should, ought to und had better drücken Ratschläge aus. Had better ist am dringendsten — bei Nicht-Befolgen gibt es Konsequenzen. Kurzform: I\'d better, You\'d better.',
