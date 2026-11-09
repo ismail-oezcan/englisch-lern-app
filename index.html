@@ -390,6 +390,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
         <button class="vf" onclick="filterVok(this,'nov04')">🏙️ 04.11 – In the city</button>
         <button class="vf" onclick="filterVok(this,'nov06')">💬 06.11 – Giving Opinions</button>
         <button class="vf" onclick="filterVok(this,'nov09')">💬 09.11 – Conversation & Icons</button>
+        <button class="vf" onclick="filterVok(this,'nov09b')">✍️ 09.11b – Klassen-Vokabeln</button>
       </div>
 
       <div class="vok-progress" id="vok-prog"></div>
@@ -418,6 +419,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
               <select id="vok-new-cat" style="width:100%;box-sizing:border-box;padding:8px 10px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg-2);color:var(--fg);font-size:14px;font-family:var(--font);outline:none">
                 <option value="nov04">🏙️ 04.11 – In the city</option>
                 <option value="nov09">💬 09.11 – Conversation & Icons</option>
+                <option value="nov09b">✍️ 09.11b – Klassen-Vokabeln</option>
                 <option value="nov06">💬 06.11 – Giving Opinions</option>
                 <option value="unit8b">💬 Unit 8B – Comment Adverbs</option>
                 <option value="generations">👨‍👩‍👧 Generationen</option>
@@ -1527,6 +1529,19 @@ const VOKABELN = [
   {w:'sensation',ph:'/senˈseɪʃn/',t:'die Sensation / der Aufsehen',ex:'"The logo became a worldwide internet sensation."',cat:'nov09'},
   {w:'to inspire',ph:'/tə ɪnˈspaɪə/',t:'inspirieren / begeistern',ex:'"Jobs inspired millions of people around the world."',cat:'nov09'},
   {w:'commercially successful',ph:'/kəˈmɜːʃəli səkˈsesfəl/',t:'kommerziell erfolgreich',ex:'"The Macintosh was their first commercially successful computer."',cat:'nov09'},
+  // --- 09.11b Handgeschriebene Klassen-Vokabeln ---
+  {w:'to extend',ph:'/tə ɪkˈstend/',t:'verlängern / erweitern',ex:'"Can we extend the deadline by one week?"',cat:'nov09b'},
+  {w:'happy to chat',ph:'/ˈhæpi tə tʃæt/',t:'Ich freue mich auf ein Gespräch',ex:'"She put up a sign: Happy to chat!"',cat:'nov09b'},
+  {w:'park bench',ph:'/pɑːk bentʃ/',t:'die Parkbank',ex:'"They met on a park bench in the city centre."',cat:'nov09b'},
+  {w:'benefit',ph:'/ˈbenɪfɪt/',t:'der Vorteil / der Nutzen',ex:'"There are many benefits to learning a foreign language."',cat:'nov09b'},
+  {w:'strange person',ph:'/streɪndʒ ˈpɜːsn/',t:'eine fremde Person',ex:'"Would you talk to a strange person on the street?"',cat:'nov09b'},
+  {w:'sensitive',ph:'/ˈsensɪtɪv/',t:'sensibel / empfindlich',ex:'"Politics can be a sensitive topic to discuss."',cat:'nov09b'},
+  {w:'elections',ph:'/ɪˈlekʃnz/',t:'die Wahlen',ex:'"The elections are a popular topic in the news."',cat:'nov09b'},
+  {w:'pastry',ph:'/ˈpeɪstri/',t:'das Gebäck / die Backware',ex:'"She bought a pastry at the bakery near the park."',cat:'nov09b'},
+  {w:'benchmark',ph:'/ˈbentʃmɑːk/',t:'der Maßstab / der Richtwert',ex:'"The new product set a benchmark for the whole industry."',cat:'nov09b'},
+  {w:'bakery',ph:'/ˈbeɪkəri/',t:'die Bäckerei',ex:'"There is a small bakery on every corner in this town."',cat:'nov09b'},
+  {w:'interaction',ph:'/ˌɪntərˈækʃn/',t:'die Interaktion / das Zusammenspiel',ex:'"Social interaction is important for mental health."',cat:'nov09b'},
+  {w:'statement',ph:'/ˈsteɪtmənt/',t:'die Aussage / die Erklärung',ex:'"He made a clear statement about his opinion."',cat:'nov09b'},
 ];
 
 const GRAMMATIK = [
