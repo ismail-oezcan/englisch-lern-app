@@ -391,6 +391,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
         <button class="vf" onclick="filterVok(this,'nov06')">💬 06.11 – Giving Opinions</button>
         <button class="vf" onclick="filterVok(this,'nov09')">💬 09.11 – Conversation & Icons</button>
         <button class="vf" onclick="filterVok(this,'nov09b')">✍️ 09.11b – Klassen-Vokabeln</button>
+        <button class="vf" onclick="filterVok(this,'nov10')">🗣️ 10.11 – Small Talk & Frequency</button>
       </div>
 
       <div class="vok-progress" id="vok-prog"></div>
@@ -420,6 +421,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
                 <option value="nov04">🏙️ 04.11 – In the city</option>
                 <option value="nov09">💬 09.11 – Conversation & Icons</option>
                 <option value="nov09b">✍️ 09.11b – Klassen-Vokabeln</option>
+                <option value="nov10">🗣️ 10.11 – Small Talk & Frequency</option>
                 <option value="nov06">💬 06.11 – Giving Opinions</option>
                 <option value="unit8b">💬 Unit 8B – Comment Adverbs</option>
                 <option value="generations">👨‍👩‍👧 Generationen</option>
@@ -1542,6 +1544,29 @@ const VOKABELN = [
   {w:'bakery',ph:'/ˈbeɪkəri/',t:'die Bäckerei',ex:'"There is a small bakery on every corner in this town."',cat:'nov09b'},
   {w:'interaction',ph:'/ˌɪntərˈækʃn/',t:'die Interaktion / das Zusammenspiel',ex:'"Social interaction is important for mental health."',cat:'nov09b'},
   {w:'statement',ph:'/ˈsteɪtmənt/',t:'die Aussage / die Erklärung',ex:'"He made a clear statement about his opinion."',cat:'nov09b'},
+  // --- 10.11 Small Talk & Frequency ---
+  {w:'always',ph:'/ˈɔːlweɪz/',t:'immer (100%)',ex:'"She always drinks coffee in the morning."',cat:'nov10'},
+  {w:'nearly always',ph:'/ˈnɪəli ˈɔːlweɪz/',t:'fast immer',ex:'"He nearly always takes the bus to work."',cat:'nov10'},
+  {w:'often',ph:'/ˈɒfən/',t:'oft',ex:'"We often go for a walk on Sundays."',cat:'nov10'},
+  {w:'usually',ph:'/ˈjuːʒuəli/',t:'normalerweise / meistens',ex:'"I usually have lunch at one o\'clock."',cat:'nov10'},
+  {w:'sometimes',ph:'/ˈsʌmtaɪmz/',t:'manchmal',ex:'"Sometimes I work from home."',cat:'nov10'},
+  {w:'occasionally',ph:'/əˈkeɪʒənəli/',t:'gelegentlich / ab und zu',ex:'"We occasionally go to the cinema."',cat:'nov10'},
+  {w:'every now and again',ph:'/ˈevri naʊ ənd əˈɡen/',t:'ab und zu / hin und wieder',ex:'"Every now and again I meet old friends for dinner."',cat:'nov10'},
+  {w:'once or twice a week',ph:'/wʌns ɔː twaɪs ə wiːk/',t:'ein- oder zweimal pro Woche',ex:'"I go to the gym once or twice a week."',cat:'nov10'},
+  {w:'rarely',ph:'/ˈreəli/',t:'selten',ex:'"He rarely watches TV in the evening."',cat:'nov10'},
+  {w:'hardly ever',ph:'/ˈhɑːdli ˈevə/',t:'kaum jemals / so gut wie nie',ex:'"She hardly ever eats meat."',cat:'nov10'},
+  {w:'almost never',ph:'/ˈɔːlməʊst ˈnevə/',t:'fast nie',ex:'"I almost never take the car — I prefer cycling."',cat:'nov10'},
+  {w:'never',ph:'/ˈnevə/',t:'nie (0%)',ex:'"He never drinks alcohol."',cat:'nov10'},
+  {w:'to go for a run',ph:'/tə ɡəʊ fɔː ə rʌn/',t:'einen Lauf machen / joggen gehen',ex:'"I went for a run round the block this morning."',cat:'nov10'},
+  {w:'to go for a drive',ph:'/tə ɡəʊ fɔː ə draɪv/',t:'eine Fahrt machen',ex:'"We went for a drive to the beach on Friday."',cat:'nov10'},
+  {w:'to go climbing',ph:'/tə ɡəʊ ˈklaɪmɪŋ/',t:'klettern gehen',ex:'"They went climbing in the mountains last weekend."',cat:'nov10'},
+  {w:'to go sailing',ph:'/tə ɡəʊ ˈseɪlɪŋ/',t:'segeln gehen',ex:'"She went sailing on a big lake near her house."',cat:'nov10'},
+  {w:'to take it easy',ph:'/tə teɪk ɪt ˈiːzi/',t:'es ruhig angehen lassen',ex:'"I just stayed in and took it easy all weekend."',cat:'nov10'},
+  {w:'to have an early night',ph:'/tə hæv ən ˈɜːli naɪt/',t:'früh schlafen gehen',ex:'"I had an early night because I was tired."',cat:'nov10'},
+  {w:'to do some baking',ph:'/tə duː sʌm ˈbeɪkɪŋ/',t:'backen / etwas backen',ex:'"She did some baking for her sister\'s birthday party."',cat:'nov10'},
+  {w:'small talk',ph:'/smɔːl tɔːk/',t:'Smalltalk / lockere Unterhaltung',ex:'"Making small talk is an important social skill."',cat:'nov10'},
+  {w:'to keep a conversation going',ph:'/tə kiːp ə ˌkɒnvəˈseɪʃn ˈɡəʊɪŋ/',t:'ein Gespräch am Laufen halten',ex:'"Ask follow-up questions to keep a conversation going."',cat:'nov10'},
+  {w:'follow-up question',ph:'/ˈfɒləʊ ʌp ˈkwestʃən/',t:'die Nachfrage / die Anschlussfrage',ex:'"After his answer, she asked a follow-up question."',cat:'nov10'},
 ];
 
 const GRAMMATIK = [
@@ -1561,6 +1586,42 @@ const GRAMMATIK = [
       {q:'Welches Relativpronomen passt? "The engineer ___ designs became famous worked at HP."',opts:['who','which','whose','where'],a:2},
       {q:'Wann benutzt man ein Komma beim Relativsatz?',opts:['Immer','Nie','Beim definierenden Relativsatz','Beim nicht-definierenden Relativsatz'],a:3},
       {q:'"That" kann WHO/WHICH ersetzen — aber nur bei...',opts:['nicht-definierenden Relativsätzen (mit Komma)','definierenden Relativsätzen (ohne Komma)','Relativsätzen mit WHERE','Relativsätzen mit WHOSE'],a:1},
+    ]
+  },
+  {
+    icon:'🗣️', name:'Small Talk — Wann & Wie?', level:'B1',
+    rule:'Small Talk = lockere Unterhaltung in sozialen Situationen. Themen: Reise, Wetter, Job, Freizeit, Essen, aktuelle Ereignisse. Wichtig: Frage stellen → Antwort geben → Gegenfrage stellen (Follow-up question). So hältst du das Gespräch am Laufen!',
+    examples:[
+      {en:'How was your journey? / Did you have a good flight?',de:'→ Situation: Kollege/Gast kommt von weit weg. Jemand reist an.'},
+      {en:'What do you do for a living? / Is your work interesting?',de:'→ Situation: Party, Event, neue Person kennenlernen.'},
+      {en:'Lovely day, isn\'t it? / I hear it\'s going to rain this weekend.',de:'→ Situation: immer — Aufzug, Bushaltestelle, beim Warten. 😄'},
+      {en:'So, how do you know the host? / Are you enjoying the party?',de:'→ Situation: Party — wenn du jemanden nicht kennst.'},
+      {en:'Did you hear about...? / What do you think about...?',de:'→ Situation: Büropause, Kollegen — aktuelle Themen ansprechen.'},
+    ],
+    quizzes:[
+      {q:'Was sagst du, wenn ein Kollege aus einer anderen Stadt anreist?',opts:['Lovely day, isn\'t it?','How was your journey?','So, how do you know the host?','Did you hear about the news?'],a:1},
+      {q:'Wie hältst du ein Gespräch am Laufen?',opts:['Nur antworten, nie fragen','Eine Follow-up Frage stellen','Das Thema wechseln','Schweigen'],a:1},
+      {q:'Welches Thema ist immer sicher für Small Talk?',opts:['Politik','Religion','Wetter','Gehalt'],a:2},
+      {q:'Was bedeutet "follow-up question"?',opts:['Eine Frage zu einem anderen Thema','Eine Nachfrage/Anschlussfrage zum gleichen Thema','Eine sehr lange Frage','Eine Frage am Ende des Gesprächs'],a:1},
+      {q:'Auf einer Party fragst du jemanden den du nicht kennst:',opts:['How much do you earn?','So, how do you know the host?','Why are you here?','What\'s your problem?'],a:1},
+    ]
+  },
+  {
+    icon:'📊', name:'Adverbs of Frequency (Häufigkeitsadverbien)', level:'B1',
+    rule:'Häufigkeitsadverbien sagen, wie oft etwas passiert. Reihenfolge: always (100%) → nearly always → often → usually → sometimes → occasionally → every now and again → once or twice a week → rarely → hardly ever → almost never → never (0%). Position: VOR dem Hauptverb, aber NACH "to be". Beispiel: I always drink coffee. / She is never late.',
+    examples:[
+      {en:'I always have breakfast before work.',de:'Ich frühstücke immer vor der Arbeit. (always = 100%, vor dem Verb)'},
+      {en:'She is never late for class.',de:'Sie ist nie zu spät im Unterricht. (never = 0%, nach "is")'},
+      {en:'We occasionally go to the cinema.',de:'Wir gehen gelegentlich ins Kino. (occasionally = selten aber manchmal)'},
+      {en:'He hardly ever watches TV.',de:'Er schaut so gut wie nie fern. (hardly ever ≈ almost never)'},
+      {en:'Do you often travel abroad on business?',de:'Reisen Sie oft geschäftlich ins Ausland? (Frage: often nach do you)'},
+    ],
+    quizzes:[
+      {q:'Wo steht das Häufigkeitsadverb? "She ___ drinks coffee." (always)',opts:['She drinks always coffee.','She always drinks coffee.','Always she drinks coffee.','She drinks coffee always.'],a:1},
+      {q:'Wo steht das Adverb bei "to be"? (never / late)',opts:['She never is late.','Never she is late.','She is never late.','She is late never.'],a:2},
+      {q:'Was bedeutet "hardly ever"?',opts:['immer','manchmal','fast nie','oft'],a:2},
+      {q:'Welches Adverb passt? "I go to the gym ___ — maybe once a month."',opts:['always','occasionally','never','usually'],a:1},
+      {q:'Was ist die richtige Reihenfolge (100% → 0%)?',opts:['never → sometimes → always','always → usually → sometimes → rarely → never','sometimes → always → never','rarely → often → never'],a:1},
     ]
   },
   {
