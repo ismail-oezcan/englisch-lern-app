@@ -392,6 +392,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
         <button class="vf" onclick="filterVok(this,'nov09')">💬 09.11 – Conversation & Icons</button>
         <button class="vf" onclick="filterVok(this,'nov09b')">✍️ 09.11b – Klassen-Vokabeln</button>
         <button class="vf" onclick="filterVok(this,'nov10')">🗣️ 10.11 – Small Talk & Frequency</button>
+        <button class="vf" onclick="filterVok(this,'nov11')">😤 11.11 – Emotions & Presentations</button>
       </div>
 
       <div class="vok-progress" id="vok-prog"></div>
@@ -422,6 +423,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
                 <option value="nov09">💬 09.11 – Conversation & Icons</option>
                 <option value="nov09b">✍️ 09.11b – Klassen-Vokabeln</option>
                 <option value="nov10">🗣️ 10.11 – Small Talk & Frequency</option>
+                <option value="nov11">😤 11.11 – Emotions &amp; Presentations</option>
                 <option value="nov06">💬 06.11 – Giving Opinions</option>
                 <option value="unit8b">💬 Unit 8B – Comment Adverbs</option>
                 <option value="generations">👨‍👩‍👧 Generationen</option>
@@ -1567,6 +1569,47 @@ const VOKABELN = [
   {w:'small talk',ph:'/smɔːl tɔːk/',t:'Smalltalk / lockere Unterhaltung',ex:'"Making small talk is an important social skill."',cat:'nov10'},
   {w:'to keep a conversation going',ph:'/tə kiːp ə ˌkɒnvəˈseɪʃn ˈɡəʊɪŋ/',t:'ein Gespräch am Laufen halten',ex:'"Ask follow-up questions to keep a conversation going."',cat:'nov10'},
   {w:'follow-up question',ph:'/ˈfɒləʊ ʌp ˈkwestʃən/',t:'die Nachfrage / die Anschlussfrage',ex:'"After his answer, she asked a follow-up question."',cat:'nov10'},
+
+  // --- 11.11 Emotions at Work ---
+  {w:'being stoic',ph:'/ˈbiːɪŋ ˈstəʊɪk/',t:'stoisch sein / Gefühle nicht zeigen',ex:'"He lost his job but was completely stoic about it."',cat:'nov11'},
+  {w:'more than they bargained for',ph:'/mɔː ðæn ðeɪ ˈbɑːɡɪnd fɔː/',t:'mehr als erwartet bekommen (oft negativ)',ex:'"She agreed to help but got more than she bargained for."',cat:'nov11'},
+  {w:'to undermine yourself',ph:'/tə ˌʌndəˈmaɪn jɔːˈself/',t:'sich selbst sabotieren / sich kleinmachen',ex:'"He always says \'I\'m probably wrong\' — he undermines himself."',cat:'nov11'},
+  {w:'a wide spectrum of',ph:'/ə waɪd ˈspektrəm ɒv/',t:'ein breites Spektrum von',ex:'"There is a wide spectrum of emotions — from joy to sadness."',cat:'nov11'},
+  {w:'under-emoter',ph:'/ˈʌndər ɪˈməʊtə/',t:'jemand der Gefühle zu wenig zeigt',ex:'"My boss is an under-emoter — I never know if he is happy."',cat:'nov11'},
+  {w:'over-emoter',ph:'/ˈəʊvər ɪˈməʊtə/',t:'jemand der Gefühle zu viel zeigt',ex:'"She cried at every small problem — a real over-emoter."',cat:'nov11'},
+  {w:'selective vulnerability',ph:'/sɪˈlektɪv ˌvʌlnərəˈbɪlɪti/',t:'gezielt Schwäche zeigen — nur bei richtigen Momenten',ex:'"Good leaders use selective vulnerability to build trust."',cat:'nov11'},
+  {w:'to flag your feelings',ph:'/tə flæɡ jɔː ˈfiːlɪŋz/',t:'Gefühle signalisieren / ansprechen',ex:'"Before the meeting I flagged my feelings about the deadline."',cat:'nov11'},
+  {w:'a looming deadline',ph:'/ə ˈluːmɪŋ ˈdedlaɪn/',t:'eine bedrohlich nahende Deadline',ex:'"With a looming deadline on Friday, nobody was relaxed."',cat:'nov11'},
+  {w:'to read the room',ph:'/tə riːd ðə ruːm/',t:'die Stimmung im Raum spüren / einschätzen',ex:'"He made a joke but didn\'t read the room — everyone was stressed."',cat:'nov11'},
+  {w:'prone to doing something',ph:'/prəʊn tə ˈduːɪŋ ˈsʌmθɪŋ/',t:'dazu neigen, etwas zu tun',ex:'"I\'m prone to overworking when there\'s a looming deadline."',cat:'nov11'},
+  {w:'contagious',ph:'/kənˈteɪdʒəs/',t:'ansteckend',ex:'"Bad moods are contagious — they spread to the whole team."',cat:'nov11'},
+  {w:'to elaborate on',ph:'/tə ɪˈlæbəreɪt ɒn/',t:'etwas genauer ausführen / erläutern',ex:'"Let me elaborate on this second point in more detail."',cat:'nov11'},
+
+  // --- 11.11 Presentations vocabulary ---
+  {w:'to launch a product',ph:'/tə lɔːntʃ ə ˈprɒdʌkt/',t:'ein Produkt auf den Markt bringen',ex:'"They launched the new water bottle last spring."',cat:'nov11'},
+  {w:'projections',ph:'/prəˈdʒekʃənz/',t:'Prognosen / Vorhersagen (auf Basis aktueller Daten)',ex:'"Our fourth-quarter projections show strong sales growth."',cat:'nov11'},
+  {w:'to capture a market',ph:'/tə ˈkæptʃə ə ˈmɑːkɪt/',t:'einen Markt gewinnen / erschließen',ex:'"We need to capture the younger customer market."',cat:'nov11'},
+  {w:'to engage customers',ph:'/tə ɪnˈɡeɪdʒ ˈkʌstəməz/',t:'Kunden ansprechen / einbinden',ex:'"We\'ll find out how to engage younger customers."',cat:'nov11'},
+  {w:'to feed back',ph:'/tə fiːd bæk/',t:'Feedback geben / zurückmelden',ex:'"We\'ll feed back to our product designers after the focus group."',cat:'nov11'},
+  {w:'a flow chart',ph:'/ə fləʊ tʃɑːt/',t:'ein Ablaufdiagramm / Prozessdiagramm',ex:'"The flow chart shows each step of the order process."',cat:'nov11'},
+  {w:'a pie chart',ph:'/ə paɪ tʃɑːt/',t:'ein Kreisdiagramm',ex:'"The pie chart shows the market share by customer age."',cat:'nov11'},
+  {w:'a mind map',ph:'/ə maɪnd mæp/',t:'eine Mindmap',ex:'"She used a mind map to show how the ideas are connected."',cat:'nov11'},
+  {w:'to let someone down',ph:'/tə let ˈsʌmwʌn daʊn/',t:'jemanden im Stich lassen / enttäuschen',ex:'"Paper and pens never let you down in a presentation."',cat:'nov11'},
+
+  // --- 11.11 Adjectives to describe people ---
+  {w:'affectionate',ph:'/əˈfekʃənət/',t:'liebevoll / herzlich',ex:'"She is very affectionate with her family and friends."',cat:'nov11'},
+  {w:'brave',ph:'/breɪv/',t:'mutig',ex:'"It was brave of him to speak in front of 200 people."',cat:'nov11'},
+  {w:'cheerful',ph:'/ˈtʃɪəfəl/',t:'fröhlich / heiter',ex:'"She is always cheerful, even on Monday mornings."',cat:'nov11'},
+  {w:'generous',ph:'/ˈdʒenərəs/',t:'großzügig',ex:'"He is very generous — he always pays for everyone."',cat:'nov11'},
+  {w:'imaginative',ph:'/ɪˈmædʒɪnətɪv/',t:'fantasievoll / kreativ',ex:'"The imaginative designer came up with ten new ideas."',cat:'nov11'},
+  {w:'moody',ph:'/ˈmuːdi/',t:'launisch',ex:'"He is moody — sometimes happy, sometimes very quiet."',cat:'nov11'},
+  {w:'patient',ph:'/ˈpeɪʃənt/',t:'geduldig',ex:'"A good teacher must be patient with all students."',cat:'nov11'},
+  {w:'prejudiced',ph:'/ˈpredʒʊdɪst/',t:'voreingenommen',ex:'"He is prejudiced against young people in the workplace."',cat:'nov11'},
+  {w:'sensible',ph:'/ˈsensɪbəl/',t:'vernünftig (≠ sensibel!)',ex:'"It was sensible to bring an umbrella — it rained all day."',cat:'nov11'},
+  {w:'sociable',ph:'/ˈsəʊʃəbəl/',t:'gesellig / kontaktfreudig',ex:'"She is very sociable and knows everyone at every party."',cat:'nov11'},
+  {w:'spoilt',ph:'/spɔɪlt/',t:'verwöhnt',ex:'"The spoilt child cried when he didn\'t get what he wanted."',cat:'nov11'},
+  {w:'stubborn',ph:'/ˈstʌbən/',t:'stur / dickköpfig',ex:'"He is so stubborn — he never changes his mind."',cat:'nov11'},
+  {w:'sympathetic',ph:'/ˌsɪmpəˈθetɪk/',t:'mitfühlend (≠ sympathisch!)',ex:'"She was sympathetic when I told her about my bad day."',cat:'nov11'},
 ];
 
 const GRAMMATIK = [
@@ -1941,6 +1984,60 @@ const GRAMMATIK = [
       {q:'"Look at those clouds!" — welche Form?',opts:['will (Meinung)','be going to (Beweis sichtbar)','Present Continuous (Arrangement)','Simple Present'],a:1},
       {q:'Spontane Entscheidung — welche Form?',opts:['be going to','present continuous','will','simple future'],a:2},
     ]
+  },
+  {
+    icon:'😤', name:'Emotions at Work', level:'B2',
+    rule:'Myth: emotions don\'t belong at work. Reality: showing emotions builds trust and connection.\n\n4 ways to handle emotions professionally:\n1. FLAG YOUR FEELINGS — If you\'re in a bad mood, signal it. Say it\'s not about work if it isn\'t.\n2. UNDERSTAND THE NEED — If the emotion is work-related, analyse what it tells you. Take positive action.\n3. SELECTIVE VULNERABILITY — Share feelings only if it helps others feel supported. Don\'t overshare.\n4. READ THE ROOM — Understand how colleagues feel. Acknowledge their efforts and show gratitude.\n\nKey difference:\n• Under-emoter = shows too little emotion → colleagues can\'t tell how you feel\n• Over-emoter = shows too much emotion → can be unprofessional\n• Selective vulnerability = the ideal: open up at the right moment with the right person',
+    examples:[
+      '"I\'m flagging that I\'m stressed today — it\'s nothing to do with the team."',
+      '"He\'s an under-emoter — you never know if he\'s happy or angry."',
+      '"Bad moods are contagious, so try to manage them professionally."',
+      '"She used selective vulnerability to build trust with her team."',
+      '"Read the room before making a joke — sometimes the timing is wrong."',
+    ],
+    quizzes:[
+      {q:'What does "flag your feelings" mean?',opts:['Hide your emotions','Signal or mention how you feel','Ask others how they feel','Ignore your emotions at work'],a:1},
+      {q:'What is "selective vulnerability"?',opts:['Never showing emotions','Showing emotions to everyone','Opening up only at the right moment with the right person','Being emotional all the time'],a:2},
+      {q:'A "looming deadline" is…',opts:['A deadline that has passed','A deadline far in the future','A deadline coming closer that feels threatening','A very relaxed schedule'],a:2},
+      {q:'"Read the room" means…',opts:['Read a book in the office','Sense the mood and atmosphere around you','Ask everyone how they feel','Ignore what others think'],a:1},
+      {q:'Which person shows too little emotion at work?',opts:['Over-emoter','Selective vulnerability','Under-emoter','Stoic leader'],a:2},
+    ],
+  },
+  {
+    icon:'🎤', name:'Presentation Language', level:'B1-B2',
+    rule:'Use these standard phrases in every presentation:\n\nINTRODUCTION (D):\n• "Good morning, ladies and gentlemen. Thank you for coming."\n• "I\'d like to introduce myself. My name is…"\n\nOUTLINE MAIN POINTS (E):\n• "The main points I\'ll be talking about are…"\n• "My presentation will focus on three main areas."\n\nSIGNPOSTING (G) — moving between points:\n• "Let\'s begin by looking at…"\n• "Moving on to the next point…"\n\nREFERRING TO VISUALS (F):\n• "As you can see from the graph…"\n• "These figures demonstrate that…"\n\nADDING DETAIL (C):\n• "Let me explain that in more detail."\n• "To elaborate on this point…"\n\nCONCLUDING (A):\n• "In summary… / Right, I think we\'ve covered everything."\n• "Thank you for your attention."\n\nHANDLING DIFFICULT QUESTIONS (B):\n• "I\'m afraid I don\'t have that information right now."\n• "Sorry, but could you be a little more specific?"',
+    examples:[
+      '"Good morning, ladies and gentlemen. Thank you for coming."',
+      '"The main points I\'ll be talking about are vocabulary, grammar and quizzes."',
+      '"As you can see from the app, there are over 700 vocabulary words."',
+      '"Let me elaborate on this — I add new content after every lesson."',
+      '"I\'m afraid I don\'t have that information right now — I\'ll get back to you."',
+    ],
+    quizzes:[
+      {q:'Which phrase is used for INTRODUCING yourself?',opts:['"Moving on to the next point…"','"I\'d like to introduce myself. My name is…"','"As you can see from the graph…"','"Thank you for your attention."'],a:1},
+      {q:'Which phrase REFERS TO A VISUAL AID?',opts:['"Let me elaborate on this."','"In summary…"','"As you can see from the graph…"','"Could you be more specific?"'],a:2},
+      {q:'Which phrase CONCLUDES a presentation?',opts:['"Let\'s begin by looking at…"','"The main points are…"','"Right, I think we\'ve covered everything. Thanks very much."','"I\'d like to introduce myself."'],a:2},
+      {q:'How do you handle a question you can\'t answer?',opts:['"I don\'t know."','"That\'s a stupid question."','"I\'m afraid I don\'t have that information right now — I\'ll get back to you."','"Please ask someone else."'],a:2},
+      {q:'What does SIGNPOSTING mean in a presentation?',opts:['Using signs and pictures','Showing the audience where the exit is','Using phrases to move between points, e.g. "Moving on…"','Writing key words on the board'],a:2},
+    ],
+  },
+  {
+    icon:'👤', name:'Adjectives to Describe People', level:'B1',
+    rule:'These adjectives describe someone\'s personality or character.\n\n⚠️ Important false friends for German speakers:\n• sensible (EN) = vernünftig ≠ sensibel (DE)\n• sympathetic (EN) = mitfühlend ≠ sympathisch (DE)\n\nPositive adjectives:\naffectionate (liebevoll) | brave (mutig) | cheerful (fröhlich)\ngenerøus (großzügig) | honest (ehrlich) | imaginative (kreativ)\npatient (geduldig) | sensible (vernünftig) | sociable (gesellig)\nsympathetic (mitfühlend)\n\nNegative adjectives:\nmoody (launisch) | prejudiced (voreingenommen)\nrude (unhöflich) | spoilt (verwöhnt) | stubborn (stur)',
+    examples:[
+      '"She is very affectionate with her family — always warm and caring."',
+      '"He is so stubborn — he never changes his mind, even when he\'s wrong."',
+      '"It was sensible to bring an umbrella. (= vernünftig, NOT sensibel!)"',
+      '"She was sympathetic when I lost my job. (= mitfühlend, NOT sympathisch!)"',
+      '"He is moody — sometimes very happy, sometimes very quiet."',
+    ],
+    quizzes:[
+      {q:'What does "sensible" mean in English?',opts:['sensibel / empfindlich','sympathisch','vernünftig / praktisch denkend','gesellig'],a:2},
+      {q:'What does "sympathetic" mean in English?',opts:['sympathisch / nett','mitfühlend / verständnisvoll','gesellig','fröhlich'],a:1},
+      {q:'Which adjective means "stur / dickköpfig"?',opts:['stubborn','spoilt','moody','prejudiced'],a:0},
+      {q:'Someone who enjoys being with other people is…',opts:['moody','sociable','stoic','prejudiced'],a:1},
+      {q:'Which adjective means "voreingenommen"?',opts:['rude','stubborn','prejudiced','spoilt'],a:2},
+    ],
   },
   {
     icon:'💬', name:'Giving Opinions', level:'A2/B1',
