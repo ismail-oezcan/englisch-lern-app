@@ -393,6 +393,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
         <button class="vf" onclick="filterVok(this,'nov09b')">✍️ 09.11b – Klassen-Vokabeln</button>
         <button class="vf" onclick="filterVok(this,'nov10')">🗣️ 10.11 – Small Talk & Frequency</button>
         <button class="vf" onclick="filterVok(this,'nov11')">😤 11.11 – Emotions & Presentations</button>
+        <button class="vf" onclick="filterVok(this,'nov12')">🧘 12.11 – Leisure & Careers</button>
       </div>
 
       <div class="vok-progress" id="vok-prog"></div>
@@ -424,6 +425,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
                 <option value="nov09b">✍️ 09.11b – Klassen-Vokabeln</option>
                 <option value="nov10">🗣️ 10.11 – Small Talk & Frequency</option>
                 <option value="nov11">😤 11.11 – Emotions &amp; Presentations</option>
+                <option value="nov12">🧘 12.11 – Leisure &amp; Careers</option>
                 <option value="nov06">💬 06.11 – Giving Opinions</option>
                 <option value="unit8b">💬 Unit 8B – Comment Adverbs</option>
                 <option value="generations">👨‍👩‍👧 Generationen</option>
@@ -1537,6 +1539,65 @@ const VOKABELN = [
   {w:'spoilt',ph:'/spɔɪlt/',t:'verwöhnt',ex:'"The spoilt child cried when he didn\'t get what he wanted."',cat:'nov11'},
   {w:'stubborn',ph:'/ˈstʌbən/',t:'stur / dickköpfig',ex:'"He is so stubborn — he never changes his mind."',cat:'nov11'},
   {w:'sympathetic',ph:'/ˌsɪmpəˈθetɪk/',t:'mitfühlend (≠ sympathisch!)',ex:'"She was sympathetic when I told her about my bad day."',cat:'nov11'},
+
+  // ============================================================
+  // 12.11.2026 – Leisure & Free Time / Careers Advice
+  // ============================================================
+
+  // --- 12.11 Leisure phrasal verbs & collocations ---
+  {w:'to catch up with',ph:'/tə kætʃ ʌp wɪð/',t:'jemanden treffen und Neuigkeiten austauschen',ex:'"I need to catch up with my old school friends."',cat:'nov12'},
+  {w:'to stay in',ph:'/tə steɪ ɪn/',t:'zu Hause bleiben (statt auszugehen)',ex:'"I decided to stay in on Friday and watch a film."',cat:'nov12'},
+  {w:'to have a go at',ph:'/tə hæv ə ɡəʊ æt/',t:'etwas ausprobieren / versuchen',ex:'"Why don\'t you have a go at pottery? It\'s really fun."',cat:'nov12'},
+  {w:'to get into',ph:'/tə ɡet ˈɪntə/',t:'sich für etwas zu interessieren beginnen',ex:'"I recently got into hiking and I love it."',cat:'nov12'},
+  {w:'to eat out',ph:'/tə iːt aʊt/',t:'in einem Restaurant essen (nicht zu Hause)',ex:'"We eat out about once a week — usually Italian."',cat:'nov12'},
+  {w:'to switch off',ph:'/tə swɪtʃ ɒf/',t:'abschalten / aufhören zu denken',ex:'"I go for a walk to switch off after a stressful day."',cat:'nov12'},
+  {w:'to take up',ph:'/tə teɪk ʌp/',t:'(ein Hobby) anfangen / aufnehmen',ex:'"She took up yoga after her doctor recommended it."',cat:'nov12'},
+  {w:'to make time for',ph:'/tə meɪk taɪm fɔː/',t:'sich Zeit nehmen für',ex:'"It\'s important to make time for the things you enjoy."',cat:'nov12'},
+  {w:'to be keen on',ph:'/tə biː kiːn ɒn/',t:'begeistert sein von / gerne mögen',ex:'"I\'m really keen on cooking — I try new recipes every week."',cat:'nov12'},
+  {w:'to hang out with',ph:'/tə hæŋ aʊt wɪð/',t:'Zeit mit jemandem verbringen / rumhängen',ex:'"I hang out with my friends at the park on weekends."',cat:'nov12'},
+  {w:'to give up',ph:'/tə ɡɪv ʌp/',t:'aufhören / aufgeben (eine Aktivität)',ex:'"He gave up smoking last year and feels much better."',cat:'nov12'},
+  {w:'to unwind',ph:'/tə ʌnˈwaɪnd/',t:'entspannen / runterkommen',ex:'"I unwind by reading a book before bed."',cat:'nov12'},
+  {w:'to go hiking',ph:'/tə ɡəʊ ˈhaɪkɪŋ/',t:'wandern gehen',ex:'"We go hiking in the mountains every summer."',cat:'nov12'},
+  {w:'to go cycling',ph:'/tə ɡəʊ ˈsaɪklɪŋ/',t:'Rad fahren gehen',ex:'"He goes cycling every morning before work."',cat:'nov12'},
+  {w:'to go swimming',ph:'/tə ɡəʊ ˈswɪmɪŋ/',t:'schwimmen gehen',ex:'"Let\'s go swimming at the lake this weekend."',cat:'nov12'},
+  {w:'to do yoga',ph:'/tə duː ˈjəʊɡə/',t:'Yoga machen',ex:'"She does yoga every morning to relax."',cat:'nov12'},
+  {w:'to do Pilates',ph:'/tə duː pɪˈlɑːtɪz/',t:'Pilates machen',ex:'"Pilates is great for your core — I do it twice a week."',cat:'nov12'},
+  {w:'to do karate',ph:'/tə duː kəˈrɑːti/',t:'Karate machen',ex:'"He has done karate since he was seven years old."',cat:'nov12'},
+  {w:'to play chess',ph:'/tə pleɪ tʃes/',t:'Schach spielen',ex:'"I play chess online to keep my mind sharp."',cat:'nov12'},
+  {w:'to play basketball',ph:'/tə pleɪ ˈbɑːskɪtbɔːl/',t:'Basketball spielen',ex:'"They play basketball every Saturday morning."',cat:'nov12'},
+  {w:'to play the guitar',ph:'/tə pleɪ ðə ɡɪˈtɑː/',t:'Gitarre spielen',ex:'"She plays the guitar and writes her own songs."',cat:'nov12'},
+  {w:'to go for a walk',ph:'/tə ɡəʊ fɔːr ə wɔːk/',t:'spazieren gehen',ex:'"I go for a walk every evening after dinner."',cat:'nov12'},
+  {w:'to go to a concert',ph:'/tə ɡəʊ tə ə ˈkɒnsət/',t:'ein Konzert besuchen',ex:'"We went to a concert last night — it was amazing."',cat:'nov12'},
+  {w:'to take photos',ph:'/tə teɪk ˈfəʊtəʊz/',t:'Fotos machen',ex:'"She takes photos wherever she goes — she loves photography."',cat:'nov12'},
+
+  // --- 12.11 Careers advice – giving advice & suggestions ---
+  {w:'ought to',ph:'/ˈɔːt tə/',t:'sollte (Empfehlung / moralische Pflicht)',ex:'"You ought to update your LinkedIn profile before applying."',cat:'nov12'},
+  {w:'could',ph:'/kʊd/',t:'könntest (Vorschlag / Möglichkeit)',ex:'"You could think about meeting people who work in the industry."',cat:'nov12'},
+  {w:'How about + -ing',ph:'/haʊ əˈbaʊt/',t:'Was wäre mit ...? (Vorschlag)',ex:'"How about setting up your own website?"',cat:'nov12'},
+  {w:'Why don\'t you',ph:'/waɪ dəʊnt juː/',t:'Warum machst du nicht ...? (Vorschlag)',ex:'"Why don\'t you send an email to some companies?"',cat:'nov12'},
+  {w:'Why not try + -ing',ph:'/waɪ nɒt traɪ/',t:'Warum nicht versuchen ...? (Vorschlag)',ex:'"Why not try making a video for YouTube?"',cat:'nov12'},
+  {w:'What about + -ing',ph:'/wɒt əˈbaʊt/',t:'Was ist mit ...? (Vorschlag)',ex:'"What about asking your teacher for some help?"',cat:'nov12'},
+  {w:'transferable skills',ph:'/trænsˈfɜːrəbəl skɪlz/',t:'übertragbare Fähigkeiten (von Job zu Job)',ex:'"Football and writing show important transferable skills."',cat:'nov12'},
+  {w:'professional networking site',ph:'/prəˈfeʃənəl ˈnetwɜːkɪŋ saɪt/',t:'professionelle Netzwerkseite (z.B. LinkedIn)',ex:'"Make sure your professional networking profile is up to date."',cat:'nov12'},
+  {w:'noticeable',ph:'/ˈnəʊtɪsəbəl/',t:'auffällig / bemerkbar',ex:'"Make your profile more noticeable to employers."',cat:'nov12'},
+  {w:'to show your qualities',ph:'/tə ʃəʊ jɔː ˈkwɒlɪtɪz/',t:'seine Qualitäten zeigen / beweisen',ex:'"Give specific examples that show your qualities."',cat:'nov12'},
+  {w:'recent graduate',ph:'/ˈriːsənt ˈɡrædʒuɪt/',t:'frisch Absolvierter / Hochschulabsolvent',ex:'"As a recent graduate, he was looking for his first real job."',cat:'nov12'},
+  {w:'to make contacts',ph:'/tə meɪk ˈkɒntækts/',t:'Kontakte knüpfen',ex:'"I need to make contacts in the financial services industry."',cat:'nov12'},
+  {w:'volunteer work',ph:'/ˌvɒlənˈtɪə wɜːk/',t:'ehrenamtliche Arbeit / Freiwilligenarbeit',ex:'"Volunteer work shows employers you are motivated."',cat:'nov12'},
+
+  // --- 12.11 TOEFL – East African Herbivores (academic vocab) ---
+  {w:'herbivore',ph:'/ˈhɜːbɪvɔː/',t:'Pflanzenfresser',ex:'"Zebras and wildebeests are all herbivores — they eat only plants."',cat:'nov12'},
+  {w:'illusory',ph:'/ɪˈluːsəri/',t:'illusorisch / trügerisch (scheint so, ist aber nicht so)',ex:'"Their similar diet is illusory — they actually eat very different parts."',cat:'nov12'},
+  {w:'succulent',ph:'/ˈsʌkjʊlənt/',t:'saftig / nährstoffreich (Pflanze)',ex:'"The lower leaves are succulent and full of nutrients."',cat:'nov12'},
+  {w:'ruminant',ph:'/ˈruːmɪnənt/',t:'Wiederkäuer (Tier das Futter zurückwürgt)',ex:'"Cows and wildebeests are ruminants — they chew their food twice."',cat:'nov12'},
+  {w:'nonruminant',ph:'/nɒnˈruːmɪnənt/',t:'Nicht-Wiederkäuer (z.B. Pferd, Zebra)',ex:'"The zebra is a nonruminant — food passes quickly through its gut."',cat:'nov12'},
+  {w:'digestive system',ph:'/daɪˈdʒestɪv ˈsɪstəm/',t:'Verdauungssystem',ex:'"The two herbivores have very different digestive systems."',cat:'nov12'},
+  {w:'metabolic rate',ph:'/ˌmetəˈbɒlɪk reɪt/',t:'Stoffwechselrate',ex:'"Smaller animals have a higher metabolic rate than larger ones."',cat:'nov12'},
+  {w:'to regurgitate',ph:'/tə rɪˈɡɜːdʒɪteɪt/',t:'wiederkäuen / zurückwürgen',ex:'"Cows regurgitate food from their stomachs to chew it again."',cat:'nov12'},
+  {w:'migratory habits',ph:'/maɪˈɡreɪtəri ˈhæbɪts/',t:'Wandergewohnheiten / Migrationsverhalten',ex:'"Wildebeests follow the rainfall — their migratory habits are linked to food."',cat:'nov12'},
+  {w:'fastidious',ph:'/fæˈstɪdiəs/',t:'wählerisch / anspruchsvoll (beim Essen)',ex:'"The smaller, more fastidious feeders arrive after the zebras."',cat:'nov12'},
+  {w:'associated',ph:'/əˈsəʊʃieɪtɪd/',t:'verbunden / zusammenhängend',ex:'"The differences are associated with their body size and digestive systems."',cat:'nov12'},
+  {w:'provided that',ph:'/prəˈvaɪdɪd ðæt/',t:'vorausgesetzt dass / solange',ex:'"Smaller animals can survive provided that the food is of high energy content."',cat:'nov12'},
 ];
 
 const GRAMMATIK = [
