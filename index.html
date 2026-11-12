@@ -1569,6 +1569,8 @@ const VOKABELN = [
   {w:'to go for a walk',ph:'/tə ɡəʊ fɔːr ə wɔːk/',t:'spazieren gehen',ex:'"I go for a walk every evening after dinner."',cat:'nov12'},
   {w:'to go to a concert',ph:'/tə ɡəʊ tə ə ˈkɒnsət/',t:'ein Konzert besuchen',ex:'"We went to a concert last night — it was amazing."',cat:'nov12'},
   {w:'to take photos',ph:'/tə teɪk ˈfəʊtəʊz/',t:'Fotos machen',ex:'"She takes photos wherever she goes — she loves photography."',cat:'nov12'},
+  {w:'to be keen on (not in)',ph:'/tə biː kiːn ɒn/',t:'begeistert sein von — Präposition: ON (nicht in!)',ex:'"I\'m keen on photography." ✓ — "keen in" ✗',cat:'nov12'},
+  {w:'to do pottery',ph:'/tə duː ˈpɒtəri/',t:'Töpfern machen',ex:'"I want to take up pottery as a new hobby."',cat:'nov12'},
 
   // --- 12.11 Careers advice – giving advice & suggestions ---
   {w:'ought to',ph:'/ˈɔːt tə/',t:'sollte (Empfehlung / moralische Pflicht)',ex:'"You ought to update your LinkedIn profile before applying."',cat:'nov12'},
@@ -1667,6 +1669,45 @@ const GRAMMATIK = [
       {q:'Welcher Satz ist am dringendsten?',opts:['You should call her.','You ought to call her.','You\'d better call her now!','You can call her.'],a:2},
       {q:'Was drückt "You ought to see a doctor" aus?',opts:['Befehl','Dringender Rat','Allgemeiner Rat (etwas formell)','Verbot'],a:2},
       {q:'Kurzform von "You had better":',opts:['You\'ve better','You\'d better','You\'ll better','You better\'d'],a:1},
+    ]
+  },
+  {
+    icon:'💡', name:'Advice & Suggestions (Ratschläge & Vorschläge)', level:'B1',
+    rule:'Verschiedene Ausdrücke für Ratschläge und Vorschläge. Nach "should/ought to/could" folgt Infinitiv (ohne to). Nach "Why don\'t you / Why not try / How about / What about" folgt -ing. Nach "Why not" folgt Infinitiv (ohne to).',
+    examples:[
+      {en:'You should research the companies you\'re interested in.',de:'Du solltest die Firmen recherchieren, die dich interessieren. (should + Infinitiv)'},
+      {en:'You ought to spend some time improving your online profile.',de:'Du solltest etwas Zeit damit verbringen, dein Profil zu verbessern. (ought to + Infinitiv)'},
+      {en:'You could think about meeting people who work in the industry.',de:'Du könntest daran denken, Leute aus der Branche zu treffen. (could + Infinitiv)'},
+      {en:'Why don\'t you send an email to some companies?',de:'Warum schickst du nicht eine E-Mail an einige Firmen? (Why don\'t you + Infinitiv)'},
+      {en:'Why not try making a video for YouTube?',de:'Warum nicht versuchen, ein Video für YouTube zu machen? (Why not try + -ing)'},
+      {en:'How about setting up your own website?',de:'Was wäre damit, deine eigene Website aufzubauen? (How about + -ing)'},
+      {en:'What about asking your teacher for some help?',de:'Was ist damit, deinen Lehrer um Hilfe zu bitten? (What about + -ing)'},
+    ],
+    quizzes:[
+      {q:'Welche Form folgt nach "How about"?',opts:['Infinitiv (to + Verb)','Infinitiv (ohne to)','-ing Form','Past Simple'],a:2},
+      {q:'Welcher Satz ist korrekt?',opts:['Why don\'t you to send an email?','Why don\'t you sending an email?','Why don\'t you send an email?','Why don\'t you sent an email?'],a:2},
+      {q:'Was folgt nach "ought to"?',opts:['-ing Form','Infinitiv ohne to','Past Participle','Infinitiv mit to'],a:1},
+      {q:'Welcher Ausdruck ist am schwächsten / unverbindlichsten?',opts:['You had better','You should','You could','You ought to'],a:2},
+    ]
+  },
+  {
+    icon:'⚽', name:'Sport-Verben: do / play / go', level:'A2',
+    rule:'Im Englischen gibt es 3 verschiedene Verben für Sport und Freizeitaktivitäten. GO + -ing: Aktivitäten, bei denen man sich fortbewegt oder in der Natur ist. PLAY + Sportart/Spiel/Instrument: Mannschaftssport, Spiele mit Regeln, Musikinstrumente. DO + Einzelsport/Fitness: Kampfsport, Fitness, Yoga — oft alleine. Merke: "do chess" und "play yoga" sind FALSCH!',
+    examples:[
+      {en:'I go hiking / go swimming / go cycling every weekend.',de:'Ich gehe wandern / schwimmen / Rad fahren — go + -ing'},
+      {en:'She plays football / plays chess / plays the guitar.',de:'Sie spielt Fußball / Schach / Gitarre — play + Sportart/Spiel/Instrument'},
+      {en:'He does yoga / does karate / does Pilates every morning.',de:'Er macht Yoga / Karate / Pilates — do + Einzelsport/Fitness'},
+      {en:'"I enjoy doing chess." ✗ → "I enjoy playing chess." ✓',de:'Schach = Spiel → play (nicht do!)'},
+      {en:'"My sister plays yoga." ✗ → "My sister does yoga." ✓',de:'Yoga = Fitness/Einzelsport → do (nicht play!)'},
+      {en:'"We went for hiking." ✗ → "We went hiking." ✓',de:'go + -ing → kein "for" dazwischen!'},
+    ],
+    quizzes:[
+      {q:'Welches Verb? "She ___ yoga every morning."',opts:['goes','plays','does','makes'],a:2},
+      {q:'Welches Verb? "They ___ football every Saturday."',opts:['do','go','make','play'],a:3},
+      {q:'Welches Verb? "Let\'s ___ swimming at the lake."',opts:['do','play','go','make'],a:2},
+      {q:'Welches Verb? "He ___ karate since he was seven."',opts:['plays','goes','does','makes'],a:2},
+      {q:'Welcher Satz ist korrekt?',opts:['She does basketball.','She plays basketball.','She goes basketball.','She makes basketball.'],a:1},
+      {q:'Welcher Satz ist korrekt?',opts:['We went for hiking.','We did hiking.','We played hiking.','We went hiking.'],a:3},
     ]
   },
   {
@@ -3899,6 +3940,8 @@ function copyTranslation() {
         <div class="gc"><div class="gc-name c2">Relative Clause</div><div class="gc-formula">… who / which / that + V …</div><div class="gc-ex"><strong>"The man who called is my boss."</strong></div><div class="gc-ex-de">„Der Mann, der angerufen hat, ist mein Chef."</div><div class="gc-de">who = Personen · which = Dinge · that = beides</div></div>
         <div class="gc"><div class="gc-name c2">Contact Clause</div><div class="gc-formula">… (ohne Relativpronomen) + V …</div><div class="gc-ex"><strong>"The book (that) I read was great."</strong></div><div class="gc-ex-de">„Das Buch, das ich gelesen habe, war toll."</div><div class="gc-de">Relativpronomen kann wegfallen, wenn es Objekt ist</div></div>
         <div class="gc"><div class="gc-name c2">Participle Construction</div><div class="gc-formula">V-ing / V3 … (statt Relativsatz)</div><div class="gc-ex"><strong>"The woman sitting there is my teacher."</strong></div><div class="gc-ex-de">„Die Frau, die dort sitzt, ist meine Lehrerin."</div><div class="gc-de">Kurzform des Relativsatzes · formeller Stil</div></div>
+        <div class="gc"><div class="gc-name c2">Sport-Verben: do / play / go</div><div class="gc-formula">GO + -ing · PLAY + Spiel/Instrument · DO + Fitness/Kampfsport</div><div class="gc-ex"><strong>"I go hiking / play chess / do yoga."</strong></div><div class="gc-ex-de">„go + -ing · play + Sportart · do + Einzelsport"</div><div class="gc-de">go hiking ✓ — go for hiking ✗ · play chess ✓ — do chess ✗ · do yoga ✓ — play yoga ✗</div><span class="gc-chip c2s">go -ing · play Spiel · do Fitness</span></div>
+        <div class="gc"><div class="gc-name c2">Advice &amp; Suggestions</div><div class="gc-formula">should/ought to/could + V · Why don't you + V · How about/What about + -ing</div><div class="gc-ex"><strong>"Why don't you send an email to some companies?"</strong></div><div class="gc-ex-de">„Warum schickst du nicht eine E-Mail an einige Firmen?"</div><div class="gc-ex"><strong>"How about setting up your own website?"</strong></div><div class="gc-ex-de">„Was wäre damit, deine eigene Website aufzubauen?"</div><div class="gc-ex"><strong>"You ought to spend time improving your profile."</strong></div><div class="gc-ex-de">„Du solltest Zeit damit verbringen, dein Profil zu verbessern."</div><div class="gc-de">should/ought to/could + Infinitiv · Why don't you + Infinitiv · How about/What about/Why not try + -ing</div><span class="gc-chip c2s">could (schwach) · should · ought to · had better (dringend)</span></div>
       </div>
     </div>
 
