@@ -394,6 +394,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
         <button class="vf" onclick="filterVok(this,'nov10')">🗣️ 10.11 – Small Talk & Frequency</button>
         <button class="vf" onclick="filterVok(this,'nov11')">😤 11.11 – Emotions & Presentations</button>
         <button class="vf" onclick="filterVok(this,'nov12')">🧘 12.11 – Leisure & Careers</button>
+        <button class="vf" onclick="filterVok(this,'nov13')">🏢 13.11 – Human Resources & IELTS</button>
       </div>
 
       <div class="vok-progress" id="vok-prog"></div>
@@ -426,6 +427,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
                 <option value="nov10">🗣️ 10.11 – Small Talk & Frequency</option>
                 <option value="nov11">😤 11.11 – Emotions &amp; Presentations</option>
                 <option value="nov12">🧘 12.11 – Leisure &amp; Careers</option>
+                <option value="nov13">🏢 13.11 – Human Resources &amp; IELTS</option>
                 <option value="nov06">💬 06.11 – Giving Opinions</option>
                 <option value="unit8b">💬 Unit 8B – Comment Adverbs</option>
                 <option value="generations">👨‍👩‍👧 Generationen</option>
@@ -1600,6 +1602,60 @@ const VOKABELN = [
   {w:'fastidious',ph:'/fæˈstɪdiəs/',t:'wählerisch / anspruchsvoll (beim Essen)',ex:'"The smaller, more fastidious feeders arrive after the zebras."',cat:'nov12'},
   {w:'associated',ph:'/əˈsəʊʃieɪtɪd/',t:'verbunden / zusammenhängend',ex:'"The differences are associated with their body size and digestive systems."',cat:'nov12'},
   {w:'provided that',ph:'/prəˈvaɪdɪd ðæt/',t:'vorausgesetzt dass / solange',ex:'"Smaller animals can survive provided that the food is of high energy content."',cat:'nov12'},
+
+  // ============================================================
+  // 13.11.2026 – Human Resources & IELTS Speaking
+  // ============================================================
+
+  // --- Unit 8: Human Resources – Faktoren für Jobsuche ---
+  {w:'appearance',ph:'/əˈpɪərəns/',t:'Äußeres / Erscheinungsbild',ex:'"Appearance is the first thing people notice in a job interview."',cat:'nov13'},
+  {w:'intelligence',ph:'/ɪnˈtelɪdʒəns/',t:'Intelligenz',ex:'"Intelligence alone is not enough — personality matters too."',cat:'nov13'},
+  {w:'references',ph:'/ˈrefərənsɪz/',t:'Referenzen / Empfehlungsschreiben',ex:'"Please provide two references from previous employers."',cat:'nov13'},
+  {w:'blood group',ph:'/blʌd ɡruːp/',t:'Blutgruppe',ex:'"Your blood group is not relevant for most job applications."',cat:'nov13'},
+  {w:'marital status',ph:'/ˈmærɪtəl ˈsteɪtəs/',t:'Familienstand (ledig, verheiratet...)',ex:'"Marital status should not affect your chances of getting a job."',cat:'nov13'},
+  {w:'sickness record',ph:'/ˈsɪknəs ˈrekɔːd/',t:'Krankheitshistorie / Fehlzeiten',ex:'"Some employers look at your sickness record before hiring you."',cat:'nov13'},
+  {w:'contacts / connections',ph:'/ˈkɒntækts kəˈnekʃənz/',t:'Kontakte / Verbindungen (Netzwerk)',ex:'"Having good contacts in the industry can open many doors."',cat:'nov13'},
+  {w:'astrological sign',ph:'/ˌæstrəˈlɒdʒɪkəl saɪn/',t:'Sternzeichen',ex:'"Your astrological sign has nothing to do with your job performance!"',cat:'nov13'},
+  {w:'family background',ph:'/ˈfæməli ˈbækɡraʊnd/',t:'familiärer Hintergrund / Herkunft',ex:'"Family background should never be a reason to reject a candidate."',cat:'nov13'},
+  {w:'qualifications',ph:'/ˌkwɒlɪfɪˈkeɪʃənz/',t:'Qualifikationen / Abschlüsse',ex:'"She has all the qualifications needed for the position."',cat:'nov13'},
+  {w:'handwriting',ph:'/ˈhændraɪtɪŋ/',t:'Handschrift',ex:'"Some older companies still ask for a handwritten letter of application."',cat:'nov13'},
+  {w:'to employ',ph:'/tə ɪmˈplɔɪ/',t:'einstellen / beschäftigen',ex:'"The company employs over 500 people worldwide."',cat:'nov13'},
+  {w:'human resources',ph:'/ˈhjuːmən rɪˈzɔːsɪz/',t:'Personalwesen / HR-Abteilung',ex:'"Please send your application directly to human resources."',cat:'nov13'},
+
+  // --- IELTS Speaking: Famous people & public eye ---
+  {w:'well-known',ph:'/ˌwelˈnəʊn/',t:'bekannt / berühmt',ex:'"She is a well-known actress in her home country."',cat:'nov13'},
+  {w:'to admire',ph:'/tə ədˈmaɪə/',t:'bewundern / verehren',ex:'"I admire people who work hard and stay humble."',cat:'nov13'},
+  {w:'achievement',ph:'/əˈtʃiːvmənt/',t:'Leistung / Errungschaft',ex:'"Winning three Olympic medals is an incredible achievement."',cat:'nov13'},
+  {w:'to become famous',ph:'/tə bɪˈkʌm ˈfeɪməs/',t:'berühmt werden',ex:'"Many young people dream of becoming famous on social media."',cat:'nov13'},
+  {w:'public eye',ph:'/ˈpʌblɪk aɪ/',t:'Öffentlichkeit / im Rampenlicht',ex:'"Being in the public eye means you have no private life."',cat:'nov13'},
+  {w:'disadvantage',ph:'/ˌdɪsədˈvɑːntɪdʒ/',t:'Nachteil',ex:'"One disadvantage of being famous is the constant media attention."',cat:'nov13'},
+  {w:'ordinary people',ph:'/ˈɔːdɪnəri ˈpiːpəl/',t:'gewöhnliche Menschen / Normalbürger',ex:'"Ordinary people are often fascinated by the lives of celebrities."',cat:'nov13'},
+  {w:'national anthem',ph:'/ˈnæʃənəl ˈænθəm/',t:'Nationalhymne',ex:'"The national anthem is played at the start of every Olympic ceremony."',cat:'nov13'},
+
+  // --- IELTS Speaking: Entertainment, Friends & Relationships ---
+  {w:'entertainment',ph:'/ˌentəˈteɪnmənt/',t:'Unterhaltung / Freizeitangebot',ex:'"There is plenty of entertainment in Berlin — concerts, museums and clubs."',cat:'nov13'},
+  {w:'to break up',ph:'/tə breɪk ʌp/',t:'sich trennen / zerbrechen (Freundschaft/Beziehung)',ex:'"Their friendship broke up after a serious argument."',cat:'nov13'},
+  {w:'relationship',ph:'/rɪˈleɪʃənʃɪp/',t:'Beziehung / Verhältnis',ex:'"A good relationship with your colleagues makes work much easier."',cat:'nov13'},
+  {w:'to spend time alone',ph:'/tə spend taɪm əˈləʊn/',t:'Zeit alleine verbringen',ex:'"It is important to spend some time alone to recharge your energy."',cat:'nov13'},
+  {w:'qualities of a friend',ph:'/ˈkwɒlɪtɪz əv ə frend/',t:'Eigenschaften eines Freundes',ex:'"Loyalty and honesty are the most important qualities of a friend."',cat:'nov13'},
+
+  // --- IELTS Speaking: Colours & Music ---
+  {w:'favourite',ph:'/ˈfeɪvərɪt/',t:'Liebling- / bevorzugt',ex:'"What is your favourite type of music?"',cat:'nov13'},
+  {w:'traditional music',ph:'/trəˈdɪʃənəl ˈmjuːzɪk/',t:'traditionelle Musik / Volksmusik',ex:'"Turkey has a rich tradition of folk and traditional music."',cat:'nov13'},
+  {w:'to influence',ph:'/tə ˈɪnfluəns/',t:'beeinflussen',ex:'"Technology has greatly influenced the kind of music young people listen to."',cat:'nov13'},
+  {w:'taste in music',ph:'/teɪst ɪn ˈmjuːzɪk/',t:'Musikgeschmack',ex:'"Your taste in music often reflects your personality."',cat:'nov13'},
+  {w:'musical traditions',ph:'/ˈmjuːzɪkəl trəˈdɪʃənz/',t:'musikalische Traditionen',ex:'"Every culture has its own musical traditions passed down through generations."',cat:'nov13'},
+  {w:'special meaning',ph:'/ˈspeʃəl ˈmiːnɪŋ/',t:'besondere Bedeutung',ex:'"Red has a special meaning in many Asian cultures — it symbolises luck."',cat:'nov13'},
+
+  // --- Stop and Check 1: Brief + Gary Kasparov ---
+  {w:'sightseeing',ph:'/ˈsaɪtsiːɪŋ/',t:'Sightseeing / Sehenswürdigkeiten besichtigen',ex:'"We spent the afternoon sightseeing in York."',cat:'nov13'},
+  {w:'embarrassing',ph:'/ɪmˈbærəsɪŋ/',t:'peinlich / unangenehm',ex:'"Forgetting my purse at the shop was really embarrassing."',cat:'nov13'},
+  {w:'department store',ph:'/dɪˈpɑːtmənt stɔː/',t:'Kaufhaus',ex:'"I saw a beautiful sweater in a department store."',cat:'nov13'},
+  {w:'cathedral',ph:'/kəˈθiːdrəl/',t:'Dom / Kathedrale',ex:'"York Minster is one of the most beautiful cathedrals in England."',cat:'nov13'},
+  {w:'coincidence',ph:'/kəʊˈɪnsɪdəns/',t:'Zufall / Koinzidenz',ex:'"What a coincidence — we were at the same concert!"',cat:'nov13'},
+  {w:'to rebuild',ph:'/tə riːˈbɪld/',t:'wieder aufbauen / restaurieren',ex:'"They rebuilt the cathedral after the fire in 1984."',cat:'nov13'},
+  {w:'Grand Master',ph:'/ɡrænd ˈmɑːstə/',t:'Großmeister (Schach)',ex:'"Kasparov became an international Grand Master at the age of 17."',cat:'nov13'},
+  {w:'chess champion',ph:'/tʃes ˈtʃæmpiən/',t:'Schachweltmeister',ex:'"He has been the world chess champion since 1984."',cat:'nov13'},
 ];
 
 const GRAMMATIK = [
