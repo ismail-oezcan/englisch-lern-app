@@ -3142,7 +3142,7 @@ function initChallenge() {
   const best = parseInt(localStorage.getItem('dq-best')||'0');
   document.getElementById('s-streak').textContent = streak;
   document.getElementById('s-best').textContent = best + '/10';
-  document.getElementById('s-total').textContent = VOK.length;
+  document.getElementById('s-total').textContent = VOKABELN.length;
   // Banner & done-msg
   const todayKey = new Date().toISOString().slice(0,10);
   const lastDone = localStorage.getItem('dq-last-done') || '';
@@ -3194,7 +3194,7 @@ function buildDailyQuestions(n) {
   const pool = [];
 
   // Vokabeln in Pool mit Gewichtung eintragen
-  VOK.forEach(v => {
+  VOKABELN.forEach(v => {
     const isWeak = weakWords.has(v.w);
     const weight = isWeak ? 3 : 1; // schwache Wörter 3× wahrscheinlicher
     for (let i = 0; i < weight; i++) {
@@ -3216,8 +3216,8 @@ function buildDailyQuestions(n) {
 
   const qs = [];
   selectedWords.forEach(v => {
-    const distractorsDE = shuffle(VOK.filter(x => x.w !== v.w)).slice(0,3).map(x => x.t);
-    const distractorsEN = shuffle(VOK.filter(x => x.w !== v.w)).slice(0,3).map(x => x.w);
+    const distractorsDE = shuffle(VOKABELN.filter(x => x.w !== v.w)).slice(0,3).map(x => x.t);
+    const distractorsEN = shuffle(VOKABELN.filter(x => x.w !== v.w)).slice(0,3).map(x => x.w);
     // EN → DE
     const optsDE = shuffle([v.t, ...distractorsDE]);
     qs.push({ type:'vok', dir:'en-de', q: v.w, word: v.w, opts: optsDE, a: optsDE.indexOf(v.t), ph: v.ph||'' });
@@ -3347,7 +3347,7 @@ function nextCQ() {
 /* ---- FLASHCARDS ---- */
 function startFlashcards() {
   try {
-  const cards = shuffle(VOK).slice(0, 15);
+  const cards = shuffle(VOKABELN).slice(0, 15);
   if (!cards || cards.length === 0) { alert('Keine Vokabeln gefunden.'); return; }
   fcState = { idx:0, flipped:false, cards, known:0 };
   document.getElementById('ch-start').style.display = 'none';
