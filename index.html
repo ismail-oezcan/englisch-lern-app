@@ -395,6 +395,8 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
         <button class="vf" onclick="filterVok(this,'nov11')">😤 11.11 – Emotions & Presentations</button>
         <button class="vf" onclick="filterVok(this,'nov12')">🧘 12.11 – Leisure & Careers</button>
         <button class="vf" onclick="filterVok(this,'nov13')">🏢 13.11 – Human Resources & IELTS</button>
+        <button class="vf" onclick="filterVok(this,'nov15')">🎉 15.11 – Social Life & Night Out</button>
+        <button class="vf" onclick="filterVok(this,'nov16')">🇮🇳 16.11 – International India</button>
       </div>
 
       <div class="vok-progress" id="vok-prog"></div>
@@ -428,6 +430,8 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
                 <option value="nov11">😤 11.11 – Emotions &amp; Presentations</option>
                 <option value="nov12">🧘 12.11 – Leisure &amp; Careers</option>
                 <option value="nov13">🏢 13.11 – Human Resources &amp; IELTS</option>
+                <option value="nov15">🎉 15.11 – Social Life &amp; Night Out</option>
+                <option value="nov16">🇮🇳 16.11 – International India</option>
                 <option value="nov06">💬 06.11 – Giving Opinions</option>
                 <option value="unit8b">💬 Unit 8B – Comment Adverbs</option>
                 <option value="generations">👨‍👩‍👧 Generationen</option>
@@ -1656,6 +1660,56 @@ const VOKABELN = [
   {w:'to rebuild',ph:'/tə riːˈbɪld/',t:'wieder aufbauen / restaurieren',ex:'"They rebuilt the cathedral after the fire in 1984."',cat:'nov13'},
   {w:'Grand Master',ph:'/ɡrænd ˈmɑːstə/',t:'Großmeister (Schach)',ex:'"Kasparov became an international Grand Master at the age of 17."',cat:'nov13'},
   {w:'chess champion',ph:'/tʃes ˈtʃæmpiən/',t:'Schachweltmeister',ex:'"He has been the world chess champion since 1984."',cat:'nov13'},
+
+  // nov15 – Social Life & Night Out (15.11.2026)
+  {w:'to go to the cinema',ph:'/tə ɡəʊ tə ðə ˈsɪnəmə/',t:'ins Kino gehen',ex:'"Do you want to go to the cinema tonight?"',cat:'nov15'},
+  {w:'to go to a private party',ph:'/tə ɡəʊ tə ə ˈpraɪvɪt ˈpɑːti/',t:'auf eine private Party gehen',ex:'"She went to a private party at her friend\'s house."',cat:'nov15'},
+  {w:'to watch live music',ph:'/tə wɒtʃ laɪv ˈmjuːzɪk/',t:'Live-Musik hören / anschauen',ex:'"We watched live music at the jazz bar last Friday."',cat:'nov15'},
+  {w:'to go clubbing',ph:'/tə ɡəʊ ˈklʌbɪŋ/',t:'in den Club gehen / feiern gehen',ex:'"They go clubbing every Saturday night."',cat:'nov15'},
+  {w:'to stay out late',ph:'/tə steɪ aʊt leɪt/',t:'lange wegbleiben / bis spät draußen sein',ex:'"My parents don\'t like it when I stay out late."',cat:'nov15'},
+  {w:'to go out for a coffee',ph:'/tə ɡəʊ aʊt fɔː ə ˈkɒfi/',t:'auf einen Kaffee ausgehen',ex:'"Let\'s go out for a coffee after work."',cat:'nov15'},
+  {w:'to have dinner in a restaurant',ph:'/tə hæv ˈdɪnə ɪn ə ˈrestrɒnt/',t:'in einem Restaurant essen gehen',ex:'"They had dinner in a restaurant to celebrate their anniversary."',cat:'nov15'},
+  {w:'to go to a bar',ph:'/tə ɡəʊ tə ə bɑː/',t:'in eine Bar gehen',ex:'"After work, some colleagues went to a bar for a drink."',cat:'nov15'},
+  {w:'to go driving around town',ph:'/tə ɡəʊ ˈdraɪvɪŋ əˈraʊnd taʊn/',t:'durch die Stadt fahren / cruisen',ex:'"On warm evenings, young people like going driving around town."',cat:'nov15'},
+  {w:'to go home early',ph:'/tə ɡəʊ həʊm ˈɜːli/',t:'früh nach Hause gehen',ex:'"I had to go home early because I had work the next morning."',cat:'nov15'},
+  {w:'to go dancing',ph:'/tə ɡəʊ ˈdɑːnsɪŋ/',t:'tanzen gehen',ex:'"She loves going dancing with her friends on weekends."',cat:'nov15'},
+  {w:'to go to a karaoke bar',ph:'/tə ɡəʊ tə ə ˌkæriˈəʊki bɑː/',t:'in eine Karaoke-Bar gehen',ex:'"Going to a karaoke bar is very popular in East Asia."',cat:'nov15'},
+  {w:'to go for a walk',ph:'/tə ɡəʊ fɔː ə wɔːk/',t:'spazieren gehen',ex:'"After dinner, we went for a walk along the river."',cat:'nov15'},
+  {w:'to grab a snack',ph:'/tə ɡræb ə snæk/',t:'sich einen Snack holen / schnell etwas essen',ex:'"We grabbed a snack from the food stall before the concert."',cat:'nov15'},
+  {w:'to hit the bars',ph:'/tə hɪt ðə bɑːz/',t:'die Bars unsicher machen / Bars besuchen',ex:'"After the football match, the fans hit the bars to celebrate."',cat:'nov15'},
+  {w:'outrageous',ph:'/aʊtˈreɪdʒəs/',t:'unerhört / empörend / wild',ex:'"The prices in that nightclub were absolutely outrageous!"',cat:'nov15'},
+  {w:'to make excuses',ph:'/tə meɪk ɪkˈskjuːzɪz/',t:'Ausreden machen / sich herausreden',ex:'"He always makes excuses when he doesn\'t want to come out."',cat:'nov15'},
+  {w:'to head down to',ph:'/tə hed daʊn tə/',t:'sich auf den Weg machen zu / hinuntergehen zu',ex:'"Let\'s head down to the seafront for a walk."',cat:'nov15'},
+  {w:'the mainland',ph:'/ðə ˈmeɪnlænd/',t:'das Festland',ex:'"People on the island take a ferry to reach the mainland."',cat:'nov15'},
+  {w:'nightlife',ph:'/ˈnaɪtlaɪf/',t:'Nachtleben',ex:'"Beijing has a very exciting nightlife with many options."',cat:'nov15'},
+  {w:'social norms',ph:'/ˈsəʊʃəl nɔːmz/',t:'soziale Normen / gesellschaftliche Regeln',ex:'"Social norms around going out vary a lot between cultures."',cat:'nov15'},
+  {w:'custom',ph:'/ˈkʌstəm/',t:'Brauch / Gewohnheit / Tradition',ex:'"It\'s a custom in many countries to go out for a family meal on Sundays."',cat:'nov15'},
+
+  // nov16 – International India + Whiteboard (16.11.2026)
+  {w:'circumstances',ph:'/ˈsɜːkəmstənsɪz/',t:'Umstände / Verhältnisse',ex:'"Under normal circumstances, the meeting would take place in person."',cat:'nov16'},
+  {w:'to make an impact',ph:'/tə meɪk ən ˈɪmpækt/',t:'einen Eindruck / eine Wirkung hinterlassen',ex:'"Her speech really made an impact on the whole audience."',cat:'nov16'},
+  {w:'credibility',ph:'/ˌkredɪˈbɪlɪti/',t:'Glaubwürdigkeit',ex:'"A presenter loses credibility if they don\'t know their topic well."',cat:'nov16'},
+  {w:'audience',ph:'/ˈɔːdiəns/',t:'Publikum / Zuhörer',ex:'"The audience applauded at the end of the presentation."',cat:'nov16'},
+  {w:'prospects',ph:'/ˈprɒspekts/',t:'Aussichten / Chancen',ex:'"Her job prospects improved after she learned a second language."',cat:'nov16'},
+  {w:'to accommodate',ph:'/tə əˈkɒmədeɪt/',t:'unterbringen / berücksichtigen / anpassen',ex:'"The hotel can accommodate up to 200 guests."',cat:'nov16'},
+  {w:'fierce',ph:'/fɪəs/',t:'heftig / stark / wild',ex:'"There is fierce competition for jobs in this industry."',cat:'nov16'},
+  {w:'to cram',ph:'/tə kræm/',t:'pauken / vollstopfen',ex:'"I always cram the night before an exam."',cat:'nov16'},
+  {w:'diaspora',ph:'/daɪˈæspərə/',t:'Diaspora (Menschen fern ihrer Heimat)',ex:'"India has the world\'s largest diaspora with 18 million people abroad."',cat:'nov16'},
+  {w:'testament',ph:'/ˈtestəmənt/',t:'Beweis / Zeugnis (für etwas)',ex:'"Her success is a testament to years of hard work."',cat:'nov16'},
+  {w:'spouse',ph:'/spaʊs/',t:'Ehepartner / Ehepartnerin',ex:'"You can add your spouse to your health insurance plan."',cat:'nov16'},
+  {w:'gap',ph:'/ɡæp/',t:'Lücke / Unterschied / Kluft',ex:'"There is still a big gap between rich and poor in many countries."',cat:'nov16'},
+  {w:'volunteer',ph:'/ˌvɒlənˈtɪə/',t:'Freiwillige(r) / ehrenamtlich tätig sein',ex:'"She volunteers at a local food bank every weekend."',cat:'nov16'},
+  {w:'STEM',ph:'/stem/',t:'Naturwissenschaften, Technik, Ingenieurwesen, Mathe (Abk.)',ex:'"More women are now working in STEM subjects than 20 years ago."',cat:'nov16'},
+  {w:'board member',ph:'/bɔːd ˈmembə/',t:'Vorstandsmitglied',ex:'"He became a board member of the company after 10 years."',cat:'nov16'},
+  {w:'outlet',ph:'/ˈaʊtlet/',t:'Ventil / Möglichkeit / Auslass',ex:'"Sport is a good outlet for stress."',cat:'nov16'},
+  {w:'to decrease',ph:'/tə dɪˈkriːs/',t:'abnehmen / sinken / verringern',ex:'"The number of students has decreased over the last five years."',cat:'nov16'},
+  {w:'financial',ph:'/faɪˈnænʃəl/',t:'finanziell',ex:'"They are in a difficult financial situation at the moment."',cat:'nov16'},
+  {w:'ridiculous',ph:'/rɪˈdɪkjʊləs/',t:'lächerlich / absurd',ex:'"It is ridiculous to pay that much for a cup of coffee."',cat:'nov16'},
+  {w:'reckless',ph:'/ˈrekləs/',t:'rücksichtslos / leichtsinnig',ex:'"Driving too fast in the city is reckless and dangerous."',cat:'nov16'},
+  {w:'straight away',ph:'/streɪt əˈweɪ/',t:'sofort / gleich',ex:'"Call me straight away if anything goes wrong."',cat:'nov16'},
+  {w:'origins',ph:'/ˈɒrɪdʒɪnz/',t:'Ursprünge / Herkunft',ex:'"Despite its Hindu origins, Holi is now celebrated worldwide."',cat:'nov16'},
+  {w:'increasingly',ph:'/ɪnˈkriːsɪŋli/',t:'zunehmend / immer mehr',ex:'"English is increasingly important in international business."',cat:'nov16'},
+  {w:'gross domestic product',ph:'/ɡrəʊs dəˈmestɪk ˈprɒdʌkt/',t:'Bruttoinlandsprodukt (BIP)',ex:'"Remittances account for 3.5 per cent of India\'s gross domestic product."',cat:'nov16'},
 ];
 
 const GRAMMATIK = [
@@ -1788,6 +1842,26 @@ const GRAMMATIK = [
       {q:'"We caught up ___ our old friends." — Was fehlt?',opts:['to','with','for','about'],a:1},
       {q:'"I make time ___ my hobbies." — Welche Präposition?',opts:['to','for','with','of'],a:1},
       {q:'"He enjoys ___ chess on rainy days." — Welches Verb?',opts:['doing','making','going','playing'],a:3},
+    ]
+  },
+  {
+    icon:'🤝', name:'Polite Requests: Will & Shall', level:'A2',
+    rule:'Will you…? = Höfliche Bitte (du tust etwas für mich). Shall I…? = Angebot machen (ich tue etwas für dich). Shall we…? = Vorschlag (wir tun etwas zusammen). Wichtig: "Shall" wird fast nur mit I und we benutzt. "Will" für alle anderen Personen bei Bitten.',
+    examples:[
+      {en:'"Will you close the window, please?"',de:'Kannst du bitte das Fenster schließen? → Bitte an die andere Person'},
+      {en:'"Will you help me with this exercise?"',de:'Kannst du mir bei dieser Aufgabe helfen? → direkte höfliche Bitte'},
+      {en:'"Shall I get you a coffee?"',de:'Soll ich dir einen Kaffee holen? → Angebot von mir'},
+      {en:'"Shall I open the door for you?"',de:'Soll ich die Tür für dich aufmachen? → spontanes Angebot'},
+      {en:'"Shall we go out tonight?"',de:'Sollen wir heute Abend ausgehen? → gemeinsamer Vorschlag'},
+      {en:'"Shall we meet at eight?"',de:'Treffen wir uns um acht? → Vorschlag für eine Verabredung'},
+    ],
+    quizzes:[
+      {q:'"___ you pass me the salt, please?" — Höfliche Bitte',opts:['Shall','Will','Would','Should'],a:1},
+      {q:'"___ I call a taxi for you?" — Angebot machen',opts:['Will','Should','Shall','Would'],a:2},
+      {q:'"___ we go to the cinema tonight?" — Vorschlag',opts:['Will','Shall','Should','Would'],a:1},
+      {q:'Welcher Satz ist FALSCH?',opts:['"Will you help me?','Shall I help you?','"Shall you close the door?"','"Shall we meet later?"'],a:2},
+      {q:'"Shall I…?" bedeutet:',opts:['Ich möchte etwas tun','Ich biete etwas an','Ich frage ob du etwas tun kannst','Ich gebe einen Ratschlag'],a:1},
+      {q:'Welches Wort benutzt man NICHT mit "Shall"?',opts:['I','we','they','Alle sind möglich'],a:2},
     ]
   },
   {
@@ -4023,6 +4097,7 @@ function copyTranslation() {
         <div class="gc"><div class="gc-name c2">Sport-Verben: do / play / go</div><div class="gc-formula">GO + -ing · PLAY + Spiel/Instrument · DO + Fitness/Kampfsport</div><div class="gc-ex"><strong>"I go hiking / play chess / do yoga."</strong></div><div class="gc-ex-de">„go + -ing · play + Sportart · do + Einzelsport"</div><div class="gc-de">go hiking ✓ — go for hiking ✗ · play chess ✓ — do chess ✗ · do yoga ✓ — play yoga ✗</div><span class="gc-chip c2s">go -ing · play Spiel · do Fitness</span></div>
         <div class="gc"><div class="gc-name c2">Satzbau: Die 4 häufigsten Fehler</div><div class="gc-formula">S + V + O · Do/Does/Did + S + V? · don't/doesn't/didn't + V · Simple Present vs. Progressive</div><div class="gc-ex"><strong>"I go to school every day." ✓ — "I go every day to school." ✗</strong></div><div class="gc-ex-de">„Deutsch: Verb kann ans Ende — Englisch: Verb bleibt auf Platz 2"</div><div class="gc-ex"><strong>"Do you like coffee?" ✓ — "You like coffee?" ✗</strong></div><div class="gc-ex-de">„Fragen immer mit Do/Does/Did beginnen (außer bei be/have)"</div><div class="gc-ex"><strong>"I don't know." ✓ — "I know not." ✗</strong></div><div class="gc-ex-de">„Verneinung: don't/doesn't/didn't + Grundform"</div><div class="gc-ex"><strong>"I work here." (Fakt) vs. "I am working now." (gerade jetzt)</strong></div><div class="gc-ex-de">„Simple Present = Gewohnheit · Progressive = gerade passierend"</div><div class="gc-de">1. Wortstellung: S+V+O · 2. Fragen: Do/Does/Did · 3. Verneinung: don't/doesn't · 4. Zeiten: Simple vs. -ing</div><span class="gc-chip c2s">S + V + O · Do? · don't · -ing jetzt</span></div>
         <div class="gc"><div class="gc-name c2">Advice &amp; Suggestions</div><div class="gc-formula">should/ought to/could + V · Why don't you + V · How about/What about + -ing</div><div class="gc-ex"><strong>"Why don't you send an email to some companies?"</strong></div><div class="gc-ex-de">„Warum schickst du nicht eine E-Mail an einige Firmen?"</div><div class="gc-ex"><strong>"How about setting up your own website?"</strong></div><div class="gc-ex-de">„Was wäre damit, deine eigene Website aufzubauen?"</div><div class="gc-ex"><strong>"You ought to spend time improving your profile."</strong></div><div class="gc-ex-de">„Du solltest Zeit damit verbringen, dein Profil zu verbessern."</div><div class="gc-de">should/ought to/could + Infinitiv · Why don't you + Infinitiv · How about/What about/Why not try + -ing</div><span class="gc-chip c2s">could (schwach) · should · ought to · had better (dringend)</span></div>
+        <div class="gc"><div class="gc-name c2">Polite Requests: Will &amp; Shall</div><div class="gc-formula">Will you + V? (Bitte) · Shall I/we + V? (Angebot / Vorschlag)</div><div class="gc-ex"><strong>"Will you close the window, please?" ✓</strong></div><div class="gc-ex-de">„Kannst du bitte das Fenster schließen?" — Höfliche Bitte an jemanden</div><div class="gc-ex"><strong>"Shall I get you a coffee?" ✓</strong></div><div class="gc-ex-de">„Soll ich dir einen Kaffee holen?" — Angebot machen</div><div class="gc-ex"><strong>"Shall we go out tonight?" ✓</strong></div><div class="gc-ex-de">„Sollen wir heute Abend ausgehen?" — Vorschlag für gemeinsame Aktivität</div><div class="gc-de">will you = Bitte (du tust etwas) · shall I = Angebot (ich tue etwas) · shall we = Vorschlag (wir tun etwas zusammen)</div><span class="gc-chip c2s">Will you? (Bitte) · Shall I? (Angebot) · Shall we? (Vorschlag)</span></div>
       </div>
     </div>
 
