@@ -281,11 +281,19 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 
     <!-- HOME -->
     <div class="screen active" id="sc-home">
+      <!-- Tages-Lern-Banner -->
+      <div id="daily-banner" style="display:none;background:linear-gradient(135deg,var(--accent) 0%,#2a52a0 100%);border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;cursor:pointer" onclick="go('challenge')">
+        <div style="font-size:28px">🎯</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:700;color:#fff">Heute noch nicht geübt!</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.8);margin-top:2px">Tägliches Quiz starten →</div>
+        </div>
+        <div style="font-size:18px">→</div>
+      </div>
       <div class="hero">
         <div class="hero-lbl">Heute</div>
         <h2 id="home-day">Donnerstag</h2>
         <p>Kurs: 09:30–15:00 Uhr · BSE Wallstr. 65</p>
-
       </div>
 
       <div class="sec-lbl">Kursende in</div>
@@ -517,36 +525,78 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 
     <!-- CHALLENGE -->
     <div class="screen" id="sc-challenge">
-      <div class="challenge-card">
-        <div class="ch-icon">🎯</div>
-        <div class="ch-title">Tages-Challenge</div>
-        <div class="ch-sub" id="ch-date">Donnerstag, 15. Oktober</div>
-        <button class="ch-btn" onclick="startChallenge()">Challenge starten</button>
+
+      <!-- START-SCREEN -->
+      <div id="ch-start">
+        <div class="challenge-card">
+          <div class="ch-icon">🎯</div>
+          <div class="ch-title">Tages-Quiz</div>
+          <div class="ch-sub" id="ch-date">Montag, 16. November</div>
+          <div id="ch-done-msg" style="display:none;font-size:13px;color:rgba(255,255,255,0.9);margin-bottom:10px">✅ Heute bereits geübt!</div>
+          <button class="ch-btn" onclick="startDailyQuiz()">📝 Quiz starten (10 Fragen)</button>
+        </div>
+        <div class="challenge-card" style="background:linear-gradient(135deg,#2e7d32 0%,#43a047 100%);margin-top:12px">
+          <div class="ch-icon">🃏</div>
+          <div class="ch-title">Flashcards</div>
+          <div class="ch-sub">Karten umdrehen &amp; lernen</div>
+          <button class="ch-btn" onclick="startFlashcards()">🃏 Flashcards starten</button>
+        </div>
+
+        <div class="sec-lbl">Mein Fortschritt</div>
+        <div class="stat-row">
+          <div class="stat-box"><div class="stat-num" id="s-streak">0</div><div class="stat-lbl">🔥 Streak</div></div>
+          <div class="stat-box"><div class="stat-num" id="s-best">0</div><div class="stat-lbl">🏆 Bester Score</div></div>
+          <div class="stat-box"><div class="stat-num" id="s-total">0</div><div class="stat-lbl">📚 Vokabeln</div></div>
+        </div>
       </div>
 
-      <div class="sec-lbl">Mein Fortschritt</div>
-      <div class="stat-row">
-        <div class="stat-box"><div class="stat-num" id="s-known">0</div><div class="stat-lbl">Gewusst</div></div>
-        <div class="stat-box"><div class="stat-num" id="s-streak">1</div><div class="stat-lbl">Tage-Streak</div></div>
-        <div class="stat-box"><div class="stat-num" id="s-total">40</div><div class="stat-lbl">Vokabeln</div></div>
-      </div>
-
-      <!-- Challenge quiz -->
-      <div id="challenge-quiz" style="display:none">
+      <!-- QUIZ -->
+      <div id="ch-quiz" style="display:none">
         <div class="card">
-          <div style="font-size:11px;font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px" id="cq-num">Frage 1 von 5</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+            <div style="font-size:11px;font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.06em" id="cq-num">Frage 1 von 10</div>
+            <div style="font-size:12px;color:var(--accent);font-weight:700" id="cq-score">✓ 0</div>
+          </div>
+          <div style="font-size:11px;color:var(--fg-muted);margin-bottom:6px" id="cq-direction"></div>
           <div class="quiz-q" id="cq-q"></div>
           <div class="quiz-opts" id="cq-opts"></div>
           <button class="btn" id="cq-next" style="display:none;margin-top:14px" onclick="nextCQ()">Weiter →</button>
         </div>
       </div>
 
-      <div id="challenge-result" style="display:none" class="card" style="text-align:center">
-        <div style="text-align:center;padding:10px 0 6px">
-          <div style="font-size:40px;margin-bottom:10px">🏆</div>
-          <div style="font-family:var(--font-h);font-size:20px;font-weight:700;color:var(--accent);margin-bottom:6px">Challenge geschafft!</div>
-          <div style="font-size:14px;color:var(--fg-muted)" id="cq-result-text"></div>
-          <button class="btn" style="margin-top:16px" onclick="resetChallenge()">Nochmal</button>
+      <!-- QUIZ ERGEBNIS -->
+      <div id="ch-result" style="display:none">
+        <div class="card" style="text-align:center;padding:28px 20px">
+          <div style="font-size:48px;margin-bottom:10px" id="cq-emoji">🏆</div>
+          <div style="font-family:var(--font-h);font-size:22px;font-weight:700;color:var(--accent);margin-bottom:8px" id="cq-result-title">Super!</div>
+          <div style="font-size:15px;color:var(--fg-muted);margin-bottom:20px" id="cq-result-text"></div>
+          <button class="btn" style="margin-bottom:10px" onclick="startDailyQuiz()">🔄 Nochmal</button>
+          <button class="btn" style="background:var(--bg-2);color:var(--fg)" onclick="showChStart()">← Zurück</button>
+        </div>
+      </div>
+
+      <!-- FLASHCARDS -->
+      <div id="ch-flash" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div style="font-size:12px;color:var(--fg-muted)" id="fc-num">Karte 1 von 10</div>
+          <button onclick="showChStart()" style="background:none;border:none;color:var(--fg-muted);font-size:13px;cursor:pointer">✕ Beenden</button>
+        </div>
+        <!-- Karte -->
+        <div id="fc-card" onclick="flipCard()" style="background:var(--bg-card);border:2px solid var(--border);border-radius:16px;padding:36px 24px;text-align:center;cursor:pointer;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:16px;transition:all .2s">
+          <div style="font-size:11px;font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px" id="fc-label">Englisch</div>
+          <div style="font-size:22px;font-weight:700;color:var(--fg);margin-bottom:8px" id="fc-word"></div>
+          <div style="font-size:13px;color:var(--fg-muted)" id="fc-ph"></div>
+          <div id="fc-back" style="display:none;width:100%">
+            <div style="border-top:1px solid var(--border);margin:16px 0"></div>
+            <div style="font-size:18px;font-weight:700;color:var(--accent);margin-bottom:8px" id="fc-translation"></div>
+            <div style="font-size:12px;color:var(--fg-muted);font-style:italic" id="fc-example"></div>
+          </div>
+          <div id="fc-hint" style="font-size:11px;color:var(--fg-muted);margin-top:16px">Antippen zum Umdrehen 👆</div>
+        </div>
+        <!-- Bewertung (nach Umdrehen sichtbar) -->
+        <div id="fc-btns" style="display:none;display:flex;gap:12px">
+          <button onclick="fcAnswer(false)" style="flex:1;padding:14px;background:var(--red-lt);color:var(--red);border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer">✗ Wusste ich nicht</button>
+          <button onclick="fcAnswer(true)" style="flex:1;padding:14px;background:var(--green-lt);color:var(--green);border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer">✓ Gewusst!</button>
         </div>
       </div>
 
@@ -3078,27 +3128,133 @@ function answerGram(gi, qi, oi, score) {
   feedback.after(btn);
 }
 
-/* ========== CHALLENGE ========== */
+/* ========== CHALLENGE / QUIZ / FLASHCARDS ========== */
+
+let cqState = {};
+let fcState = {};
+
 function initChallenge() {
   const now = new Date();
   const days = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
   const months = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
   document.getElementById('ch-date').textContent = days[now.getDay()] + ', ' + now.getDate() + '. ' + months[now.getMonth()];
+  // Streak & Stats
+  const streak = parseInt(localStorage.getItem('dq-streak')||'0');
+  const best = parseInt(localStorage.getItem('dq-best')||'0');
+  document.getElementById('s-streak').textContent = streak;
+  document.getElementById('s-best').textContent = best + '/10';
+  document.getElementById('s-total').textContent = VOK.length;
+  // Banner & done-msg
+  const todayKey = new Date().toISOString().slice(0,10);
+  const lastDone = localStorage.getItem('dq-last-done') || '';
+  if (lastDone === todayKey) {
+    const dm = document.getElementById('ch-done-msg');
+    if (dm) dm.style.display = 'block';
+  }
+  // Home-Banner
+  const banner = document.getElementById('daily-banner');
+  if (banner) banner.style.display = (lastDone !== todayKey) ? 'flex' : 'none';
 }
 
-function startChallenge() {
-  cqState = { idx: 0, correct: 0, answered: false };
-  document.querySelector('.challenge-card').style.display = 'none';
-  document.getElementById('challenge-quiz').style.display = 'block';
-  document.getElementById('challenge-result').style.display = 'none';
+function showChStart() {
+  document.getElementById('ch-start').style.display = 'block';
+  document.getElementById('ch-quiz').style.display = 'none';
+  document.getElementById('ch-result').style.display = 'none';
+  document.getElementById('ch-flash').style.display = 'none';
+}
+
+// Hilfsfunktion: zufällige Auswahl ohne Wiederholung
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+// Baut gemischte Quiz-Fragen: Vokabeln (EN→DE und DE→EN) + Grammatik
+// Spaced Repetition: schwache Wörter aus localStorage laden
+function getSRSWeakWords() {
+  try {
+    const u = localStorage.getItem('vok_unknown');
+    return u ? new Set(JSON.parse(u)) : new Set();
+  } catch(e) { return new Set(); }
+}
+function saveSRSResult(wrongWords) {
+  try {
+    const existing = getSRSWeakWords();
+    // Falsch beantwortete hinzufügen
+    wrongWords.forEach(w => existing.add(w));
+    localStorage.setItem('vok_unknown', JSON.stringify([...existing]));
+  } catch(e) {}
+}
+
+function buildDailyQuestions(n) {
+  const weakWords = getSRSWeakWords();
+  const pool = [];
+
+  // Vokabeln in Pool mit Gewichtung eintragen
+  VOK.forEach(v => {
+    const isWeak = weakWords.has(v.w);
+    const weight = isWeak ? 3 : 1; // schwache Wörter 3× wahrscheinlicher
+    for (let i = 0; i < weight; i++) {
+      pool.push(v);
+    }
+  });
+
+  // Aus gewichtetem Pool ohne Duplikate auswählen
+  const selectedWords = [];
+  const usedWords = new Set();
+  const shuffledPool = shuffle(pool);
+  for (const v of shuffledPool) {
+    if (!usedWords.has(v.w)) {
+      usedWords.add(v.w);
+      selectedWords.push(v);
+      if (selectedWords.length >= 40) break;
+    }
+  }
+
+  const qs = [];
+  selectedWords.forEach(v => {
+    const distractorsDE = shuffle(VOK.filter(x => x.w !== v.w)).slice(0,3).map(x => x.t);
+    const distractorsEN = shuffle(VOK.filter(x => x.w !== v.w)).slice(0,3).map(x => x.w);
+    // EN → DE
+    const optsDE = shuffle([v.t, ...distractorsDE]);
+    qs.push({ type:'vok', dir:'en-de', q: v.w, word: v.w, opts: optsDE, a: optsDE.indexOf(v.t), ph: v.ph||'' });
+    // DE → EN
+    const optsEN = shuffle([v.w, ...distractorsEN]);
+    qs.push({ type:'vok', dir:'de-en', q: v.t, word: v.w, opts: optsEN, a: optsEN.indexOf(v.w), ph: '' });
+  });
+
+  // Grammatik-Fragen aus GRAMMATIK
+  GRAMMATIK.forEach(g => {
+    (g.quizzes||[]).forEach(qz => {
+      qs.push({ type:'gram', dir:'gram', q: '['+g.name+'] '+qz.q, opts: qz.opts, a: qz.a, ph:'' });
+    });
+  });
+
+  return shuffle(qs).slice(0, n);
+}
+
+function startDailyQuiz() {
+  const questions = buildDailyQuestions(10);
+  cqState = { idx:0, correct:0, answered:false, questions };
+  document.getElementById('ch-start').style.display = 'none';
+  document.getElementById('ch-quiz').style.display = 'block';
+  document.getElementById('ch-result').style.display = 'none';
+  document.getElementById('ch-flash').style.display = 'none';
   renderCQ();
 }
 
 function renderCQ() {
-  const q = CHALLENGE_QS[cqState.idx];
-  document.getElementById('cq-num').textContent = 'Frage ' + (cqState.idx + 1) + ' von ' + CHALLENGE_QS.length;
-  document.getElementById('cq-q').textContent = q.q;
-  document.getElementById('cq-opts').innerHTML = q.opts.map((o, i) =>
+  const q = cqState.questions[cqState.idx];
+  document.getElementById('cq-num').textContent = 'Frage ' + (cqState.idx+1) + ' von ' + cqState.questions.length;
+  document.getElementById('cq-score').textContent = '✓ ' + cqState.correct;
+  const dirText = q.dir === 'en-de' ? '🇬🇧 Englisch → Deutsch' : q.dir === 'de-en' ? '🇩🇪 Deutsch → Englisch' : '📖 Grammatik';
+  document.getElementById('cq-direction').textContent = dirText;
+  document.getElementById('cq-q').textContent = q.q + (q.ph ? '  ' + q.ph : '');
+  document.getElementById('cq-opts').innerHTML = q.opts.map((o,i) =>
     `<button class="qopt" onclick="answerCQ(${i})">${o}</button>`
   ).join('');
   document.getElementById('cq-next').style.display = 'none';
@@ -3108,9 +3264,15 @@ function renderCQ() {
 function answerCQ(idx) {
   if (cqState.answered) return;
   cqState.answered = true;
-  const q = CHALLENGE_QS[cqState.idx];
-  if (idx === q.a) cqState.correct++;
-  document.querySelectorAll('#cq-opts .qopt').forEach((b, i) => {
+  const q = cqState.questions[cqState.idx];
+  if (idx === q.a) {
+    cqState.correct++;
+  } else {
+    // Falschen Index für SRS merken
+    if (!cqState.wrongIdxs) cqState.wrongIdxs = new Set();
+    cqState.wrongIdxs.add(cqState.idx);
+  }
+  document.querySelectorAll('#cq-opts .qopt').forEach((b,i) => {
     b.style.pointerEvents = 'none';
     if (i === q.a) b.classList.add('correct');
     else if (i === idx) b.classList.add('wrong');
@@ -3120,21 +3282,115 @@ function answerCQ(idx) {
 
 function nextCQ() {
   cqState.idx++;
-  if (cqState.idx >= CHALLENGE_QS.length) {
-    document.getElementById('challenge-quiz').style.display = 'none';
-    document.getElementById('challenge-result').style.display = 'block';
-    const pct = Math.round(cqState.correct / CHALLENGE_QS.length * 100);
-    document.getElementById('cq-result-text').textContent =
-      cqState.correct + ' von ' + CHALLENGE_QS.length + ' richtig (' + pct + '%) 🎉';
+  if (cqState.idx >= cqState.questions.length) {
+    // Ergebnis
+    document.getElementById('ch-quiz').style.display = 'none';
+    document.getElementById('ch-result').style.display = 'block';
+    const score = cqState.correct;
+    const total = cqState.questions.length;
+    const pct = Math.round(score/total*100);
+    // Emoji & Titel
+    let emoji = score >= 9 ? '🏆' : score >= 7 ? '⭐' : score >= 5 ? '👍' : '💪';
+    let title = score >= 9 ? 'Ausgezeichnet!' : score >= 7 ? 'Sehr gut!' : score >= 5 ? 'Gut gemacht!' : 'Weiter üben!';
+    document.getElementById('cq-emoji').textContent = emoji;
+    document.getElementById('cq-result-title').textContent = title;
+    const weakCount = getSRSWeakWords().size;
+    const srsHint = weakCount > 0 ? '\n🔁 ' + weakCount + ' schwache Wörter werden öfter abgefragt.' : '';
+    document.getElementById('cq-result-text').textContent = score + ' von ' + total + ' richtig (' + pct + '%)' + srsHint;
+    // Streak & Best speichern + SRS aktualisieren
+    try {
+      const todayKey = new Date().toISOString().slice(0,10);
+      const yesterday = new Date(Date.now()-86400000).toISOString().slice(0,10);
+      const lastDone = localStorage.getItem('dq-last-done')||'';
+      let streak = parseInt(localStorage.getItem('dq-streak')||'0');
+      if (lastDone === yesterday) streak++;
+      else if (lastDone !== todayKey) streak = 1;
+      localStorage.setItem('dq-streak', streak);
+      localStorage.setItem('dq-last-done', todayKey);
+      const best = parseInt(localStorage.getItem('dq-best')||'0');
+      if (score > best) localStorage.setItem('dq-best', score);
+      // SRS: falsch beantwortete Vokabeln merken, richtige aus der Liste entfernen
+      const wrongWords = [];
+      const correctWords = [];
+      cqState.questions.forEach((q, i) => {
+        if (q.word) {
+          if (cqState.wrongIdxs && cqState.wrongIdxs.has(i)) wrongWords.push(q.word);
+          else correctWords.push(q.word);
+        }
+      });
+      saveSRSResult(wrongWords);
+      // Richtig beantwortete aus der Schwachliste entfernen
+      try {
+        const weak = getSRSWeakWords();
+        correctWords.forEach(w => weak.delete(w));
+        localStorage.setItem('vok_unknown', JSON.stringify([...weak]));
+      } catch(e) {}
+      document.getElementById('s-streak').textContent = streak;
+      document.getElementById('s-best').textContent = Math.max(score,best) + '/10';
+      // Banner ausblenden
+      const banner = document.getElementById('daily-banner');
+      if (banner) banner.style.display = 'none';
+    } catch(e){}
   } else {
     renderCQ();
   }
 }
 
-function resetChallenge() {
-  document.querySelector('.challenge-card').style.display = 'block';
-  document.getElementById('challenge-quiz').style.display = 'none';
-  document.getElementById('challenge-result').style.display = 'none';
+/* ---- FLASHCARDS ---- */
+function startFlashcards() {
+  const cards = shuffle(VOK).slice(0, 15);
+  fcState = { idx:0, flipped:false, cards, known:0 };
+  document.getElementById('ch-start').style.display = 'none';
+  document.getElementById('ch-quiz').style.display = 'none';
+  document.getElementById('ch-result').style.display = 'none';
+  document.getElementById('ch-flash').style.display = 'block';
+  renderFC();
+}
+
+function renderFC() {
+  const c = fcState.cards[fcState.idx];
+  fcState.flipped = false;
+  document.getElementById('fc-num').textContent = 'Karte ' + (fcState.idx+1) + ' von ' + fcState.cards.length;
+  document.getElementById('fc-label').textContent = '🇬🇧 Englisch';
+  document.getElementById('fc-word').textContent = c.w;
+  document.getElementById('fc-ph').textContent = c.ph||'';
+  document.getElementById('fc-back').style.display = 'none';
+  document.getElementById('fc-hint').style.display = 'block';
+  document.getElementById('fc-btns').style.display = 'none';
+  document.getElementById('fc-card').style.borderColor = 'var(--border)';
+}
+
+function flipCard() {
+  if (fcState.flipped) return;
+  fcState.flipped = true;
+  const c = fcState.cards[fcState.idx];
+  document.getElementById('fc-translation').textContent = c.t;
+  document.getElementById('fc-example').textContent = c.ex ? c.ex.replace(/"/g,'') : '';
+  document.getElementById('fc-back').style.display = 'block';
+  document.getElementById('fc-hint').style.display = 'none';
+  document.getElementById('fc-btns').style.display = 'flex';
+}
+
+function fcAnswer(known) {
+  if (known) {
+    fcState.known++;
+    document.getElementById('fc-card').style.borderColor = 'var(--green)';
+  } else {
+    document.getElementById('fc-card').style.borderColor = 'var(--red)';
+  }
+  setTimeout(() => {
+    fcState.idx++;
+    if (fcState.idx >= fcState.cards.length) {
+      // Fertig
+      document.getElementById('ch-flash').style.display = 'none';
+      document.getElementById('ch-result').style.display = 'block';
+      document.getElementById('cq-emoji').textContent = '🃏';
+      document.getElementById('cq-result-title').textContent = 'Flashcards fertig!';
+      document.getElementById('cq-result-text').textContent = fcState.known + ' von ' + fcState.cards.length + ' Karten gewusst';
+    } else {
+      renderFC();
+    }
+  }, 400);
 }
 
 /* ========== STUNDENPLAN ========== */
