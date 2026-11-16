@@ -3237,13 +3237,22 @@ function buildDailyQuestions(n) {
 }
 
 function startDailyQuiz() {
-  const questions = buildDailyQuestions(10);
-  cqState = { idx:0, correct:0, answered:false, questions };
-  document.getElementById('ch-start').style.display = 'none';
-  document.getElementById('ch-quiz').style.display = 'block';
-  document.getElementById('ch-result').style.display = 'none';
-  document.getElementById('ch-flash').style.display = 'none';
-  renderCQ();
+  try {
+    const questions = buildDailyQuestions(10);
+    if (!questions || questions.length === 0) {
+      alert('Keine Fragen gefunden. Bitte Vokabeln zuerst laden.');
+      return;
+    }
+    cqState = { idx:0, correct:0, answered:false, questions };
+    document.getElementById('ch-start').style.display = 'none';
+    document.getElementById('ch-quiz').style.display = 'block';
+    document.getElementById('ch-result').style.display = 'none';
+    document.getElementById('ch-flash').style.display = 'none';
+    renderCQ();
+  } catch(err) {
+    console.error('startDailyQuiz Fehler:', err);
+    alert('Fehler beim Starten: ' + err.message);
+  }
 }
 
 function renderCQ() {
@@ -3337,13 +3346,16 @@ function nextCQ() {
 
 /* ---- FLASHCARDS ---- */
 function startFlashcards() {
+  try {
   const cards = shuffle(VOK).slice(0, 15);
+  if (!cards || cards.length === 0) { alert('Keine Vokabeln gefunden.'); return; }
   fcState = { idx:0, flipped:false, cards, known:0 };
   document.getElementById('ch-start').style.display = 'none';
   document.getElementById('ch-quiz').style.display = 'none';
   document.getElementById('ch-result').style.display = 'none';
   document.getElementById('ch-flash').style.display = 'block';
   renderFC();
+  } catch(err) { console.error('startFlashcards Fehler:', err); alert('Fehler: ' + err.message); }
 }
 
 function renderFC() {
