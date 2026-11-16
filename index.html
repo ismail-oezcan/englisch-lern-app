@@ -582,19 +582,25 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
           <button onclick="showChStart()" style="background:none;border:none;color:var(--fg-muted);font-size:13px;cursor:pointer">✕ Beenden</button>
         </div>
         <!-- Karte -->
-        <div id="fc-card" onclick="flipCard()" style="background:var(--bg-card);border:2px solid var(--border);border-radius:16px;padding:36px 24px;text-align:center;cursor:pointer;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:16px;transition:all .2s">
-          <div style="font-size:11px;font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px" id="dq-fc-label">Englisch</div>
-          <div style="font-size:22px;font-weight:700;color:var(--fg);margin-bottom:8px" id="dq-fc-word"></div>
-          <div style="font-size:13px;color:var(--fg-muted)" id="dq-fc-ph"></div>
-          <div id="dq-fc-back" style="display:none;width:100%">
-            <div style="border-top:1px solid var(--border);margin:16px 0"></div>
-            <div style="font-size:18px;font-weight:700;color:var(--accent);margin-bottom:8px" id="dq-fc-translation"></div>
-            <div style="font-size:12px;color:var(--fg-muted);font-style:italic" id="dq-fc-example"></div>
+        <div style="perspective:1000px;margin-bottom:16px;min-height:220px">
+          <div id="fc-card" onclick="flipCard()" style="position:relative;width:100%;min-height:220px;transform-style:preserve-3d;transition:transform .45s;cursor:pointer;border-radius:16px">
+            <!-- Vorderseite -->
+            <div style="position:absolute;width:100%;min-height:220px;backface-visibility:hidden;background:var(--bg-card);border:2px solid var(--border);border-radius:16px;padding:32px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;box-sizing:border-box" id="dq-fc-front">
+              <div style="font-size:11px;font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px" id="dq-fc-label">🇬🇧 Englisch</div>
+              <div style="font-size:26px;font-weight:700;color:var(--fg);margin-bottom:8px;font-family:var(--font-h)" id="dq-fc-word"></div>
+              <div style="font-size:13px;color:var(--fg-muted);margin-bottom:16px" id="dq-fc-ph"></div>
+              <div style="font-size:12px;color:var(--fg-muted)">👆 Antippen zum Umdrehen</div>
+            </div>
+            <!-- Rückseite -->
+            <div style="position:absolute;width:100%;min-height:220px;backface-visibility:hidden;transform:rotateY(180deg);background:var(--accent-lt);border:2px solid var(--accent);border-radius:16px;padding:32px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;box-sizing:border-box">
+              <div style="font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">🇩🇪 Deutsch</div>
+              <div style="font-size:22px;font-weight:700;color:var(--accent);margin-bottom:10px" id="dq-fc-translation"></div>
+              <div style="font-size:12px;color:var(--fg-muted);font-style:italic" id="dq-fc-example"></div>
+            </div>
           </div>
-          <div id="dq-fc-hint" style="font-size:11px;color:var(--fg-muted);margin-top:16px">Antippen zum Umdrehen 👆</div>
         </div>
         <!-- Bewertung (nach Umdrehen sichtbar) -->
-        <div id="fc-btns" style="display:none;display:flex;gap:12px">
+        <div id="fc-btns" style="display:none;gap:12px">
           <button onclick="fcAnswer(false)" style="flex:1;padding:14px;background:var(--red-lt);color:var(--red);border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer">✗ Wusste ich nicht</button>
           <button onclick="fcAnswer(true)" style="flex:1;padding:14px;background:var(--green-lt);color:var(--green);border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer">✓ Gewusst!</button>
         </div>
@@ -3362,13 +3368,12 @@ function renderFC() {
   const c = fcState.cards[fcState.idx];
   fcState.flipped = false;
   document.getElementById('fc-num').textContent = 'Karte ' + (fcState.idx+1) + ' von ' + fcState.cards.length;
-  document.getElementById('dq-fc-label').textContent = '🇬🇧 Englisch';
   document.getElementById('dq-fc-word').textContent = c.w;
   document.getElementById('dq-fc-ph').textContent = c.ph||'';
-  document.getElementById('dq-fc-back').style.display = 'none';
-  document.getElementById('dq-fc-hint').style.display = 'block';
+  document.getElementById('dq-fc-translation').textContent = '';
+  document.getElementById('dq-fc-example').textContent = '';
+  document.getElementById('fc-card').style.transform = '';
   document.getElementById('fc-btns').style.display = 'none';
-  document.getElementById('fc-card').style.borderColor = 'var(--border)';
 }
 
 function flipCard() {
@@ -3377,8 +3382,7 @@ function flipCard() {
   const c = fcState.cards[fcState.idx];
   document.getElementById('dq-fc-translation').textContent = c.t;
   document.getElementById('dq-fc-example').textContent = c.ex ? c.ex.replace(/"/g,'') : '';
-  document.getElementById('dq-fc-back').style.display = 'block';
-  document.getElementById('dq-fc-hint').style.display = 'none';
+  document.getElementById('fc-card').style.transform = 'rotateY(180deg)';
   document.getElementById('fc-btns').style.display = 'flex';
 }
 
