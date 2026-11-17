@@ -2534,8 +2534,10 @@ function initHome() {
 }
 
 function updateVokStat() {
-  document.getElementById('vok-stat').textContent = vokState.known.size + ' von ' + VOKABELN.length + ' gelernt';
-  document.getElementById('s-known').textContent = vokState.known.size;
+  const vokStatEl = document.getElementById('vok-stat');
+  if (vokStatEl) vokStatEl.textContent = vokState.known.size + ' von ' + VOKABELN.length + ' gelernt';
+  const sKnownEl = document.getElementById('s-known');
+  if (sKnownEl) sKnownEl.textContent = vokState.known.size;
 }
 
 /* ========== EIGENE VOKABELN ========== */
@@ -4580,3 +4582,4 @@ function showGramSec(id,btn){
 }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" onload="initPDFs()"></script>
+
