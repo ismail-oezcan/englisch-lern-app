@@ -169,6 +169,8 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 .vok-filter{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:16px}
 .vf{flex-shrink:0;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:600;background:var(--bg-2);color:var(--fg-muted);border:none;cursor:pointer;font-family:var(--font);transition:all .15s}
 .vf.active{background:var(--accent);color:#fff}
+.pruef-opt-btn{width:100%;padding:13px 16px;background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);text-align:left;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);color:var(--fg);transition:all .15s}
+.pruef-opt-btn:hover:not(:disabled){background:var(--bg-2);border-color:var(--accent)}
 
 .flashcard-wrap{perspective:1000px;margin-bottom:16px;cursor:pointer}
 .flashcard{width:100%;min-height:200px;background:var(--bg-card);border:2px solid var(--accent);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;text-align:center;position:relative;transition:transform .5s;transform-style:preserve-3d}
@@ -829,6 +831,64 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
       </div>
     </div>
 
+    <!-- PRÜFUNGSSIMULATION -->
+    <div class="screen" id="sc-pruefung">
+      <div class="sec-lbl">🎓 Prüfungssimulation</div>
+      <div style="font-size:13px;color:var(--fg-muted);margin-bottom:18px">Wähle dein Level — nach Cambridge-Standard</div>
+
+      <!-- Level-Auswahl -->
+      <div id="pruef-start" style="display:block">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div onclick="startPruefung('A1')" style="background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:14px;padding:18px;color:#fff;cursor:pointer">
+            <div style="font-size:22px;font-weight:800">A1 – Beginner</div>
+            <div style="font-size:13px;opacity:.85;margin-top:4px">15 Fragen · 10 Minuten · Basis-Vokabeln</div>
+          </div>
+          <div onclick="startPruefung('A2')" style="background:linear-gradient(135deg,#3b82f6,#2563eb);border-radius:14px;padding:18px;color:#fff;cursor:pointer">
+            <div style="font-size:22px;font-weight:800">A2 – Elementary</div>
+            <div style="font-size:13px;opacity:.85;margin-top:4px">20 Fragen · 15 Minuten · Vokabeln + einfache Grammatik</div>
+          </div>
+          <div onclick="startPruefung('B1')" style="background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:14px;padding:18px;color:#fff;cursor:pointer">
+            <div style="font-size:22px;font-weight:800">B1 – Intermediate</div>
+            <div style="font-size:13px;opacity:.85;margin-top:4px">25 Fragen · 20 Minuten · Vokabeln + Grammatik + Lückentext</div>
+          </div>
+          <div onclick="startPruefung('B2')" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);border-radius:14px;padding:18px;color:#fff;cursor:pointer">
+            <div style="font-size:22px;font-weight:800">B2 – Upper-Intermediate</div>
+            <div style="font-size:13px;opacity:.85;margin-top:4px">30 Fragen · 25 Minuten · Lückentext + Wortbildung + Grammatik</div>
+          </div>
+        </div>
+        <!-- Letzte Ergebnisse -->
+        <div id="pruef-history" style="margin-top:20px"></div>
+      </div>
+
+      <!-- Quiz läuft -->
+      <div id="pruef-quiz" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <div id="pruef-level-badge" style="font-size:14px;font-weight:700;color:var(--accent)">A2</div>
+          <div id="pruef-timer" style="font-size:18px;font-weight:800;color:var(--red);background:var(--red-lt);padding:6px 14px;border-radius:20px">⏱ 15:00</div>
+          <div id="pruef-qnum" style="font-size:13px;color:var(--fg-muted)">1 / 20</div>
+        </div>
+        <div style="background:var(--bg-2);border-radius:8px;height:6px;margin-bottom:20px"><div id="pruef-prog-bar" style="background:var(--accent);height:6px;border-radius:8px;transition:width .3s;width:0%"></div></div>
+        <div id="pruef-qtype" style="font-size:11px;font-weight:700;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px"></div>
+        <div id="pruef-question" style="font-size:17px;font-weight:700;line-height:1.5;margin-bottom:20px;color:var(--fg)"></div>
+        <div id="pruef-opts" style="display:flex;flex-direction:column;gap:10px"></div>
+        <div id="pruef-feedback" style="display:none;margin-top:14px;padding:12px;border-radius:10px;font-size:14px;font-weight:600"></div>
+        <button id="pruef-next-btn" onclick="pruefNext()" style="display:none;width:100%;margin-top:14px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);padding:13px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font)">Weiter →</button>
+      </div>
+
+      <!-- Ergebnis -->
+      <div id="pruef-result" style="display:none;text-align:center">
+        <div id="pruef-result-emoji" style="font-size:64px;margin-bottom:12px"></div>
+        <div id="pruef-result-grade" style="font-size:28px;font-weight:800;margin-bottom:8px"></div>
+        <div id="pruef-result-score" style="font-size:16px;color:var(--fg-muted);margin-bottom:16px"></div>
+        <div id="pruef-result-bar" style="background:var(--bg-2);border-radius:10px;height:14px;margin-bottom:20px;overflow:hidden"><div id="pruef-result-fill" style="height:14px;border-radius:10px;transition:width 1s"></div></div>
+        <div id="pruef-result-detail" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:left;margin-bottom:16px;font-size:13px;line-height:1.8"></div>
+        <div style="display:flex;gap:10px">
+          <button onclick="startPruefung(pruefState.level)" style="flex:1;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">🔄 Nochmal</button>
+          <button onclick="document.getElementById('pruef-result').style.display='none';document.getElementById('pruef-start').style.display='block';renderPruefHistory()" style="flex:1;background:var(--bg-card);color:var(--fg);border:1px solid var(--border);border-radius:var(--radius);padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">← Level wählen</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- Bottom Nav -->
@@ -868,6 +928,10 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
     <button class="nb" id="nb-translator" onclick="go('translator')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
       Übersetzer
+    </button>
+    <button class="nb" id="nb-pruefung" onclick="go('pruefung')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      Prüfung
     </button>
   </div>
 </div>
@@ -2874,9 +2938,26 @@ function markVok(known) {
   if (known) { vokState.known.add(v.w); vokState.unknown.delete(v.w); }
   else { vokState.unknown.add(v.w); vokState.known.delete(v.w); }
   srsSave(); // SRS: Fehler-Speicher persistieren
+  trackLernActivity(); // Lernkalender: heute als gelernt markieren
   if (vokState.idx < vokState.filtered.length - 1) vokState.idx++;
   renderVok();
   updateVokStat();
+}
+
+/* ========== LERNKALENDER TRACKING ========== */
+const LERN_KEY = 'ela_lern_days';
+
+function trackLernActivity() {
+  try {
+    const today = new Date().toISOString().slice(0,10);
+    const data = JSON.parse(localStorage.getItem(LERN_KEY) || '{}');
+    data[today] = true;
+    localStorage.setItem(LERN_KEY, JSON.stringify(data));
+  } catch(e) {}
+}
+
+function getLernDays() {
+  try { return JSON.parse(localStorage.getItem(LERN_KEY) || '{}'); } catch(e) { return {}; }
 }
 
 function prevVok() {
@@ -3462,6 +3543,7 @@ function nextCQ() {
       else if (lastDone !== todayKey) streak = 1;
       localStorage.setItem('dq-streak', streak);
       localStorage.setItem('dq-last-done', todayKey);
+      trackLernActivity(); // Lernkalender: Quiz zählt als gelernt
       const best = parseInt(localStorage.getItem('dq-best')||'0');
       if (score > best) localStorage.setItem('dq-best', score);
       // SRS: falsch beantwortete Vokabeln merken, richtige aus der Liste entfernen
@@ -3593,36 +3675,52 @@ function renderCalendar(year, month) {
   // Leere Zellen vor dem 1.
   for (let i = 0; i < startDow; i++) html += `<div></div>`;
 
+  const lernDays = getLernDays();
+  const nowDate = new Date(); nowDate.setHours(0,0,0,0);
+
   for (let day = 1; day <= lastDay.getDate(); day++) {
     const d = new Date(year, month, day);
     const dow = (d.getDay() + 6) % 7; // 0=Mo
     const isWeekend = dow >= 5;
     const isToday = d.toDateString() === now.toDateString();
+    const isPast = d < nowDate;
     const isKurs = d >= KURS_START && d <= KURS_END && !isWeekend;
     const dateStr = d.toISOString().slice(0,10);
     const hasPrefill = !!SP_PREFILL[dateStr];
+    const hatGelernt = !!lernDays[dateStr];
+    const verpasst = isKurs && isPast && !hatGelernt;
 
     let bg = 'var(--bg-2)';
     let color = 'var(--fg)';
     let border = '1px solid var(--border)';
-    let extra = '';
+    let dot = '';
 
-    if (isToday)   { bg = 'var(--accent)'; color = '#fff'; border = '2px solid var(--accent)'; }
-    else if (hasPrefill) { bg = 'var(--accent-lt)'; border = '1px solid var(--accent)'; }
-    else if (isKurs)     { bg = 'var(--gold-lt)'; border = '1px solid var(--gold)'; }
+    if (isToday) {
+      bg = hatGelernt ? '#16a34a' : 'var(--accent)';
+      color = '#fff';
+      border = '2px solid ' + (hatGelernt ? '#16a34a' : 'var(--accent)');
+    } else if (hatGelernt) {
+      bg = '#dcfce7'; color = '#15803d'; border = '1px solid #86efac';
+      dot = '<div style="font-size:7px;margin-top:1px">✓</div>';
+    } else if (verpasst) {
+      bg = '#fee2e2'; color = '#dc2626'; border = '1px solid #fca5a5';
+    } else if (hasPrefill) {
+      bg = 'var(--accent-lt)'; border = '1px solid var(--accent)';
+    } else if (isKurs) {
+      bg = 'var(--gold-lt)'; border = '1px solid var(--gold)';
+    }
     if (isWeekend) { color = 'var(--fg-muted)'; }
 
-    const click = isKurs || hasPrefill
-      ? `onclick="spCalDayClick('${dateStr}')"`
-      : '';
+    const click = isKurs || hasPrefill ? `onclick="spCalDayClick('${dateStr}')"` : '';
     const cursor = (isKurs || hasPrefill) ? 'pointer' : 'default';
 
-    html += `<div ${click} style="text-align:center;padding:7px 2px;border-radius:7px;font-size:13px;font-weight:${isToday?'700':'500'};background:${bg};color:${color};border:${border};cursor:${cursor}">${day}${hasPrefill?'<div style="font-size:7px;margin-top:1px">●</div>':''}</div>`;
+    html += `<div ${click} style="text-align:center;padding:7px 2px;border-radius:7px;font-size:13px;font-weight:${isToday?'700':'500'};background:${bg};color:${color};border:${border};cursor:${cursor}">${day}${dot}</div>`;
   }
 
   html += `</div>
     <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;font-size:11px">
-      <span style="display:flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:3px;background:var(--accent-lt);border:1px solid var(--accent);display:inline-block"></span> Kurstag mit Plan</span>
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:3px;background:#dcfce7;border:1px solid #86efac;display:inline-block"></span> ✓ Gelernt</span>
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:3px;background:#fee2e2;border:1px solid #fca5a5;display:inline-block"></span> ✗ Nicht gelernt</span>
       <span style="display:flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:3px;background:var(--gold-lt);border:1px solid var(--gold);display:inline-block"></span> Kurstag</span>
       <span style="display:flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:3px;background:var(--accent);display:inline-block"></span> Heute</span>
     </div>`;
@@ -4476,6 +4574,218 @@ function copyTranslation() {
     document.execCommand('copy');
     document.body.removeChild(ta);
   });
+}
+
+/* ========== PRÜFUNGSSIMULATION ========== */
+const PRUEF_KEY = 'ela_pruef_history';
+
+const PRUEF_CONFIG = {
+  A1: { label:'A1 Starter', color:'#16a34a', time:30, count:10, desc:'Grundlegende Vokabeln & einfache Strukturen' },
+  A2: { label:'A2 Key', color:'#2563eb', time:45, count:15, desc:'Alltag, Arbeit, Reisen (Cambridge Key-Stil)' },
+  B1: { label:'B1 Preliminary', color:'#d97706', time:60, count:20, desc:'Komplexere Grammatik, Kontext & Inferenz' },
+  B2: { label:'B2 First', color:'#7c3aed', time:75, count:25, desc:'Fortgeschrittene Strukturen, akademischer Stil' }
+};
+
+let pruefState = {
+  level: null, questions: [], idx: 0, score: 0,
+  timer: null, timeLeft: 0, answered: false
+};
+
+function buildPruefQuestions(level) {
+  const qs = [];
+  // Vokabel-Fragen aus VOKABELN-Array
+  const cats = { A1:['greetings','basics'], A2:null, B1:null, B2:null };
+  let pool = [...VOKABELN];
+  if (level === 'A1') pool = pool.filter(v => ['greetings','basics','numbers','colors'].includes(v.cat));
+  // Shuffle
+  pool = pool.sort(() => Math.random() - 0.5);
+  const vokCount = Math.min(Math.floor(PRUEF_CONFIG[level].count * 0.6), pool.length);
+  for (let i = 0; i < vokCount; i++) {
+    const v = pool[i];
+    // Frage: Was bedeutet "{word}"?
+    const correct = v.t;
+    const distractors = VOKABELN
+      .filter(x => x.w !== v.w && x.t !== correct)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3).map(x => x.t);
+    if (distractors.length < 3) continue;
+    const opts = [correct, ...distractors].sort(() => Math.random() - 0.5);
+    qs.push({ type:'vok', q:`Was bedeutet „${v.w}"?`, opts, a: correct, ex: v.ex });
+  }
+  // Grammatik-Quiz-Fragen
+  const gramPool = [];
+  GRAMMATIK.forEach(g => {
+    if (!g.quizzes) return;
+    if (level === 'A1' && g.level === 'A1') gramPool.push(...g.quizzes);
+    else if (level === 'A2') gramPool.push(...g.quizzes);
+    else if (level === 'B1' && ['A2','B1'].includes(g.level)) gramPool.push(...g.quizzes);
+    else if (level === 'B2') gramPool.push(...g.quizzes);
+  });
+  const gramShuffled = gramPool.sort(() => Math.random() - 0.5);
+  const gramCount = PRUEF_CONFIG[level].count - qs.length;
+  for (let i = 0; i < Math.min(gramCount, gramShuffled.length); i++) {
+    const gq = gramShuffled[i];
+    qs.push({ type:'gram', q: gq.q, opts: gq.opts, a: gq.a });
+  }
+  return qs.sort(() => Math.random() - 0.5).slice(0, PRUEF_CONFIG[level].count);
+}
+
+function startPruefung(level) {
+  pruefState.level = level;
+  pruefState.questions = buildPruefQuestions(level);
+  pruefState.idx = 0;
+  pruefState.score = 0;
+  pruefState.answered = false;
+  pruefState.timeLeft = PRUEF_CONFIG[level].time * 60;
+
+  document.getElementById('pruef-start').style.display = 'none';
+  document.getElementById('pruef-result').style.display = 'none';
+  document.getElementById('pruef-quiz').style.display = 'block';
+
+  pruefRenderQ();
+  pruefStartTimer();
+}
+
+function pruefStartTimer() {
+  clearInterval(pruefState.timer);
+  pruefState.timer = setInterval(() => {
+    pruefState.timeLeft--;
+    const m = Math.floor(pruefState.timeLeft / 60);
+    const s = pruefState.timeLeft % 60;
+    const el = document.getElementById('pruef-timer');
+    if (el) {
+      el.textContent = `⏱ ${m}:${s.toString().padStart(2,'0')}`;
+      el.style.color = pruefState.timeLeft < 60 ? '#dc2626' : 'var(--fg)';
+    }
+    if (pruefState.timeLeft <= 0) {
+      clearInterval(pruefState.timer);
+      showPruefResult();
+    }
+  }, 1000);
+}
+
+function pruefRenderQ() {
+  const cfg = PRUEF_CONFIG[pruefState.level];
+  const q = pruefState.questions[pruefState.idx];
+  if (!q) { showPruefResult(); return; }
+
+  const total = pruefState.questions.length;
+  const pct = Math.round((pruefState.idx / total) * 100);
+  document.getElementById('pruef-qnum').textContent = `Frage ${pruefState.idx + 1} / ${total}`;
+  document.getElementById('pruef-prog-bar').style.width = pct + '%';
+  document.getElementById('pruef-qtype').textContent = q.type === 'vok' ? '📖 Vokabeln' : '📝 Grammatik';
+  document.getElementById('pruef-question').textContent = q.q;
+  document.getElementById('pruef-feedback').style.display = 'none';
+  document.getElementById('pruef-next-btn').style.display = 'none';
+  pruefState.answered = false;
+
+  const optsDiv = document.getElementById('pruef-opts');
+  optsDiv.innerHTML = '';
+  q.opts.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'pruef-opt-btn';
+    btn.textContent = opt;
+    btn.onclick = () => pruefAnswer(opt, btn);
+    optsDiv.appendChild(btn);
+  });
+}
+
+function pruefAnswer(chosen, btn) {
+  if (pruefState.answered) return;
+  pruefState.answered = true;
+  const q = pruefState.questions[pruefState.idx];
+  const correct = q.a;
+  const isRight = chosen === correct;
+  if (isRight) pruefState.score++;
+
+  // Buttons färben
+  document.querySelectorAll('.pruef-opt-btn').forEach(b => {
+    b.disabled = true;
+    if (b.textContent === correct) b.style.background = '#16a34a', b.style.color = '#fff';
+    else if (b === btn && !isRight) b.style.background = '#dc2626', b.style.color = '#fff';
+  });
+
+  const fb = document.getElementById('pruef-feedback');
+  fb.style.display = 'block';
+  if (isRight) {
+    fb.innerHTML = `<span style="color:#16a34a">✓ Richtig!</span>${q.ex ? ' <em>' + q.ex + '</em>' : ''}`;
+  } else {
+    fb.innerHTML = `<span style="color:#dc2626">✗ Falsch.</span> Richtig: <strong>${correct}</strong>${q.ex ? ' — <em>' + q.ex + '</em>' : ''}`;
+  }
+  document.getElementById('pruef-next-btn').style.display = 'block';
+}
+
+function pruefNext() {
+  pruefState.idx++;
+  if (pruefState.idx >= pruefState.questions.length) {
+    clearInterval(pruefState.timer);
+    showPruefResult();
+  } else {
+    pruefRenderQ();
+  }
+}
+
+function showPruefResult() {
+  clearInterval(pruefState.timer);
+  document.getElementById('pruef-quiz').style.display = 'none';
+  document.getElementById('pruef-result').style.display = 'block';
+
+  const total = pruefState.questions.length;
+  const score = pruefState.score;
+  const pct = total > 0 ? Math.round((score / total) * 100) : 0;
+  const cfg = PRUEF_CONFIG[pruefState.level];
+
+  let grade, emoji, gradeColor;
+  if (pct >= 80) { grade = 'Distinction'; emoji = '🏆'; gradeColor = '#16a34a'; }
+  else if (pct >= 65) { grade = 'Merit'; emoji = '🥈'; gradeColor = '#2563eb'; }
+  else if (pct >= 50) { grade = 'Pass'; emoji = '✅'; gradeColor = '#d97706'; }
+  else { grade = 'Nicht bestanden'; emoji = '📚'; gradeColor = '#dc2626'; }
+
+  document.getElementById('pruef-result-emoji').textContent = emoji;
+  document.getElementById('pruef-result-grade').innerHTML = `<span style="color:${gradeColor}">${grade}</span>`;
+  document.getElementById('pruef-result-score').textContent = `${score} / ${total} Punkte (${pct}%)`;
+  document.getElementById('pruef-result-fill').style.width = pct + '%';
+  document.getElementById('pruef-result-fill').style.background = gradeColor;
+  document.getElementById('pruef-result-detail').textContent =
+    pct >= 80 ? 'Ausgezeichnet! Du beherrschst dieses Niveau sehr gut.' :
+    pct >= 65 ? 'Gut gemacht! Mit etwas mehr Übung erreichst du Distinction.' :
+    pct >= 50 ? 'Bestanden! Übe weiter, um dein Ergebnis zu verbessern.' :
+    'Noch nicht bestanden. Lerne die Vokabeln und Grammatik nochmals durch.';
+
+  // In History speichern
+  try {
+    const hist = JSON.parse(localStorage.getItem(PRUEF_KEY) || '[]');
+    hist.unshift({ date: new Date().toLocaleDateString('de-DE'), level: pruefState.level, score, total, pct, grade });
+    if (hist.length > 10) hist.length = 10;
+    localStorage.setItem(PRUEF_KEY, JSON.stringify(hist));
+  } catch(e) {}
+
+  renderPruefHistory();
+  trackLernActivity();
+}
+
+function renderPruefHistory() {
+  const el = document.getElementById('pruef-history');
+  if (!el) return;
+  try {
+    const hist = JSON.parse(localStorage.getItem(PRUEF_KEY) || '[]');
+    if (!hist.length) { el.innerHTML = '<div style="color:var(--fg-2);font-size:13px">Noch keine Ergebnisse gespeichert.</div>'; return; }
+    el.innerHTML = hist.map(h => `
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--bg-2);border-radius:8px;font-size:13px">
+        <span style="font-weight:600;color:${PRUEF_CONFIG[h.level]?.color||'var(--fg)'}">${h.level}</span>
+        <span>${h.score}/${h.total} (${h.pct}%)</span>
+        <span style="color:${h.pct>=80?'#16a34a':h.pct>=50?'#d97706':'#dc2626'}">${h.grade}</span>
+        <span style="color:var(--fg-2)">${h.date}</span>
+      </div>`).join('');
+  } catch(e) { el.innerHTML = ''; }
+}
+
+function resetPruefung() {
+  clearInterval(pruefState.timer);
+  document.getElementById('pruef-quiz').style.display = 'none';
+  document.getElementById('pruef-result').style.display = 'none';
+  document.getElementById('pruef-start').style.display = 'block';
+  renderPruefHistory();
 }
 </script>
 <!-- ===== GRAMMATIK-ÜBERSICHT MODAL ===== -->
