@@ -86,6 +86,10 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 
 /* UTIL */
 .sec-lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-muted);margin-bottom:10px}
+.screen-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.screen-nav .sec-lbl{margin-bottom:0}
+.snav-btn{background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:18px;cursor:pointer;font-family:var(--font);color:var(--fg);line-height:1}
+.snav-btn:active{opacity:.7}
 .card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
 .btn{width:100%;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:14px;font-size:15px;font-weight:600;font-family:var(--font);cursor:pointer;transition:opacity .15s}
 .btn:hover{opacity:.88}
@@ -362,7 +366,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 
     <!-- VOKABELN -->
     <div class="screen" id="sc-vokabeln">
-      <div class="sec-lbl">Vokabel-Trainer</div>
+      <div class="screen-nav"><button class="snav-btn" onclick="goAdj(-1)">←</button><div class="sec-lbl">Vokabel-Trainer</div><button class="snav-btn" onclick="goAdj(1)">→</button></div>
       <div class="vok-filter">
         <button class="vf active" onclick="filterVok(this,'alle')">Alle</button>
         <button class="vf" id="vf-srs" onclick="filterVokSRS()" style="background:var(--red-lt);color:var(--red);border-color:var(--red)">🔁 Schwache Wörter</button>
@@ -525,13 +529,13 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 
     <!-- GRAMMATIK -->
     <div class="screen" id="sc-grammatik">
-      <div class="sec-lbl" style="font-size:13px">Grammatik-Regeln</div>
+      <div class="screen-nav"><button class="snav-btn" onclick="goAdj(-1)">←</button><div class="sec-lbl">Grammatik-Regeln</div><button class="snav-btn" onclick="goAdj(1)">→</button></div>
       <div class="gram-list" id="gram-list"></div>
     </div>
 
     <!-- CHALLENGE -->
     <div class="screen" id="sc-challenge">
-
+      <div class="screen-nav"><button class="snav-btn" onclick="goAdj(-1)">←</button><div class="sec-lbl">Challenge</div><button class="snav-btn" onclick="goAdj(1)">→</button></div>
       <!-- START-SCREEN -->
       <div id="ch-start">
         <div class="challenge-card">
@@ -628,7 +632,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 
     <!-- STUNDENPLAN -->
     <div class="screen" id="sc-stundenplan">
-      <div class="sec-lbl">Wochenplan</div>
+      <div class="screen-nav"><button class="snav-btn" onclick="goAdj(-1)">←</button><div class="sec-lbl">Stundenplan</div><button class="snav-btn" onclick="goAdj(1)">→</button></div>
       <div class="countdown-end">
         <p>📅 Kursende: <strong id="kursende-display">Freitag, 04. Dezember 2026</strong></p>
       </div>
@@ -653,7 +657,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 
     <!-- HAUSAUFGABEN -->
     <div class="screen" id="sc-hausaufgaben">
-      <div class="sec-lbl">Hausaufgaben</div>
+      <div class="screen-nav"><button class="snav-btn" onclick="goAdj(-1)">←</button><div class="sec-lbl">Hausaufgaben</div><button class="snav-btn" onclick="goAdj(1)">→</button></div>
       <button onclick="openHWForm()" style="width:100%;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:8px">
         ＋ Hausaufgabe hinzufügen
       </button>
@@ -863,8 +867,12 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
       <!-- Quiz läuft -->
       <div id="pruef-quiz" style="display:none">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <button onclick="resetPruefung()" style="background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:5px 10px;font-size:16px;cursor:pointer;font-family:var(--font)" title="Prüfung abbrechen">←</button>
           <div id="pruef-level-badge" style="font-size:14px;font-weight:700;color:var(--accent)">A2</div>
-          <div id="pruef-timer" style="font-size:18px;font-weight:800;color:var(--red);background:var(--red-lt);padding:6px 14px;border-radius:20px">⏱ 15:00</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div id="pruef-timer" style="font-size:18px;font-weight:800;color:var(--red);background:var(--red-lt);padding:6px 14px;border-radius:20px;cursor:pointer" onclick="pruefTogglePause()" title="Pause/Weiter">⏱ 15:00</div>
+            <button onclick="pruefTogglePause()" id="pruef-pause-btn" style="background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:5px 10px;font-size:16px;cursor:pointer;font-family:var(--font)">⏸</button>
+          </div>
           <div id="pruef-qnum" style="font-size:13px;color:var(--fg-muted)">1 / 20</div>
         </div>
         <div style="background:var(--bg-2);border-radius:8px;height:6px;margin-bottom:20px"><div id="pruef-prog-bar" style="background:var(--accent);height:6px;border-radius:8px;transition:width .3s;width:0%"></div></div>
@@ -2582,6 +2590,8 @@ let vokState = {
 let gramOpen = -1;
 
 /* ========== NAV ========== */
+const SCREEN_ORDER = ['start','vokabeln','grammatik','challenge','stundenplan','hausaufgaben','praesi','links','translator','pruefung'];
+
 function go(name) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nb').forEach(b => b.classList.remove('active'));
@@ -2589,6 +2599,16 @@ function go(name) {
   const nb = document.getElementById('nb-' + name);
   if (nb) nb.classList.add('active');
   document.querySelector('.content').scrollTop = 0;
+}
+
+function goAdj(dir) {
+  const active = document.querySelector('.screen.active');
+  if (!active) return;
+  const cur = active.id.replace('sc-','');
+  const idx = SCREEN_ORDER.indexOf(cur);
+  if (idx < 0) return;
+  const next = SCREEN_ORDER[idx + dir];
+  if (next) go(next);
 }
 
 /* ========== KURS-DATUM HELPERS ========== */
@@ -4580,15 +4600,15 @@ function copyTranslation() {
 const PRUEF_KEY = 'ela_pruef_history';
 
 const PRUEF_CONFIG = {
-  A1: { label:'A1 Starter', color:'#16a34a', time:30, count:10, desc:'Grundlegende Vokabeln & einfache Strukturen' },
-  A2: { label:'A2 Key', color:'#2563eb', time:45, count:15, desc:'Alltag, Arbeit, Reisen (Cambridge Key-Stil)' },
-  B1: { label:'B1 Preliminary', color:'#d97706', time:60, count:20, desc:'Komplexere Grammatik, Kontext & Inferenz' },
+  A1: { label:'A1 Starter', color:'#16a34a', time:15, count:10, desc:'Grundlegende Vokabeln & einfache Strukturen' },
+  A2: { label:'A2 Key', color:'#2563eb', time:30, count:15, desc:'Alltag, Arbeit, Reisen (Cambridge Key-Stil)' },
+  B1: { label:'B1 Preliminary', color:'#d97706', time:45, count:20, desc:'Komplexere Grammatik, Kontext & Inferenz' },
   B2: { label:'B2 First', color:'#7c3aed', time:75, count:25, desc:'Fortgeschrittene Strukturen, akademischer Stil' }
 };
 
 let pruefState = {
   level: null, questions: [], idx: 0, score: 0,
-  timer: null, timeLeft: 0, answered: false
+  timer: null, timeLeft: 0, answered: false, paused: false
 };
 
 function buildPruefQuestions(level) {
@@ -4603,11 +4623,11 @@ function buildPruefQuestions(level) {
   for (let i = 0; i < vokCount; i++) {
     const v = pool[i];
     // Frage: Was bedeutet "{word}"?
-    const correct = v.t;
+    const correct = (v.t + '').trim();
     const distractors = VOKABELN
-      .filter(x => x.w !== v.w && x.t !== correct)
+      .filter(x => x.w !== v.w && (x.t + '').trim() !== correct)
       .sort(() => Math.random() - 0.5)
-      .slice(0, 3).map(x => x.t);
+      .slice(0, 3).map(x => (x.t + '').trim());
     if (distractors.length < 3) continue;
     const opts = [correct, ...distractors].sort(() => Math.random() - 0.5);
     qs.push({ type:'vok', q:`Was bedeutet „${v.w}"?`, opts, a: correct, ex: v.ex });
@@ -4625,7 +4645,10 @@ function buildPruefQuestions(level) {
   const gramCount = PRUEF_CONFIG[level].count - qs.length;
   for (let i = 0; i < Math.min(gramCount, gramShuffled.length); i++) {
     const gq = gramShuffled[i];
-    qs.push({ type:'gram', q: gq.q, opts: gq.opts, a: gq.a });
+    // a ist 0-basierter Index → in Text-String umwandeln
+    const correctText = gq.opts[gq.a];
+    if (!correctText) continue;
+    qs.push({ type:'gram', q: gq.q, opts: gq.opts, a: correctText });
   }
   return qs.sort(() => Math.random() - 0.5).slice(0, PRUEF_CONFIG[level].count);
 }
@@ -4648,7 +4671,9 @@ function startPruefung(level) {
 
 function pruefStartTimer() {
   clearInterval(pruefState.timer);
+  pruefState.paused = false;
   pruefState.timer = setInterval(() => {
+    if (pruefState.paused) return;
     pruefState.timeLeft--;
     const m = Math.floor(pruefState.timeLeft / 60);
     const s = pruefState.timeLeft % 60;
@@ -4662,6 +4687,19 @@ function pruefStartTimer() {
       showPruefResult();
     }
   }, 1000);
+}
+
+function pruefTogglePause() {
+  pruefState.paused = !pruefState.paused;
+  const btn = document.getElementById('pruef-pause-btn');
+  const timer = document.getElementById('pruef-timer');
+  if (pruefState.paused) {
+    if (btn) btn.textContent = '▶';
+    if (timer) timer.style.opacity = '0.5';
+  } else {
+    if (btn) btn.textContent = '⏸';
+    if (timer) timer.style.opacity = '1';
+  }
 }
 
 function pruefRenderQ() {
@@ -4682,10 +4720,11 @@ function pruefRenderQ() {
   const optsDiv = document.getElementById('pruef-opts');
   optsDiv.innerHTML = '';
   q.opts.forEach(opt => {
+    const optTrimmed = (opt + '').trim();
     const btn = document.createElement('button');
     btn.className = 'pruef-opt-btn';
-    btn.textContent = opt;
-    btn.onclick = () => pruefAnswer(opt, btn);
+    btn.textContent = optTrimmed;
+    btn.onclick = () => pruefAnswer(optTrimmed, btn);
     optsDiv.appendChild(btn);
   });
 }
@@ -4694,14 +4733,14 @@ function pruefAnswer(chosen, btn) {
   if (pruefState.answered) return;
   pruefState.answered = true;
   const q = pruefState.questions[pruefState.idx];
-  const correct = q.a;
-  const isRight = chosen === correct;
+  const correct = (q.a + '').trim();
+  const isRight = chosen.trim() === correct;
   if (isRight) pruefState.score++;
 
   // Buttons färben
   document.querySelectorAll('.pruef-opt-btn').forEach(b => {
     b.disabled = true;
-    if (b.textContent === correct) b.style.background = '#16a34a', b.style.color = '#fff';
+    if (b.textContent.trim() === correct) b.style.background = '#16a34a', b.style.color = '#fff';
     else if (b === btn && !isRight) b.style.background = '#dc2626', b.style.color = '#fff';
   });
 
