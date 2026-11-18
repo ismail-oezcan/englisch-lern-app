@@ -864,6 +864,12 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
         <div id="pruef-history" style="margin-top:20px"></div>
       </div>
 
+      <!-- Countdown -->
+      <div id="pruef-countdown" style="display:none;text-align:center;padding:60px 20px">
+        <div id="pruef-cd-num" style="font-size:96px;font-weight:900;line-height:1;color:var(--accent)">3</div>
+        <div id="pruef-cd-label" style="font-size:18px;color:var(--fg-muted);margin-top:16px">Mach dich bereit…</div>
+      </div>
+
       <!-- Quiz läuft -->
       <div id="pruef-quiz" style="display:none">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
@@ -4663,10 +4669,40 @@ function startPruefung(level) {
 
   document.getElementById('pruef-start').style.display = 'none';
   document.getElementById('pruef-result').style.display = 'none';
-  document.getElementById('pruef-quiz').style.display = 'block';
+  document.getElementById('pruef-quiz').style.display = 'none';
+  document.getElementById('pruef-countdown').style.display = 'block';
 
-  pruefRenderQ();
-  pruefStartTimer();
+  // Countdown 3-2-1-Los
+  let count = 3;
+  const numEl = document.getElementById('pruef-cd-num');
+  const lblEl = document.getElementById('pruef-cd-label');
+  numEl.textContent = count;
+  lblEl.textContent = 'Mach dich bereit…';
+
+  const cdInterval = setInterval(() => {
+    count--;
+    if (count > 0) {
+      numEl.textContent = count;
+    } else if (count === 0) {
+      numEl.textContent = '🚀';
+      lblEl.textContent = 'Los!';
+    } else {
+      clearInterval(cdInterval);
+      document.getElementById('pruef-countdown').style.display = 'none';
+      document.getElementById('pruef-quiz').style.display = 'block';
+
+      const badge = document.getElementById('pruef-level-badge');
+      if (badge) { badge.textContent = level; badge.style.color = PRUEF_CONFIG[level].color; }
+
+      const m = Math.floor(pruefState.timeLeft / 60);
+      const s = pruefState.timeLeft % 60;
+      const timerEl = document.getElementById('pruef-timer');
+      if (timerEl) timerEl.textContent = `⏱ ${m}:${s.toString().padStart(2,'0')}`;
+
+      pruefRenderQ();
+      pruefStartTimer();
+    }
+  }, 1000);
 }
 
 function pruefStartTimer() {
@@ -4823,6 +4859,7 @@ function resetPruefung() {
   clearInterval(pruefState.timer);
   document.getElementById('pruef-quiz').style.display = 'none';
   document.getElementById('pruef-result').style.display = 'none';
+  document.getElementById('pruef-countdown').style.display = 'none';
   document.getElementById('pruef-start').style.display = 'block';
   renderPruefHistory();
 }
