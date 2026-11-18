@@ -90,6 +90,12 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 .screen-nav .sec-lbl{margin-bottom:0}
 .snav-btn{background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:18px;cursor:pointer;font-family:var(--font);color:var(--fg);line-height:1}
 .snav-btn:active{opacity:.7}
+.vok-group{border:1px solid var(--border);border-radius:12px;margin-bottom:8px;overflow:hidden}
+.vok-group-hdr{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;cursor:pointer;background:var(--bg-card);font-size:14px;font-weight:600;user-select:none}
+.vok-group-hdr:active{opacity:.8}
+.vok-group-body{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}
+.vok-mini-card{background:var(--bg-2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;cursor:pointer;transition:border-color .15s}
+.vok-mini-card:active{border-color:var(--accent);opacity:.85}
 .card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
 .btn{width:100%;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:14px;font-size:15px;font-weight:600;font-family:var(--font);cursor:pointer;transition:opacity .15s}
 .btn:hover{opacity:.88}
@@ -367,57 +373,22 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
     <!-- VOKABELN -->
     <div class="screen" id="sc-vokabeln">
       <div class="screen-nav"><button class="snav-btn" onclick="goAdj(-1)">←</button><div class="sec-lbl">Vokabel-Trainer</div><button class="snav-btn" onclick="goAdj(1)">→</button></div>
-      <div class="vok-filter">
-        <button class="vf active" onclick="filterVok(this,'alle')">Alle</button>
-        <button class="vf" id="vf-srs" onclick="filterVokSRS()" style="background:var(--red-lt);color:var(--red);border-color:var(--red)">🔁 Schwache Wörter</button>
-        <button class="vf" onclick="filterVok(this,'tech')">💻 Technologie</button>
-        <button class="vf" onclick="filterVok(this,'verbs')">🔧 Verben</button>
-        <button class="vf" onclick="filterVok(this,'env')">🌿 Umwelt</button>
-        <button class="vf" onclick="filterVok(this,'phrasal')">🔀 Phrasal Verbs</button>
-        <button class="vf" onclick="filterVok(this,'comm')">💬 Kommunikation</button>
-        <button class="vf" onclick="filterVok(this,'feelings')">😊 Gefühle</button>
-        <button class="vf" onclick="filterVok(this,'appear')">👤 Aussehen</button>
-        <button class="vf" onclick="filterVok(this,'travel')">✈️ Reise/Hotel</button>
-        <button class="vf" onclick="filterVok(this,'trend')">📊 Diagramme</button>
-        <button class="vf" onclick="filterVok(this,'music')">🎵 Musik</button>
-        <button class="vf" onclick="filterVok(this,'tourism')">🗺️ Tourismus</button>
-        <button class="vf" onclick="filterVok(this,'irregular')">📋 Irr. Verben</button>
-        <button class="vf" onclick="filterVok(this,'school')">🎓 Schule &amp; Familie</button>
-        <button class="vf" onclick="filterVok(this,'tech')">💻 Tech &amp; Haus</button>
-        <button class="vf" onclick="filterVok(this,'general')">📝 Allgemein</button>
-        <button class="vf" onclick="filterVok(this,'time')">⏰ Zeit</button>
-        <button class="vf" onclick="filterVok(this,'transport')">🚗 Transport</button>
-        <button class="vf" onclick="filterVok(this,'restaurant')">🍽️ Restaurant</button>
-        <button class="vf" onclick="filterVok(this,'food_adj')">🥗 Lebensmittel</button>
-        <button class="vf" onclick="filterVok(this,'money')">💰 Geld</button>
-        <button class="vf" onclick="filterVok(this,'present')">🎤 Präsentieren</button>
-        <button class="vf" onclick="filterVok(this,'media')">🤖 KI & Medien</button>
-        <button class="vf" onclick="filterVok(this,'questions')">❓ Question Words</button>
-        <button class="vf" onclick="filterVok(this,'adverbs')">⏱️ Adverbs</button>
-        <button class="vf" onclick="filterVok(this,'future')">🔮 Zukunft &amp; Pläne</button>
-        <button class="vf" onclick="filterVok(this,'kitchen')">🍳 Küche &amp; Kochen</button>
-        <button class="vf" onclick="filterVok(this,'unit6a')">🎬 Unit 6A – Drehorte</button>
-        <button class="vf" onclick="filterVok(this,'nov02')">📝 02.11 – Allgemein</button>
-        <button class="vf" onclick="filterVok(this,'nov02b')">🏙️ 02.11 – Stadt &amp; Feste</button>
-        <button class="vf" onclick="filterVok(this,'generations')">👨‍👩‍👧 Generationen</button>
-        <button class="vf" onclick="filterVok(this,'unit8b')">💬 Unit 8B – Comment Adverbs</button>
-        <button class="vf" onclick="filterVok(this,'nov04')">🏙️ 04.11 – In the city</button>
-        <button class="vf" onclick="filterVok(this,'nov06')">💬 06.11 – Giving Opinions</button>
-        <button class="vf" onclick="filterVok(this,'nov09')">💬 09.11 – Conversation & Icons</button>
-        <button class="vf" onclick="filterVok(this,'nov09b')">✍️ 09.11b – Klassen-Vokabeln</button>
-        <button class="vf" onclick="filterVok(this,'nov10')">🗣️ 10.11 – Small Talk & Frequency</button>
-        <button class="vf" onclick="filterVok(this,'nov11')">😤 11.11 – Emotions & Presentations</button>
-        <button class="vf" onclick="filterVok(this,'nov12')">🧘 12.11 – Leisure & Careers</button>
-        <button class="vf" onclick="filterVok(this,'nov13')">🏢 13.11 – Human Resources & IELTS</button>
-        <button class="vf" onclick="filterVok(this,'nov15')">🎉 15.11 – Social Life & Night Out</button>
-        <button class="vf" onclick="filterVok(this,'nov16')">🇮🇳 16.11 – International India</button>
-        <button class="vf" onclick="filterVok(this,'nov17')">✉️ 17.11 – Emails & Airport</button>
-        <button class="vf" onclick="filterVok(this,'nov18')">⚖️ 18.11 – Differences & Conflict</button>
+      <!-- Suchfeld -->
+      <div style="margin-bottom:10px;position:relative">
+        <input id="vok-search" type="search" placeholder="🔍 Vokabel suchen…" oninput="vokSearch(this.value)" style="width:100%;box-sizing:border-box;padding:9px 14px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg-2);color:var(--fg);font-size:14px;font-family:var(--font);outline:none" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
       </div>
+      <!-- Schnellfilter -->
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+        <button class="vf active" id="vf-alle" onclick="vokQuickFilter(this,'alle')">Alle</button>
+        <button class="vf" id="vf-eigene" onclick="vokQuickFilter(this,'eigene')">⭐ Eigene</button>
+        <button class="vf" id="vf-srs" onclick="filterVokSRS()" style="background:var(--red-lt);color:var(--red);border-color:var(--red)">🔁 Schwache Wörter</button>
+      </div>
+      <!-- Klappbare Tages-Gruppen -->
+      <div id="vok-groups"></div>
 
-      <div class="vok-progress" id="vok-prog"></div>
-
-      <!-- Vokabel hinzufügen -->
+      <!-- Gruppen-Ansicht -->
+      <div id="vok-groups-wrap">
+        <!-- Vokabel hinzufügen -->
       <div id="vok-add-wrap" style="margin-bottom:16px">
         <button onclick="document.getElementById('vok-add-form').style.display=document.getElementById('vok-add-form').style.display==='none'?'block':'none'" style="width:100%;padding:9px;border-radius:10px;border:1.5px dashed var(--accent);background:transparent;color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font)">➕ Eigene Vokabel hinzufügen</button>
         <div id="vok-add-form" style="display:none;margin-top:10px;background:var(--bg-card);border-radius:12px;padding:14px;border:1px solid var(--border)">
@@ -488,7 +459,12 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
           <div id="vok-add-msg" style="text-align:center;font-size:12px;margin-top:8px;color:var(--accent);display:none"></div>
         </div>
       </div>
+      </div><!-- end vok-groups-wrap -->
 
+      <!-- Karten-Ansicht (wird beim Antippen einer Vokabel geöffnet) -->
+      <div id="vok-card-wrap" style="display:none">
+        <button onclick="closeVokCard()" style="margin-bottom:12px;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-size:14px;cursor:pointer;font-family:var(--font);color:var(--fg)">← Zurück zur Liste</button>
+        <div class="vok-progress" id="vok-prog"></div>
       <div class="flashcard-wrap" onclick="flipCard()">
         <div class="flashcard" id="flashcard">
           <div class="fc-front">
@@ -525,6 +501,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
           <span id="speed-label" style="font-weight:700;color:var(--accent)">Mittel</span>
         </div>
       </div>
+      </div><!-- end vok-card-wrap -->
     </div>
 
     <!-- GRAMMATIK -->
@@ -2605,6 +2582,14 @@ function go(name) {
   const nb = document.getElementById('nb-' + name);
   if (nb) nb.classList.add('active');
   document.querySelector('.content').scrollTop = 0;
+  if (name === 'vokabeln') {
+    // Gruppen-Ansicht anzeigen, Karten-Ansicht verstecken
+    const gw = document.getElementById('vok-groups-wrap');
+    const cw = document.getElementById('vok-card-wrap');
+    if (gw) gw.style.display = 'block';
+    if (cw) cw.style.display = 'none';
+    renderVokGroups();
+  }
 }
 
 function goAdj(dir) {
@@ -2732,9 +2717,177 @@ function addCustomVok() {
 }
 
 /* ========== VOKABELN ========== */
-function filterVok(btn, cat) {
+// Gruppen-Definitionen: Reihenfolge neueste zuerst
+const VOK_GROUPS = [
+  { key:'nov18', label:'⚖️ 18.11 – Differences & Conflict', date:'18.11' },
+  { key:'nov17', label:'✉️ 17.11 – Emails & Airport', date:'17.11' },
+  { key:'nov16', label:'🇮🇳 16.11 – International India', date:'16.11' },
+  { key:'nov15', label:'🎉 15.11 – Social Life & Night Out', date:'15.11' },
+  { key:'nov13', label:'🏢 13.11 – Human Resources & IELTS', date:'13.11' },
+  { key:'nov12', label:'🧘 12.11 – Leisure & Careers', date:'12.11' },
+  { key:'nov11', label:'😤 11.11 – Emotions & Presentations', date:'11.11' },
+  { key:'nov10', label:'🗣️ 10.11 – Small Talk & Frequency', date:'10.11' },
+  { key:'nov09b', label:'✍️ 09.11b – Klassen-Vokabeln', date:'09.11' },
+  { key:'nov09', label:'💬 09.11 – Conversation & Icons', date:'09.11' },
+  { key:'nov06', label:'💬 06.11 – Giving Opinions', date:'06.11' },
+  { key:'nov04', label:'🏙️ 04.11 – In the city', date:'04.11' },
+  { key:'nov02b', label:'🏙️ 02.11 – Stadt & Feste', date:'02.11' },
+  { key:'nov02', label:'📝 02.11 – Allgemein', date:'02.11' },
+  { key:'unit8b', label:'💬 Unit 8B – Comment Adverbs', date:'' },
+  { key:'unit6a', label:'🎬 Unit 6A – Drehorte', date:'' },
+  { key:'generations', label:'👨‍👩‍👧 Generationen', date:'' },
+  { key:'kitchen', label:'🍳 Küche & Kochen', date:'' },
+  { key:'future', label:'🔮 Zukunft & Pläne', date:'' },
+  { key:'adverbs', label:'⏱️ Adverbs', date:'' },
+  { key:'questions', label:'❓ Question Words', date:'' },
+  { key:'media', label:'🤖 KI & Medien', date:'' },
+  { key:'present', label:'🎤 Präsentieren', date:'' },
+  { key:'money', label:'💰 Geld', date:'' },
+  { key:'food_adj', label:'🥗 Lebensmittel', date:'' },
+  { key:'restaurant', label:'🍽️ Restaurant', date:'' },
+  { key:'transport', label:'🚗 Transport', date:'' },
+  { key:'time', label:'⏰ Zeit', date:'' },
+  { key:'general', label:'📝 Allgemein', date:'' },
+  { key:'school', label:'🎓 Schule & Familie', date:'' },
+  { key:'irregular', label:'📋 Irr. Verben', date:'' },
+  { key:'tourism', label:'🗺️ Tourismus', date:'' },
+  { key:'music', label:'🎵 Musik', date:'' },
+  { key:'trend', label:'📊 Diagramme', date:'' },
+  { key:'travel', label:'✈️ Reise/Hotel', date:'' },
+  { key:'appear', label:'👤 Aussehen', date:'' },
+  { key:'feelings', label:'😊 Gefühle', date:'' },
+  { key:'comm', label:'💬 Kommunikation', date:'' },
+  { key:'phrasal', label:'🔀 Phrasal Verbs', date:'' },
+  { key:'env', label:'🌿 Umwelt', date:'' },
+  { key:'verbs', label:'🔧 Verben', date:'' },
+  { key:'tech', label:'💻 Technologie', date:'' },
+];
+
+let vokActiveGroup = null; // welche Gruppe ist offen
+let vokQuickMode = 'alle'; // 'alle' | 'eigene'
+let vokSearchTerm = '';
+
+function renderVokGroups() {
+  const container = document.getElementById('vok-groups');
+  if (!container) return;
+
+  // Welche Vokabeln anzeigen?
+  let base = [...VOKABELN];
+  if (vokQuickMode === 'eigene') base = base.filter(v => v.custom);
+  if (vokSearchTerm) {
+    const q = vokSearchTerm.toLowerCase();
+    base = base.filter(v =>
+      (v.w||'').toLowerCase().includes(q) ||
+      (v.t||'').toLowerCase().includes(q) ||
+      (v.ex||'').toLowerCase().includes(q)
+    );
+  }
+
+  // Bei Suche: alle Treffer flach zeigen ohne Gruppen
+  if (vokSearchTerm) {
+    if (base.length === 0) {
+      container.innerHTML = '<div style="text-align:center;color:var(--fg-muted);padding:30px">Keine Vokabeln gefunden</div>';
+      return;
+    }
+    container.innerHTML = '<div style="margin-bottom:8px;font-size:12px;color:var(--fg-muted)">' + base.length + ' Treffer</div>' +
+      base.map((v,i) => vokMiniCard(v, i, base)).join('');
+    return;
+  }
+
+  // Gruppen aufbauen
+  let html = '';
+  for (const g of VOK_GROUPS) {
+    const items = base.filter(v => v.cat === g.key);
+    if (items.length === 0) continue;
+    const isOpen = vokActiveGroup === g.key;
+    html += `<div class="vok-group" id="vg-${g.key}">
+      <div class="vok-group-hdr" onclick="toggleVokGroup('${g.key}')">
+        <span>${g.label}</span>
+        <span style="display:flex;align-items:center;gap:6px">
+          <span style="font-size:12px;color:var(--fg-muted);background:var(--bg-2);padding:2px 8px;border-radius:20px">${items.length}</span>
+          <span style="font-size:16px;transition:transform .2s;transform:rotate(${isOpen?'90':'0'}deg)">›</span>
+        </span>
+      </div>
+      ${isOpen ? `<div class="vok-group-body">${items.map((v,i)=>vokMiniCard(v,i,items)).join('')}</div>` : ''}
+    </div>`;
+  }
+
+  // Eigene ohne Gruppe
+  if (vokQuickMode !== 'eigene') {
+    const custom = base.filter(v => v.custom && !VOK_GROUPS.find(g => g.key === v.cat));
+    if (custom.length > 0) {
+      const isOpen = vokActiveGroup === '__custom__';
+      html += `<div class="vok-group" id="vg-__custom__">
+        <div class="vok-group-hdr" onclick="toggleVokGroup('__custom__')">
+          <span>⭐ Eigene Vokabeln</span>
+          <span style="display:flex;align-items:center;gap:6px">
+            <span style="font-size:12px;color:var(--fg-muted);background:var(--bg-2);padding:2px 8px;border-radius:20px">${custom.length}</span>
+            <span style="font-size:16px;transition:transform .2s;transform:rotate(${isOpen?'90':'0'}deg)">›</span>
+          </span>
+        </div>
+        ${isOpen ? `<div class="vok-group-body">${custom.map((v,i)=>vokMiniCard(v,i,custom)).join('')}</div>` : ''}
+      </div>`;
+    }
+  }
+
+  if (!html) html = '<div style="text-align:center;color:var(--fg-muted);padding:30px">Keine Vokabeln gefunden</div>';
+  container.innerHTML = html;
+}
+
+function vokMiniCard(v, i, arr) {
+  const srs = JSON.parse(localStorage.getItem('ela_srs')||'{}');
+  const score = srs[v.w] || 0;
+  const dot = score <= 1 ? '🔴' : score <= 3 ? '🟡' : '🟢';
+  return `<div class="vok-mini-card" onclick="openVokCard(${JSON.stringify(v).replace(/"/g,'&quot;')})">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div>
+        <div style="font-weight:700;font-size:15px">${v.w}</div>
+        <div style="font-size:12px;color:var(--fg-muted)">${v.ph||''}</div>
+      </div>
+      <div style="font-size:11px">${dot}</div>
+    </div>
+    <div style="font-size:13px;color:var(--accent);margin-top:4px">${v.t}</div>
+  </div>`;
+}
+
+function toggleVokGroup(key) {
+  vokActiveGroup = vokActiveGroup === key ? null : key;
+  renderVokGroups();
+}
+
+function vokQuickFilter(btn, mode) {
   document.querySelectorAll('.vf').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+  vokQuickMode = mode;
+  renderVokGroups();
+}
+
+function vokSearch(val) {
+  vokSearchTerm = val.trim();
+  renderVokGroups();
+}
+
+// Vokabel-Karte öffnen (Overlay)
+function openVokCard(v) {
+  // Filtered setzen und renderVok aufrufen für Vollansicht
+  vokState.filtered = [v];
+  vokState.idx = 0;
+  vokState.flipped = false;
+  // Flashcard-Bereich einblenden
+  document.getElementById('vok-card-wrap').style.display = 'block';
+  document.getElementById('vok-groups-wrap').style.display = 'none';
+  renderVok();
+}
+
+function closeVokCard() {
+  document.getElementById('vok-card-wrap').style.display = 'none';
+  document.getElementById('vok-groups-wrap').style.display = 'block';
+}
+
+function filterVok(btn, cat) {
+  // Legacy — für SRS Kompatibilität
+  document.querySelectorAll('.vf').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
   vokState.filter = cat;
   vokState.filtered = cat === 'alle' ? [...VOKABELN] : VOKABELN.filter(v => v.cat === cat);
   vokState.idx = 0;
@@ -3025,9 +3178,14 @@ function filterVokSRS() {
   const srsBtn = document.getElementById('vf-srs');
   if (srsBtn) srsBtn.classList.add('active');
   if (weak.length === 0) {
-    document.getElementById('flashcard-area').innerHTML = '<div style="text-align:center;padding:40px;color:var(--green);font-size:18px">✅ Keine schwachen Wörter – alles gelernt!</div>';
+    alert('✅ Keine schwachen Wörter – alles gelernt!');
     return;
   }
+  // Karten-Ansicht öffnen
+  const gw = document.getElementById('vok-groups-wrap');
+  const cw = document.getElementById('vok-card-wrap');
+  if (gw) gw.style.display = 'none';
+  if (cw) cw.style.display = 'block';
   renderVok();
 }
 
@@ -4630,11 +4788,13 @@ function buildPruefQuestions(level) {
     const v = pool[i];
     // Frage: Was bedeutet "{word}"?
     const correct = (v.t + '').trim();
+    // Distraktoren aus ALLEN Vokabeln (nicht nur gefiltertem Pool)
     const distractors = VOKABELN
       .filter(x => x.w !== v.w && (x.t + '').trim() !== correct)
       .sort(() => Math.random() - 0.5)
       .slice(0, 3).map(x => (x.t + '').trim());
-    if (distractors.length < 3) continue;
+    // Auffüllen falls zu wenige
+    while (distractors.length < 3) distractors.push(['falsch','unbekannt','anders'][distractors.length]);
     const opts = [correct, ...distractors].sort(() => Math.random() - 0.5);
     qs.push({ type:'vok', q:`Was bedeutet „${v.w}"?`, opts, a: correct, ex: v.ex });
   }
@@ -4642,11 +4802,16 @@ function buildPruefQuestions(level) {
   const gramPool = [];
   GRAMMATIK.forEach(g => {
     if (!g.quizzes) return;
+    // Für A1: nur A1-Grammatik; falls leer, später alle nehmen
     if (level === 'A1' && g.level === 'A1') gramPool.push(...g.quizzes);
     else if (level === 'A2') gramPool.push(...g.quizzes);
     else if (level === 'B1' && ['A2','B1'].includes(g.level)) gramPool.push(...g.quizzes);
     else if (level === 'B2') gramPool.push(...g.quizzes);
   });
+  // Fallback: wenn gramPool leer, alle Grammatik-Quiz nehmen
+  if (gramPool.length === 0) {
+    GRAMMATIK.forEach(g => { if (g.quizzes) gramPool.push(...g.quizzes); });
+  }
   const gramShuffled = gramPool.sort(() => Math.random() - 0.5);
   const gramCount = PRUEF_CONFIG[level].count - qs.length;
   for (let i = 0; i < Math.min(gramCount, gramShuffled.length); i++) {
@@ -4670,7 +4835,6 @@ function startPruefung(level) {
   document.getElementById('pruef-start').style.display = 'none';
   document.getElementById('pruef-result').style.display = 'none';
   document.getElementById('pruef-quiz').style.display = 'none';
-  document.getElementById('pruef-countdown').style.display = 'block';
 
   // Countdown 3-2-1-Los
   let count = 3;
@@ -4678,6 +4842,7 @@ function startPruefung(level) {
   const lblEl = document.getElementById('pruef-cd-label');
   numEl.textContent = count;
   lblEl.textContent = 'Mach dich bereit…';
+  document.getElementById('pruef-countdown').style.display = 'block';
 
   const cdInterval = setInterval(() => {
     count--;
