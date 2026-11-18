@@ -406,6 +406,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
         <button class="vf" onclick="filterVok(this,'nov15')">🎉 15.11 – Social Life & Night Out</button>
         <button class="vf" onclick="filterVok(this,'nov16')">🇮🇳 16.11 – International India</button>
         <button class="vf" onclick="filterVok(this,'nov17')">✉️ 17.11 – Emails & Airport</button>
+        <button class="vf" onclick="filterVok(this,'nov18')">⚖️ 18.11 – Differences & Conflict</button>
       </div>
 
       <div class="vok-progress" id="vok-prog"></div>
@@ -442,6 +443,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
                 <option value="nov15">🎉 15.11 – Social Life &amp; Night Out</option>
                 <option value="nov16">🇮🇳 16.11 – International India</option>
                 <option value="nov17">✉️ 17.11 – Emails &amp; Airport</option>
+                <option value="nov18">⚖️ 18.11 – Differences &amp; Conflict</option>
                 <option value="nov06">💬 06.11 – Giving Opinions</option>
                 <option value="unit8b">💬 Unit 8B – Comment Adverbs</option>
                 <option value="generations">👨‍👩‍👧 Generationen</option>
@@ -556,7 +558,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
       <div id="ch-quiz" style="display:none">
         <div class="card">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-            <button onclick="document.getElementById('ch-quiz').style.display='none';document.getElementById('ch-flash').style.display='block'" style="background:none;border:none;font-size:14px;color:var(--fg-muted);cursor:pointer;padding:0;font-family:var(--font)">← Zurück</button>
+            <button onclick="document.getElementById('ch-quiz').style.display='none';document.getElementById('ch-start').style.display='block'" style="background:none;border:none;font-size:14px;color:var(--fg-muted);cursor:pointer;padding:0;font-family:var(--font)">← Zurück</button>
             <div style="font-size:11px;font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.06em" id="cq-num">Frage 1 von 10</div>
             <div style="font-size:12px;color:var(--accent);font-weight:700" id="cq-score">✓ 0</div>
           </div>
@@ -1804,6 +1806,26 @@ const VOKABELN = [
   {w:'passport control',ph:'/ˈpɑːspɔːt kənˌtrəʊl/',t:'Passkontrolle',ex:'"All passengers must go through passport control."',cat:'nov17'},
   {w:'customs',ph:'/ˈkʌstəmz/',t:'Zoll',ex:'"Nothing to declare at customs."',cat:'nov17'},
   {w:'departures',ph:'/dɪˈpɑːtʃəz/',t:'Abflug / Abflughalle',ex:'"Please proceed to the departures gate."',cat:'nov17'},
+
+  // 18.11 – Showing Differences & Conflict
+  {w:'whereas',ph:'/weərˈæz/',t:'wohingegen / während',ex:'"She likes tea, whereas he prefers coffee."',cat:'nov18'},
+  {w:'while',ph:'/waɪl/',t:'während / wohingegen',ex:'"While I enjoy travelling, my brother hates it."',cat:'nov18'},
+  {w:'although',ph:'/ɔːlˈðəʊ/',t:'obwohl',ex:'"Although it was raining, we went for a walk."',cat:'nov18'},
+  {w:'though',ph:'/ðəʊ/',t:'obwohl (informell, auch am Satzende)',ex:'"It was a great film. Very long, though."',cat:'nov18'},
+  {w:'even though',ph:'/ˈiːvən ðəʊ/',t:'obwohl / selbst wenn',ex:'"Even though she was tired, she finished the report."',cat:'nov18'},
+  {w:'despite',ph:'/dɪˈspaɪt/',t:'trotz (+ Nomen)',ex:'"Despite the bad weather, we enjoyed the trip."',cat:'nov18'},
+  {w:'in spite of',ph:'/ɪn spaɪt əv/',t:'trotz (+ Nomen)',ex:'"In spite of the noise, he fell asleep."',cat:'nov18'},
+  {w:'nevertheless',ph:'/ˌnevəðəˈles/',t:'dennoch / trotzdem (formell)',ex:'"The task was difficult. Nevertheless, the team succeeded."',cat:'nov18'},
+  {w:'conflict',ph:'/ˈkɒnflɪkt/',t:'der Konflikt',ex:'"There was a conflict between the two colleagues."',cat:'nov18'},
+  {w:'to resolve',ph:'/tə rɪˈzɒlv/',t:'lösen / beilegen',ex:'"They managed to resolve the conflict quickly."',cat:'nov18'},
+  {w:'to remain calm',ph:'/tə rɪˈmeɪn kɑːm/',t:'ruhig bleiben',ex:'"It is important to remain calm during a conflict."',cat:'nov18'},
+  {w:'aggressive',ph:'/əˈɡresɪv/',t:'aggressiv',ex:'"Don\'t use an aggressive tone of voice."',cat:'nov18'},
+  {w:'compromise',ph:'/ˈkɒmprəmaɪz/',t:'der Kompromiss',ex:'"Both sides agreed on a compromise."',cat:'nov18'},
+  {w:'to avoid',ph:'/tə əˈvɔɪd/',t:'vermeiden',ex:'"I try to avoid conflict where possible."',cat:'nov18'},
+  {w:'faulty',ph:'/ˈfɔːlti/',t:'defekt / fehlerhaft',ex:'"The machine was faulty and had to be repaired."',cat:'nov18'},
+  {w:'concern',ph:'/kənˈsɜːn/',t:'die Sorge / das Anliegen',ex:'"Alex understood Tony\'s concerns about the deadline."',cat:'nov18'},
+  {w:'apprentice',ph:'/əˈprentɪs/',t:'der Auszubildende',ex:'"The apprentices are responsible for cleaning the workshop."',cat:'nov18'},
+  {w:'workshop',ph:'/ˈwɜːkʃɒp/',t:'die Werkstatt',ex:'"The workshop needs to be cleaned before the inspection."',cat:'nov18'},
 ];
 
 const GRAMMATIK = [
@@ -2391,6 +2413,43 @@ const GRAMMATIK = [
       {q:'Welche Phrase stimmt ZU?', opts:["I'm afraid I completely disagree.",'From a financial point of view …',"Yes, that's a good point. I agree.",'I see what you mean, but …'], a:2},
       {q:'Welche Phrase widerspricht höflich?', opts:['Personally, I think …','I completely agree.',"What's your opinion?","I'm sorry, but I don't agree."], a:3},
       {q:'Was bedeutet "I take your point, but …"?', opts:['Ich stimme völlig zu.','Ich nehme deinen Punkt zur Kenntnis, aber …','Ich verstehe dich nicht.','Meiner Meinung nach …'], a:1},
+    ]
+  },
+  {
+    icon:'⚖️', name:'Showing Differences (but / whereas / although / despite)', level:'B1',
+    rule:'Um Gegensätze und Unterschiede auszudrücken, gibt es verschiedene Strukturen:\n• BUT / WHEREAS / WHILE → verbinden zwei Hauptsätze (+ Nomen/Pronomen)\n• ALTHOUGH / THOUGH / EVEN THOUGH → Nebensatz (+ Verb)\n• DESPITE / IN SPITE OF → + Nomen oder -ing Form (kein Verb!)\n• HOWEVER / NEVERTHELESS → am Satzanfang, danach Komma (formell)',
+    examples:[
+      {en:'She works hard, but she rarely gets promoted.', de:'Sie arbeitet hart, aber sie wird selten befördert. (BUT = Hauptsatz + Hauptsatz)'},
+      {en:'Tony is very experienced, whereas the apprentice is new.', de:'Tony ist sehr erfahren, wohingegen der Auszubildende neu ist. (WHEREAS = Kontrast)'},
+      {en:'Although the machine was faulty, production continued.', de:'Obwohl die Maschine defekt war, lief die Produktion weiter. (ALTHOUGH + Verb)'},
+      {en:'Despite his concerns, Alex remained calm.', de:'Trotz seiner Bedenken blieb Alex ruhig. (DESPITE + Nomen, kein Verb!)'},
+      {en:'In spite of the conflict, they found a compromise.', de:'Trotz des Konflikts fanden sie einen Kompromiss. (IN SPITE OF + Nomen)'},
+      {en:'The situation was aggressive. Nevertheless, he tried to resolve it.', de:'Die Situation war aggressiv. Dennoch versuchte er, sie zu lösen. (NEVERTHELESS = formell)'},
+    ],
+    quizzes:[
+      {q:'Welches Wort passt? "__ the bad weather, they went to the workshop." (+ Nomen)', opts:['Although','Despite','Whereas','However'], a:1},
+      {q:'"She wanted to avoid conflict, __ she remained calm." — richtige Verbindung?', opts:['despite','although','so','whereas'], a:2},
+      {q:'"__ he is an apprentice, he works very efficiently." — welches Wort?', opts:['Despite','However','Although','Whereas'], a:2},
+      {q:'Was ist FALSCH? "Despite + ___"', opts:['the noise','working hard','it was raining','the concern'], a:2},
+      {q:'"Tony is experienced. __, the apprentice needs more training." — formelle Verbindung?', opts:['But','Although','Nevertheless','Whereas'], a:2},
+    ]
+  },
+  {
+    icon:'🔄', name:'Active vs. Passive Voice', level:'B1',
+    rule:'Das Passiv (Passive Voice) wird verwendet, wenn die Handlung wichtiger ist als die Person, die sie ausführt.\n• Aktiv: Subjekt + Verb + Objekt → "The apprentice cleaned the workshop."\n• Passiv: Objekt + to be + Past Participle → "The workshop was cleaned (by the apprentice)."\n• Bildung: am/is/are (Present) / was/were (Past) / will be (Future) + Past Participle\n• "By + Person" kann weggelassen werden, wenn unwichtig.',
+    examples:[
+      {en:'The workshop is cleaned every day. (Present Passive)', de:'Die Werkstatt wird jeden Tag gereinigt.'},
+      {en:'The faulty machine was repaired yesterday. (Past Passive)', de:'Die defekte Maschine wurde gestern repariert.'},
+      {en:'The conflict will be resolved at the meeting. (Future Passive)', de:'Der Konflikt wird beim Treffen gelöst werden.'},
+      {en:'A compromise was agreed by both sides. (by + Person)', de:'Ein Kompromiss wurde von beiden Seiten vereinbart.'},
+      {en:'Emails are sent to all apprentices. (Present Passive)', de:'E-Mails werden an alle Auszubildenden gesendet.'},
+    ],
+    quizzes:[
+      {q:'"The concern ___ raised by Tony." — richtige Form (Past Passive)?', opts:['is raised','was raised','raised','were raised'], a:1},
+      {q:'Aktiv: "Alex resolves the conflict." → Passiv?', opts:['The conflict resolves Alex.','The conflict is resolved by Alex.','Alex is resolved.','The conflict resolved.'], a:1},
+      {q:'Welcher Satz ist im Passiv?', opts:['"The apprentice made a mistake."','"The mistake was made by the apprentice."','"The apprentice is making a mistake."','"The apprentice had made a mistake."'], a:1},
+      {q:'"The workshop ___ cleaned before the inspection." — Future Passive?', opts:['is going to cleaned','will cleaned','will be cleaned','is cleaned'], a:2},
+      {q:'Warum benutzt man oft das Passiv?', opts:['Um die Person zu betonen','Um die Handlung wichtiger zu machen als die Person','Um Vergangenheit auszudrücken','Um Fragen zu stellen'], a:1},
     ]
   },
 ];
