@@ -951,6 +951,40 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
       </div>
     </div>
 
+    <!-- PINNWAND SCREEN -->
+    <div class="screen" id="sc-pinnwand">
+      <div class="screen-nav">
+        <button class="snav-btn" onclick="goAdj(-1)">←</button>
+        <div class="sec-lbl" id="pinnwand-title">💬 Pinnwand</div>
+        <button class="snav-btn" onclick="goAdj(1)">→</button>
+      </div>
+
+      <!-- Nachrichten-Liste -->
+      <div id="pinnwand-list" style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;min-height:60px">
+        <div style="text-align:center;color:var(--fg-muted);font-size:14px;padding:20px">Lade Nachrichten…</div>
+      </div>
+
+      <!-- Neue Nachricht -->
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:12px">
+        <input id="pinnwand-name" type="text" placeholder="Dein Name" maxlength="30"
+          style="width:100%;box-sizing:border-box;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:14px;font-family:var(--font);color:var(--fg);margin-bottom:8px;outline:none"/>
+        <textarea id="pinnwand-text" placeholder="Deine Nachricht…" maxlength="300" rows="3"
+          style="width:100%;box-sizing:border-box;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:14px;font-family:var(--font);color:var(--fg);resize:none;outline:none;margin-bottom:8px"></textarea>
+        <button onclick="pinnwandSend()" style="width:100%;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);padding:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">Senden ✉️</button>
+      </div>
+
+      <!-- Admin-Bereich -->
+      <div id="pinnwand-admin-wrap" style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:12px">
+        <div style="font-size:12px;font-weight:700;color:var(--fg-muted);margin-bottom:8px">🔒 Admin</div>
+        <div style="display:flex;gap:8px">
+          <input id="pinnwand-pw" type="password" placeholder="Passwort" maxlength="50"
+            style="flex:1;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13px;font-family:var(--font);color:var(--fg);outline:none"/>
+          <button onclick="pinnwandAdminLogin()" style="background:var(--accent);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">Login</button>
+        </div>
+        <div id="pinnwand-admin-msg" style="font-size:12px;color:var(--red);margin-top:6px;display:none"></div>
+      </div>
+    </div>
+
   </div>
 
   <!-- Bottom Nav -->
@@ -994,6 +1028,10 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
     <button class="nb" id="nb-pruefung" onclick="go('pruefung')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
       <span id="nav-pruefung">Prüfung</span>
+    </button>
+    <button class="nb" id="nb-pinnwand" onclick="go('pinnwand')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      <span id="nav-pinnwand">Pinnwand</span>
     </button>
   </div>
 </div>
@@ -2955,7 +2993,7 @@ function setLang(lang) {
 })();
 
 /* ========== NAV ========== */
-const SCREEN_ORDER = ['home','vokabeln','grammatik','challenge','stundenplan','hausaufgaben','praesi','links','translator','pruefung'];
+const SCREEN_ORDER = ['home','vokabeln','grammatik','challenge','stundenplan','hausaufgaben','praesi','links','translator','pruefung','pinnwand'];
 
 function go(name) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -2974,6 +3012,9 @@ function go(name) {
     if (gw) gw.style.display = 'block';
     if (cw) cw.style.display = 'none';
     renderVokGroups();
+  }
+  if (name === 'pinnwand') {
+    pinnwandLoad();
   }
 }
 
@@ -4076,7 +4117,7 @@ function buildDailyQuestions(n) {
   // Aus gewichtetem Pool ohne Duplikate auswählen
   const selectedWords = [];
   const usedWords = new Set();
-  const shuffledPool = shuffle(pool);
+  const shuffledPool = seededShuffle(pool, getTodaySeed());
   for (const v of shuffledPool) {
     if (!usedWords.has(v.w)) {
       usedWords.add(v.w);
@@ -5653,6 +5694,99 @@ function showGramSec(id,btn){
   document.querySelectorAll('.gram-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
+}
+
+/* ========== PINNWAND (Supabase) ========== */
+const SUPA_URL = 'https://fgtqjfwfdqbfjmhcyfwc.supabase.co';
+const SUPA_KEY = 'sb_publishable_F7QH4TDtWqsjRq7KZ93sgA_L1_3Mydh';
+const ADMIN_PW = 'ismail2024';
+let pinnwandAdminMode = false;
+let pinnwandChannel = null;
+
+async function pinnwandLoad() {
+  const list = document.getElementById('pinnwand-list');
+  if (!list) return;
+  try {
+    const res = await fetch(SUPA_URL + '/rest/v1/messages?order=created_at.desc&limit=50', {
+      headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
+    });
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) {
+      list.innerHTML = '<div style="text-align:center;color:var(--fg-muted);font-size:14px;padding:20px">Noch keine Nachrichten. Schreib die erste! 👋</div>';
+      return;
+    }
+    list.innerHTML = data.map(m => pinnwandMsgHTML(m)).join('');
+  } catch(e) {
+    list.innerHTML = '<div style="text-align:center;color:var(--red);font-size:13px;padding:16px">Fehler beim Laden. Bitte erneut versuchen.</div>';
+  }
+}
+
+function pinnwandMsgHTML(m) {
+  const dt = new Date(m.created_at);
+  const dateStr = dt.toLocaleDateString('de-DE', {day:'2-digit',month:'2-digit',year:'2-digit'}) + ' ' + dt.toLocaleTimeString('de-DE', {hour:'2-digit',minute:'2-digit'});
+  const delBtn = pinnwandAdminMode ? `<button onclick="pinnwandDelete(${m.id})" style="background:var(--red-lt);color:var(--red);border:none;border-radius:6px;padding:3px 8px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font);flex-shrink:0">🗑</button>` : '';
+  return `<div id="msg-${m.id}" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px">
+      <span style="font-size:13px;font-weight:700;color:var(--accent)">${escHtml(m.name)}</span>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span style="font-size:11px;color:var(--fg-muted)">${dateStr}</span>
+        ${delBtn}
+      </div>
+    </div>
+    <div style="font-size:14px;color:var(--fg);line-height:1.5;white-space:pre-wrap">${escHtml(m.text)}</div>
+  </div>`;
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+async function pinnwandSend() {
+  const name = (document.getElementById('pinnwand-name').value || '').trim();
+  const text = (document.getElementById('pinnwand-text').value || '').trim();
+  if (!name) { alert('Bitte deinen Namen eingeben.'); return; }
+  if (!text) { alert('Bitte eine Nachricht eingeben.'); return; }
+  try {
+    const res = await fetch(SUPA_URL + '/rest/v1/messages', {
+      method: 'POST',
+      headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ name, text })
+    });
+    if (!res.ok) throw new Error();
+    document.getElementById('pinnwand-text').value = '';
+    pinnwandLoad();
+  } catch(e) {
+    alert('Fehler beim Senden. Bitte erneut versuchen.');
+  }
+}
+
+async function pinnwandDelete(id) {
+  if (!pinnwandAdminMode) return;
+  try {
+    await fetch(SUPA_URL + '/rest/v1/messages?id=eq.' + id, {
+      method: 'DELETE',
+      headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
+    });
+    const el = document.getElementById('msg-' + id);
+    if (el) el.remove();
+    const list = document.getElementById('pinnwand-list');
+    if (list && !list.querySelector('[id^="msg-"]')) {
+      list.innerHTML = '<div style="text-align:center;color:var(--fg-muted);font-size:14px;padding:20px">Noch keine Nachrichten. Schreib die erste! 👋</div>';
+    }
+  } catch(e) {}
+}
+
+function pinnwandAdminLogin() {
+  const pw = document.getElementById('pinnwand-pw').value;
+  const msg = document.getElementById('pinnwand-admin-msg');
+  if (pw === ADMIN_PW) {
+    pinnwandAdminMode = true;
+    document.getElementById('pinnwand-admin-wrap').innerHTML = '<div style="font-size:12px;font-weight:700;color:var(--green)">✅ Admin-Modus aktiv — Löschen-Buttons sichtbar</div>';
+    pinnwandLoad();
+  } else {
+    msg.textContent = 'Falsches Passwort';
+    msg.style.display = 'block';
+  }
 }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" onload="initPDFs()"></script>
