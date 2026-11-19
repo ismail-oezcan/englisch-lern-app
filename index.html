@@ -926,43 +926,43 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
   <div class="bnav">
     <button class="nb active" id="nb-home" onclick="go('home')">
       <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      Start
+      <span id="nav-home">Start</span>
     </button>
     <button class="nb" id="nb-vokabeln" onclick="go('vokabeln')">
       <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="14" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/></svg>
-      Vokabeln
+      <span id="nav-vokabeln">Vokabeln</span>
     </button>
     <button class="nb" id="nb-grammatik" onclick="go('grammatik')">
       <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-      Grammatik
+      <span id="nav-grammatik">Grammatik</span>
     </button>
     <button class="nb" id="nb-challenge" onclick="go('challenge')">
       <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      Challenge
+      <span id="nav-challenge">Challenge</span>
     </button>
     <button class="nb" id="nb-stundenplan" onclick="go('stundenplan')">
       <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      Stundenplan
+      <span id="nav-stundenplan">Stundenplan</span>
     </button>
     <button class="nb" id="nb-hausaufgaben" onclick="go('hausaufgaben')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
-      Aufgaben
+      <span id="nav-hausaufgaben">Aufgaben</span>
     </button>
     <button class="nb" id="nb-praesi" onclick="go('praesi')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-      Präsi
+      <span id="nav-praesi">Präsi</span>
     </button>
     <button class="nb" id="nb-links" onclick="go('links')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
-      Links
+      <span id="nav-links">Links</span>
     </button>
     <button class="nb" id="nb-translator" onclick="go('translator')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
-      Übersetzer
+      <span id="nav-translator">Übersetzer</span>
     </button>
     <button class="nb" id="nb-pruefung" onclick="go('pruefung')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      Prüfung
+      <span id="nav-pruefung">Prüfung</span>
     </button>
   </div>
 </div>
@@ -1905,11 +1905,11 @@ const VOKABELN = [
   // 19.11 – Jobs & Work + Gerunds (Unit 8B)
   {w:'road works',ph:'/rəʊd wɜːks/',t:'Straßenbaustelle / Bauarbeiten',ta:'أعمال الطريق',tka:'ს. ს.',ex:'"There are road works on the A100 — expect delays."',cat:'nov19'},
   {w:'speed limit',ph:'/spiːd ˈlɪmɪt/',t:'die Geschwindigkeitsbegrenzung',ta:'حد السرعة',tka:'ს. შ.',ex:'"The speed limit on this road is 50 km/h."',cat:'nov19'},
-  {w:'to crack on',ph:'/tə kræk ɒn/',t:'weitermachen / loslegen (informell)',ex:'"We should crack on — there\'s a lot to do."',cat:'nov19'},
-  {w:'pension',ph:'/ˈpenʃən/',t:'die Rente / Pension',ex:'"He\'s been paying into his pension for 30 years."',cat:'nov19'},
-  {w:'probation',ph:'/prəˈbeɪʃən/',t:'die Probezeit / Bewährung',ex:'"She\'s still on probation — her first three months."',cat:'nov19'},
-  {w:'consider',ph:'/kənˈsɪdə/',t:'erwägen / in Betracht ziehen',ex:'"I\'m considering changing jobs next year."',cat:'nov19'},
-  {w:'recommend',ph:'/ˌrekəˈmend/',t:'empfehlen',ex:'"I recommend reading this book — it\'s excellent."',cat:'nov19'},
+  {w:'to crack on',ph:'/tə kræk ɒn/',t:'weitermachen / loslegen (informell)',ta:'يواصل / يمضي قدماً',tka:'გ. / დ.',ex:'"We should crack on — there\'s a lot to do."',cat:'nov19'},
+  {w:'pension',ph:'/ˈpenʃən/',t:'die Rente / Pension',ta:'معاش / تقاعد',tka:'პ.',ex:'"He\'s been paying into his pension for 30 years."',cat:'nov19'},
+  {w:'probation',ph:'/prəˈbeɪʃən/',t:'die Probezeit / Bewährung',ta:'فترة اختبار / التجربة',tka:'სა. ვ.',ex:'"She\'s still on probation — her first three months."',cat:'nov19'},
+  {w:'consider',ph:'/kənˈsɪdə/',t:'erwägen / in Betracht ziehen',ta:'يفكر / يأخذ بعين الاعتبار',tka:'გ. / გ.',ex:'"I\'m considering changing jobs next year."',cat:'nov19'},
+  {w:'recommend',ph:'/ˌrekəˈmend/',t:'empfehlen',ta:'يوصي / ينصح',tka:'რ.',ex:'"I recommend reading this book — it\'s excellent."',cat:'nov19'},
   {w:'suggest',ph:'/səˈdʒest/',t:'vorschlagen',ta:'يقترح',tka:'წ.',ex:'"She suggested working from home on Fridays."',cat:'nov19'},
   {w:'practise',ph:'/ˈpræktɪs/',t:'üben / praktizieren',ta:'يتدرب',tka:'ვ.',ex:'"You should practise speaking English every day."',cat:'nov19'},
   {w:'give up',ph:'/ɡɪv ʌp/',t:'aufgeben / aufhören',ta:'يستسلم',tka:'თ.',ex:'"He gave up smoking three years ago."',cat:'nov19'},
@@ -1929,7 +1929,7 @@ const VOKABELN = [
   {w:'apply for',ph:'/əˈplaɪ fɔː/',t:'sich bewerben auf',ta:'يتقدم لـ',tka:'მ.',ex:'"She applied for a lot of jobs and sent in CVs."',cat:'nov19'},
   {w:'send in a CV',ph:'/send ɪn ə ˌsiːˈviː/',t:'einen Lebenslauf einschicken',ta:'يرسل سيرة ذاتية',tka:'CV-ს გ.',ex:'"She applied for a lot of jobs and sent in CVs."',cat:'nov19'},
   {w:'do overtime',ph:'/duː ˈəʊvətaɪm/',t:'Überstunden machen',ta:'يعمل إضافي',tka:'ზ. მ.',ex:'"She had to work very hard and do overtime."',cat:'nov19'},
-  {w:'salary',ph:'/ˈsæləri/',t:'das Gehalt',ex:'"She had a good salary, but she didn\'t like her boss."',cat:'nov19'},
+  {w:'salary',ph:'/ˈsæləri/',t:'das Gehalt',ta:'الراتب',tka:'ხ.',ex:'"She had a good salary, but she didn\'t like her boss."',cat:'nov19'},
   {w:'redundant',ph:'/rɪˈdʌndənt/',t:'überflüssig / entlassen (durch Stellenabbau)',ta:'فائض',tka:'ჭ.',ex:'"He was made redundant when the company downsized."',cat:'nov19'},
   {w:'experience',ph:'/ɪkˈspɪəriəns/',t:'die Erfahrung / Berufserfahrung',ta:'خبرة',tka:'გ.',ex:'"You need five years of experience for this job."',cat:'nov19'},
   {w:'overtime',ph:'/ˈəʊvətaɪm/',t:'die Überstunden',ta:'وقت إضافي',tka:'ზ.',ex:'"I get paid extra for overtime."',cat:'nov19'},
@@ -1937,8 +1937,8 @@ const VOKABELN = [
   {w:'qualifications',ph:'/ˌkwɒlɪfɪˈkeɪʃənz/',t:'die Qualifikationen / Abschlüsse',ta:'مؤهلات',tka:'კ.',ex:'"What qualifications do you need for this job?"',cat:'nov19'},
   {w:'resign',ph:'/rɪˈzaɪn/',t:'kündigen (selbst)',ta:'يستقيل',tka:'გ.',ex:'"She decided to resign because she was unhappy."',cat:'nov19'},
   {w:'retire',ph:'/rɪˈtaɪə/',t:'in Rente gehen',ta:'يتقاعد',tka:'პ. გ.',ex:'"He plans to retire at 65."',cat:'nov19'},
-  {w:'temporary',ph:'/ˈtempərəri/',t:'vorübergehend / befristet',ex:'"It\'s only a temporary contract — three months."',cat:'nov19'},
-  {w:'self-employed',ph:'/ˌself ɪmˈplɔɪd/',t:'selbstständig',ex:'"She\'s self-employed — she runs her own business."',cat:'nov19'},
+  {w:'temporary',ph:'/ˈtempərəri/',t:'vorübergehend / befristet',ta:'مؤقت',tka:'დ.',ex:'"It\'s only a temporary contract — three months."',cat:'nov19'},
+  {w:'self-employed',ph:'/ˌself ɪmˈplɔɪd/',t:'selbstständig',ta:'يعمل لحسابه الخاص',tka:'დ. დ.',ex:'"She\'s self-employed — she runs her own business."',cat:'nov19'},
   {w:'part-time',ph:'/ˈpɑːt taɪm/',t:'Teilzeit',ta:'بدوام جزئي',tka:'ნ. გ.',ex:'"She works part-time, only three days a week."',cat:'nov19'},
   {w:'promoted',ph:'/prəˈməʊtɪd/',t:'befördert (werden)',ta:'تمت ترقيته',tka:'დ.',ex:'"He was promoted to senior manager last year."',cat:'nov19'},
 
@@ -1954,11 +1954,11 @@ const VOKABELN = [
   {w:'conflict',ph:'/ˈkɒnflɪkt/',t:'der Konflikt',ta:'نزاع',tka:'კ.',ex:'"There was a conflict between the two colleagues."',cat:'nov18'},
   {w:'to resolve',ph:'/tə rɪˈzɒlv/',t:'lösen / beilegen',ta:'يحل',tka:'წ.',ex:'"They managed to resolve the conflict quickly."',cat:'nov18'},
   {w:'to remain calm',ph:'/tə rɪˈmeɪn kɑːm/',t:'ruhig bleiben',ta:'يبقى هادئًا',tka:'მ. რ.',ex:'"It is important to remain calm during a conflict."',cat:'nov18'},
-  {w:'aggressive',ph:'/əˈɡresɪv/',t:'aggressiv',ex:'"Don\'t use an aggressive tone of voice."',cat:'nov18'},
+  {w:'aggressive',ph:'/əˈɡresɪv/',t:'aggressiv',ta:'عدواني',tka:'ა.',ex:'"Don\'t use an aggressive tone of voice."',cat:'nov18'},
   {w:'compromise',ph:'/ˈkɒmprəmaɪz/',t:'der Kompromiss',ta:'تسوية',tka:'კ.',ex:'"Both sides agreed on a compromise."',cat:'nov18'},
   {w:'to avoid',ph:'/tə əˈvɔɪd/',t:'vermeiden',ta:'يتجنب',tka:'ე.',ex:'"I try to avoid conflict where possible."',cat:'nov18'},
   {w:'faulty',ph:'/ˈfɔːlti/',t:'defekt / fehlerhaft',ta:'معطوب',tka:'გ.',ex:'"The machine was faulty and had to be repaired."',cat:'nov18'},
-  {w:'concern',ph:'/kənˈsɜːn/',t:'die Sorge / das Anliegen',ex:'"Alex understood Tony\'s concerns about the deadline."',cat:'nov18'},
+  {w:'concern',ph:'/kənˈsɜːn/',t:'die Sorge / das Anliegen',ta:'قلق / مخاوف',tka:'შ.',ex:'"Alex understood Tony\'s concerns about the deadline."',cat:'nov18'},
   {w:'apprentice',ph:'/əˈprentɪs/',t:'der Auszubildende',ta:'متدرب',tka:'შ.',ex:'"The apprentices are responsible for cleaning the workshop."',cat:'nov18'},
   {w:'workshop',ph:'/ˈwɜːkʃɒp/',t:'die Werkstatt',ta:'ورشة عمل',tka:'სახელოსნო',ex:'"The workshop needs to be cleaned before the inspection."',cat:'nov18'},
 ];
@@ -2673,7 +2673,11 @@ const UI_TRANS = {
     hw_stat: 'Aufgaben ansehen',
     gram_sub: '8 Regeln · A2/B1',
     chal_sub: 'Tägliche Übung',
-    days_names: ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag']
+    days_names: ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],
+    nav_home: 'Start', nav_vokabeln: 'Vokabeln', nav_grammatik: 'Grammatik',
+    nav_challenge: 'Challenge', nav_stundenplan: 'Stundenplan',
+    nav_hausaufgaben: 'Aufgaben', nav_praesi: 'Präsi',
+    nav_links: 'Links', nav_translator: 'Übersetzer', nav_pruefung: 'Prüfung'
   },
   ar: {
     daily_title: 'لم تتدرب اليوم بعد!',
@@ -2694,7 +2698,11 @@ const UI_TRANS = {
     hw_stat: 'عرض المهام',
     gram_sub: '8 قواعد · A2/B1',
     chal_sub: 'تمرين يومي',
-    days_names: ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت']
+    days_names: ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'],
+    nav_home: 'الرئيسية', nav_vokabeln: 'المفردات', nav_grammatik: 'القواعد',
+    nav_challenge: 'تحدي', nav_stundenplan: 'الجدول',
+    nav_hausaufgaben: 'الواجبات', nav_praesi: 'عرض',
+    nav_links: 'روابط', nav_translator: 'مترجم', nav_pruefung: 'اختبار'
   },
   ka: {
     daily_title: 'დღეს ჯერ არ ივარჯიშე!',
@@ -2715,7 +2723,11 @@ const UI_TRANS = {
     hw_stat: 'დავალებების ნახვა',
     gram_sub: '8 წესი · A2/B1',
     chal_sub: 'ყოველდღიური ვარჯიში',
-    days_names: ['კვირა','ორშაბათი','სამშაბათი','ოთხშაბათი','ხუთშაბათი','პარასკევი','შაბათი']
+    days_names: ['კვირა','ორშაბათი','სამშაბათი','ოთხშაბათი','ხუთშაბათი','პარასკევი','შაბათი'],
+    nav_home: 'მთავარი', nav_vokabeln: 'სიტყვები', nav_grammatik: 'გრამატ.',
+    nav_challenge: 'გამოწვ.', nav_stundenplan: 'გრაფიკი',
+    nav_hausaufgaben: 'დავალ.', nav_praesi: 'პრეზ.',
+    nav_links: 'ბმულები', nav_translator: 'თარგმ.', nav_pruefung: 'გამოცდა'
   }
 };
 
@@ -2771,6 +2783,13 @@ function renderHome() {
     const dayNames = t('days_names');
     if (Array.isArray(dayNames)) dayEl.textContent = dayNames[new Date().getDay()];
   }
+
+  // Navigation übersetzen
+  const navIds = ['home','vokabeln','grammatik','challenge','stundenplan','hausaufgaben','praesi','links','translator','pruefung'];
+  navIds.forEach(id => {
+    const el = document.getElementById('nav-' + id);
+    if (el) el.textContent = t('nav_' + id);
+  });
 }
 
 function getTrans(v) {
@@ -2788,6 +2807,9 @@ function getSpeakLang() {
 function closeLangPicker() {
   const lp = document.getElementById('sc-lang-pick');
   if (lp) lp.style.display = 'none';
+  renderHome();
+  if (typeof renderVokGroups === 'function') renderVokGroups();
+  if (typeof renderVok === 'function') renderVok();
 }
 function openLangPicker() {
   const lp = document.getElementById('sc-lang-pick');
