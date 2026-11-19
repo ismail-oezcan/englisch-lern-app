@@ -966,11 +966,11 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 
       <!-- Neue Nachricht -->
       <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:12px">
-        <input id="pinnwand-name" type="text" placeholder="Dein Name" maxlength="30"
+        <input id="pinnwand-name" type="text" placeholder="Dein Name" data-ph="pw_name_ph" maxlength="30"
           style="width:100%;box-sizing:border-box;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:14px;font-family:var(--font);color:var(--fg);margin-bottom:8px;outline:none"/>
-        <textarea id="pinnwand-text" placeholder="Deine Nachricht…" maxlength="300" rows="3"
+        <textarea id="pinnwand-text" placeholder="Deine Nachricht…" data-ph="pw_msg_ph" maxlength="300" rows="3"
           style="width:100%;box-sizing:border-box;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:14px;font-family:var(--font);color:var(--fg);resize:none;outline:none;margin-bottom:8px"></textarea>
-        <button onclick="pinnwandSend()" style="width:100%;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);padding:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">Senden ✉️</button>
+        <button id="pinnwand-send-btn" onclick="pinnwandSend()" style="width:100%;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);padding:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">Senden ✉️</button>
       </div>
 
       <!-- Admin-Bereich -->
@@ -2756,7 +2756,18 @@ const UI_TRANS = {
     sp_week: '📋 Woche',
     sp_kursende: '📅 Kursende',
     month_names: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
-    cal_day_names: ['Mo','Di','Mi','Do','Fr','Sa','So']
+    cal_day_names: ['Mo','Di','Mi','Do','Fr','Sa','So'],
+    nav_pinnwand: 'Pinnwand',
+    pw_title: '💬 Pinnwand',
+    pw_empty: 'Noch keine Nachrichten. Schreib die erste! 👋',
+    pw_name_ph: 'Dein Name',
+    pw_msg_ph: 'Deine Nachricht…',
+    pw_send: 'Senden ✉️',
+    pw_error_load: 'Fehler beim Laden. Bitte erneut versuchen.',
+    pw_error_send: 'Fehler beim Senden. Bitte erneut versuchen.',
+    pw_no_name: 'Bitte deinen Namen eingeben.',
+    pw_no_text: 'Bitte eine Nachricht eingeben.',
+    pw_wrong_pw: 'Falsches Passwort'
   },
   ar: {
     daily_title: 'لم تتدرب اليوم بعد!',
@@ -2790,7 +2801,18 @@ const UI_TRANS = {
     sp_week: '📋 الأسبوع',
     sp_kursende: '📅 نهاية الدورة',
     month_names: ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'],
-    cal_day_names: ['ن','ث','ر','خ','ج','س','ح']
+    cal_day_names: ['ن','ث','ر','خ','ج','س','ح'],
+    nav_pinnwand: 'لوحة',
+    pw_title: '💬 لوحة الإعلانات',
+    pw_empty: 'لا رسائل بعد. اكتب أول رسالة! 👋',
+    pw_name_ph: 'اسمك',
+    pw_msg_ph: 'رسالتك…',
+    pw_send: 'إرسال ✉️',
+    pw_error_load: 'خطأ في التحميل. حاول مجدداً.',
+    pw_error_send: 'خطأ في الإرسال. حاول مجدداً.',
+    pw_no_name: 'الرجاء إدخال اسمك.',
+    pw_no_text: 'الرجاء إدخال رسالة.',
+    pw_wrong_pw: 'كلمة مرور خاطئة'
   },
   ka: {
     daily_title: 'დღეს ჯერ არ ივარჯიშე!',
@@ -2824,7 +2846,18 @@ const UI_TRANS = {
     sp_week: '📋 კვირა',
     sp_kursende: '📅 კურსის დასასრული',
     month_names: ['იანვარი','თებერვალი','მარტი','აპრილი','მაისი','ივნისი','ივლისი','აგვისტო','სექტემბერი','ოქტომბერი','ნოემბერი','დეკემბერი'],
-    cal_day_names: ['ო','ს','ო','ხ','პ','შ','კ']
+    cal_day_names: ['ო','ს','ო','ხ','პ','შ','კ'],
+    nav_pinnwand: 'დაფა',
+    pw_title: '💬 დაფა',
+    pw_empty: 'შეტყობინება არ არის. დაწერე პირველი! 👋',
+    pw_name_ph: 'შენი სახელი',
+    pw_msg_ph: 'შენი შეტყობინება…',
+    pw_send: 'გაგზავნა ✉️',
+    pw_error_load: 'ჩატვირთვის შეცდომა. სცადე ხელახლა.',
+    pw_error_send: 'გაგზავნის შეცდომა. სცადე ხელახლა.',
+    pw_no_name: 'შეიყვანე შენი სახელი.',
+    pw_no_text: 'შეიყვანე შეტყობინება.',
+    pw_wrong_pw: 'არასწორი პაროლი'
   }
 };
 
@@ -2875,12 +2908,20 @@ function renderHome() {
     if (Array.isArray(dayNames)) dayEl.textContent = dayNames[new Date().getDay()];
   }
 
-  // Navigation übersetzen
-  const navIds = ['home','vokabeln','grammatik','challenge','stundenplan','hausaufgaben','praesi','links','translator','pruefung'];
+  // Navigation übersetzen (inkl. Pinnwand)
+  const navIds = ['home','vokabeln','grammatik','challenge','stundenplan','hausaufgaben','praesi','links','translator','pruefung','pinnwand'];
   navIds.forEach(id => {
     const el = document.getElementById('nav-' + id);
     if (el) el.textContent = t('nav_' + id);
   });
+
+  // Pinnwand UI übersetzen
+  setT('pinnwand-title', t('pw_title'));
+  setT('pinnwand-send-btn', t('pw_send'));
+  const pwName = document.getElementById('pinnwand-name');
+  if (pwName) pwName.placeholder = t('pw_name_ph');
+  const pwText = document.getElementById('pinnwand-text');
+  if (pwText) pwText.placeholder = t('pw_msg_ph');
 
   // Streak-Badge übersetzen
   const slEl = document.getElementById('streak-label');
@@ -5770,7 +5811,7 @@ async function pinnwandLoad() {
     });
     const data = await res.json();
     if (!Array.isArray(data) || data.length === 0) {
-      list.innerHTML = '<div style="text-align:center;color:var(--fg-muted);font-size:14px;padding:20px">Noch keine Nachrichten. Schreib die erste! 👋</div>';
+      list.innerHTML = '<div style="text-align:center;color:var(--fg-muted);font-size:14px;padding:20px">' + t('pw_empty') + '</div>';
       pinnwandLastCount = 0;
       try { localStorage.setItem('pinnwand_count', 0); } catch(e) {}
       return;
@@ -5779,13 +5820,14 @@ async function pinnwandLoad() {
     pinnwandLastCount = data.length;
     try { localStorage.setItem('pinnwand_count', data.length); } catch(e) {}
   } catch(e) {
-    list.innerHTML = '<div style="text-align:center;color:var(--red);font-size:13px;padding:16px">Fehler beim Laden. Bitte erneut versuchen.</div>';
+    list.innerHTML = '<div style="text-align:center;color:var(--red);font-size:13px;padding:16px">' + t('pw_error_load') + '</div>';
   }
 }
 
 function pinnwandMsgHTML(m) {
   const dt = new Date(m.created_at);
-  const dateStr = dt.toLocaleDateString('de-DE', {day:'2-digit',month:'2-digit',year:'2-digit'}) + ' ' + dt.toLocaleTimeString('de-DE', {hour:'2-digit',minute:'2-digit'});
+  const _loc = (function(){const l=localStorage.getItem('ela_lang')||'de';return l==='ar'?'ar-SA':l==='ka'?'ka-GE':'de-DE';})();
+  const dateStr = dt.toLocaleDateString(_loc, {day:'2-digit',month:'2-digit',year:'2-digit'}) + ' ' + dt.toLocaleTimeString(_loc, {hour:'2-digit',minute:'2-digit'});
   const delBtn = pinnwandAdminMode ? `<button onclick="pinnwandDelete(${m.id})" style="background:var(--red-lt);color:var(--red);border:none;border-radius:6px;padding:3px 8px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font);flex-shrink:0">🗑</button>` : '';
   return `<div id="msg-${m.id}" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px">
@@ -5806,8 +5848,8 @@ function escHtml(s) {
 async function pinnwandSend() {
   const name = (document.getElementById('pinnwand-name').value || '').trim();
   const text = (document.getElementById('pinnwand-text').value || '').trim();
-  if (!name) { alert('Bitte deinen Namen eingeben.'); return; }
-  if (!text) { alert('Bitte eine Nachricht eingeben.'); return; }
+  if (!name) { alert(t('pw_no_name')); return; }
+  if (!text) { alert(t('pw_no_text')); return; }
   try {
     const res = await fetch(SUPA_URL + '/rest/v1/messages', {
       method: 'POST',
@@ -5818,7 +5860,7 @@ async function pinnwandSend() {
     document.getElementById('pinnwand-text').value = '';
     pinnwandLoad();
   } catch(e) {
-    alert('Fehler beim Senden. Bitte erneut versuchen.');
+    alert(t('pw_error_send'));
   }
 }
 
@@ -5833,7 +5875,7 @@ async function pinnwandDelete(id) {
     if (el) el.remove();
     const list = document.getElementById('pinnwand-list');
     if (list && !list.querySelector('[id^="msg-"]')) {
-      list.innerHTML = '<div style="text-align:center;color:var(--fg-muted);font-size:14px;padding:20px">Noch keine Nachrichten. Schreib die erste! 👋</div>';
+      list.innerHTML = '<div style="text-align:center;color:var(--fg-muted);font-size:14px;padding:20px">' + t('pw_empty') + '</div>';
     }
   } catch(e) {}
 }
@@ -5846,7 +5888,7 @@ function pinnwandAdminLogin() {
     document.getElementById('pinnwand-admin-wrap').style.display = 'none';
     pinnwandLoad();
   } else {
-    msg.textContent = 'Falsches Passwort';
+    msg.textContent = t('pw_wrong_pw');
     msg.style.display = 'block';
   }
 }
