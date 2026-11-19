@@ -1029,9 +1029,10 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
       <span id="nav-pruefung">Prüfung</span>
     </button>
-    <button class="nb" id="nb-pinnwand" onclick="go('pinnwand')">
+    <button class="nb" id="nb-pinnwand" onclick="go('pinnwand')" style="position:relative">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
       <span id="nav-pinnwand">Pinnwand</span>
+      <span id="pinnwand-badge" style="display:none;position:absolute;top:4px;right:4px;background:#e53e3e;color:#fff;font-size:10px;font-weight:700;border-radius:999px;min-width:16px;height:16px;line-height:16px;text-align:center;padding:0 4px;pointer-events:none"></span>
     </button>
   </div>
 </div>
@@ -5698,6 +5699,52 @@ function showGramSec(id,btn){
 
 /* ========== PINNWAND (Supabase) ========== */
 const ADMIN_PW = 'Ismail2026';
+let pinnwandLastCount = parseInt(localStorage.getItem('pinnwand_count') || '0');
+let pinnwandRefreshInterval = null;
+
+function pinnwandStartRefresh() {
+  if (pinnwandRefreshInterval) return;
+  pinnwandRefreshInterval = setInterval(pinnwandCheckNew, 60000);
+}
+
+async function pinnwandCheckNew() {
+  try {
+    const res = await fetch(SUPA_URL + '/rest/v1/messages?select=id&order=created_at.desc&limit=1', {
+      headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
+    });
+    const data = await res.json();
+    if (!Array.isArray(data)) return;
+    // Hol Gesamtanzahl
+    const res2 = await fetch(SUPA_URL + '/rest/v1/messages?select=id', {
+      headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Prefer': 'count=exact', 'Range': '0-0' }
+    });
+    const countHeader = res2.headers.get('content-range');
+    if (!countHeader) return;
+    const total = parseInt(countHeader.split('/')[1]);
+    if (isNaN(total)) return;
+    const currentScreen = document.querySelector('.screen.active');
+    const onPinnwand = currentScreen && currentScreen.id === 'sc-pinnwand';
+    if (onPinnwand) {
+      pinnwandLastCount = total;
+      try { localStorage.setItem('pinnwand_count', total); } catch(e) {}
+      pinnwandHideBadge();
+    } else if (total > pinnwandLastCount) {
+      pinnwandShowBadge(total - pinnwandLastCount);
+    }
+  } catch(e) {}
+}
+
+function pinnwandShowBadge(n) {
+  const b = document.getElementById('pinnwand-badge');
+  if (!b) return;
+  b.textContent = n > 9 ? '9+' : n;
+  b.style.display = 'inline-block';
+}
+
+function pinnwandHideBadge() {
+  const b = document.getElementById('pinnwand-badge');
+  if (b) b.style.display = 'none';
+}
 let pinnwandTitleTapCount = 0;
 let pinnwandTitleTapTimer = null;
 function pinnwandTitleTap() {
@@ -5715,6 +5762,8 @@ let pinnwandChannel = null;
 async function pinnwandLoad() {
   const list = document.getElementById('pinnwand-list');
   if (!list) return;
+  pinnwandHideBadge();
+  pinnwandStartRefresh();
   try {
     const res = await fetch(SUPA_URL + '/rest/v1/messages?order=created_at.desc&limit=50', {
       headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
@@ -5722,9 +5771,13 @@ async function pinnwandLoad() {
     const data = await res.json();
     if (!Array.isArray(data) || data.length === 0) {
       list.innerHTML = '<div style="text-align:center;color:var(--fg-muted);font-size:14px;padding:20px">Noch keine Nachrichten. Schreib die erste! 👋</div>';
+      pinnwandLastCount = 0;
+      try { localStorage.setItem('pinnwand_count', 0); } catch(e) {}
       return;
     }
     list.innerHTML = data.map(m => pinnwandMsgHTML(m)).join('');
+    pinnwandLastCount = data.length;
+    try { localStorage.setItem('pinnwand_count', data.length); } catch(e) {}
   } catch(e) {
     list.innerHTML = '<div style="text-align:center;color:var(--red);font-size:13px;padding:16px">Fehler beim Laden. Bitte erneut versuchen.</div>';
   }
@@ -5799,3 +5852,8 @@ function pinnwandAdminLogin() {
 }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" onload="initPDFs()"></script>
+<script>
+  // Pinnwand Badge-Check beim Start
+  setTimeout(pinnwandCheckNew, 3000);
+  setInterval(pinnwandCheckNew, 60000);
+</script>
