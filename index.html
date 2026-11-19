@@ -228,6 +228,25 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 .gram-de{font-size:14px;color:var(--fg-muted);margin-top:4px}
 .gram-quiz-btn{margin-top:12px;background:var(--accent-lt);color:var(--accent);border:none;border-radius:8px;padding:12px 14px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);width:100%}
 
+/* ---- DAILY BANNER ANIMATION ---- */
+@keyframes bannerPulse {
+  0%,100%{box-shadow:0 0 0 0 rgba(255,165,0,0.5),0 4px 16px rgba(0,0,0,0.2)}
+  50%{box-shadow:0 0 0 8px rgba(255,165,0,0),0 4px 16px rgba(0,0,0,0.2)}
+}
+@keyframes bannerSlide {
+  from{opacity:0;transform:translateY(-8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+#daily-banner.pending {
+  background:linear-gradient(135deg,#E07B00 0%,#C85A00 100%) !important;
+  animation:bannerPulse 2s ease-in-out infinite, bannerSlide .4s ease both;
+}
+#daily-banner.done {
+  background:linear-gradient(135deg,#166534 0%,#15803d 100%) !important;
+  animation:bannerSlide .4s ease both;
+  cursor:default;
+}
+
 /* ---- CHALLENGE ---- */
 .challenge-card{background:linear-gradient(135deg,var(--gold) 0%,#E8950A 100%);border-radius:16px;padding:22px;color:#fff;margin-bottom:18px;text-align:center}
 .ch-icon{font-size:40px;margin-bottom:10px}
@@ -287,16 +306,16 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
     </div>
     <div style="display:flex;align-items:center;gap:8px">
       <div id="lang-dropdown-wrap" style="position:relative">
-        <button id="lang-btn" onclick="toggleLangDropdown()" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:5px 10px;font-size:13px;font-weight:700;cursor:pointer;color:var(--fg);display:flex;align-items:center;gap:5px">🌍 <span id="lang-btn-label">DE</span></button>
-        <div id="lang-dropdown" style="display:none;position:absolute;right:0;top:38px;background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,0.15);z-index:999;min-width:180px;overflow:hidden">
-          <button onclick="setLang('de')" style="display:flex;align-items:center;gap:10px;padding:12px 16px;width:100%;background:none;border:none;cursor:pointer;font-size:15px;font-weight:600;color:var(--fg);border-bottom:1px solid var(--border)">
-            <img src="https://flagcdn.com/w40/de.png" width="28" height="19" style="border-radius:2px;object-fit:cover" alt="DE"/> Deutsch
+        <button id="lang-btn" onclick="toggleLangDropdown()" style="background:var(--bg-2);border:1.5px solid var(--border);border-radius:20px;padding:5px 11px;font-size:13px;font-weight:700;cursor:pointer;color:var(--fg);display:flex;align-items:center;gap:5px;line-height:1">🌍 <span id="lang-btn-label">DE</span></button>
+        <div id="lang-dropdown" style="display:none;position:absolute;right:0;top:38px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,0.18);z-index:9999;min-width:160px;overflow:hidden">
+          <button id="dd-de" onclick="setLang('de')" style="display:flex;align-items:center;gap:10px;padding:11px 14px;width:100%;background:none;border:none;cursor:pointer;font-size:14px;font-weight:600;color:var(--fg);border-bottom:1px solid var(--border)">
+            <img src="https://flagcdn.com/w40/de.png" width="24" height="16" style="border-radius:3px;object-fit:cover" alt="DE"/> Deutsch
           </button>
-          <button onclick="setLang('ar')" style="display:flex;align-items:center;gap:10px;padding:12px 16px;width:100%;background:none;border:none;cursor:pointer;font-size:15px;font-weight:600;color:var(--fg);border-bottom:1px solid var(--border)">
-            <img src="https://flagcdn.com/w40/sa.png" width="28" height="19" style="border-radius:2px;object-fit:cover" alt="SA"/> العربية
+          <button id="dd-ar" onclick="setLang('ar')" style="display:flex;align-items:center;gap:10px;padding:11px 14px;width:100%;background:none;border:none;cursor:pointer;font-size:14px;font-weight:600;color:var(--fg);border-bottom:1px solid var(--border)">
+            <img src="https://flagcdn.com/w40/sa.png" width="24" height="16" style="border-radius:3px;object-fit:cover" alt="SA"/> العربية
           </button>
-          <button onclick="setLang('ka')" style="display:flex;align-items:center;gap:10px;padding:12px 16px;width:100%;background:none;border:none;cursor:pointer;font-size:15px;font-weight:600;color:var(--fg)">
-            <img src="https://flagcdn.com/w40/ge.png" width="28" height="19" style="border-radius:2px;object-fit:cover" alt="GE"/> ქართული
+          <button id="dd-ka" onclick="setLang('ka')" style="display:flex;align-items:center;gap:10px;padding:11px 14px;width:100%;background:none;border:none;cursor:pointer;font-size:14px;font-weight:600;color:var(--fg)">
+            <img src="https://flagcdn.com/w40/ge.png" width="24" height="16" style="border-radius:3px;object-fit:cover" alt="GE"/> ქართული
           </button>
         </div>
       </div>
@@ -345,13 +364,13 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
     <!-- HOME -->
     <div class="screen active" id="sc-home">
       <!-- Tages-Lern-Banner -->
-      <div id="daily-banner" style="display:none;background:linear-gradient(135deg,var(--accent) 0%,#2a52a0 100%);border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;cursor:pointer" onclick="go('challenge')">
-        <div style="font-size:28px">🎯</div>
+      <div id="daily-banner" style="border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;cursor:pointer" onclick="dailyBannerClick()">
+        <div id="daily-banner-icon" style="font-size:28px">🎯</div>
         <div style="flex:1">
-          <div data-home="daily_title" style="font-size:13px;font-weight:700;color:#fff">Heute noch nicht geübt!</div>
-          <div data-home="daily_sub" style="font-size:11px;color:rgba(255,255,255,0.8);margin-top:2px">Tägliches Quiz starten →</div>
+          <div id="daily-banner-title" style="font-size:13px;font-weight:700;color:#fff">Heute noch nicht geübt!</div>
+          <div id="daily-banner-sub" style="font-size:11px;color:rgba(255,255,255,0.8);margin-top:2px">Tägliches Quiz starten →</div>
         </div>
-        <div style="font-size:18px">→</div>
+        <div id="daily-banner-arrow" style="font-size:18px;color:#fff">→</div>
       </div>
       <div class="hero">
         <div class="hero-lbl" data-home-sec="today">Heute</div>
@@ -2779,14 +2798,8 @@ function renderHome() {
   const setT = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
   const setH = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
 
-  // Banner
-  const banner = document.getElementById('daily-banner');
-  if (banner) {
-    const title = banner.querySelector('[data-home="daily_title"]');
-    const sub = banner.querySelector('[data-home="daily_sub"]');
-    if (title) title.textContent = t('daily_title');
-    if (sub) sub.textContent = t('daily_sub');
-  }
+  // Banner (wird durch updateDailyBanner() mit Sprache gesetzt)
+  updateDailyBanner();
 
   // Hero
   const heroLbl = document.querySelector('.hero-lbl');
@@ -2894,7 +2907,18 @@ function openLangPicker() {
   if (dd) dd.style.display = 'none';
 }
 function toggleLangDropdown() {
-  openLangPicker();
+  const dd = document.getElementById('lang-dropdown');
+  if (!dd) return;
+  const isOpen = dd.style.display !== 'none';
+  dd.style.display = isOpen ? 'none' : 'block';
+  if (!isOpen) {
+    // aktive Sprache hervorheben
+    const cur = localStorage.getItem('ela_lang') || 'de';
+    ['de','ar','ka'].forEach(function(l) {
+      const btn = document.getElementById('dd-' + l);
+      if (btn) btn.style.background = l === cur ? 'var(--accent-lt)' : '';
+    });
+  }
 }
 document.addEventListener('click', function(e) {
   const wrap = document.getElementById('lang-dropdown-wrap');
@@ -2921,7 +2945,7 @@ function setLang(lang) {
     const lp = document.getElementById('sc-lang-pick');
     if (lp) lp.style.display = 'flex';
     const lb = document.getElementById('lang-btn');
-    if (lb) lb.style.display = 'none';
+    if (lb) lb.style.display = '';
     // Zurück-Button nur wenn schon eine Sprache gesetzt
     const backBtn = document.getElementById('lang-pick-back');
     if (backBtn) {
@@ -2940,9 +2964,9 @@ function go(name) {
   const nb = document.getElementById('nb-' + name);
   if (nb) nb.classList.add('active');
   document.querySelector('.content').scrollTop = 0;
-  // 🌍-Button nur auf Home-Screen anzeigen
+  // 🌍-Button immer anzeigen (auf allen Screens)
   const langBtn = document.getElementById('lang-btn');
-  if (langBtn) langBtn.style.display = (name === 'home') ? '' : 'none';
+  if (langBtn) langBtn.style.display = '';
   if (name === 'vokabeln') {
     // Gruppen-Ansicht anzeigen, Karten-Ansicht verstecken
     const gw = document.getElementById('vok-groups-wrap');
@@ -3948,8 +3972,43 @@ function initChallenge() {
     if (dm) dm.style.display = 'block';
   }
   // Home-Banner
+  updateDailyBanner();
+}
+
+function updateDailyBanner() {
   const banner = document.getElementById('daily-banner');
-  if (banner) banner.style.display = (lastDone !== todayKey) ? 'flex' : 'none';
+  if (!banner) return;
+  const todayKey = new Date().toISOString().slice(0,10);
+  const lastDone = localStorage.getItem('dq-last-done') || '';
+  const done = lastDone === todayKey;
+  const icon = document.getElementById('daily-banner-icon');
+  const title = document.getElementById('daily-banner-title');
+  const sub = document.getElementById('daily-banner-sub');
+  const arrow = document.getElementById('daily-banner-arrow');
+  const lang = localStorage.getItem('ela_lang') || 'de';
+  banner.style.display = 'flex';
+  banner.classList.remove('pending','done');
+  if (done) {
+    banner.classList.add('done');
+    banner.onclick = null;
+    if (icon) icon.textContent = '✅';
+    if (title) title.textContent = lang==='ar' ? 'أحسنت! اكتملت مهمة اليوم' : lang==='ka' ? 'გაიკეთე! დღევანდელი ამოცანა დასრულდა' : 'Super! Heutiges Quiz erledigt';
+    if (sub) sub.textContent = lang==='ar' ? 'عد غداً للتحدي التالي 🌟' : lang==='ka' ? 'ხვალ დაბრუნდი შემდეგი გამოწვევისთვის 🌟' : 'Morgen wartet das nächste Quiz 🌟';
+    if (arrow) arrow.textContent = '✓';
+  } else {
+    banner.classList.add('pending');
+    banner.onclick = function(){ go('challenge'); };
+    if (icon) icon.textContent = '🎯';
+    if (title) title.textContent = lang==='ar' ? 'لم تتدرب اليوم بعد!' : lang==='ka' ? 'დღეს ჯერ არ ვარჯიშობდი!' : 'Heute noch nicht geübt!';
+    if (sub) sub.textContent = lang==='ar' ? 'ابدأ اختبار اليوم ←' : lang==='ka' ? 'დღევანდელი ვიქტორინის დაწყება ←' : 'Tägliches Quiz starten →';
+    if (arrow) arrow.textContent = '→';
+  }
+}
+
+function dailyBannerClick() {
+  const todayKey = new Date().toISOString().slice(0,10);
+  const lastDone = localStorage.getItem('dq-last-done') || '';
+  if (lastDone !== todayKey) go('challenge');
 }
 
 function showChStart() {
@@ -3967,6 +4026,21 @@ function shuffle(arr) {
     [a[i],a[j]] = [a[j],a[i]];
   }
   return a;
+}
+// Deterministisches Shuffle basierend auf Datum-Seed — gleicher Tag = gleiche Auswahl
+function seededShuffle(arr, seed) {
+  const a = [...arr];
+  let s = seed;
+  for (let i = a.length-1; i > 0; i--) {
+    s = (s * 1664525 + 1013904223) & 0xffffffff;
+    const j = Math.abs(s) % (i+1);
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function getTodaySeed() {
+  const d = new Date().toISOString().slice(0,10).replace(/-/g,'');
+  return parseInt(d, 10);
 }
 
 // Baut gemischte Quiz-Fragen: Vokabeln (EN→DE und DE→EN) + Grammatik
@@ -4113,6 +4187,7 @@ function nextCQ() {
       localStorage.setItem('dq-streak', streak);
       localStorage.setItem('dq-last-done', todayKey);
       trackLernActivity(); // Lernkalender: Quiz zählt als gelernt
+      updateDailyBanner(); // Banner auf grün schalten
       const best = parseInt(localStorage.getItem('dq-best')||'0');
       if (score > best) localStorage.setItem('dq-best', score);
       // SRS: falsch beantwortete Vokabeln merken, richtige aus der Liste entfernen
