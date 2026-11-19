@@ -955,7 +955,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
     <div class="screen" id="sc-pinnwand">
       <div class="screen-nav">
         <button class="snav-btn" onclick="goAdj(-1)">←</button>
-        <div class="sec-lbl" id="pinnwand-title">💬 Pinnwand</div>
+        <div class="sec-lbl" id="pinnwand-title" onclick="pinnwandTitleTap()" style="cursor:default;user-select:none">💬 Pinnwand</div>
         <button class="snav-btn" onclick="goAdj(1)">→</button>
       </div>
 
@@ -974,7 +974,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
       </div>
 
       <!-- Admin-Bereich -->
-      <div id="pinnwand-admin-wrap" style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:12px">
+      <div id="pinnwand-admin-wrap" style="display:none;background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:12px">
         <div style="font-size:12px;font-weight:700;color:var(--fg-muted);margin-bottom:8px">🔒 Admin</div>
         <div style="display:flex;gap:8px">
           <input id="pinnwand-pw" type="password" placeholder="Passwort" maxlength="50"
@@ -5697,7 +5697,18 @@ function showGramSec(id,btn){
 }
 
 /* ========== PINNWAND (Supabase) ========== */
-const ADMIN_PW = 'ismail2024';
+const ADMIN_PW = 'Ismail2026';
+let pinnwandTitleTapCount = 0;
+let pinnwandTitleTapTimer = null;
+function pinnwandTitleTap() {
+  pinnwandTitleTapCount++;
+  clearTimeout(pinnwandTitleTapTimer);
+  pinnwandTitleTapTimer = setTimeout(() => { pinnwandTitleTapCount = 0; }, 2000);
+  if (pinnwandTitleTapCount >= 5) {
+    pinnwandTitleTapCount = 0;
+    document.getElementById('pinnwand-admin-wrap').style.display = 'block';
+  }
+}
 let pinnwandAdminMode = false;
 let pinnwandChannel = null;
 
@@ -5779,7 +5790,7 @@ function pinnwandAdminLogin() {
   const msg = document.getElementById('pinnwand-admin-msg');
   if (pw === ADMIN_PW) {
     pinnwandAdminMode = true;
-    document.getElementById('pinnwand-admin-wrap').innerHTML = '<div style="font-size:12px;font-weight:700;color:var(--green)">✅ Admin-Modus aktiv — Löschen-Buttons sichtbar</div>';
+    document.getElementById('pinnwand-admin-wrap').style.display = 'none';
     pinnwandLoad();
   } else {
     msg.textContent = 'Falsches Passwort';
