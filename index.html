@@ -336,75 +336,75 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
       <div id="daily-banner" style="display:none;background:linear-gradient(135deg,var(--accent) 0%,#2a52a0 100%);border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;cursor:pointer" onclick="go('challenge')">
         <div style="font-size:28px">🎯</div>
         <div style="flex:1">
-          <div style="font-size:13px;font-weight:700;color:#fff">Heute noch nicht geübt!</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.8);margin-top:2px">Tägliches Quiz starten →</div>
+          <div data-home="daily_title" style="font-size:13px;font-weight:700;color:#fff">Heute noch nicht geübt!</div>
+          <div data-home="daily_sub" style="font-size:11px;color:rgba(255,255,255,0.8);margin-top:2px">Tägliches Quiz starten →</div>
         </div>
         <div style="font-size:18px">→</div>
       </div>
       <div class="hero">
-        <div class="hero-lbl">Heute</div>
+        <div class="hero-lbl" data-home-sec="today">Heute</div>
         <h2 id="home-day">Donnerstag</h2>
         <p>Kurs: 09:30–15:00 Uhr · BSE Wallstr. 65</p>
       </div>
 
-      <div class="sec-lbl">Kursende in</div>
+      <div class="sec-lbl" data-home-sec="course_ends">Kursende in</div>
       <div class="countdown-row" id="countdown-row">
-        <div class="c-box"><div class="c-num" id="cd-days">50</div><div class="c-lbl">Tage</div></div>
-        <div class="c-box"><div class="c-num" id="cd-weeks">7</div><div class="c-lbl">Wochen</div></div>
-        <div class="c-box"><div class="c-num" id="cd-lessons">35</div><div class="c-lbl">Einheiten</div></div>
+        <div class="c-box"><div class="c-num" id="cd-days">50</div><div class="c-lbl" id="cd-lbl-days">Tage</div></div>
+        <div class="c-box"><div class="c-num" id="cd-weeks">7</div><div class="c-lbl" id="cd-lbl-weeks">Wochen</div></div>
+        <div class="c-box"><div class="c-num" id="cd-lessons">35</div><div class="c-lbl" id="cd-lbl-units">Einheiten</div></div>
       </div>
       <div class="card" style="margin-bottom:18px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-          <span style="font-size:13px;font-weight:600">Kursfortschritt</span>
+          <span style="font-size:13px;font-weight:600" data-home-sec="progress">Kursfortschritt</span>
           <span style="font-size:13px;font-weight:700;color:var(--accent)" id="prog-pct">0%</span>
         </div>
         <div class="prog-bar-wrap"><div class="prog-bar" id="prog-bar" style="width:0%"></div></div>
         <div style="font-size:11px;color:var(--fg-muted);margin-top:6px" id="prog-dates">Start: — · Ende: —</div>
       </div>
 
-      <div class="sec-lbl">Schnellzugriff</div>
+      <div class="sec-lbl" data-home-sec="quickaccess">Schnellzugriff</div>
       <div class="quick-row">
         <div class="qc qc-vok" onclick="go('vokabeln')">
           <div class="qc-icon">🔤</div>
-          <h3>Vokabeln</h3>
+          <h3 id="home-vok-title">Vokabeln</h3>
           <p id="vok-stat">0 von 40 gelernt</p>
         </div>
         <div class="qc qc-gram" onclick="go('grammatik')">
           <div class="qc-icon">📖</div>
-          <h3>Grammatik</h3>
-          <p>8 Regeln · A2/B1</p>
+          <h3 id="home-gram-title">Grammatik</h3>
+          <p id="home-gram-sub">8 Regeln · A2/B1</p>
         </div>
         <div class="qc qc-chal" onclick="go('challenge')">
           <div class="qc-icon">🎯</div>
-          <h3>Challenge</h3>
-          <p>Tägliche Übung</p>
+          <h3 id="home-chal-title">Challenge</h3>
+          <p id="home-chal-sub">Tägliche Übung</p>
         </div>
         <div class="qc qc-hw" onclick="go('hausaufgaben')">
           <div class="qc-icon">📋</div>
-          <h3>Hausaufgaben</h3>
+          <h3 id="home-hw-title">Hausaufgaben</h3>
           <p id="hw-stat">Aufgaben ansehen</p>
         </div>
         <div class="qc qc-ref" onclick="openGramRef()" style="grid-column:1/-1">
           <div class="qc-icon">📚</div>
-          <h3>Grammatik-Übersicht</h3>
-          <p>Zeitformen · Sätze · Verben · Pronomen</p>
+          <h3 id="home-gramref-title">Grammatik-Übersicht</h3>
+          <p id="home-gramref-sub">Zeitformen · Sätze · Verben · Pronomen</p>
         </div>
       </div>
 
       <!-- Kurseinstellungen -->
-      <div class="sec-lbl" style="margin-top:8px">⚙️ Kurseinstellungen</div>
+      <div class="sec-lbl" style="margin-top:8px" data-home-sec="settings">⚙️ Kurseinstellungen</div>
       <div class="card" style="margin-bottom:18px">
-        <div style="font-size:13px;font-weight:600;margin-bottom:12px;color:var(--fg)">Kursstart &amp; Kursende anpassen</div>
+        <div id="home-settings-title" style="font-size:13px;font-weight:600;margin-bottom:12px;color:var(--fg)">Kursstart &amp; Kursende anpassen</div>
         <div style="display:flex;flex-direction:column;gap:10px">
           <div>
-            <label style="font-size:12px;color:var(--fg-muted);font-weight:600">📅 Kursstart</label>
+            <label id="home-kursstart-lbl" style="font-size:12px;color:var(--fg-muted);font-weight:600">📅 Kursstart</label>
             <input type="date" id="kurs-start-input" style="width:100%;margin-top:4px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:var(--bg-2);color:var(--fg);font-family:var(--font);box-sizing:border-box">
           </div>
           <div>
-            <label style="font-size:12px;color:var(--fg-muted);font-weight:600">🏁 Kursende</label>
+            <label id="home-kursende-lbl" style="font-size:12px;color:var(--fg-muted);font-weight:600">🏁 Kursende</label>
             <input type="date" id="kurs-ende-input" style="width:100%;margin-top:4px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:var(--bg-2);color:var(--fg);font-family:var(--font);box-sizing:border-box">
           </div>
-          <button onclick="saveKursDaten()" style="background:var(--accent);color:#fff;border:none;border-radius:8px;padding:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">💾 Speichern</button>
+          <button id="home-save-btn" onclick="saveKursDaten()" style="background:var(--accent);color:#fff;border:none;border-radius:8px;padding:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">💾 Speichern</button>
         </div>
       </div>
     </div>
@@ -2653,6 +2653,126 @@ let vokState = {
 let gramOpen = -1;
 
 /* ========== LANGUAGE ========== */
+const UI_TRANS = {
+  de: {
+    daily_title: 'Heute noch nicht geübt!',
+    daily_sub: 'Tägliches Quiz starten →',
+    today: 'Heute',
+    course_ends: 'Kursende in',
+    days: 'Tage', weeks: 'Wochen', units: 'Einheiten',
+    progress: 'Kursfortschritt',
+    quickaccess: 'Schnellzugriff',
+    vok: 'Vokabeln', gram: 'Grammatik', chal: 'Challenge',
+    hw: 'Hausaufgaben', gramref: 'Grammatik-Übersicht',
+    gramref_sub: 'Zeitformen · Sätze · Verben · Pronomen',
+    settings: '⚙️ Kurseinstellungen',
+    settings_title: 'Kursstart & Kursende anpassen',
+    kursstart: '📅 Kursstart', kursende: '🏁 Kursende',
+    save: '💾 Speichern',
+    vok_stat_of: 'von', vok_stat_learned: 'gelernt',
+    hw_stat: 'Aufgaben ansehen',
+    gram_sub: '8 Regeln · A2/B1',
+    chal_sub: 'Tägliche Übung',
+    days_names: ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag']
+  },
+  ar: {
+    daily_title: 'لم تتدرب اليوم بعد!',
+    daily_sub: 'ابدأ الاختبار اليومي →',
+    today: 'اليوم',
+    course_ends: 'نهاية الدورة في',
+    days: 'أيام', weeks: 'أسابيع', units: 'وحدات',
+    progress: 'تقدم الدورة',
+    quickaccess: 'وصول سريع',
+    vok: 'المفردات', gram: 'القواعد', chal: 'تحدي',
+    hw: 'الواجبات', gramref: 'مرجع القواعد',
+    gramref_sub: 'الأزمنة · الجمل · الأفعال · الضمائر',
+    settings: '⚙️ إعدادات الدورة',
+    settings_title: 'تعديل بداية ونهاية الدورة',
+    kursstart: '📅 بداية الدورة', kursende: '🏁 نهاية الدورة',
+    save: '💾 حفظ',
+    vok_stat_of: 'من', vok_stat_learned: 'تم تعلمها',
+    hw_stat: 'عرض المهام',
+    gram_sub: '8 قواعد · A2/B1',
+    chal_sub: 'تمرين يومي',
+    days_names: ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت']
+  },
+  ka: {
+    daily_title: 'დღეს ჯერ არ ივარჯიშე!',
+    daily_sub: 'დღიური ვიქტორინის დაწყება →',
+    today: 'დღეს',
+    course_ends: 'კურსის დასასრულამდე',
+    days: 'დღე', weeks: 'კვირა', units: 'გაკვეთილი',
+    progress: 'კურსის პროგრესი',
+    quickaccess: 'სწრაფი წვდომა',
+    vok: 'სიტყვები', gram: 'გრამატიკა', chal: 'გამოწვევა',
+    hw: 'დავალებები', gramref: 'გრამატიკის მიმოხილვა',
+    gramref_sub: 'დრო · წინადადება · ზმნა · ნაცვალსახელი',
+    settings: '⚙️ კურსის პარამეტრები',
+    settings_title: 'კურსის დაწყება და დასრულება',
+    kursstart: '📅 კურსის დაწყება', kursende: '🏁 კურსის დასრულება',
+    save: '💾 შენახვა',
+    vok_stat_of: '', vok_stat_learned: 'სიტყვა ნასწავლია',
+    hw_stat: 'დავალებების ნახვა',
+    gram_sub: '8 წესი · A2/B1',
+    chal_sub: 'ყოველდღიური ვარჯიში',
+    days_names: ['კვირა','ორშაბათი','სამშაბათი','ოთხშაბათი','ხუთშაბათი','პარასკევი','შაბათი']
+  }
+};
+
+function t(key) {
+  const l = localStorage.getItem('ela_lang') || 'de';
+  return (UI_TRANS[l] || UI_TRANS.de)[key] || UI_TRANS.de[key] || key;
+}
+
+function renderHome() {
+  const setT = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+  const setH = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+
+  // Banner
+  const banner = document.getElementById('daily-banner');
+  if (banner) {
+    const title = banner.querySelector('[data-home="daily_title"]');
+    const sub = banner.querySelector('[data-home="daily_sub"]');
+    if (title) title.textContent = t('daily_title');
+    if (sub) sub.textContent = t('daily_sub');
+  }
+
+  // Hero
+  const heroLbl = document.querySelector('.hero-lbl');
+  if (heroLbl) heroLbl.textContent = t('today');
+
+  // Countdown labels
+  setT('cd-lbl-days', t('days'));
+  setT('cd-lbl-weeks', t('weeks'));
+  setT('cd-lbl-units', t('units'));
+
+  // Section labels
+  const secLabels = document.querySelectorAll('[data-home-sec]');
+  secLabels.forEach(el => { el.textContent = t(el.dataset.homeSec); });
+
+  // Cards
+  setT('home-vok-title', t('vok'));
+  setT('home-gram-title', t('gram'));
+  setT('home-chal-title', t('chal'));
+  setT('home-hw-title', t('hw'));
+  setT('home-gramref-title', t('gramref'));
+  setT('home-gramref-sub', t('gramref_sub'));
+  setT('home-gram-sub', t('gram_sub'));
+  setT('home-chal-sub', t('chal_sub'));
+  setT('home-settings-title', t('settings_title'));
+  setT('home-kursstart-lbl', t('kursstart'));
+  setT('home-kursende-lbl', t('kursende'));
+  setT('home-save-btn', t('save'));
+  setT('hw-stat', t('hw_stat'));
+
+  // Wochentag
+  const dayEl = document.getElementById('home-day');
+  if (dayEl) {
+    const dayNames = t('days_names');
+    if (Array.isArray(dayNames)) dayEl.textContent = dayNames[new Date().getDay()];
+  }
+}
+
 function getTrans(v) {
   const l = localStorage.getItem('ela_lang') || 'de';
   if (l === 'ar') return v.ta || v.t;
@@ -2697,21 +2817,23 @@ function setLang(lang) {
   if (dd) dd.style.display = 'none';
   go('home');
   // UI nach Sprachwechsel neu rendern
+  renderHome();
   if (typeof renderVokGroups === 'function') renderVokGroups();
   if (typeof renderVok === 'function') renderVok();
 }
-// On first load: show language picker if no lang set
+// Beim Start immer Sprachauswahl zeigen
 (function() {
-  try {
-    if (!localStorage.getItem('ela_lang')) {
-      document.addEventListener('DOMContentLoaded', function() {
-        const lp = document.getElementById('sc-lang-pick');
-        if (lp) lp.style.display = 'flex';
-        const lb = document.getElementById('lang-btn');
-        if (lb) lb.style.display = 'none';
-      });
+  document.addEventListener('DOMContentLoaded', function() {
+    const lp = document.getElementById('sc-lang-pick');
+    if (lp) lp.style.display = 'flex';
+    const lb = document.getElementById('lang-btn');
+    if (lb) lb.style.display = 'none';
+    // Zurück-Button nur wenn schon eine Sprache gesetzt
+    const backBtn = document.getElementById('lang-pick-back');
+    if (backBtn) {
+      try { backBtn.style.display = localStorage.getItem('ela_lang') ? 'block' : 'none'; } catch(e) {}
     }
-  } catch(e) {}
+  });
 })();
 
 /* ========== NAV ========== */
@@ -2817,7 +2939,13 @@ function initHome() {
 
 function updateVokStat() {
   const vokStatEl = document.getElementById('vok-stat');
-  if (vokStatEl) vokStatEl.textContent = vokState.known.size + ' von ' + VOKABELN.length + ' gelernt';
+  if (vokStatEl) {
+    const of = t('vok_stat_of');
+    const learned = t('vok_stat_learned');
+    vokStatEl.textContent = of
+      ? vokState.known.size + ' ' + of + ' ' + VOKABELN.length + ' ' + learned
+      : vokState.known.size + ' ' + learned;
+  }
   const sKnownEl = document.getElementById('s-known');
   if (sKnownEl) sKnownEl.textContent = vokState.known.size;
 }
@@ -4791,6 +4919,7 @@ srsLoad();
 initTTS();
 initTTSde();
 initHome();
+renderHome();
 renderVok();
 renderGram();
 initChallenge();
