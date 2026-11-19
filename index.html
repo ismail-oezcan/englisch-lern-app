@@ -3130,17 +3130,33 @@ function renderVokGroups() {
   container.innerHTML = html;
 }
 
+function speakWordInline(word, e) {
+  e.stopPropagation();
+  if (!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(word);
+  utt.lang = 'en-GB';
+  utt.rate = 0.85;
+  utt.pitch = 1;
+  if (ttsVoice) utt.voice = ttsVoice;
+  speechSynthesis.speak(utt);
+}
+
 function vokMiniCard(v, i, arr) {
   const srs = JSON.parse(localStorage.getItem('ela_srs')||'{}');
   const score = srs[v.w] || 0;
   const dot = score <= 1 ? '🔴' : score <= 3 ? '🟡' : '🟢';
+  const wJson = JSON.stringify(v.w).replace(/"/g,'&quot;');
   return `<div class="vok-mini-card" onclick="openVokCard(${JSON.stringify(v).replace(/"/g,'&quot;')})">
     <div style="display:flex;justify-content:space-between;align-items:flex-start">
-      <div>
+      <div style="flex:1">
         <div style="font-weight:700;font-size:15px">${v.w}</div>
         <div style="font-size:12px;color:var(--fg-muted)">${v.ph||''}</div>
       </div>
-      <div style="font-size:11px">${dot}</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button onclick="speakWordInline(${wJson},event)" style="background:var(--accent-lt);border:none;border-radius:50%;width:30px;height:30px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0" title="Anhören">🔊</button>
+        <div style="font-size:11px">${dot}</div>
+      </div>
     </div>
     <div style="font-size:13px;color:var(--accent);margin-top:4px">${getTrans(v)}</div>
   </div>`;
