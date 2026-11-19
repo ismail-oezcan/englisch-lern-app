@@ -307,8 +307,8 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
   <!-- Content -->
   <div class="content">
 
-    <!-- LANGUAGE PICKER -->
-    <div class="screen" id="sc-lang-pick" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;padding:24px">
+    <!-- LANGUAGE PICKER (als Modal, kein screen) -->
+    <div id="sc-lang-pick" style="display:none;position:fixed;inset:0;z-index:9999;background:var(--bg);flex-direction:column;align-items:center;justify-content:center;padding:24px">
       <div style="font-size:48px;margin-bottom:16px">🌍</div>
       <div style="font-size:22px;font-weight:800;color:var(--fg);text-align:center;margin-bottom:8px">Choose your language</div>
       <div style="font-size:14px;color:var(--fg2);text-align:center;margin-bottom:32px">Wähle deine Muttersprache / اختر لغتك / აირჩიე შენი ენა</div>
@@ -2675,6 +2675,10 @@ document.addEventListener('click', function(e) {
 });
 function setLang(lang) {
   try { localStorage.setItem('ela_lang', lang); } catch(e) {}
+  // Modal schließen
+  const lp = document.getElementById('sc-lang-pick');
+  if (lp) lp.style.display = 'none';
+  // Dropdown schließen
   const dd = document.getElementById('lang-dropdown');
   if (dd) dd.style.display = 'none';
   go('home');
@@ -2684,9 +2688,8 @@ function setLang(lang) {
   try {
     if (!localStorage.getItem('ela_lang')) {
       document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         const lp = document.getElementById('sc-lang-pick');
-        if (lp) lp.classList.add('active');
+        if (lp) lp.style.display = 'flex';
         const lb = document.getElementById('lang-btn');
         if (lb) lb.style.display = 'none';
       });
