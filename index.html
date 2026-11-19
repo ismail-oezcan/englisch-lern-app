@@ -420,6 +420,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
                 <option value="nov15">🎉 15.11 – Social Life &amp; Night Out</option>
                 <option value="nov16">🇮🇳 16.11 – International India</option>
                 <option value="nov17">✉️ 17.11 – Emails &amp; Airport</option>
+                <option value="nov19">💼 19.11 – Jobs &amp; Work</option>
                 <option value="nov18">⚖️ 18.11 – Differences &amp; Conflict</option>
                 <option value="nov06">💬 06.11 – Giving Opinions</option>
                 <option value="unit8b">💬 Unit 8B – Comment Adverbs</option>
@@ -1862,6 +1863,46 @@ const VOKABELN = [
   {w:'customs',ph:'/ˈkʌstəmz/',t:'Zoll',ex:'"Nothing to declare at customs."',cat:'nov17'},
   {w:'departures',ph:'/dɪˈpɑːtʃəz/',t:'Abflug / Abflughalle',ex:'"Please proceed to the departures gate."',cat:'nov17'},
 
+  // 19.11 – Jobs & Work + Gerunds (Unit 8B)
+  {w:'road works',ph:'/rəʊd wɜːks/',t:'Straßenbaustelle / Bauarbeiten',ex:'"There are road works on the A100 — expect delays."',cat:'nov19'},
+  {w:'speed limit',ph:'/spiːd ˈlɪmɪt/',t:'die Geschwindigkeitsbegrenzung',ex:'"The speed limit on this road is 50 km/h."',cat:'nov19'},
+  {w:'to crack on',ph:'/tə kræk ɒn/',t:'weitermachen / loslegen (informell)',ex:'"We should crack on — there\'s a lot to do."',cat:'nov19'},
+  {w:'pension',ph:'/ˈpenʃən/',t:'die Rente / Pension',ex:'"He\'s been paying into his pension for 30 years."',cat:'nov19'},
+  {w:'probation',ph:'/prəˈbeɪʃən/',t:'die Probezeit / Bewährung',ex:'"She\'s still on probation — her first three months."',cat:'nov19'},
+  {w:'consider',ph:'/kənˈsɪdə/',t:'erwägen / in Betracht ziehen',ex:'"I\'m considering changing jobs next year."',cat:'nov19'},
+  {w:'recommend',ph:'/ˌrekəˈmend/',t:'empfehlen',ex:'"I recommend reading this book — it\'s excellent."',cat:'nov19'},
+  {w:'suggest',ph:'/səˈdʒest/',t:'vorschlagen',ex:'"She suggested working from home on Fridays."',cat:'nov19'},
+  {w:'practise',ph:'/ˈpræktɪs/',t:'üben / praktizieren',ex:'"You should practise speaking English every day."',cat:'nov19'},
+  {w:'give up',ph:'/ɡɪv ʌp/',t:'aufgeben / aufhören',ex:'"He gave up smoking three years ago."',cat:'nov19'},
+  {w:'avoid',ph:'/əˈvɔɪd/',t:'vermeiden',ex:'"I try to avoid working late at weekends."',cat:'nov19'},
+  {w:'deny',ph:'/dɪˈnaɪ/',t:'leugnen / verneinen',ex:'"He denied stealing the money."',cat:'nov19'},
+  {w:'miss',ph:'/mɪs/',t:'vermissen / verpassen',ex:'"I miss living in Berlin city centre."',cat:'nov19'},
+  {w:'promise',ph:'/ˈprɒmɪs/',t:'versprechen',ex:'"She promised to call back later."',cat:'nov19'},
+  {w:'refuse',ph:'/rɪˈfjuːz/',t:'ablehnen / sich weigern',ex:'"He refused to work overtime without extra pay."',cat:'nov19'},
+  {w:'manage',ph:'/ˈmænɪdʒ/',t:'es schaffen / bewältigen',ex:'"Did you manage to finish the report?"',cat:'nov19'},
+  {w:'expect',ph:'/ɪkˈspekt/',t:'erwarten',ex:'"I expect to hear from them by Friday."',cat:'nov19'},
+
+  // 19.11 – Jobs & Work (Unit 8B)
+  {w:'set up',ph:'/set ʌp/',t:'gründen / einrichten',ex:'"She decided to set up an online business selling birthday cakes."',cat:'nov19'},
+  {w:'unemployed',ph:'/ˌʌnɪmˈplɔɪd/',t:'arbeitslos',ex:'"She was unemployed and had to look for a job."',cat:'nov19'},
+  {w:'look for a job',ph:'/lʊk fər ə dʒɒb/',t:'eine Stelle suchen',ex:'"After being sacked, she had to look for a new job."',cat:'nov19'},
+  {w:'sacked',ph:'/sækt/',t:'gefeuert (werden)',ex:'"They had an argument, and Clare was sacked."',cat:'nov19'},
+  {w:'apply for',ph:'/əˈplaɪ fɔː/',t:'sich bewerben auf',ex:'"She applied for a lot of jobs and sent in CVs."',cat:'nov19'},
+  {w:'send in a CV',ph:'/send ɪn ə ˌsiːˈviː/',t:'einen Lebenslauf einschicken',ex:'"She applied for a lot of jobs and sent in CVs."',cat:'nov19'},
+  {w:'do overtime',ph:'/duː ˈəʊvətaɪm/',t:'Überstunden machen',ex:'"She had to work very hard and do overtime."',cat:'nov19'},
+  {w:'salary',ph:'/ˈsæləri/',t:'das Gehalt',ex:'"She had a good salary, but she didn\'t like her boss."',cat:'nov19'},
+  {w:'redundant',ph:'/rɪˈdʌndənt/',t:'überflüssig / entlassen (durch Stellenabbau)',ex:'"He was made redundant when the company downsized."',cat:'nov19'},
+  {w:'experience',ph:'/ɪkˈspɪəriəns/',t:'die Erfahrung / Berufserfahrung',ex:'"You need five years of experience for this job."',cat:'nov19'},
+  {w:'overtime',ph:'/ˈəʊvətaɪm/',t:'die Überstunden',ex:'"I get paid extra for overtime."',cat:'nov19'},
+  {w:'permanent',ph:'/ˈpɜːmənənt/',t:'fest / dauerhaft (Stelle)',ex:'"After six months, he got a permanent contract."',cat:'nov19'},
+  {w:'qualifications',ph:'/ˌkwɒlɪfɪˈkeɪʃənz/',t:'die Qualifikationen / Abschlüsse',ex:'"What qualifications do you need for this job?"',cat:'nov19'},
+  {w:'resign',ph:'/rɪˈzaɪn/',t:'kündigen (selbst)',ex:'"She decided to resign because she was unhappy."',cat:'nov19'},
+  {w:'retire',ph:'/rɪˈtaɪə/',t:'in Rente gehen',ex:'"He plans to retire at 65."',cat:'nov19'},
+  {w:'temporary',ph:'/ˈtempərəri/',t:'vorübergehend / befristet',ex:'"It\'s only a temporary contract — three months."',cat:'nov19'},
+  {w:'self-employed',ph:'/ˌself ɪmˈplɔɪd/',t:'selbstständig',ex:'"She\'s self-employed — she runs her own business."',cat:'nov19'},
+  {w:'part-time',ph:'/ˈpɑːt taɪm/',t:'Teilzeit',ex:'"She works part-time, only three days a week."',cat:'nov19'},
+  {w:'promoted',ph:'/prəˈməʊtɪd/',t:'befördert (werden)',ex:'"He was promoted to senior manager last year."',cat:'nov19'},
+
   // 18.11 – Showing Differences & Conflict
   {w:'whereas',ph:'/weərˈæz/',t:'wohingegen / während',ex:'"She likes tea, whereas he prefers coffee."',cat:'nov18'},
   {w:'while',ph:'/waɪl/',t:'während / wohingegen',ex:'"While I enjoy travelling, my brother hates it."',cat:'nov18'},
@@ -2719,6 +2760,7 @@ function addCustomVok() {
 /* ========== VOKABELN ========== */
 // Gruppen-Definitionen: Reihenfolge neueste zuerst
 const VOK_GROUPS = [
+  { key:'nov19', label:'💼 19.11 – Jobs & Work', date:'19.11' },
   { key:'nov18', label:'⚖️ 18.11 – Differences & Conflict', date:'18.11' },
   { key:'nov17', label:'✉️ 17.11 – Emails & Airport', date:'17.11' },
   { key:'nov16', label:'🇮🇳 16.11 – International India', date:'16.11' },
@@ -5173,7 +5215,7 @@ function resetPruefung() {
       <div class="gram-cards">
         <div class="gc"><div class="gc-name c5">Steigerung der Adjektive</div><div class="gc-formula">kurz: -er/-est · lang: more/most</div><div class="gc-ex"><strong>fast → faster → the fastest</strong></div><div class="gc-ex"><strong>interesting → more interesting → the most interesting</strong></div><div class="gc-de">Unregelmäßig: good→better→best · bad→worse→worst</div></div>
         <div class="gc"><div class="gc-name c5">much / many / a lot of</div><div class="gc-formula">much + unzählbar · many + zählbar</div><div class="gc-ex"><strong>"How much time?" / "How many people?"</strong></div><div class="gc-de">a lot of geht mit beiden; much/many in Fragen &amp; Verneinungen</div><span class="gc-chip c5s">little/few (wenig) · a little/a few (etwas)</span></div>
-        <div class="gc"><div class="gc-name c5">Gerund vs. Infinitiv</div><div class="gc-formula">V-ing = Gerund · to + V = Infinitiv</div><div class="gc-ex"><strong>"I enjoy swimming." / "I want to swim."</strong></div><div class="gc-de">enjoy/finish/avoid + Gerund · want/need/decide + Infinitiv</div></div>
+        <div class="gc"><div class="gc-name c5">Gerund vs. Infinitiv</div><div class="gc-formula">V-ing = Gerund · to + V = Infinitiv</div><div class="gc-ex"><strong>"I enjoy swimming." / "I want to swim."</strong></div><div class="gc-de">enjoy/finish/avoid + Gerund · want/need/decide + Infinitiv</div><div style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px"><div style="background:var(--green-lt);border-radius:8px;padding:8px"><strong style="color:var(--green)">+ Gerund (-ing)</strong><br>enjoy · don't mind<br>consider · recommend<br>suggest · practise<br>give up · avoid<br>deny · miss</div><div style="background:var(--accent-lt);border-radius:8px;padding:8px"><strong style="color:var(--accent)">+ Infinitiv (to)</strong><br>would like · try<br>promise · hope<br>want · decide<br>refuse · manage<br>expect</div></div><div class="gc-ex" style="margin-top:8px"><strong>"Learning English is fun." (Gerund als Subjekt)</strong><br><strong>"I'm good at speaking English." (nach Präposition)</strong></div></div>
         <div class="gc"><div class="gc-name c5">Präpositionen (Zeit)</div><div class="gc-formula">at · in · on</div><div class="gc-ex"><strong>at 9 o'clock · in January · on Monday</strong></div><div class="gc-de">at = Uhrzeit · in = Monat/Jahr · on = Tag/Datum</div></div>
         <div class="gc"><div class="gc-name c5">Präpositionen (Ort)</div><div class="gc-formula">at · in · on</div><div class="gc-ex"><strong>at the station · in Berlin · on the table</strong></div><div class="gc-de">at = Punkt/Adresse · in = Ort/Stadt · on = Oberfläche</div></div>
         <div class="gc"><div class="gc-name c5">Häufigkeitsadverbien</div><div class="gc-formula">Position: vor Hauptverb / nach be</div><div class="gc-ex"><strong>"She always works hard."</strong></div><div class="gc-de">always(100%) → usually → often → sometimes → rarely → never(0%)</div></div>
