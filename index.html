@@ -649,12 +649,12 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 
     <!-- STUNDENPLAN -->
     <div class="screen" id="sc-stundenplan">
-      <div class="screen-nav"><button class="snav-btn" onclick="goAdj(-1)">←</button><div class="sec-lbl">Stundenplan</div><button class="snav-btn" onclick="goAdj(1)">→</button></div>
+      <div class="screen-nav"><button class="snav-btn" onclick="goAdj(-1)">←</button><div class="sec-lbl" id="sp-screen-title">Stundenplan</div><button class="snav-btn" onclick="goAdj(1)">→</button></div>
       <div class="countdown-end">
-        <p>📅 Kursende: <strong id="kursende-display">Freitag, 04. Dezember 2026</strong></p>
+        <p><span id="sp-kursende-lbl">📅 Kursende</span>: <strong id="kursende-display">Freitag, 04. Dezember 2026</strong></p>
       </div>
       <div id="prefill-banner" style="display:none;margin-bottom:8px">
-        <button onclick="spPrefillAll()" style="width:100%;background:var(--gold);color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer">📥 Stundenplan-Daten laden</button>
+        <button onclick="spPrefillAll()" id="sp-load-btn" style="width:100%;background:var(--gold);color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer">📥 Stundenplan-Daten laden</button>
       </div>
       <!-- Kalender / Woche Toggle -->
       <div style="display:flex;gap:8px;margin-bottom:10px">
@@ -2678,7 +2678,15 @@ const UI_TRANS = {
     nav_challenge: 'Challenge', nav_stundenplan: 'Stundenplan',
     nav_hausaufgaben: 'Aufgaben', nav_praesi: 'Präsi',
     nav_links: 'Links', nav_translator: 'Übersetzer', nav_pruefung: 'Prüfung',
-    streak_day: 'Tag'
+    streak_day: 'Tag',
+    app_title: 'Mein Englisch',
+    sp_title: 'Stundenplan',
+    sp_load: '📥 Stundenplan-Daten laden',
+    sp_cal: '📅 Kalender',
+    sp_week: '📋 Woche',
+    sp_kursende: '📅 Kursende',
+    month_names: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+    cal_day_names: ['Mo','Di','Mi','Do','Fr','Sa','So']
   },
   ar: {
     daily_title: 'لم تتدرب اليوم بعد!',
@@ -2704,7 +2712,15 @@ const UI_TRANS = {
     nav_challenge: 'تحدي', nav_stundenplan: 'الجدول',
     nav_hausaufgaben: 'الواجبات', nav_praesi: 'عرض',
     nav_links: 'روابط', nav_translator: 'مترجم', nav_pruefung: 'اختبار',
-    streak_day: 'يوم'
+    streak_day: 'يوم',
+    app_title: 'إنجليزيتي',
+    sp_title: 'الجدول الدراسي',
+    sp_load: '📥 تحميل بيانات الجدول',
+    sp_cal: '📅 التقويم',
+    sp_week: '📋 الأسبوع',
+    sp_kursende: '📅 نهاية الدورة',
+    month_names: ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'],
+    cal_day_names: ['ن','ث','ر','خ','ج','س','ح']
   },
   ka: {
     daily_title: 'დღეს ჯერ არ ივარჯიშე!',
@@ -2730,7 +2746,15 @@ const UI_TRANS = {
     nav_challenge: 'გამოწვ.', nav_stundenplan: 'გრაფიკი',
     nav_hausaufgaben: 'დავალ.', nav_praesi: 'პრეზ.',
     nav_links: 'ბმულები', nav_translator: 'თარგმ.', nav_pruefung: 'გამოცდა',
-    streak_day: 'დღე'
+    streak_day: 'დღე',
+    app_title: 'ჩემი ინგლისური',
+    sp_title: 'გრაფიკი',
+    sp_load: '📥 გრაფიკის მონაცემების ჩატვირთვა',
+    sp_cal: '📅 კალენდარი',
+    sp_week: '📋 კვირა',
+    sp_kursende: '📅 კურსის დასასრული',
+    month_names: ['იანვარი','თებერვალი','მარტი','აპრილი','მაისი','ივნისი','ივლისი','აგვისტო','სექტემბერი','ოქტომბერი','ნოემბერი','დეკემბერი'],
+    cal_day_names: ['ო','ს','ო','ხ','პ','შ','კ']
   }
 };
 
@@ -2797,6 +2821,28 @@ function renderHome() {
   // Streak-Badge übersetzen
   const slEl = document.getElementById('streak-label');
   if (slEl) slEl.textContent = t('streak_day');
+
+  // App-Titel übersetzen
+  const titleEl = document.querySelector('.hdr-title');
+  if (titleEl) titleEl.textContent = t('app_title');
+
+  // Stundenplan-Labels übersetzen
+  setT('sp-screen-title', t('sp_title'));
+  setT('sp-kursende-lbl', t('sp_kursende'));
+  setT('sp-load-btn', t('sp_load'));
+  // Kalender/Woche Toggle-Buttons
+  const spCalBtn = document.getElementById('sp-view-cal');
+  if (spCalBtn) spCalBtn.textContent = t('sp_cal');
+  const spWeekBtn = document.getElementById('sp-view-week');
+  if (spWeekBtn) spWeekBtn.textContent = t('sp_week');
+
+  // kursende-display mit richtiger Locale
+  const kdEl = document.getElementById('kursende-display');
+  if (kdEl) {
+    const locale = localStorage.getItem('ela_lang') === 'ar' ? 'ar-SA' : localStorage.getItem('ela_lang') === 'ka' ? 'ka-GE' : 'de-DE';
+    const d = new Date(getKursEnde() + 'T12:00:00');
+    kdEl.textContent = d.toLocaleDateString(locale, {weekday:'long', day:'2-digit', month:'long', year:'numeric'});
+  }
 }
 
 function getTrans(v) {
@@ -2915,7 +2961,8 @@ function saveKursDaten() {
     const kdEl = document.getElementById('kursende-display');
     if (kdEl) {
       const d = new Date(e.value + 'T12:00:00');
-      kdEl.textContent = d.toLocaleDateString('de-DE', {weekday:'long', day:'2-digit', month:'long', year:'numeric'});
+      const loc = localStorage.getItem('ela_lang') === 'ar' ? 'ar-SA' : localStorage.getItem('ela_lang') === 'ka' ? 'ka-GE' : 'de-DE';
+      kdEl.textContent = d.toLocaleDateString(loc, {weekday:'long', day:'2-digit', month:'long', year:'numeric'});
     }
     initHome();
     alert('✅ Kursdaten gespeichert!');
@@ -4156,8 +4203,8 @@ function spShowView(v) {
 function renderCalendar(year, month) {
   _spCalYear = year; _spCalMonth = month;
   const now = new Date();
-  const monthNames = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
-  const dayNames = ['Mo','Di','Mi','Do','Fr','Sa','So'];
+  const monthNames = t('month_names') || ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  const dayNames = t('cal_day_names') || ['Mo','Di','Mi','Do','Fr','Sa','So'];
 
   const firstDay = new Date(year, month, 1);
   const lastDay  = new Date(year, month + 1, 0);
