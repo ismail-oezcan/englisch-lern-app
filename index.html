@@ -300,7 +300,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
           </button>
         </div>
       </div>
-      <div class="hdr-streak" id="streak-badge">🔥 <span id="streak-num">1</span> Tag</div>
+      <div class="hdr-streak" id="streak-badge">🔥 <span id="streak-num">1</span> <span id="streak-label">Tag</span></div>
     </div>
   </div>
 
@@ -2677,7 +2677,8 @@ const UI_TRANS = {
     nav_home: 'Start', nav_vokabeln: 'Vokabeln', nav_grammatik: 'Grammatik',
     nav_challenge: 'Challenge', nav_stundenplan: 'Stundenplan',
     nav_hausaufgaben: 'Aufgaben', nav_praesi: 'Präsi',
-    nav_links: 'Links', nav_translator: 'Übersetzer', nav_pruefung: 'Prüfung'
+    nav_links: 'Links', nav_translator: 'Übersetzer', nav_pruefung: 'Prüfung',
+    streak_day: 'Tag'
   },
   ar: {
     daily_title: 'لم تتدرب اليوم بعد!',
@@ -2702,7 +2703,8 @@ const UI_TRANS = {
     nav_home: 'الرئيسية', nav_vokabeln: 'المفردات', nav_grammatik: 'القواعد',
     nav_challenge: 'تحدي', nav_stundenplan: 'الجدول',
     nav_hausaufgaben: 'الواجبات', nav_praesi: 'عرض',
-    nav_links: 'روابط', nav_translator: 'مترجم', nav_pruefung: 'اختبار'
+    nav_links: 'روابط', nav_translator: 'مترجم', nav_pruefung: 'اختبار',
+    streak_day: 'يوم'
   },
   ka: {
     daily_title: 'დღეს ჯერ არ ივარჯიშე!',
@@ -2727,7 +2729,8 @@ const UI_TRANS = {
     nav_home: 'მთავარი', nav_vokabeln: 'სიტყვები', nav_grammatik: 'გრამატ.',
     nav_challenge: 'გამოწვ.', nav_stundenplan: 'გრაფიკი',
     nav_hausaufgaben: 'დავალ.', nav_praesi: 'პრეზ.',
-    nav_links: 'ბმულები', nav_translator: 'თარგმ.', nav_pruefung: 'გამოცდა'
+    nav_links: 'ბმულები', nav_translator: 'თარგმ.', nav_pruefung: 'გამოცდა',
+    streak_day: 'დღე'
   }
 };
 
@@ -2790,6 +2793,10 @@ function renderHome() {
     const el = document.getElementById('nav-' + id);
     if (el) el.textContent = t('nav_' + id);
   });
+
+  // Streak-Badge übersetzen
+  const slEl = document.getElementById('streak-label');
+  if (slEl) slEl.textContent = t('streak_day');
 }
 
 function getTrans(v) {
@@ -2859,7 +2866,7 @@ function setLang(lang) {
 })();
 
 /* ========== NAV ========== */
-const SCREEN_ORDER = ['start','vokabeln','grammatik','challenge','stundenplan','hausaufgaben','praesi','links','translator','pruefung'];
+const SCREEN_ORDER = ['home','vokabeln','grammatik','challenge','stundenplan','hausaufgaben','praesi','links','translator','pruefung'];
 
 function go(name) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
