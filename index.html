@@ -309,6 +309,8 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 
     <!-- LANGUAGE PICKER (als Modal, kein screen) -->
     <div id="sc-lang-pick" style="display:none;position:fixed;inset:0;z-index:9999;background:var(--bg);flex-direction:column;align-items:center;justify-content:center;padding:24px">
+      <!-- Zurück-Button (nur sichtbar wenn bereits eine Sprache gewählt) -->
+      <button id="lang-pick-back" onclick="closeLangPicker()" style="display:none;position:absolute;top:16px;left:16px;background:none;border:none;font-size:24px;cursor:pointer;color:var(--fg);padding:8px">←</button>
       <div style="font-size:48px;margin-bottom:16px">🌍</div>
       <div style="font-size:22px;font-weight:800;color:var(--fg);text-align:center;margin-bottom:8px">Choose your language</div>
       <div style="font-size:14px;color:var(--fg2);text-align:center;margin-bottom:32px">Wähle deine Muttersprache / اختر لغتك / აირჩიე შენი ენა</div>
@@ -2663,10 +2665,22 @@ function getSpeakLang() {
   if (l === 'ka') return 'ka-GE';
   return 'de-DE';
 }
-function toggleLangDropdown() {
+function closeLangPicker() {
+  const lp = document.getElementById('sc-lang-pick');
+  if (lp) lp.style.display = 'none';
+}
+function openLangPicker() {
+  const lp = document.getElementById('sc-lang-pick');
+  if (!lp) return;
+  // Zurück-Button nur zeigen wenn bereits eine Sprache gesetzt ist
+  const backBtn = document.getElementById('lang-pick-back');
+  if (backBtn) backBtn.style.display = localStorage.getItem('ela_lang') ? 'block' : 'none';
+  lp.style.display = 'flex';
   const dd = document.getElementById('lang-dropdown');
-  if (!dd) return;
-  dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+  if (dd) dd.style.display = 'none';
+}
+function toggleLangDropdown() {
+  openLangPicker();
 }
 document.addEventListener('click', function(e) {
   const wrap = document.getElementById('lang-dropdown-wrap');
@@ -2682,6 +2696,9 @@ function setLang(lang) {
   const dd = document.getElementById('lang-dropdown');
   if (dd) dd.style.display = 'none';
   go('home');
+  // UI nach Sprachwechsel neu rendern
+  if (typeof renderVokGroups === 'function') renderVokGroups();
+  if (typeof renderVok === 'function') renderVok();
 }
 // On first load: show language picker if no lang set
 (function() {
