@@ -175,6 +175,23 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 }
 .qc p{font-size:11px;color:var(--fg-muted);margin-top:2px}
 
+/* ---- MEIN LERNEN ---- */
+.ml-tab{flex:1;padding:9px 4px;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);color:var(--fg);font-size:13px;font-weight:700;cursor:pointer}
+.ml-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.ml-btn{padding:11px 16px;border-radius:12px;border:none;background:var(--accent);color:#fff;font-size:14px;font-weight:700;cursor:pointer}
+.ml-btn-sec{background:var(--bg-2);color:var(--fg);border:1px solid var(--border)}
+.ml-in{width:100%;box-sizing:border-box;padding:10px 12px;margin-bottom:8px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--fg);font-size:15px}
+.ml-stat{flex:1;background:var(--bg-2);border-radius:12px;padding:10px;text-align:center}
+.ml-stat b{display:block;font-size:20px;color:var(--accent)}
+.ml-stat span{font-size:11px;color:var(--fg-muted)}
+.ml-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:12px;margin-bottom:8px;background:var(--bg-card)}
+.ml-row .ml-main{flex:1;min-width:0}
+.ml-row .ml-w{font-weight:700;font-size:15px;overflow-wrap:anywhere}
+.ml-row .ml-s{font-size:13px;color:var(--fg-muted);overflow-wrap:anywhere}
+.ml-ico{background:none;border:none;font-size:17px;cursor:pointer;padding:4px}
+.ml-opt{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);color:var(--fg);font-size:15px;font-weight:600;cursor:pointer}
+.ml-opt.ok{background:#16a34a;color:#fff;border-color:#16a34a}
+.ml-opt.bad{background:#dc2626;color:#fff;border-color:#dc2626}
 /* ---- VOKABELN ---- */
 .vok-filter{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:16px}
 .vf{flex-shrink:0;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:600;background:var(--bg-2);color:var(--fg-muted);border:none;cursor:pointer;font-family:var(--font);transition:all .15s}
@@ -419,6 +436,11 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
           <div class="qc-icon">📚</div>
           <h3 id="home-gramref-title">Grammatik-Übersicht</h3>
           <p id="home-gramref-sub">Zeitformen · Sätze · Verben · Pronomen</p>
+        </div>
+        <div class="qc" onclick="openMeinLernen('fehler')" style="grid-column:1/-1;background:linear-gradient(135deg,#dc2626,#c2410c)">
+          <div class="qc-icon">📌</div>
+          <h3>Fehlerliste &amp; Wörterbuch</h3>
+          <p id="home-ml-sub">Fehler wiederholen · eigene Wörter · Sicherung</p>
         </div>
       </div>
 
@@ -883,6 +905,84 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
       </div>
     </div>
 
+    <!-- MEIN LERNEN: Fehlerliste, Wörterbuch, Sicherung -->
+    <div class="screen" id="sc-meins">
+      <div class="screen-nav"><button class="snav-btn" onclick="go('home')">←</button><div class="sec-lbl">📌 Mein Lernen</div><span></span></div>
+      <div style="display:flex;gap:6px;margin-bottom:14px">
+        <button class="ml-tab" id="ml-tab-fehler" onclick="mlTab('fehler')">⚠️ Fehlerliste</button>
+        <button class="ml-tab" id="ml-tab-dict" onclick="mlTab('dict')">📒 Wörterbuch</button>
+        <button class="ml-tab" id="ml-tab-backup" onclick="mlTab('backup')">💾 Sicherung</button>
+      </div>
+
+      <!-- Übungs-Ansicht (gemeinsam für Fehlerliste und Wörterbuch) -->
+      <div id="ml-quiz" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <button class="snav-btn" onclick="mlQuizEnd()">✕</button>
+          <span id="ml-q-num" style="font-size:13px;color:var(--fg-muted)"></span>
+          <span id="ml-q-score" style="font-size:13px;font-weight:700;color:var(--accent)"></span>
+        </div>
+        <div class="card">
+          <div id="ml-q-type" style="font-size:12px;font-weight:700;color:var(--fg-muted);margin-bottom:6px"></div>
+          <div id="ml-q-text" style="font-size:17px;font-weight:700;line-height:1.5;white-space:pre-line;margin-bottom:14px"></div>
+          <div id="ml-q-opts"></div>
+          <div id="ml-q-fb" style="display:none;margin-top:10px;font-size:14px;line-height:1.5"></div>
+          <button id="ml-q-next" class="ml-btn" style="display:none;margin-top:12px;width:100%" onclick="mlQuizNext()">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- Fehlerliste -->
+      <div id="ml-fehler" class="ml-pane">
+        <div class="card" style="margin-bottom:12px">
+          <div style="font-size:14px;line-height:1.5;color:var(--fg-muted)">Hier landen automatisch alle Vokabeln und Fragen, die du falsch beantwortet hast (Karten „Nochmal“, Tages-Quiz, Prüfung). Sie kommen in wachsenden Abständen wieder: sofort, nach 1, 3 und 7 Tagen. Nach 3× richtig hintereinander gelten sie als gelernt.</div>
+          <div id="ml-fehler-stats" style="display:flex;gap:8px;margin:12px 0"></div>
+          <button class="ml-btn" style="width:100%" onclick="mlStartFehler(false)">▶ Fällige wiederholen</button>
+          <button class="ml-btn ml-btn-sec" style="width:100%;margin-top:8px" onclick="mlStartFehler(true)">Alle wiederholen</button>
+        </div>
+        <div id="ml-fehler-list"></div>
+      </div>
+
+      <!-- Wörterbuch -->
+      <div id="ml-dict" class="ml-pane" style="display:none">
+        <div class="card" style="margin-bottom:12px">
+          <div style="font-weight:700;margin-bottom:8px" id="ml-form-title">➕ Neues Wort</div>
+          <input id="ml-f-en" class="ml-in" placeholder="Englisch *  (z.B. pick-up point)">
+          <input id="ml-f-de" class="ml-in" placeholder="Deutsch *  (z.B. der Abholort)">
+          <input id="ml-f-ar" class="ml-in" placeholder="Arabisch (optional)" dir="rtl">
+          <input id="ml-f-ka" class="ml-in" placeholder="Georgisch (optional)">
+          <input id="ml-f-ex" class="ml-in" placeholder="Beispielsatz (optional)">
+          <input id="ml-f-topic" class="ml-in" placeholder="Thema (optional, z.B. Fahrdienst)" list="ml-topics">
+          <datalist id="ml-topics"></datalist>
+          <div id="ml-f-msg" style="display:none;font-size:13px;margin:4px 0 8px"></div>
+          <div style="display:flex;gap:8px">
+            <button class="ml-btn" style="flex:1" onclick="mlDictSave()">💾 Speichern</button>
+            <button class="ml-btn ml-btn-sec" id="ml-f-cancel" style="display:none" onclick="mlDictCancel()">Abbrechen</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:10px">
+          <input id="ml-dict-search" class="ml-in" style="margin:0;flex:1" placeholder="🔍 Suchen…" oninput="mlRenderDict()">
+          <button class="ml-btn" onclick="mlStartDict()">▶ Üben</button>
+        </div>
+        <div id="ml-dict-list"></div>
+      </div>
+
+      <!-- Sicherung -->
+      <div id="ml-backup" class="ml-pane" style="display:none">
+        <div class="card" style="margin-bottom:12px">
+          <div style="font-weight:700;margin-bottom:6px">💾 Sicherung herunterladen</div>
+          <div style="font-size:14px;line-height:1.5;color:var(--fg-muted);margin-bottom:12px">Speichert deinen Fortschritt, die Fehlerliste, dein Wörterbuch und deine Einstellungen in einer Datei. Damit kannst du alles auf ein neues Handy übertragen oder nach dem Löschen des Browsers wiederherstellen.</div>
+          <button class="ml-btn" style="width:100%" onclick="mlExport()">⬇️ Sicherung als Datei speichern</button>
+          <div id="ml-backup-last" style="font-size:12px;color:var(--fg-muted);margin-top:8px"></div>
+        </div>
+        <div class="card">
+          <div style="font-weight:700;margin-bottom:6px">📂 Sicherung wiederherstellen</div>
+          <div style="font-size:14px;line-height:1.5;color:var(--fg-muted);margin-bottom:12px">Wähle eine Sicherungsdatei aus. Die Daten in der Datei ersetzen die aktuellen Daten in dieser App.</div>
+          <input type="file" id="ml-import-file" accept=".json,application/json" style="display:none" onchange="mlImport(this)">
+          <button class="ml-btn ml-btn-sec" style="width:100%" onclick="document.getElementById('ml-import-file').click()">⬆️ Datei auswählen</button>
+          <div id="ml-import-msg" style="display:none;font-size:13px;margin-top:10px"></div>
+        </div>
+      </div>
+    </div>
+
     <!-- PRÜFUNGSSIMULATION -->
     <div class="screen" id="sc-pruefung">
       <div class="sec-lbl">🎓 Prüfungssimulation</div>
@@ -1063,19 +1163,19 @@ const VOKABELN = [
   {w:'environmental',ph:'/ɪnˌvaɪrənˈmentl/',t:'umweltbezogen / ökologisch',ta:'بيئي',tka:'გარემოსდაცვითი',ex:'"Environmental issues are very important."',cat:'env'},
     {w:'survey',ph:'/ˈsɜːveɪ/',t:'die Umfrage / Befragung',ta:'استطلاع',tka:'გამოკითხვა',ex:'"The Greendex survey covers 17 countries."',cat:'env'},
   {w:'sustainable',ph:'/səˈsteɪnəbl/',t:'nachhaltig',ta:'مستدام',tka:'მდგრადი',ex:'"We need more sustainable energy sources."',cat:'env'},
-  {w:'recycle',ph:'/ˌriːˈsaɪkl/',t:'recyceln / wiederverwerten',ta:'يُعاد تدويره',tka:'გადამუშავებადი',ex:'"Germans recycle most of their waste."',cat:'env'},
+  {w:'recycle',ph:'/ˌriːˈsaɪkl/',t:'recyceln / wiederverwerten',ta:'يعيد التدوير',tka:'გადამუშავება',ex:'"Germans recycle most of their waste."',cat:'env'},
   {w:'carbon footprint',ph:'/ˈkɑːbən ˈfʊtprɪnt/',t:'der CO₂-Fußabdruck',ta:'البصمة الكربونية',tka:'ნახშირბადის კვალი',ex:'"Flying increases your carbon footprint."',cat:'env'},
   {w:'renewable',ph:'/rɪˈnjuːəbl/',t:'erneuerbar',ta:'متجدد',tka:'განახლებადი',ex:'"Solar energy is a renewable source."',cat:'env'},
   {w:'approximately',ph:'/əˈprɒksɪmətli/',t:'ungefähr / circa',ta:'تقريبًا',tka:'დაახლოებით',ex:'"Approximately 90% of Argentinians worry about the environment."',cat:'env'},
   // Phrasal Verbs (aus Kurs)
-  {w:'get on / get along',ph:'/ɡet ɒn/',t:'auskommen mit jemandem',ta:'يتوافق جيداً',tka:'კარგად ხვდება',ex:'"Do you get along with your colleagues?"',cat:'phrasal'},
+  {w:'get on / get along',ph:'/ɡet ɒn/',t:'auskommen mit jemandem',ta:'يتوافق جيداً',tka:'კარგი ურთიერთობის ქონა',ex:'"Do you get along with your colleagues?"',cat:'phrasal'},
   {w:'run errands',ph:'/rʌn ˈerəndz/',t:'Besorgungen machen',ta:'يقوم بالمهام',tka:'საქმეებს ასრულებს',ex:'"I need to run some errands after class."',cat:'phrasal'},
   {w:'carry out',ph:'/ˈkæri aʊt/',t:'durchführen / ausführen',ta:'ينفذ',tka:'ახორციელებს',ex:'"We need to carry out the plan."',cat:'phrasal'},
-  {w:'find out',ph:'/faɪnd aʊt/',t:'herausfinden',ta:'يكتشف',tka:'გარკვეული',ex:'"I need to find out the answer."',cat:'phrasal'},
+  {w:'find out',ph:'/faɪnd aʊt/',t:'herausfinden',ta:'يكتشف',tka:'გარკვევა / გაგება',ex:'"I need to find out the answer."',cat:'phrasal'},
   {w:'give up',ph:'/ɡɪv ʌp/',t:'aufgeben',ta:'يستسلم / يتخلى عن',tka:'დანებება / თავის დანებება',ex:'"Don\'t give up — keep trying!"',cat:'phrasal'},
-  {w:'look up',ph:'/lʊk ʌp/',t:'nachschlagen / nachsuchen',ta:'يبحث',tka:'ეძებს',ex:'"Look up the word in the dictionary."',cat:'phrasal'},
+  {w:'look up',ph:'/lʊk ʌp/',t:'nachschlagen / nachsuchen',ta:'يبحث عن (في القاموس)',tka:'მოძებნა (ლექსიკონში)',ex:'"Look up the word in the dictionary."',cat:'phrasal'},
   {w:'put off',ph:'/pʊt ɒf/',t:'verschieben / aufschieben',ta:'يؤجل',tka:'გადადება',ex:'"Don\'t put off until tomorrow what you can do today."',cat:'phrasal'},
-  {w:'take over',ph:'/teɪk ˈəʊvə/',t:'übernehmen',ta:'يستلم',tka:'გადაბარება',ex:'"She will take over the project next month."',cat:'phrasal'},
+  {w:'take over',ph:'/teɪk ˈəʊvə/',t:'übernehmen',ta:'يتولّى / يستلم',tka:'ხელში აღება / ჩანაცვლება',ex:'"She will take over the project next month."',cat:'phrasal'},
   // Beschreibungen & Kommunikation (B1 Kurs)
   {w:'in detail',ph:'/ɪn ˈdiːteɪl/',t:'im Detail / ausführlich',ta:'بالتفصيل',tka:'დეტალურად',ex:'"Can you explain that in detail?"',cat:'comm'},
   {w:'in my opinion',ph:'/ɪn maɪ əˈpɪnjən/',t:'meiner Meinung nach',ta:'في رأيي',tka:'ჩემი აზრით',ex:'"In my opinion, this is a good idea."',cat:'comm'},
@@ -1095,7 +1195,7 @@ const VOKABELN = [
   {w:'fed up with',ph:'/fed ʌp wɪð/',t:'es satt haben / genug haben von',ta:'سئم من / ضاق ذرعًا بـ',tka:'მობეზრება / ყელში ამოსვლა',ex:'"I\'m fed up with this weather."',cat:'feelings'},
   // Appearances — Personen beschreiben (Guess Who, Kurs)
   {w:'blonde',ph:'/blɒnd/',t:'blond',ta:'أشقر',tka:'ქერა',ex:'"She has blonde hair."',cat:'appear'},
-  {w:'brunette',ph:'/bruːˈnet/',t:'brünett / dunkelhaarig',ta:'بُنيّ / داكن',tka:'შავგვრემანი',ex:'"He is brunette with short hair."',cat:'appear'},
+  {w:'brunette',ph:'/bruːˈnet/',t:'brünett / dunkelhaarig',ta:'ذو شعر بني داكن',tka:'შავგვრემანი',ex:'"He is brunette with short hair."',cat:'appear'},
   {w:'bald',ph:'/bɔːld/',t:'kahl / Glatze',ta:'أصلع',tka:'მელოტი',ex:'"My uncle is completely bald."',cat:'appear'},
   {w:'curly',ph:'/ˈkɜːli/',t:'lockig',ta:'مجعد',tka:'ხუჭუჭა',ex:'"She has long curly hair."',cat:'appear'},
   {w:'beard',ph:'/bɪəd/',t:'der Bart',ta:'لحية',tka:'წვერი',ex:'"He has a short beard."',cat:'appear'},
@@ -1110,10 +1210,10 @@ const VOKABELN = [
   {w:'return ticket',ph:'/rɪˈtɜːn ˈtɪkɪt/',t:'die Rückfahrkarte',ta:'تذكرة ذهاب وإياب',tka:'ბილეთი ორივე მიმართულებით',ex:'"A return ticket is cheaper."',cat:'travel'},
   {w:'to book',ph:'/tə bʊk/',t:'buchen / reservieren',ta:'يحجز',tka:'დაჯავშნა',ex:'"I\'d like to book a room from Monday."',cat:'travel'},
   {w:'reasonable price',ph:'/ˈriːznəbl praɪs/',t:'angemessener Preis / vernünftiger Preis',ta:'سعر معقول',tka:'გონივრული ფასი',ex:'"That hotel offers rooms at a reasonable price."',cat:'travel'},
-  {w:'reception',ph:'/rɪˈsepʃn/',t:'die Rezeption / der Empfang',ta:'الاستقبال',tka:'მიღება',ex:'"Please ask at the reception."',cat:'travel'},
-  {w:'check in',ph:'/tʃek ɪn/',t:'einchecken',ta:'تسجيل الوصول',tka:'შემოწმება',ex:'"We can check in after 2 pm."',cat:'travel'},
+  {w:'reception',ph:'/rɪˈsepʃn/',t:'die Rezeption / der Empfang',ta:'الاستقبال',tka:'რეცეფცია / მისაღები',ex:'"Please ask at the reception."',cat:'travel'},
+  {w:'check in',ph:'/tʃek ɪn/',t:'einchecken',ta:'تسجيل الوصول',tka:'რეგისტრაცია (სასტუმროში / აეროპორტში)',ex:'"We can check in after 2 pm."',cat:'travel'},
   // Tourismus-Vokabular (Unit 7A, Kurs, 26.10.2026)
-  {w:'festival',ph:'/ˈfestɪvl/',t:'das Fest / das Festival',ta:'مهرجان',tka:'დღესასწაული',ex:'"The town has a big music festival every summer."',cat:'tourism'},
+  {w:'festival',ph:'/ˈfestɪvl/',t:'das Fest / das Festival',ta:'مهرجان',tka:'ფესტივალი / დღესასწაული',ex:'"The town has a big music festival every summer."',cat:'tourism'},
   {w:'out of season',ph:'/aʊt əv ˈsiːzn/',t:'außerhalb der Saison / Nebensaison',ta:'خارج الموسم',tka:'სეზონის გარეთ',ex:'"It is cheaper to travel out of season."',cat:'tourism'},
   {w:'trip',ph:'/trɪp/',t:'der Ausflug / die Reise (kurz)',ta:'رحلة قصيرة',tka:'მოკლე მოგზაურობა',ex:'"We made a day trip to the coast."',cat:'tourism'},
   {w:'queue',ph:'/kjuː/',t:'die Schlange / die Warteschlange',ta:'طابور',tka:'რიგი',ex:'"There was a long queue at the museum."',cat:'tourism'},
@@ -1121,9 +1221,9 @@ const VOKABELN = [
   {w:'go sightseeing',ph:'/ɡəʊ ˈsaɪtsiːɪŋ/',t:'Sightseeing machen / Sehenswürdigkeiten besichtigen',ta:'يقوم بجولة سياحية',tka:'ძეგლების დათვალიერება',ex:'"We want to go sightseeing in Rome."',cat:'tourism'},
   {w:'culture',ph:'/ˈkʌltʃə/',t:'die Kultur',ta:'الثقافة',tka:'კულტურა',ex:'"I love learning about different cultures."',cat:'tourism'},
   {w:'customs and traditions',ph:'/ˈkʌstəmz ənd trəˈdɪʃnz/',t:'Sitten und Bräuche / Traditionen',ta:'العادات والتقاليد',tka:'ადათ-წესები',ex:'"Every country has its own customs and traditions."',cat:'tourism'},
-  {w:'destination',ph:'/ˌdestɪˈneɪʃn/',t:'das Reiseziel / die Destination',ta:'وجهة',tka:'დანიშნულება',ex:'"Paris is a popular tourist destination."',cat:'tourism'},
+  {w:'destination',ph:'/ˌdestɪˈneɪʃn/',t:'das Reiseziel / die Destination',ta:'وجهة',tka:'დანიშნულების ადგილი',ex:'"Paris is a popular tourist destination."',cat:'tourism'},
   {w:'offend',ph:'/əˈfend/',t:'beleidigen / verletzen / anstoßen',ta:'يُسيء إلى',tka:'შეურაცხყოფს',ex:'"Be careful not to offend local people with your behaviour."',cat:'tourism'},
-  {w:'litter',ph:'/ˈlɪtə/',t:'den Müll / Abfall (auf die Straße werfen)',ta:'القمامة',tka:'ნაგავი',ex:'"Please do not litter in the park."',cat:'tourism'},
+  {w:'litter',ph:'/ˈlɪtə/',t:'der Müll / Abfall (auf die Straße werfen)',ta:'القمامة',tka:'ნაგავი',ex:'"Please do not litter in the park."',cat:'tourism'},
     // Vokabelliste 1: Schule, Familie, Geld (Kurs)
   {w:'exhausted',ph:'/ɪɡˈzɔːstɪd/',t:'erschöpft / ausgelaugt',ta:'منهك',tka:'გამოფიტული',ex:'"I was exhausted after the long journey."',cat:'school'},
   {w:'do the dishes',ph:'/duː ðə ˈdɪʃɪz/',t:'Geschirr spülen / abwaschen',ta:'يغسل الصحون',tka:'ჭურჭელს რეცხავს',ex:'"Can you do the dishes after dinner?"',cat:'school'},
@@ -1138,17 +1238,17 @@ const VOKABELN = [
   {w:'to donate',ph:'/tə dəʊˈneɪt/',t:'spenden / stiften',ta:'يتبرع',tka:'სწირავს',ex:'"She donated money to the charity."',cat:'school'},
   {w:'to borrow',ph:'/tə ˈbɒrəʊ/',t:'(aus)leihen / borgen (nehmen)',ta:'يستعير',tka:'ისესხებს',ex:'"Can I borrow your pen?"',cat:'school'},
   {w:'to lend',ph:'/tə lend/',t:'(ver)leihen / ausleihen (geben)',ta:'يُقرض',tka:'ასესხებს',ex:'"I lent him my umbrella."',cat:'school'},
-  {w:'to owe',ph:'/tə əʊ/',t:'schulden / schuldig sein',ta:'مدين',tka:'ვალდებულია',ex:'"I owe you ten euros."',cat:'school'},
+  {w:'to owe',ph:'/tə əʊ/',t:'schulden / schuldig sein',ta:'يدين بـ',tka:'ვალი აქვს / ემართება',ex:'"I owe you ten euros."',cat:'school'},
     {w:'to regret',ph:'/tə rɪˈɡret/',t:'bereuen',ta:'يندم',tka:'ნანობს',ex:'"I regret not studying harder."',cat:'school'},
   {w:'to inherit',ph:'/tə ɪnˈherɪt/',t:'erben / erhalten',ta:'يرث',tka:'მემკვიდრეობით იღებს',ex:'"She inherited the house from her grandmother."',cat:'school'},
         {w:'immediate family',ph:'/ɪˈmiːdiət ˈfæməli/',t:'die engste Familie / Kernfamilie',ta:'الأسرة المباشرة',tka:'ახლო ოჯახი',ex:'"Only immediate family was invited to the wedding."',cat:'school'},
   {w:'extended family',ph:'/ɪkˈstendɪd ˈfæməli/',t:'die Großfamilie / weiterer Familienkreis',ta:'الأسرة الممتدة',tka:'გაფართოებული ოჯახი',ex:'"We have a big extended family."',cat:'school'},
           // Vokabelliste 2: Tech, Haus, Gesellschaft (Kurs)
-      {w:'to get along with someone',ph:'/tə ɡet əˈlɒŋ wɪð ˈsʌmwʌn/',t:'gut auskommen mit jemandem',ta:'يلتقي جيداً مع',tka:'კარგ ურთიერთობაში',ex:'"I get along well with my colleagues."',cat:'tech'},
+      {w:'to get along with someone',ph:'/tə ɡet əˈlɒŋ wɪð ˈsʌmwʌn/',t:'gut auskommen mit jemandem',ta:'يتوافق مع شخص',tka:'ვინმესთან კარგი ურთიერთობა',ex:'"I get along well with my colleagues."',cat:'tech'},
       {w:'to retire',ph:'/tə rɪˈtaɪə/',t:'in Rente gehen / in den Ruhestand treten',ta:'يتقاعد',tka:'პენსიაზე გადის',ex:'"She plans to retire at 65."',cat:'tech'},
                 {w:'state-of-the-art',ph:'/steɪt əv ði ɑːt/',t:'modernst / auf dem neuesten Stand der Technik',ta:'الأحدث تقنيةً',tka:'უახლესი ტექნოლოგია',ex:'"This is a state-of-the-art facility."',cat:'tech'},
       {w:'to appreciate',ph:'/tə əˈpriːʃieɪt/',t:'schätzen / würdigen',ta:'يقدّر',tka:'აფასებს',ex:'"I really appreciate your help."',cat:'tech'},
-  {w:'a data leak',ph:'/ə ˈdeɪtə liːk/',t:'der Datenleck / Datenpanne',ta:'تسرب بيانات',tka:'მონაცემთა გაჟონვა',ex:'"The company had a serious data leak."',cat:'tech'},
+  {w:'a data leak',ph:'/ə ˈdeɪtə liːk/',t:'das Datenleck / die Datenpanne',ta:'تسرب بيانات',tka:'მონაცემთა გაჟონვა',ex:'"The company had a serious data leak."',cat:'tech'},
         {w:'unreliable',ph:'/ˌʌnrɪˈlaɪəbl/',t:'unzuverlässig',ta:'غير موثوق',tka:'არასანდო',ex:'"The old system was unreliable."',cat:'tech'},
   {w:'a glitch',ph:'/ə ɡlɪtʃ/',t:'der Fehler / die Störung / der Glitch',ta:'عطل / خلل',tka:'გაუმართაობა',ex:'"There was a glitch in the software."',cat:'tech'},
   {w:'vulnerable',ph:'/ˈvʌlnərəbl/',t:'anfällig / verwundbar / verletzlich',ta:'عرضة للخطر',tka:'დაუცველი',ex:'"Old systems are vulnerable to attacks."',cat:'tech'},
@@ -1195,12 +1295,12 @@ const VOKABELN = [
   {w:'win',ph:'/wɪn/',t:'gewinnen',ta:'يفوز',tka:'მოგება',forms:[{en:'win',de:'gewinnen'},{en:'won',de:'gewann'},{en:'won',de:'gewonnen'}],ex:'"Our team won the match."',cat:'irregular'},
   {w:'begin',ph:'/bɪˈɡɪn/',t:'beginnen / anfangen',ta:'يبدأ',tka:'დაწყება',forms:[{en:'begin',de:'beginnen'},{en:'began',de:'begann'},{en:'begun',de:'begonnen'}],ex:'"The course began in October."',cat:'irregular'},
   // Technologie-Verben (IT Email, Kurs)
-  {w:'crash',ph:'/kræʃ/',t:'abstürzen (Computer)',ta:'يتعطل',tka:'ავარია',ex:'"My computer crashed this morning."',cat:'tech'},
+  {w:'crash',ph:'/kræʃ/',t:'abstürzen (Computer)',ta:'يتعطل',tka:'გათიშვა (კომპიუტერის)',ex:'"My computer crashed this morning."',cat:'tech'},
   {w:'back up',ph:'/bæk ʌp/',t:'sichern / Backup machen',ta:'ينسخ احتياطيًا',tka:'სარეზერვო ასლის შექმნა',ex:'"You should back up your files regularly."',cat:'tech'},
-  {w:'log in',ph:'/lɒɡ ɪn/',t:'sich einloggen / anmelden',ta:'يسجل الدخول',tka:'სისტემაში შეიყვანს',ex:'"I need to log in with a new password."',cat:'tech'},
+  {w:'log in',ph:'/lɒɡ ɪn/',t:'sich einloggen / anmelden',ta:'يسجل الدخول',tka:'სისტემაში შესვლა',ex:'"I need to log in with a new password."',cat:'tech'},
   {w:'update',ph:'/ˈʌpdeɪt/',t:'das Update / die Aktualisierung',ta:'تحديث',tka:'განახლება',ex:'"Please install the new update."',cat:'tech'},
   {w:'cloud',ph:'/klaʊd/',t:'die Cloud / Online-Datenspeicher',ta:'سحابة (تخزين)',tka:'ღრუბელი',ex:'"I save all my files in the cloud."',cat:'tech'},
-  {w:'user-friendly',ph:'/ˈjuːzə ˈfrendli/',t:'benutzerfreundlich',ta:'سهل الاستخدام',tka:'მარტივი გამოყენება',ex:'"The new app is very user-friendly."',cat:'tech'},
+  {w:'user-friendly',ph:'/ˈjuːzə ˈfrendli/',t:'benutzerfreundlich',ta:'سهل الاستخدام',tka:'მოსახერხებელი',ex:'"The new app is very user-friendly."',cat:'tech'},
   {w:'reliable',ph:'/rɪˈlaɪəbl/',t:'zuverlässig',ta:'موثوق',tka:'სანდო',ex:'"This software is fast and reliable."',cat:'tech'},
   {w:'automate',ph:'/ˈɔːtəmeɪt/',t:'automatisieren',ta:'يُؤتمت',tka:'ავტომატიზებს',ex:'"We want to automate this process."',cat:'tech'},
   // Trendvokabeln — Diagramme beschreiben (Greendex, Kurs)
@@ -1219,38 +1319,38 @@ const VOKABELN = [
   {w:'famous',ph:'/ˈfeɪməs/',t:'berühmt',ta:'مشهور',tka:'ცნობილი',ex:'"Berlin is famous for its nightlife."',cat:'general'},
   {w:'discount',ph:'/ˈdɪskaʊnt/',t:'der Rabatt',ta:'خصم',tka:'ფასდაკლება',ex:'"Students get a 10% discount."',cat:'general'},
   {w:'attitude',ph:'/ˈætɪtjuːd/',t:'die Einstellung / die Haltung',ta:'موقف / سلوك',tka:'დამოკიდებულება',ex:'"She has a positive attitude to work."',cat:'general'},
-  {w:'it depends',ph:'/ɪt dɪˈpendz/',t:'es kommt darauf an',ta:'يعتمد على الموقف',tka:'დამოკიდებულია',ex:'"It depends on the weather."',cat:'general'},
+  {w:'it depends',ph:'/ɪt dɪˈpendz/',t:'es kommt darauf an',ta:'يعتمد على الموقف',tka:'გააჩნია',ex:'"It depends on the weather."',cat:'general'},
   {w:'recently',ph:'/ˈriːsntli/',t:'kürzlich / neulich',ta:'مؤخرًا',tka:'ახლახანს',ex:'"I recently started a new course."',cat:'general'},
   {w:'invitation',ph:'/ˌɪnvɪˈteɪʃn/',t:'die Einladung',ta:'دعوة',tka:'მოწვევა',ex:'"Thank you for the invitation."',cat:'general'},
   {w:'agreement',ph:'/əˈɡriːmənt/',t:'die Vereinbarung / das Abkommen',ta:'اتفاق',tka:'შეთანხმება',ex:'"We reached an agreement."',cat:'general'},
   {w:'get well soon',ph:'/ɡet wel suːn/',t:'gute Besserung',ta:'شفاء عاجل',tka:'სწრაფ გამოჯანმრთელებას გისურვებ',ex:'"Get well soon — I hope you feel better."',cat:'general'},
   // Zeit (Unit 60 – Kurs 15.10.2026)
   {w:'in time',ph:'/ɪn taɪm/',t:'rechtzeitig (bevor etwas zu spät ist)',ta:'في الوقت المناسب',tka:'დროულად',ex:'"We arrived just in time to catch the train."',cat:'time'},
-  {w:'on time',ph:'/ɒn taɪm/',t:'pünktlich (wie geplant)',ta:'في الموعد المحدد',tka:'პუნქტუალურად',ex:'"The bus was on time today."',cat:'time'},
+  {w:'on time',ph:'/ɒn taɪm/',t:'pünktlich (wie geplant)',ta:'في الموعد المحدد',tka:'დროზე / პუნქტუალურად',ex:'"The bus was on time today."',cat:'time'},
   {w:'for ages',ph:'/fɔːr ˈeɪdʒɪz/',t:'seit ewigen Zeiten / sehr lange',ta:'منذ زمن طويل',tka:'დიდი ხანია / ძალიან დიდი ხნის განმავლობაში',ex:'"I haven\'t seen you for ages!"',cat:'time'},
   {w:'recently / lately',ph:'/ˈriːsntli/ /ˈleɪtli/',t:'kürzlich / in letzter Zeit',ta:'مؤخرًا',tka:'ბოლო დროს / ახლახან',ex:'"I\'ve been feeling tired recently."',cat:'time'},
   {w:'a long time ago',ph:'/ə lɒŋ taɪm əˈɡəʊ/',t:'vor langer Zeit',ta:'منذ زمن بعيد',tka:'დიდი ხნის წინ',ex:'"That happened a long time ago."',cat:'time'},
-  {w:'the other day',ph:'/ðə ˈʌðə deɪ/',t:'neulich / vor ein paar Tagen',ta:'البارحة',tka:'ახლახანს',ex:'"I saw her the other day in the supermarket."',cat:'time'},
+  {w:'the other day',ph:'/ðə ˈʌðə deɪ/',t:'neulich / vor ein paar Tagen',ta:'قبل أيام',tka:'ახლახანს',ex:'"I saw her the other day in the supermarket."',cat:'time'},
   {w:'nowadays / these days',ph:'/ˈnaʊədeɪz/',t:'heutzutage / in letzter Zeit',ta:'في هذه الأيام',tka:'ამ დღეებში',ex:'"Nowadays everyone has a smartphone."',cat:'time'},
   {w:'for the time being',ph:'/fə ðə taɪm ˈbiːɪŋ/',t:'vorläufig / fürs Erste',ta:'في الوقت الحالي / مؤقتًا',tka:'ჯერჯერობით / დროებით',ex:'"For the time being, we\'ll stay here."',cat:'time'},
   {w:'one day',ph:'/wʌn deɪ/',t:'irgendwann (Zukunft)',ta:'يومًا ما',tka:'ერთ მშვენიერ დღეს',ex:'"One day I hope to live by the sea."',cat:'time'},
   {w:'fortnight',ph:'/ˈfɔːtnaɪt/',t:'zwei Wochen (14 Tage)',ta:'أسبوعان',tka:'ორი კვირა',ex:'"I\'ll be back in a fortnight."',cat:'time'},
   {w:'decade',ph:'/ˈdekeɪd/',t:'ein Jahrzehnt (10 Jahre)',ta:'عقد',tka:'ათწლეული',ex:'"The 1960s was the decade of the moon race."',cat:'time'},
   {w:'century',ph:'/ˈsentʃəri/',t:'ein Jahrhundert (100 Jahre)',ta:'قرن',tka:'საუკუნე',ex:'"Picasso died in the 20th century."',cat:'time'},
-  {w:'until / till',ph:'/ənˈtɪl/',t:'bis (Zeitpunkt)',ta:'حتى',tka:'სანამ',ex:'"Wait until I come back."',cat:'time'},
+  {w:'until / till',ph:'/ənˈtɪl/',t:'bis (Zeitpunkt)',ta:'حتى',tka:'-მდე / სანამ',ex:'"Wait until I come back."',cat:'time'},
   {w:'by',ph:'/baɪ/',t:'spätestens bis (Deadline)',ta:'بحلول',tka:'არაუგვიანეს',ex:'"Please finish this by Friday."',cat:'time'},
   {w:'during',ph:'/ˈdjʊərɪŋ/',t:'während / im Verlauf von',ta:'خلال',tka:'განმავლობაში',ex:'"I fell asleep during the film."',cat:'time'},
   // Transport (Kurs 15.10.2026)
-  {w:'parking fine / ticket',ph:'/ˈpɑːkɪŋ faɪn/',t:'das Knöllchen / die Strafzettel',ta:'غرامة المرور',tka:'ჯარიმა',ex:'"I got a parking fine for stopping on double yellow lines."',cat:'transport'},
+  {w:'parking fine / ticket',ph:'/ˈpɑːkɪŋ faɪn/',t:'das Knöllchen / der Strafzettel',ta:'مخالفة وقوف / غرامة',tka:'ჯარიმა',ex:'"I got a parking fine for stopping on double yellow lines."',cat:'transport'},
   {w:'traffic jam',ph:'/ˈtræfɪk dʒæm/',t:'der Stau',ta:'اختناق مروري',tka:'საცობი',ex:'"We were stuck in a traffic jam for two hours."',cat:'transport'},
   {w:'child seat',ph:'/tʃaɪld siːt/',t:'der Kindersitz',ta:'مقعد الأطفال',tka:'ბავშვის სავარძელი',ex:'"Children must use a child seat in the car."',cat:'transport'},
   {w:'bus stop',ph:'/bʌs stɒp/',t:'die Bushaltestelle',ta:'موقف الحافلات',tka:'ავტობუსის გაჩერება',ex:'"I\'ll meet you at the bus stop."',cat:'transport'},
   {w:'car crash / accident',ph:'/kɑː kræʃ/',t:'der Autounfall / der Crash',ta:'حادث سيارة',tka:'ავარია',ex:'"There was a car crash on the motorway."',cat:'transport'},
   {w:'cycle lane',ph:'/ˈsaɪkl leɪn/',t:'der Fahrradstreifen / der Radweg',ta:'مسار الدراجات',tka:'ველოსიპედის ბილიკი',ex:'"Berlin has many cycle lanes."',cat:'transport'},
   {w:'pedestrian zone',ph:'/pəˈdestriən zəʊn/',t:'die Fußgängerzone',ta:'منطقة المشاة',tka:'ქვეითთა ზონა',ex:'"No cars are allowed in the pedestrian zone."',cat:'transport'},
-  {w:'petrol station',ph:'/ˈpetrəl ˈsteɪʃn/',t:'die Tankstelle',ta:'محطة وقود',tka:'ავზი',ex:'"We need to stop at a petrol station."',cat:'transport'},
+  {w:'petrol station',ph:'/ˈpetrəl ˈsteɪʃn/',t:'die Tankstelle',ta:'محطة وقود',tka:'ბენზინგასამართი სადგური',ex:'"We need to stop at a petrol station."',cat:'transport'},
   {w:'rush hour',ph:'/rʌʃ ˈaʊə/',t:'die Stoßzeit / der Berufsverkehr',ta:'ساعة الذروة',tka:'პიკის საათი',ex:'"Avoid driving during rush hour."',cat:'transport'},
-  {w:'seat belt',ph:'/siːt belt/',t:'der Sicherheitsgurt',ta:'حزام الأمان',tka:'სარემენი',ex:'"Always wear your seat belt."',cat:'transport'},
+  {w:'seat belt',ph:'/siːt belt/',t:'der Sicherheitsgurt',ta:'حزام الأمان',tka:'უსაფრთხოების ღვედი',ex:'"Always wear your seat belt."',cat:'transport'},
   {w:'crosswalk',ph:'/ˈkrɒswɔːk/',t:'der Zebrastreifen / der Fußgängerüberweg',ta:'ممر المشاة',tka:'ფეხით მოსიარულეთა გადასასვლელი',ex:'"Cross at the crosswalk."',cat:'transport'},
   {w:'taxi rank',ph:'/ˈtæksi ræŋk/',t:'der Taxistand',ta:'موقف سيارات الأجرة',tka:'ტაქსის სადგომი',ex:'"There\'s a taxi rank outside the station."',cat:'transport'},
   {w:'parking fee',ph:'/ˈpɑːkɪŋ fiː/',t:'die Parkgebühr',ta:'رسوم الوقوف',tka:'პარკირების საფასური',ex:'"The parking fee is €2 per hour."',cat:'transport'},
@@ -1262,7 +1362,7 @@ const VOKABELN = [
   {w:'flavour',ph:'/ˈfleɪvə/',t:'der Geschmack / das Aroma',ta:'نكهة',tka:'გემო',ex:'"This sauce has a great flavour."',cat:'restaurant'},
   {w:'bill',ph:'/bɪl/',t:'die Rechnung',ta:'الحساب',tka:'ანგარიში',ex:'"Can we have the bill, please?"',cat:'restaurant'},
   {w:'service charge',ph:'/ˈsɜːvɪs tʃɑːdʒ/',t:'der Serviceaufschlag',ta:'رسوم الخدمة',tka:'სერვის საფასური',ex:'"A 12.5% service charge is included."',cat:'restaurant'},
-  {w:'tip',ph:'/tɪp/',t:'das Trinkgeld',ta:'بقشيش',tka:'ჩაი',ex:'"We left a generous tip."',cat:'restaurant'},
+  {w:'tip',ph:'/tɪp/',t:'das Trinkgeld',ta:'بقشيش',tka:'ჩაის ფული (თიფი)',ex:'"We left a generous tip."',cat:'restaurant'},
   {w:'reservation',ph:'/ˌrezəˈveɪʃn/',t:'die Reservierung / die Tischreservierung',ta:'حجز (طاولة)',tka:'დაჯავშნა (მაგიდის)',ex:'"I\'d like to make a reservation for two."',cat:'restaurant'},
   {w:'menu',ph:'/ˈmenjuː/',t:'die Speisekarte',ta:'قائمة الطعام',tka:'მენიუ',ex:'"Could I see the menu, please?"',cat:'restaurant'},
   {w:'waiter / waitress',ph:'/ˈweɪtə/',t:'der Kellner / die Kellnerin',ta:'نادل / نادلة',tka:'მიმტანი',ex:'"Excuse me, waiter!"',cat:'restaurant'},
@@ -1279,15 +1379,15 @@ const VOKABELN = [
   {w:'bitter',ph:'/ˈbɪtə/',t:'bitter',ta:'مرّ',tka:'მწარე',ex:'"Dark chocolate is quite bitter."',cat:'food_adj'},
   {w:'homemade',ph:'/ˌhəʊmˈmeɪd/',t:'hausgemacht',ta:'محلي الصنع',tka:'სახლში მომზადებული',ex:'"Nothing beats homemade soup."',cat:'food_adj'},
   {w:'tasty',ph:'/ˈteɪsti/',t:'lecker / schmackhaft',ta:'لذيذ',tka:'გემრიელი',ex:'"This pizza is really tasty!"',cat:'food_adj'},
-  {w:'satisfying',ph:'/ˈsætɪsfaɪɪŋ/',t:'sättigend / befriedigend',ta:'مُشبع',tka:'გამაძღრობი',ex:'"A good meal should be satisfying."',cat:'food_adj'},
+  {w:'satisfying',ph:'/ˈsætɪsfaɪɪŋ/',t:'sättigend / befriedigend',ta:'مُشبع',tka:'დამანაყრებელი',ex:'"A good meal should be satisfying."',cat:'food_adj'},
   {w:'creamy',ph:'/ˈkriːmi/',t:'cremig / sahnig',ta:'كريمي',tka:'კრემისებური',ex:'"This pasta sauce is lovely and creamy."',cat:'food_adj'},
   {w:'smooth',ph:'/smuːð/',t:'glatt / geschmeidig',ta:'ناعم',tka:'რბილი',ex:'"The hummus is very smooth."',cat:'food_adj'},
   {w:'affordable',ph:'/əˈfɔːdəbl/',t:'erschwinglich / günstig',ta:'بأسعار معقولة',tka:'ხელმისაწვდომი',ex:'"The restaurant is good and affordable."',cat:'food_adj'},
   {w:'cosy',ph:'/ˈkəʊzi/',t:'gemütlich / behaglich',ta:'مريح / دافئ',tka:'მყუდრო / კომფორტული',ex:'"It\'s a cosy little café."',cat:'food_adj'},
-  {w:'lively',ph:'/ˈlaɪvli/',t:'lebhaft / belebt',ta:'نابض بالحياة',tka:'სახალისო',ex:'"The atmosphere is lively on Friday nights."',cat:'food_adj'},
+  {w:'lively',ph:'/ˈlaɪvli/',t:'lebhaft / belebt',ta:'نابض بالحياة',tka:'ცოცხალი / ხალხმრავალი',ex:'"The atmosphere is lively on Friday nights."',cat:'food_adj'},
   // Money Phrasal Verbs (Kurs 19.10.2026)
   {w:'run up (debt)',ph:'/rʌn ʌp/',t:'Schulden anhäufen / ansammeln',ta:'يتراكم عليه الدين',tka:'ვალების დაგროვება',ex:'"She\'s running up a lot of debt with her credit cards."',cat:'money'},
-  {w:'rip off',ph:'/rɪp ɒf/',t:'jdn. abzocken / übers Ohr hauen',ta:'يستغل',tka:'ატყუებს',ex:'"He said it was a great deal, but I think he ripped me off."',cat:'money'},
+  {w:'rip off',ph:'/rɪp ɒf/',t:'jdn. abzocken / übers Ohr hauen',ta:'يحتال على / يغش في السعر',tka:'ატყუებს',ex:'"He said it was a great deal, but I think he ripped me off."',cat:'money'},
   {w:'shop around',ph:'/ʃɒp əˈraʊnd/',t:'Preise vergleichen / sich umschauen',ta:'يقارن الأسعار',tka:'ფასებს ადარებს',ex:'"We shopped around for a month before buying a car."',cat:'money'},
   {w:'fork out',ph:'/fɔːk aʊt/',t:'(ungern) blechen / zahlen müssen',ta:'يدفع مضطرًا (مبلغًا كبيرًا)',tka:'(უხალისოდ) ფულის გადახდა',ex:'"I don\'t want to fork out on health insurance."',cat:'money'},
   {w:'cut back (on)',ph:'/kʌt bæk/',t:'Ausgaben reduzieren / sparen',ta:'يخفض الإنفاق',tka:'ხარჯებს ამცირებს',ex:'"I need to cut back on my spending."',cat:'money'},
@@ -1295,12 +1395,12 @@ const VOKABELN = [
   {w:'chip in',ph:'/tʃɪp ɪn/',t:'zusammenlegen / beisteuern',ta:'يتشارك في التكلفة',tka:'ხარჯებს ყოფს',ex:'"If everyone chips in, we can buy a really nice present."',cat:'money'},
   {w:'pay back',ph:'/peɪ bæk/',t:'zurückzahlen / zurückgeben',ta:'يسدّد / يردّ (المال)',tka:'ვალის დაბრუნება / უკან გადახდა',ex:'"Could you lend me some money? I\'ll pay you back next week."',cat:'money'},
   {w:'splash out (on)',ph:'/splæʃ aʊt/',t:'viel Geld ausgeben / sich etwas gönnen',ta:'يبذّر / ينفق ببذخ',tka:'ბევრი ფულის დახარჯვა / თავის განებივრება',ex:'"He\'s just splashed out on a new sports car."',cat:'money'},
-  {w:'put down',ph:'/pʊt daʊn/',t:'eine Anzahlung leisten',ta:'دفعة أولى',tka:'ავანსი',ex:'"To get a mortgage, you have to put down at least 5%."',cat:'money'},
+  {w:'put down',ph:'/pʊt daʊn/',t:'eine Anzahlung leisten',ta:'يدفع دفعة أولى',tka:'ავანსის გადახდა',ex:'"To get a mortgage, you have to put down at least 5%."',cat:'money'},
   // 🎤 Präsentieren (19.10.2026)
   {w:"I'm going to tell you about…",ph:'/aɪm ˈɡəʊɪŋ tə tel juː əˈbaʊt/',t:'Ich werde euch über … informieren',ta:'سأحدثكم عن…',tka:'მინდა მოგიყვეთ …-ის შესახებ',ex:'"I\'m going to tell you about our new voice search feature."',cat:'present'},
   {w:"Let's start with…",ph:'/lets stɑːt wɪð/',t:'Fangen wir an mit …',ta:'لنبدأ بـ…',tka:'დავიწყოთ …-ით',ex:'"Let\'s start with the most important thing: how it works."',cat:'present'},
   {w:'As you can see…',ph:'/æz juː kæn siː/',t:'Wie ihr sehen könnt …',ta:'كما يمكنكم أن تروا',tka:'როგორც ხედავთ',ex:'"As you can see on the screen, it shows hundreds of results."',cat:'present'},
-  {w:'Let me show you…',ph:'/let miː ʃəʊ juː/',t:'Ich zeige euch …',ta:'اسمحوا لي أن أريكم',tka:'მიჩვენებ',ex:'"Let me show you an example of the voice search."',cat:'present'},
+  {w:'Let me show you…',ph:'/let miː ʃəʊ juː/',t:'Ich zeige euch …',ta:'اسمحوا لي أن أريكم',tka:'ნება მომეცით გაჩვენოთ',ex:'"Let me show you an example of the voice search."',cat:'present'},
   {w:"Let's move on to…",ph:'/lets muːv ɒn tuː/',t:'Kommen wir weiter zu …',ta:'لننتقل إلى…',tka:'გადავიდეთ …-ზე',ex:'"Let\'s move on to how this affects customer behaviour."',cat:'present'},
   {w:"I'd like to turn to…",ph:'/aɪd laɪk tə tɜːn tuː/',t:'Ich möchte übergehen zu …',ta:'أود أن أنتقل إلى…',tka:'მსურს გადავიდე …-ზე',ex:'"I\'d like to turn to some numbers now."',cat:'present'},
   {w:'I\'ll sum up by saying…',ph:'/aɪl sʌm ʌp baɪ ˈseɪɪŋ/',t:'Zusammenfassend möchte ich sagen …',ta:'سأختم بالقول…',tka:'შეჯამებისთვის ვიტყვი …',ex:'"I\'ll sum up by saying that this feature is about simplicity."',cat:'present'},
@@ -1322,7 +1422,7 @@ const VOKABELN = [
   {w:'release sth.',ph:'/rɪˈliːs/',t:'hier: etw. veröffentlichen',ta:'ينشر شيئًا',tka:'გამოსცემს',ex:'"The studio released an AI-generated actress in 2026."',cat:'media'},
   {w:'publisher',ph:'/ˈpʌblɪʃə/',t:'Verlag',ta:'ناشر',tka:'გამომცემელი',ex:'"The publisher cancelled the book over AI claims."',cat:'media'},
     {w:'deny sth.',ph:'/dɪˈnaɪ/',t:'etw. bestreiten',ta:'ينكر شيئًا',tka:'უარყოფს',ex:'"She denied using AI to write the novel."',cat:'media'},
-  {w:'six-figure',ph:'/sɪks ˈfɪɡə/',t:'sechsstellig',ta:'ستة أرقام',tka:'ექვსნიშნა',ex:'"She earned a six-figure sum from AI-generated novels in 2025."',cat:'media'},
+  {w:'six-figure',ph:'/sɪks ˈfɪɡə/',t:'sechsstellig',ta:'من ستة أرقام',tka:'ექვსნიშნა',ex:'"She earned a six-figure sum from AI-generated novels in 2025."',cat:'media'},
   {w:'pen name',ph:'/pen neɪm/',t:'Künstlername / Pseudonym',ta:'اسم مستعار',tka:'ფსევდონიმი',ex:'"She published more than 200 books under various pen names."',cat:'media'},
   {w:'disclose sth.',ph:'/dɪsˈkləʊz/',t:'etw. offenlegen, angeben',ta:'يكشف عن شيء / يفصح',tka:'რაიმეს გამჟღავნება / მითითება',ex:'"She didn\'t disclose her use of AI in her books."',cat:'media'},
   {w:'charge a fee',ph:'/tʃɑːdʒ ə fiː/',t:'eine Gebühr erheben',ta:'يفرض رسومًا',tka:'საფასურს ითხოვს',ex:'"The start-up charges a fee to certify books as human-made."',cat:'media'},
@@ -1358,7 +1458,7 @@ const VOKABELN = [
   // 👥 Soziales & Beziehungen (Vocabulary List)
   {w:'strangers',ph:'/ˈstreɪndʒəz/',t:'Fremde / Unbekannte',ta:'غرباء',tka:'უცხოები',ex:'"At first they were strangers, but now they are friends."',cat:'comm'},
   {w:'to drift apart',ph:'/drɪft əˈpɑːt/',t:'sich auseinanderleben',ta:'يتباعد',tka:'კავშირი სუსტდება',ex:'"After university we slowly drifted apart."',cat:'comm'},
-  {w:'to get along with sb.',ph:'/ɡet əˈlɒŋ/',t:'mit jdm. auskommen',ta:'يتوافق مع',tka:'კარგ ურთ-ში',ex:'"Do you get along with your colleagues?"',cat:'comm'},
+  {w:'to get along with sb.',ph:'/ɡet əˈlɒŋ/',t:'mit jdm. auskommen',ta:'يتوافق مع شخص',tka:'ვინმესთან კარგი ურთიერთობა',ex:'"Do you get along with your colleagues?"',cat:'comm'},
   {w:'society',ph:'/səˈsaɪəti/',t:'Gesellschaft',ta:'المجتمع',tka:'საზოგადოება',ex:'"Social media has changed our society."',cat:'comm'},
   // 🏠 Wohnen (Vocabulary List)
   {w:'flood',ph:'/flʌd/',t:'Überschwemmung / fluten',ta:'فيضان',tka:'წყალდიდობა',ex:'"The heavy rain caused a flood in the basement."',cat:'general'},
@@ -1366,7 +1466,7 @@ const VOKABELN = [
   {w:'go into retirement',ph:'/ɡəʊ ˈɪntə rɪˈtaɪəmənt/',t:'in Rente gehen',ta:'يحال إلى التقاعد',tka:'პენსიაზე გადის',ex:'"He is going to go into retirement next year."',cat:'future'},
   {w:'get a pension',ph:'/ɡet ə ˈpenʃən/',t:'eine Rente beziehen',ta:'يحصل على معاش',tka:'პენსიას იღებს',ex:'"When will you start to get a pension?"',cat:'future'},
   {w:'matches',ph:'/ˈmætʃɪz/',t:'Streichhölzer / Matches',ta:'ثقاب',tka:'ასანთი',ex:'"Do you have any matches to light the candle?"',cat:'general'},
-  {w:'facilities',ph:'/fəˈsɪlɪtɪz/',t:'Einrichtungen / Ausstattung',ta:'مرافق',tka:'ობიექტები',ex:'"The office has excellent facilities."',cat:'general'},
+  {w:'facilities',ph:'/fəˈsɪlɪtɪz/',t:'Einrichtungen / Ausstattung',ta:'مرافق',tka:'კეთილმოწყობა / ინფრასტრუქტურა',ex:'"The office has excellent facilities."',cat:'general'},
   {w:'spacious',ph:'/ˈspeɪʃəs/',t:'geräumig / weitläufig',ta:'واسع',tka:'ფართო',ex:'"Their new flat is very spacious."',cat:'general'},
   {w:'to encourage',ph:'/ɪnˈkʌrɪdʒ/',t:'ermutigen / fördern',ta:'يشجع',tka:'ამხნევებს',ex:'"My teacher always encouraged me to speak more."',cat:'comm'},
   {w:'pros and cons',ph:'/prəʊz ənd kɒnz/',t:'Vor- und Nachteile',ta:'الإيجابيات والسلبيات',tka:'დადებითი და უარყოფითი მხარეები',ex:'"Let\'s discuss the pros and cons of working from home."',cat:'general'},
@@ -1378,12 +1478,12 @@ const VOKABELN = [
   {w:'a product launch',ph:'/ə ˈprɒdʌkt lɔːntʃ/',t:'eine Produkteinführung',ta:'إطلاق منتج',tka:'პროდუქტის გამოშვება',ex:'"The product launch was a huge success."',cat:'comm'},
           {w:'articulate',ph:'/ɑːˈtɪkjʊlət/',t:'redegewandt / klar ausdrücken',ta:'بليغ',tka:'მჭევრმეტყველი / ნათლად გამოხატვა',ex:'"She is very articulate when giving presentations."',cat:'comm'},
   {w:'issue',ph:'/ˈɪʃuː/',t:'Problem / Thema / Ausgabe',ta:'مشكلة',tka:'პრობლემა',ex:'"We need to discuss this issue in the next meeting."',cat:'comm'},
-  {w:'claim',ph:'/kleɪm/',t:'Behauptung / behaupten / fordern',ta:'ادعاء',tka:'პრეტენზია',ex:'"He claims that he finished the report on time."',cat:'comm'},
+  {w:'claim',ph:'/kleɪm/',t:'Behauptung / behaupten / fordern',ta:'ادعاء',tka:'მტკიცება / პრეტენზია',ex:'"He claims that he finished the report on time."',cat:'comm'},
   {w:'handle',ph:'/ˈhændəl/',t:'umgehen mit / handhaben',ta:'يتعامل مع',tka:'მართავს',ex:'"How do you handle difficult customers?"',cat:'comm'},
   {w:'broom',ph:'/bruːm/',t:'Besen',ta:'مكنسة',tka:'ცოცხი',ex:'"Please sweep the floor with the broom."',cat:'general'},
   {w:'dustpan and brush',ph:'/ˈdʌstpæn ənd brʌʃ/',t:'Kehrschaufel und Handbesen',ta:'مجرفة ومكنسة',tka:'აქანდაზი და ჯაგრისი',ex:'"Use the dustpan and brush to clean up the mess."',cat:'general'},
   {w:'whatnot',ph:'/ˈwɒtnɒt/',t:'und so weiter / und dergleichen',ta:'وما إلى ذلك',tka:'და ა.შ.',ex:'"We talked about work, family and whatnot."',cat:'general'},
-  {w:'sore',ph:'/sɔː/',t:'wund / schmerzend / verärgert',ta:'مؤلم',tka:'ტკივილი',ex:'"My throat is sore after talking all day."',cat:'general'},
+  {w:'sore',ph:'/sɔː/',t:'wund / schmerzend / verärgert',ta:'مؤلم',tka:'მტკივნეული / გაბრაზებული',ex:'"My throat is sore after talking all day."',cat:'general'},
   // 💰 Geld & Finanzen (Vocabulary List)
   {w:'money pit',ph:'/ˈmʌni pɪt/',t:'Geldgrube / Fass ohne Boden',ta:'بئر لا قاع له',tka:'ფულის ხვრელი',ex:'"That old car is a real money pit."',cat:'money'},
   {w:'down payment',ph:'/ˈdaʊn ˈpeɪmənt/',t:'Anzahlung',ta:'دفعة أولى',tka:'პირველადი შენატანი',ex:'"We saved for years to make the down payment on our flat."',cat:'money'},
@@ -1402,7 +1502,7 @@ const VOKABELN = [
   {w:'afford',ph:'/əˈfɔːd/',t:'sich leisten können',ta:'يستطيع تحمل التكلفة',tka:'საშუალება აქვს / შეუძლია (ფინანსურად)',ex:'"I can\'t afford a new laptop right now."',cat:'money'},
   {w:'regret',ph:'/rɪˈɡret/',t:'bereuen',ta:'يندم',tka:'ნანობს',ex:'"I regret buying that expensive jacket."',cat:'money'},
   {w:'inherit',ph:'/ɪnˈherɪt/',t:'erben',ta:'يرث',tka:'მემკვიდრეობით მიღება',ex:'"She inherited the house from her grandmother."',cat:'money'},
-  {w:'burgled',ph:'/ˈbɜːɡld/',t:'eingebrochen (bestohlen worden)',ta:'سُرق منه',tka:'გაქურდული',ex:'"Our house was burgled while we were on holiday."',cat:'money'},
+  {w:'burgled',ph:'/ˈbɜːɡld/',t:'eingebrochen (bestohlen worden)',ta:'تعرّض للسطو',tka:'გაქურდული',ex:'"Our house was burgled while we were on holiday."',cat:'money'},
   {w:'wealthy',ph:'/ˈwelθi/',t:'wohlhabend / reich',ta:'ثري',tka:'მდიდარი',ex:'"He comes from a wealthy family."',cat:'money'},
     {w:'low income',ph:'/ləʊ ˈɪŋkʌm/',t:'geringes Einkommen',ta:'دخل منخفض',tka:'დაბალი შემოსავალი',ex:'"People on low income struggle with rising prices."',cat:'money'},
   {w:'current account',ph:'/ˈkʌrənt əˈkaʊnt/',t:'Girokonto',ta:'حساب جارٍ',tka:'მიმდინარე ანგარიში',ex:'"I transferred the money from my current account."',cat:'money'},
@@ -1413,7 +1513,7 @@ const VOKABELN = [
   {w:'spender',ph:'/ˈspendə/',t:'Ausgeber (jd. der viel ausgibt)',ta:'مُنفق',tka:'მფლანგველი (ვინც ბევრს ხარჯავს)',ex:'"My brother is a real spender — he never saves anything."',cat:'money'},
   // 💼 Arbeit & Karriere (Vocabulary List)
   {w:'to lay off',ph:'/leɪ ɒf/',t:'entlassen (aus wirtschaftl. Gründen)',ta:'يُسرّح من العمل',tka:'სამსახურიდან დათხოვნა (ეკონომიკური მიზეზით)',ex:'"The company had to lay off 200 workers."',cat:'verbs'},
-  {w:'to make redundant',ph:'/meɪk rɪˈdʌndənt/',t:'betriebsbedingt entlassen',ta:'يُنهي الخدمة',tka:'შტატების შემცირების გამო დათხოვნა',ex:'"He was made redundant when the factory closed."',cat:'verbs'},
+  {w:'to make redundant',ph:'/meɪk rɪˈdʌndənt/',t:'betriebsbedingt entlassen',ta:'يسرّح (بسبب إلغاء الوظيفة)',tka:'შტატების შემცირების გამო დათხოვნა',ex:'"He was made redundant when the factory closed."',cat:'verbs'},
   {w:'to fire / to sack',ph:'/faɪə / sæk/',t:'feuern / rausschmeißen',ta:'يطرد من العمل',tka:'სამსახურიდან გაგდება',ex:'"She was fired because she was always late."',cat:'verbs'},
   {w:'to resign',ph:'/rɪˈzaɪn/',t:'kündigen / zurücktreten',ta:'يستقيل',tka:'სამსახურიდან წასვლა / გადადგომა',ex:'"He resigned from his position after 10 years."',cat:'verbs'},
   {w:'resignation notice',ph:'/ˌrezɪˈɡneɪʃən ˈnəʊtɪs/',t:'Kündigungsschreiben',ta:'إشعار الاستقالة',tka:'განცხადება სამსახურიდან წასვლის შესახებ',ex:'"She handed in her resignation notice last Monday."',cat:'verbs'},
@@ -1429,9 +1529,9 @@ const VOKABELN = [
   {w:'single',ph:'/ˈsɪŋɡl/',t:'die Single',ta:'أغنية مفردة',tka:'სინგლი',ex:'"Rock Around the Clock was the first single to sell one million copies in the UK."',cat:'music'},
   {w:'release',ph:'/rɪˈliːs/',t:'veröffentlichen / die Veröffentlichung',ta:'يصدر',tka:'გამოსცემს',ex:'"The single was released in 1955."',cat:'music'},
   {w:'audiocassette',ph:'/ˌɔːdiəʊkəˈset/',t:'die Audiokassette',ta:'شريط كاسيت',tka:'კასეტა',ex:'"Philips introduced the audiocassette in 1963."',cat:'music'},
-  {w:'Walkman',ph:'/ˈwɔːkmən/',t:'der Walkman',ta:'مشغل موسيقى',tka:'ვოკმენი',ex:'"Sony introduced the Walkman in 1979."',cat:'music'},
+  {w:'Walkman',ph:'/ˈwɔːkmən/',t:'der Walkman',ta:'ووكمان (مشغل كاسيت محمول)',tka:'ვოკმენი',ex:'"Sony introduced the Walkman in 1979."',cat:'music'},
   {w:'compact disc (CD)',ph:'/ˈkɒmpækt dɪsk/',t:'die CD / Compact Disc',ta:'قرص مضغوط',tka:'CD',ex:'"The CD was introduced in 1982."',cat:'music'},
-  {w:'minidisc',ph:'/ˈmɪnidɪsk/',t:'die Minidisc',ta:'قرص صغير',tka:'მინიდისკი',ex:'"The minidisc was the first device to let people record music digitally."',cat:'music'},
+  {w:'minidisc',ph:'/ˈmɪnidɪsk/',t:'die Minidisc',ta:'ميني ديسك',tka:'მინიდისკი',ex:'"The minidisc was the first device to let people record music digitally."',cat:'music'},
   {w:'download',ph:'/ˈdaʊnləʊd/',t:'der Download / herunterladen',ta:'تنزيل',tka:'ჩამოტვირთვა',ex:'"The song has sold over 7.5 million downloads."',cat:'music'},
   {w:'digital',ph:'/ˈdɪdʒɪtl/',t:'digital',ta:'رقمي',tka:'ციფრული',ex:'"Digital music has been available online since the early 2000s."',cat:'music'},
   {w:'available',ph:'/əˈveɪləbl/',t:'verfügbar / erhältlich',ta:'متاح',tka:'ხელმისაწვდომი',ex:'"Music has been available online since the early 2000s."',cat:'music'},
@@ -1480,7 +1580,7 @@ const VOKABELN = [
   {w:'college',ph:'/ˈkɒlɪdʒ/',t:'das College / die Hochschule / das Universitätsinstitut',ta:'كلية / معهد جامعي',tka:'კოლეჯი / უმაღლესი სასწავლებელი',ex:'"Christ Church is one of Oxford\'s most famous colleges."',cat:'unit6a'},
   {w:'hall',ph:'/hɔːl/',t:'die (große) Halle / der Speisesaal',ta:'قاعة كبيرة',tka:'დარბაზი / სასადილო დარბაზი',ex:'"The dining hall in Christ Church inspired Hogwarts."',cat:'unit6a'},
   {w:'scene',ph:'/siːn/',t:'die Szene / der Schauplatz',ta:'مشهد',tka:'სცენა / მოქმედების ადგილი',ex:'"Many scenes from Harry Potter were filmed here."',cat:'unit6a'},
-  {w:'set',ph:'/set/',t:'das Filmset / der Schauplatz / das Bühnenbild',ta:'مجموعة أفلام',tka:'გადასაღები მოედანი / დეკორაცია',ex:'"The college served as a film set for many productions."',cat:'unit6a'},
+  {w:'set',ph:'/set/',t:'das Filmset / der Schauplatz / das Bühnenbild',ta:'موقع التصوير / ديكور',tka:'გადასაღები მოედანი / დეკორაცია',ex:'"The college served as a film set for many productions."',cat:'unit6a'},
   {w:'tourist',ph:'/ˈtʊərɪst/',t:'der Tourist / die Touristin',ta:'سائح',tka:'ტურისტი',ex:'"Millions of tourists visit Oxford every year."',cat:'unit6a'},
   {w:'millions of',ph:'/ˈmɪljənz əv/',t:'Millionen von',ta:'الملايين من',tka:'მილიონობით',ex:'"Millions of people have seen the Harry Potter films."',cat:'unit6a'},
   {w:'ancient',ph:'/ˈeɪnʃənt/',t:'uralt / antik / aus alter Zeit',ta:'قديم جداً',tka:'უძველესი / ანტიკური',ex:'"The ancient buildings of Oxford attract many visitors."',cat:'unit6a'},
@@ -1494,14 +1594,14 @@ const VOKABELN = [
   {w:'concept',ph:'/ˈkɒnsept/',t:'das Konzept / die Idee',ta:'مفهوم',tka:'კონცეფცია / იდეა',ex:'"It is a difficult concept to understand."',cat:'nov02'},
   {w:'maze',ph:'/meɪz/',t:'das Labyrinth / der Irrgarten',ta:'متاهة',tka:'ლაბირინთი',ex:'"We got lost in the maze for an hour."',cat:'nov02'},
   {w:'pundit',ph:'/ˈpʌndɪt/',t:'der Experte / der Fachmann',ta:'خبير',tka:'ექსპერტი / სპეციალისტი',ex:'"The TV pundit gave his opinion on the match."',cat:'nov02'},
-  {w:'fed up',ph:'/fed ʌp/',t:'genervt sein / die Nase voll haben',ta:'منزعج',tka:'მობეზრებული / ყელში ამოსული',ex:'"I am fed up with waiting!"',cat:'nov02'},
-  {w:'DIY',ph:'/ˌdiː aɪ ˈwaɪ/',t:'Heimwerken / Do it yourself',ta:'أعمال منزلية',tka:'საკუთარი ხელით კეთება',ex:'"He loves DIY projects at home."',cat:'nov02'},
+  {w:'fed up',ph:'/fed ʌp/',t:'genervt sein / die Nase voll haben',ta:'سئم / ضجر',tka:'მობეზრებული / ყელში ამოსული',ex:'"I am fed up with waiting!"',cat:'nov02'},
+  {w:'DIY',ph:'/ˌdiː aɪ ˈwaɪ/',t:'Heimwerken / Do it yourself',ta:'اصنعها بنفسك (أعمال يدوية منزلية)',tka:'საკუთარი ხელით კეთება',ex:'"He loves DIY projects at home."',cat:'nov02'},
   {w:'hangover',ph:'/ˈhæŋəʊvə/',t:'der Kater (nach Alkohol)',ta:'خُمار',tka:'ნაბახუსევი',ex:'"He had a terrible hangover the next morning."',cat:'nov02'},
-  {w:'to snatch',ph:'/tə snætʃ/',t:'schnappen / entreißen',ta:'يختطف',tka:'სტაცება / გამოგლეჯა',ex:'"Someone snatched her bag in the street."',cat:'nov02'},
+  {w:'to snatch',ph:'/tə snætʃ/',t:'schnappen / entreißen',ta:'ينتزع / يخطف (شيئًا)',tka:'სტაცება / გამოგლეჯა',ex:'"Someone snatched her bag in the street."',cat:'nov02'},
   {w:'homeless',ph:'/ˈhəʊmləs/',t:'obdachlos',ta:'بلا مأوى',tka:'უსახლკარო',ex:'"There are many homeless people in the city centre."',cat:'nov02'},
   {w:'beggar',ph:'/ˈbeɡə/',t:'der Bettler',ta:'متسول',tka:'მათხოვარი',ex:'"A beggar asked him for some money."',cat:'nov02'},
   {w:'to beg',ph:'/tə beɡ/',t:'betteln',ta:'يتسول',tka:'მათხოვრობა',ex:'"He had to beg for food."',cat:'nov02'},
-  {w:'headscarf',ph:'/ˈhedskɑːf/',t:'das Kopftuch',ta:'وشاح الرأس',tka:'თავსაფარი',ex:'"She wore a colourful headscarf."',cat:'nov02'},
+  {w:'headscarf',ph:'/ˈhedskɑːf/',t:'das Kopftuch',ta:'حجاب / غطاء الرأس',tka:'თავსაფარი',ex:'"She wore a colourful headscarf."',cat:'nov02'},
   {w:'shift (work)',ph:'/ʃɪft/',t:'die Schicht (Arbeit)',ta:'وردية عمل',tka:'ცვლა (სამუშაო)',ex:'"She works the night shift at the hospital."',cat:'nov02'},
   {w:'vacancies',ph:'/ˈveɪkənsɪz/',t:'freie Stellen / Stellenangebote',ta:'وظائف شاغرة',tka:'ვაკანსიები / თავისუფალი ადგილები',ex:'"There are three vacancies in our department."',cat:'nov02'},
   {w:'to match',ph:'/tə mætʃ/',t:'passen / übereinstimmen',ta:'يطابق',tka:'შესაბამისობა / დამთხვევა',ex:'"Your skills match the job requirements."',cat:'nov02'},
@@ -1557,7 +1657,7 @@ const VOKABELN = [
   {w:'grave',ph:'/ɡreɪv/',t:'das Grab / ernst (Adjektiv)',ta:'قبر',tka:'საფლავი / სერიოზული',ex:'"People put flowers on the graves of their loved ones."',cat:'nov02b'},
   {w:'participant',ph:'/pɑːˈtɪsɪpənt/',t:'der Teilnehmer',ta:'مشارك',tka:'მონაწილე',ex:'"Every participant received a certificate."',cat:'nov02b'},
   {w:'spectator',ph:'/spekˈteɪtə/',t:'der Zuschauer',ta:'متفرج',tka:'მაყურებელი',ex:'"The spectators cheered loudly."',cat:'nov02b'},
-  {w:'treats',ph:'/triːts/',t:'die Leckereien / die Belohnungen',ta:'حلويات',tka:'სასუსნავები / ჯილდოები',ex:'"Trick or treat — give us sweets or treats!"',cat:'nov02b'},
+  {w:'treats',ph:'/triːts/',t:'die Leckereien / die Belohnungen',ta:'حلويات / مكافآت',tka:'სასუსნავები / ჯილდოები',ex:'"Trick or treat — give us sweets or treats!"',cat:'nov02b'},
   {w:'silly',ph:'/ˈsɪli/',t:'albern / dumm',ta:'سخيف / أحمق',tka:'სულელური / უაზრო',ex:'"Don\'t be silly — it is just a costume!"',cat:'nov02b'},
   {w:'sporty',ph:'/ˈspɔːti/',t:'sportlich',ta:'رياضي',tka:'სპორტული',ex:'"She is very sporty — she runs every morning."',cat:'nov02b'},
   {w:'entertaining',ph:'/ˌentəˈteɪnɪŋ/',t:'unterhaltsam / amüsant',ta:'مسلٍّ',tka:'გასართობი / სახალისო',ex:'"The show was very entertaining."',cat:'nov02b'},
@@ -1576,9 +1676,9 @@ const VOKABELN = [
   {w:'an ideal spot for',ph:'/ən aɪˈdɪəl spɒt fɔː/',t:'ein idealer Ort für',ta:'مكان مثالي لـ',tka:'იდეალური ადგილი …-თვის',ex:'"The square is an ideal spot for a coffee in the morning."',cat:'nov04'},
   {w:'run-down',ph:'/rʌn daʊn/',t:'heruntergekommen / verfallen',ta:'متهالك',tka:'მიტოვებული / დანგრეული',ex:'"They found a great café in a run-down part of the city."',cat:'nov04'},
   {w:'wealthy areas',ph:'/ˈwelθi ˈeəriəz/',t:'wohlhabende Viertel',ta:'أحياء ثرية',tka:'მდიდარი უბნები',ex:'"Away from the wealthy areas, you can find more authentic neighbourhoods."',cat:'nov04'},
-  {w:'lively nightlife',ph:'/ˈlaɪvli ˈnaɪtlaɪf/',t:'lebhaftes Nachtleben',ta:'حياة ليلية',tka:'ცოცხალი ღამის ცხოვრება',ex:'"The area is known for its lively nightlife and music scene."',cat:'nov04'},
+  {w:'lively nightlife',ph:'/ˈlaɪvli ˈnaɪtlaɪf/',t:'lebhaftes Nachtleben',ta:'حياة ليلية نابضة',tka:'ცოცხალი ღამის ცხოვრება',ex:'"The area is known for its lively nightlife and music scene."',cat:'nov04'},
   {w:'busy street market',ph:'/ˈbɪzi striːt ˈmɑːkɪt/',t:'belebter Straßenmarkt',ta:'سوق شارع مزدحم',tka:'ხალხმრავალი ქუჩის ბაზარი',ex:'"The busy street market attracts people from all over the city."',cat:'nov04'},
-  {w:'sense of community',ph:'/sens əv kəˈmjuːnɪti/',t:'Gemeinschaftsgefühl',ta:'الشعور بالمجتمع',tka:'საზოგადოების განცდა',ex:'"What makes this neighbourhood special is its strong sense of community."',cat:'nov04'},
+  {w:'sense of community',ph:'/sens əv kəˈmjuːnɪti/',t:'Gemeinschaftsgefühl',ta:'روح الجماعة',tka:'საზოგადოების განცდა',ex:'"What makes this neighbourhood special is its strong sense of community."',cat:'nov04'},
   {w:'colourful murals',ph:'/ˈkʌlərfl ˈmjʊərəlz/',t:'bunte Wandgemälde',ta:'جداريات ملونة',tka:'ფერადი კედლის მხატვრობა',ex:'"The walls are covered with colourful murals painted by local artists."',cat:'nov04'},
   {w:'relaxed atmosphere',ph:'/rɪˈlækst ˈætməsfɪə/',t:'entspannte Atmosphäre',ta:'جو مريح',tka:'მშვიდი ატმოსფერო',ex:'"The old square has a relaxed atmosphere where people come to sit and watch the world go by."',cat:'nov04'},
   // Vokabelliste 3: Küche & Kochen (Kurs, Unit 14, 29.10.2026)
@@ -1590,7 +1690,7 @@ const VOKABELN = [
   {w:'to pour',ph:'/tə pɔː/',t:'gießen / einschenken / schütten',ta:'يصب',tka:'ჩასხმა / დასხმა',ex:'"Pour the oil into the pan."',cat:'kitchen'},
   {w:'to stir',ph:'/tə stɜː/',t:'rühren / umrühren / einrühren',ta:'يحرك',tka:'მორევა',ex:'"Stir the soup until it is smooth."',cat:'kitchen'},
   {w:'to mix',ph:'/tə mɪks/',t:'mischen / verrühren / vermischen',ta:'يمزج',tka:'შერევა',ex:'"Mix the flour and butter together."',cat:'kitchen'},
-  {w:'to melt',ph:'/tə melt/',t:'schmelzen / zerlassen (Butter)',ta:'يذوب',tka:'დადნობა',ex:'"Melt the butter in a pan over low heat."',cat:'kitchen'},
+  {w:'to melt',ph:'/tə melt/',t:'schmelzen / zerlassen (Butter)',ta:'يُذيب',tka:'დადნობა',ex:'"Melt the butter in a pan over low heat."',cat:'kitchen'},
   {w:'to grate',ph:'/tə ɡreɪt/',t:'reiben / raspeln (Käse, Karotten)',ta:'يبشر',tka:'გახეხვა',ex:'"Grate the cheese on top of the pasta."',cat:'kitchen'},
   {w:'to sprinkle',ph:'/tə ˈsprɪŋkl/',t:'bestreuen / drüberstreuen / sprenkeln',ta:'يرش',tka:'მოყრა / მოპკურება',ex:'"Sprinkle some salt and pepper on the dish."',cat:'kitchen'},
   {w:'to season',ph:'/tə ˈsiːzn/',t:'würzen / abschmecken',ta:'يتبل',tka:'შეკაზმვა / სანელებლის დამატება',ex:'"Season the soup with salt and pepper."',cat:'kitchen'},
@@ -1598,7 +1698,7 @@ const VOKABELN = [
   {w:'to simmer',ph:'/tə ˈsɪmə/',t:'köcheln lassen / leise sieden',ta:'يغلي ببطء',tka:'ნელ ცეცხლზე დუღება',ex:'"Let the sauce simmer for 20 minutes."',cat:'kitchen'},
   {w:'to fry',ph:'/tə fraɪ/',t:'braten / anbraten / frittieren',ta:'يقلي',tka:'შეწვა / ზეთში შეწვა',ex:'"Fry the onions in oil until golden."',cat:'kitchen'},
   {w:'to bake',ph:'/tə beɪk/',t:'backen / im Ofen backen',ta:'يخبز',tka:'გამოცხობა',ex:'"Bake the cake at 180°C for 30 minutes."',cat:'kitchen'},
-  {w:'to roast',ph:'/tə rəʊst/',t:'rösten / braten (im Ofen)',ta:'يحمّص',tka:'შემწვარი ღუმელში / მოხალვა',ex:'"Roast the vegetables in the oven."',cat:'kitchen'},
+  {w:'to roast',ph:'/tə rəʊst/',t:'rösten / braten (im Ofen)',ta:'يشوي (في الفرن)',tka:'შემწვარი ღუმელში / მოხალვა',ex:'"Roast the vegetables in the oven."',cat:'kitchen'},
   {w:'to boil',ph:'/tə bɔɪl/',t:'kochen / aufkochen / zum Kochen bringen',ta:'يغلي',tka:'მოხარშვა / ადუღება',ex:'"Boil the water before adding the pasta."',cat:'kitchen'},
   {w:'to serve',ph:'/tə sɜːv/',t:'servieren / auftragen / anrichten',ta:'يُقدّم الطعام',tka:'მირთმევა / გაშლა',ex:'"Serve the dish hot with fresh bread."',cat:'kitchen'},
   // Behälter & Mengen (Containers & Measures)
@@ -1637,7 +1737,7 @@ const VOKABELN = [
   {w:'gatekeepers',ph:'/ˈɡeɪtkiːpəz/',t:'die Hüter / diejenigen die den Zugang kontrollieren',ta:'حارسو البوابات',tka:'მცველები / წვდომის მაკონტროლებლები',ex:'"Younger people see Boomers as gatekeepers who block their careers."',cat:'generations'},
   {w:'wealth concentration',ph:'/welθ ˌkɒnsənˈtreɪʃn/',t:'die Vermögenskonzentration',ta:'تركّز الثروة',tka:'სიმდიდრის კონცენტრაცია',ex:'"Wealth concentration among Boomers increases inequality."',cat:'generations'},
   {w:'entrepreneurial mindset',ph:'/ˌɒntrəprəˈnɜːriəl ˈmaɪndset/',t:'das unternehmerische Denken',ta:'عقلية ريادية',tka:'მეწარმეობრივი აზროვნება',ex:'"Gen Z has a strong entrepreneurial mindset."',cat:'generations'},
-  {w:'commune',ph:'/ˈkɒmjuːn/',t:'die Wohngemeinschaft / Kommune',ta:'بيت مشترك',tka:'კომუნა / საერთო საცხოვრებელი',ex:'"Some hippies lived together in large communes."',cat:'generations'},
+  {w:'commune',ph:'/ˈkɒmjuːn/',t:'die Wohngemeinschaft / Kommune',ta:'سكن مشترك / كومونة',tka:'კომუნა / საერთო საცხოვრებელი',ex:'"Some hippies lived together in large communes."',cat:'generations'},
   {w:'lifestyle',ph:'/ˈlaɪfstaɪl/',t:'der Lebensstil',ta:'نمط الحياة',tka:'ცხოვრების წესი',ex:'"They didn\'t want the same lifestyle as their parents."',cat:'generations'},
   {w:'to appeal to',ph:'/tə əˈpiːl tə/',t:'ansprechen / gefallen / reizen',ta:'يستهوي',tka:'მოწონება / მიზიდვა',ex:'"Does the hippy lifestyle appeal to you?"',cat:'generations'},
   // Vokabelliste 8: Unit 8B — Comment Adverbs (Kurs, 03.11.2026)
@@ -1645,7 +1745,7 @@ const VOKABELN = [
   {w:'sadly',ph:'/ˈsædli/',t:'leider / traurigerweise (negativ)',ta:'للأسف',tka:'სამწუხაროდ',ex:'"Sadly, one member of the team was killed."',cat:'unit8b'},
   {w:'luckily',ph:'/ˈlʌkɪli/',t:'zum Glück / glücklicherweise (positiv)',ta:'لحسن الحظ',tka:'საბედნიეროდ',ex:'"Luckily, it didn\'t rain during our picnic."',cat:'unit8b'},
   {w:'unluckily',ph:'/ʌnˈlʌkɪli/',t:'unglücklicherweise / leider (negativ)',ta:'مع الأسف',tka:'სამწუხაროდ / უიღბლოდ',ex:'"Unluckily, he missed the last train home."',cat:'unit8b'},
-  {w:'hopefully',ph:'/ˈhəʊpfəli/',t:'hoffentlich (Wunsch/Hoffnung)',ta:'آمل أن',tka:'იმედია',ex:'"Hopefully, the weather will be better tomorrow."',cat:'unit8b'},
+  {w:'hopefully',ph:'/ˈhəʊpfəli/',t:'hoffentlich (Wunsch/Hoffnung)',ta:'نأمل / على أمل',tka:'იმედია',ex:'"Hopefully, the weather will be better tomorrow."',cat:'unit8b'},
   {w:'obviously',ph:'/ˈɒbviəsli/',t:'offensichtlich / natürlich (klare Tatsache)',ta:'بوضوح',tka:'აშკარად / რა თქმა უნდა',ex:'"Obviously, providing sport for disabled people is expensive."',cat:'unit8b'},
   {w:'surprisingly',ph:'/səˈpraɪzɪŋli/',t:'überraschenderweise',ta:'بشكل مفاجئ',tka:'გასაკვირად',ex:'"Surprisingly, several publishers refused her first novel."',cat:'unit8b'},
   {w:'not surprisingly',ph:'/nɒt səˈpraɪzɪŋli/',t:'nicht überraschend / wie erwartet',ta:'ليس بشكل مفاجئ',tka:'გასაკვირი არ არის',ex:'"Not surprisingly, Van Gogh only sold one painting in his lifetime."',cat:'unit8b'},
@@ -1666,18 +1766,18 @@ const VOKABELN = [
   {w:"I'm afraid I completely disagree.", ph:'/aɪm əˈfreɪd aɪ kəmˈpliːtli ˌdɪsəˈɡriː/', t:'Leider bin ich völlig anderer Meinung.',ta:'للأسف، أنا لا أوافق إطلاقًا.',tka:'სამწუხაროდ, სრულიად არ ვეთანხმები.', ex:'"I\'m afraid I completely disagree with that approach."', cat:'nov06'},
   {w:"I'm sorry, but I don't agree.", ph:'/aɪm ˈsɒri bʌt aɪ dəʊnt əˈɡriː/', t:'Es tut mir leid, aber ich stimme nicht zu.',ta:'آسف، لكنني لا أوافق.',tka:'ბოდიში, მაგრამ არ ვეთანხმები.', ex:'"I\'m sorry, but I don\'t agree with this plan."', cat:'nov06'},
   {w:'I see what you mean.', ph:'/aɪ siː wɒt juː miːn/', t:'Ich verstehe, was du meinst.',ta:'أفهم ما تقصده.',tka:'მესმის, რასაც გულისხმობ.', ex:'"I see what you mean, but there are other options."', cat:'nov06'},
-  {w:'I take your point, but …', ph:'/aɪ teɪk jɔː pɔɪnt bʌt/', t:'Ich nehme deinen Punkt zur Kenntnis, aber …',ta:'أفهم وجهة نظرك، لكن …',tka:'გასაგებია შენი აზრი, მაგრამ …', ex:'"I take your point, but I still think it\'s risky."', cat:'nov06'},
+  {w:'I take your point, but …', ph:'/aɪ teɪk jɔː pɔɪnt bʌt/', t:'Ich verstehe deinen Punkt, aber …',ta:'أفهم وجهة نظرك، لكن …',tka:'გასაგებია შენი აზრი, მაგრამ …', ex:'"I take your point, but I still think it\'s risky."', cat:'nov06'},
 
   // === 09.11.2026 – Unit 1C: Let's talk! (Conversation) ===
   {w:'stranger',ph:'/ˈstreɪndʒə/',t:'der Fremde / die Fremde',ta:'غريب',tka:'უცნობი',ex:'"Starting a conversation with a stranger can make you feel happier."',cat:'nov09'},
   {w:'bench',ph:'/bentʃ/',t:'die Bank (Sitzbank)',ta:'مقعد',tka:'სკამი',ex:'"She put a sign on the park bench: Happy to chat!"',cat:'nov09'},
   {w:'comfortable',ph:'/ˈkʌmftəbl/',t:'komfortabel / wohl',ta:'مريح',tka:'კომფორტული / მოხერხებული',ex:'"She felt uncomfortable talking to the man on the bench."',cat:'nov09'},
   {w:'suitable',ph:'/ˈsuːɪtəbl/',t:'geeignet / passend',ta:'مناسب',tka:'შესაფერისი / გამოსადეგი',ex:'"The weather is a suitable topic for talking to strangers."',cat:'nov09'},
-  {w:'fluency',ph:'/ˈfluːənsi/',t:'die Sprachflüssigkeit / das Fließende',ta:'طلاقة اللسان',tka:'მეტყველების თავისუფლება / გამართულობა',ex:'"After six months she spoke with great fluency."',cat:'nov09'},
+  {w:'fluency',ph:'/ˈfluːənsi/',t:'die Sprachflüssigkeit / der Redefluss',ta:'طلاقة اللسان',tka:'მეტყველების თავისუფლება / გამართულობა',ex:'"After six months she spoke with great fluency."',cat:'nov09'},
   {w:'intonation',ph:'/ˌɪntəˈneɪʃn/',t:'die Intonation / der Tonfall',ta:'التنغيم',tka:'ინტონაცია / ტონი',ex:'"Good intonation makes your English sound more natural."',cat:'nov09'},
     {w:'Go ahead.',ph:'/ɡəʊ əˈhed/',t:'Bitte sehr. / Nur zu.',ta:'تفضل.',tka:'მობრძანდით / გააგრძელეთ',ex:'"Can I sit here? – Go ahead."',cat:'nov09'},
   {w:'Be my guest.',ph:'/biː maɪ ɡest/',t:'Aber gerne. / Bitte sehr.',ta:'بكل تأكيد.',tka:'რა თქმა უნდა / თავისუფლად',ex:'"Do you mind if I charge my phone here? – Be my guest."',cat:'nov09'},
-  {w:'Not at all.',ph:'/nɒt ət ɔːl/',t:'Überhaupt nicht. / Gerne.',ta:'لا على الإطلاق.',tka:'არაფრის / სულაც არა',ex:'"Sorry, is this your seat? – Not at all, please sit down."',cat:'nov09'},
+  {w:'Not at all.',ph:'/nɒt ət ɔːl/',t:'Überhaupt nicht. / Gerne.',ta:'لا على الإطلاق / لا مانع',tka:'არაფრის / სულაც არა',ex:'"Sorry, is this your seat? – Not at all, please sit down."',cat:'nov09'},
   {w:'I\'ve got to go.',ph:'/aɪv ɡɒt tə ɡəʊ/',t:'Ich muss gehen.',ta:'يجب أن أذهب.',tka:'უნდა წავიდე.',ex:'"Nice talking to you, but I\'ve got to go – my train is here."',cat:'nov09'},
   {w:'Nice talking to you.',ph:'/naɪs ˈtɔːkɪŋ tə juː/',t:'Es war schön, mit Ihnen zu reden.',ta:'سعدت بالتحدث.',tka:'სასიამოვნო იყო თქვენთან საუბარი.',ex:'"Nice talking to you! Have a great evening."',cat:'nov09'},
   {w:'What about you?',ph:'/wɒt əˈbaʊt juː/',t:'Und Sie? / Und du?',ta:'وأنتَ؟',tka:'თქვენ? / შენ?',ex:'"I go to the festival every year. What about you?"',cat:'nov09'},
@@ -1691,7 +1791,7 @@ const VOKABELN = [
   {w:'biological mother',ph:'/ˌbaɪəˈlɒdʒɪkl ˈmʌðə/',t:'die leibliche Mutter',ta:'الأم البيولوجية',tka:'ბიოლოგიური დედა',ex:'"In the 1980s he found his biological mother."',cat:'nov09'},
   {w:'tribute',ph:'/ˈtrɪbjuːt/',t:'die Hommage / die Ehrung',ta:'تكريم',tka:'პატივისცემის გამოხატვა / ომაჟი',ex:'"The logo was designed as a tribute to Steve Jobs."',cat:'nov09'},
   {w:'silhouette',ph:'/ˌsɪluˈet/',t:'die Silhouette / der Schattenriss',ta:'صورة ظلية',tka:'სილუეტი',ex:'"The design used Jobs\'s silhouette in the Apple logo."',cat:'nov09'},
-  {w:'sensation',ph:'/senˈseɪʃn/',t:'die Sensation / der Aufsehen',ta:'ضجة',tka:'სენსაცია / ფურორი',ex:'"The logo became a worldwide internet sensation."',cat:'nov09'},
+  {w:'sensation',ph:'/senˈseɪʃn/',t:'die Sensation / das Aufsehen',ta:'ضجة',tka:'სენსაცია / ფურორი',ex:'"The logo became a worldwide internet sensation."',cat:'nov09'},
   {w:'to inspire',ph:'/tə ɪnˈspaɪə/',t:'inspirieren / begeistern',ta:'يُلهم',tka:'შთაგონება',ex:'"Jobs inspired millions of people around the world."',cat:'nov09'},
   {w:'commercially successful',ph:'/kəˈmɜːʃəli səkˈsesfəl/',t:'kommerziell erfolgreich',ta:'ناجح تجاريًا',tka:'კომერციულად წარმატებული',ex:'"The Macintosh was their first commercially successful computer."',cat:'nov09'},
   // --- 09.11b Handgeschriebene Klassen-Vokabeln ---
@@ -1715,13 +1815,13 @@ const VOKABELN = [
   {w:'sometimes',ph:'/ˈsʌmtaɪmz/',t:'manchmal',ta:'أحيانًا',tka:'ზოგჯერ',ex:'"Sometimes I work from home."',cat:'nov10'},
   {w:'occasionally',ph:'/əˈkeɪʒənəli/',t:'gelegentlich / ab und zu',ta:'أحيانًا',tka:'დროდადრო / იშვიათად',ex:'"We occasionally go to the cinema."',cat:'nov10'},
   {w:'every now and again',ph:'/ˈevri naʊ ənd əˈɡen/',t:'ab und zu / hin und wieder',ta:'بين الحين والآخر',tka:'დროდადრო / ხანდახან',ex:'"Every now and again I meet old friends for dinner."',cat:'nov10'},
-  {w:'once or twice a week',ph:'/wʌns ɔː twaɪs ə wiːk/',t:'ein- oder zweimal pro Woche',ta:'مرة أو مرتين',tka:'კვირაში ერთხელ ან ორჯერ',ex:'"I go to the gym once or twice a week."',cat:'nov10'},
+  {w:'once or twice a week',ph:'/wʌns ɔː twaɪs ə wiːk/',t:'ein- oder zweimal pro Woche',ta:'مرة أو مرتين في الأسبوع',tka:'კვირაში ერთხელ ან ორჯერ',ex:'"I go to the gym once or twice a week."',cat:'nov10'},
   {w:'rarely',ph:'/ˈreəli/',t:'selten',ta:'نادرًا',tka:'იშვიათად',ex:'"He rarely watches TV in the evening."',cat:'nov10'},
   {w:'hardly ever',ph:'/ˈhɑːdli ˈevə/',t:'kaum jemals / so gut wie nie',ta:'بالكاد',tka:'თითქმის არასდროს',ex:'"She hardly ever eats meat."',cat:'nov10'},
-  {w:'almost never',ph:'/ˈɔːlməʊst ˈnevə/',t:'fast nie',ta:'تقريبًا لا',tka:'თითქმის არასდროს',ex:'"I almost never take the car — I prefer cycling."',cat:'nov10'},
+  {w:'almost never',ph:'/ˈɔːlməʊst ˈnevə/',t:'fast nie',ta:'نادرًا جدًا / تقريبًا أبدًا',tka:'თითქმის არასდროს',ex:'"I almost never take the car — I prefer cycling."',cat:'nov10'},
   {w:'never',ph:'/ˈnevə/',t:'nie (0%)',ta:'أبدًا',tka:'არასდროს (0%)',ex:'"He never drinks alcohol."',cat:'nov10'},
   {w:'to go for a run',ph:'/tə ɡəʊ fɔː ə rʌn/',t:'einen Lauf machen / joggen gehen',ta:'يذهب للجري',tka:'სირბილზე წასვლა',ex:'"I went for a run round the block this morning."',cat:'nov10'},
-  {w:'to go for a drive',ph:'/tə ɡəʊ fɔː ə draɪv/',t:'eine Fahrt machen',ta:'يذهب للقيادة',tka:'მანქანით გასეირნება',ex:'"We went for a drive to the beach on Friday."',cat:'nov10'},
+  {w:'to go for a drive',ph:'/tə ɡəʊ fɔː ə draɪv/',t:'eine Fahrt machen',ta:'يخرج في جولة بالسيارة',tka:'მანქანით გასეირნება',ex:'"We went for a drive to the beach on Friday."',cat:'nov10'},
   {w:'to go climbing',ph:'/tə ɡəʊ ˈklaɪmɪŋ/',t:'klettern gehen',ta:'يذهب للتسلق',tka:'ცოცვაზე წასვლა',ex:'"They went climbing in the mountains last weekend."',cat:'nov10'},
   {w:'to go sailing',ph:'/tə ɡəʊ ˈseɪlɪŋ/',t:'segeln gehen',ta:'يذهب للإبحار',tka:'იალქნით ცურვაზე წასვლა',ex:'"She went sailing on a big lake near her house."',cat:'nov10'},
   {w:'to take it easy',ph:'/tə teɪk ɪt ˈiːzi/',t:'es ruhig angehen lassen',ta:'يرتاح',tka:'დასვენება / მშვიდად ყოფნა',ex:'"I just stayed in and took it easy all weekend."',cat:'nov10'},
@@ -1732,7 +1832,7 @@ const VOKABELN = [
   {w:'follow-up question',ph:'/ˈfɒləʊ ʌp ˈkwestʃən/',t:'die Nachfrage / die Anschlussfrage',ta:'سؤال متابعة',tka:'დამატებითი კითხვა',ex:'"After his answer, she asked a follow-up question."',cat:'nov10'},
 
   // --- 11.11 Emotions at Work ---
-  {w:'being stoic',ph:'/ˈbiːɪŋ ˈstəʊɪk/',t:'stoisch sein / Gefühle nicht zeigen',ta:'يكون مستاءً',tka:'სტოიკურობა / გრძნობების არგამოხატვა',ex:'"He lost his job but was completely stoic about it."',cat:'nov11'},
+  {w:'being stoic',ph:'/ˈbiːɪŋ ˈstəʊɪk/',t:'stoisch sein / Gefühle nicht zeigen',ta:'يكون رواقيًا / لا يُظهر مشاعره',tka:'სტოიკურობა / გრძნობების არგამოხატვა',ex:'"He lost his job but was completely stoic about it."',cat:'nov11'},
   {w:'more than they bargained for',ph:'/mɔː ðæn ðeɪ ˈbɑːɡɪnd fɔː/',t:'mehr als erwartet bekommen (oft negativ)',ta:'أكثر مما توقع',tka:'იმაზე მეტი, ვიდრე მოელოდნენ',ex:'"She agreed to help but got more than she bargained for."',cat:'nov11'},
   {w:'to undermine yourself',ph:'/tə ˌʌndəˈmaɪn jɔːˈself/',t:'sich selbst sabotieren / sich kleinmachen',ta:'يقلّل من شأن نفسه',tka:'საკუთარი თავის დაკნინება',ex:'"He always says \'I\'m probably wrong\' — he undermines himself."',cat:'nov11'},
   {w:'a wide spectrum of',ph:'/ə waɪd ˈspektrəm ɒv/',t:'ein breites Spektrum von',ta:'طيف واسع من',tka:'ფართო სპექტრი',ex:'"There is a wide spectrum of emotions — from joy to sadness."',cat:'nov11'},
@@ -1758,14 +1858,14 @@ const VOKABELN = [
   {w:'to let someone down',ph:'/tə let ˈsʌmwʌn daʊn/',t:'jemanden im Stich lassen / enttäuschen',ta:'يُخيّب ظن شخص ما',tka:'ვინმეს იმედის გაცრუება',ex:'"Paper and pens never let you down in a presentation."',cat:'nov11'},
 
   // --- 11.11 Adjectives to describe people ---
-  {w:'affectionate',ph:'/əˈfekʃənət/',t:'liebevoll / herzlich',ta:'عاطفي',tka:'მოსიყვარულე / გულთბილი',ex:'"She is very affectionate with her family and friends."',cat:'nov11'},
+  {w:'affectionate',ph:'/əˈfekʃənət/',t:'liebevoll / herzlich',ta:'حنون',tka:'მოსიყვარულე / გულთბილი',ex:'"She is very affectionate with her family and friends."',cat:'nov11'},
   {w:'brave',ph:'/breɪv/',t:'mutig',ta:'شجاع',tka:'მამაცი',ex:'"It was brave of him to speak in front of 200 people."',cat:'nov11'},
   {w:'cheerful',ph:'/ˈtʃɪəfəl/',t:'fröhlich / heiter',ta:'مبهج',tka:'მხიარული',ex:'"She is always cheerful, even on Monday mornings."',cat:'nov11'},
   {w:'generous',ph:'/ˈdʒenərəs/',t:'großzügig',ta:'كريم',tka:'გულუხვი',ex:'"He is very generous — he always pays for everyone."',cat:'nov11'},
   {w:'imaginative',ph:'/ɪˈmædʒɪnətɪv/',t:'fantasievoll / kreativ',ta:'مبدع',tka:'წარმოსახვის უნარიანი / კრეატიული',ex:'"The imaginative designer came up with ten new ideas."',cat:'nov11'},
   {w:'moody',ph:'/ˈmuːdi/',t:'launisch',ta:'متقلب المزاج',tka:'ხასიათცვალებადი',ex:'"He is moody — sometimes happy, sometimes very quiet."',cat:'nov11'},
   {w:'patient',ph:'/ˈpeɪʃənt/',t:'geduldig',ta:'صبور',tka:'მომთმენი',ex:'"A good teacher must be patient with all students."',cat:'nov11'},
-  {w:'prejudiced',ph:'/ˈpredʒʊdɪst/',t:'voreingenommen',ta:'متعصب',tka:'მიკერძოებული',ex:'"He is prejudiced against young people in the workplace."',cat:'nov11'},
+  {w:'prejudiced',ph:'/ˈpredʒʊdɪst/',t:'voreingenommen',ta:'متحيّز',tka:'მიკერძოებული',ex:'"He is prejudiced against young people in the workplace."',cat:'nov11'},
   {w:'sensible',ph:'/ˈsensɪbəl/',t:'vernünftig (≠ sensibel!)',ta:'عاقل',tka:'გონიერი (≠ მგრძნობიარე!)',ex:'"It was sensible to bring an umbrella — it rained all day."',cat:'nov11'},
   {w:'sociable',ph:'/ˈsəʊʃəbəl/',t:'gesellig / kontaktfreudig',ta:'اجتماعي',tka:'კომუნიკაბელური / საზოგადოებრივი',ex:'"She is very sociable and knows everyone at every party."',cat:'nov11'},
   {w:'spoilt',ph:'/spɔɪlt/',t:'verwöhnt',ta:'مدلّل',tka:'განებივრებული',ex:'"The spoilt child cried when he didn\'t get what he wanted."',cat:'nov11'},
@@ -1781,7 +1881,7 @@ const VOKABELN = [
   {w:'to stay in',ph:'/tə steɪ ɪn/',t:'zu Hause bleiben (statt auszugehen)',ta:'يبقى في البيت',tka:'სახლში დარჩენა',ex:'"I decided to stay in on Friday and watch a film."',cat:'nov12'},
   {w:'to have a go at',ph:'/tə hæv ə ɡəʊ æt/',t:'etwas ausprobieren / versuchen',ta:'يجرّب شيئًا',tka:'რაიმეს ცდა',ex:'"Why don\'t you have a go at pottery? It\'s really fun."',cat:'nov12'},
   {w:'to get into',ph:'/tə ɡet ˈɪntə/',t:'sich für etwas zu interessieren beginnen',ta:'يصبح مهتمًا بـ',tka:'რაიმეთი დაინტერესება',ex:'"I recently got into hiking and I love it."',cat:'nov12'},
-  {w:'to eat out',ph:'/tə iːt aʊt/',t:'in einem Restaurant essen (nicht zu Hause)',ta:'يأكل خارج',tka:'რესტორანში ჭამა',ex:'"We eat out about once a week — usually Italian."',cat:'nov12'},
+  {w:'to eat out',ph:'/tə iːt aʊt/',t:'in einem Restaurant essen (nicht zu Hause)',ta:'يأكل خارج المنزل (في مطعم)',tka:'რესტორანში ჭამა',ex:'"We eat out about once a week — usually Italian."',cat:'nov12'},
   {w:'to switch off',ph:'/tə swɪtʃ ɒf/',t:'abschalten / aufhören zu denken',ta:'يوقف التفكير',tka:'გამოთიშვა / დასვენება',ex:'"I go for a walk to switch off after a stressful day."',cat:'nov12'},
   {w:'to take up',ph:'/tə teɪk ʌp/',t:'(ein Hobby) anfangen / aufnehmen',ta:'يبدأ هواية',tka:'(ჰობის) დაწყება',ex:'"She took up yoga after her doctor recommended it."',cat:'nov12'},
   {w:'to make time for',ph:'/tə meɪk taɪm fɔː/',t:'sich Zeit nehmen für',ta:'يخصص وقتًا لـ',tka:'დროის გამონახვა …-თვის',ex:'"It\'s important to make time for the things you enjoy."',cat:'nov12'},
@@ -1789,7 +1889,7 @@ const VOKABELN = [
   {w:'to hang out with',ph:'/tə hæŋ aʊt wɪð/',t:'Zeit mit jemandem verbringen / rumhängen',ta:'يقضي وقتًا مع',tka:'ვინმესთან დროის გატარება',ex:'"I hang out with my friends at the park on weekends."',cat:'nov12'},
   {w:'to give up',ph:'/tə ɡɪv ʌp/',t:'aufhören / aufgeben (eine Aktivität)',ta:'يتوقف',tka:'შეწყვეტა / დანებება',ex:'"He gave up smoking last year and feels much better."',cat:'nov12'},
   {w:'to unwind',ph:'/tə ʌnˈwaɪnd/',t:'entspannen / runterkommen',ta:'يسترخي',tka:'მოდუნება / დასვენება',ex:'"I unwind by reading a book before bed."',cat:'nov12'},
-  {w:'to go hiking',ph:'/tə ɡəʊ ˈhaɪkɪŋ/',t:'wandern gehen',ta:'يذهب للمشي',tka:'ლაშქრობაზე წასვლა',ex:'"We go hiking in the mountains every summer."',cat:'nov12'},
+  {w:'to go hiking',ph:'/tə ɡəʊ ˈhaɪkɪŋ/',t:'wandern gehen',ta:'يتنزه سيرًا في الطبيعة',tka:'ლაშქრობაზე წასვლა',ex:'"We go hiking in the mountains every summer."',cat:'nov12'},
   {w:'to go cycling',ph:'/tə ɡəʊ ˈsaɪklɪŋ/',t:'Rad fahren gehen',ta:'يذهب لركوب الدراجة',tka:'ველოსიპედით სიარული',ex:'"He goes cycling every morning before work."',cat:'nov12'},
   {w:'to go swimming',ph:'/tə ɡəʊ ˈswɪmɪŋ/',t:'schwimmen gehen',ta:'يذهب للسباحة',tka:'საცურაოდ წასვლა',ex:'"Let\'s go swimming at the lake this weekend."',cat:'nov12'},
   {w:'to do yoga',ph:'/tə duː ˈjəʊɡə/',t:'Yoga machen',ta:'يمارس اليوغا',tka:'იოგით დაკავება',ex:'"She does yoga every morning to relax."',cat:'nov12'},
@@ -1799,14 +1899,14 @@ const VOKABELN = [
   {w:'to play basketball',ph:'/tə pleɪ ˈbɑːskɪtbɔːl/',t:'Basketball spielen',ta:'يلعب كرة السلة',tka:'კალათბურთის თამაში',ex:'"They play basketball every Saturday morning."',cat:'nov12'},
   {w:'to play the guitar',ph:'/tə pleɪ ðə ɡɪˈtɑː/',t:'Gitarre spielen',ta:'يعزف الغيتار',tka:'გიტარაზე დაკვრა',ex:'"She plays the guitar and writes her own songs."',cat:'nov12'},
   {w:'to go for a walk',ph:'/tə ɡəʊ fɔːr ə wɔːk/',t:'spazieren gehen',ta:'يذهب للمشي',tka:'გასეირნება',ex:'"I go for a walk every evening after dinner."',cat:'nov12'},
-  {w:'to go to a concert',ph:'/tə ɡəʊ tə ə ˈkɒnsət/',t:'ein Konzert besuchen',ta:'يذهب لحضور حفلة',tka:'კონცერტზე წასვლა',ex:'"We went to a concert last night — it was amazing."',cat:'nov12'},
+  {w:'to go to a concert',ph:'/tə ɡəʊ tə ə ˈkɒnsət/',t:'ein Konzert besuchen',ta:'يذهب إلى حفلة موسيقية',tka:'კონცერტზე წასვლა',ex:'"We went to a concert last night — it was amazing."',cat:'nov12'},
   {w:'to take photos',ph:'/tə teɪk ˈfəʊtəʊz/',t:'Fotos machen',ta:'يلتقط الصور',tka:'სურათების გადაღება',ex:'"She takes photos wherever she goes — she loves photography."',cat:'nov12'},
   {w:'to be keen on (not in)',ph:'/tə biː kiːn ɒn/',t:'begeistert sein von — Präposition: ON (nicht in!)',ta:'متحمس لـ (حرف الجر ON وليس in)',tka:'გატაცებული (წინდებული ON, არა in!)',ex:'"I\'m keen on photography." ✓ — "keen in" ✗',cat:'nov12'},
-  {w:'to do pottery',ph:'/tə duː ˈpɒtəri/',t:'Töpfern machen',ta:'يمارس الفخار',tka:'კერამიკით დაკავება',ex:'"I want to take up pottery as a new hobby."',cat:'nov12'},
+  {w:'to do pottery',ph:'/tə duː ˈpɒtəri/',t:'Töpfern machen',ta:'يمارس صناعة الفخار',tka:'კერამიკით დაკავება',ex:'"I want to take up pottery as a new hobby."',cat:'nov12'},
 
   // --- 12.11 Careers advice – giving advice & suggestions ---
-  {w:'ought to',ph:'/ˈɔːt tə/',t:'sollte (Empfehlung / moralische Pflicht)',ta:'يجب أن',tka:'უნდა (რჩევა / მორალური ვალდებულება)',ex:'"You ought to update your LinkedIn profile before applying."',cat:'nov12'},
-  {w:'could',ph:'/kʊd/',t:'könntest (Vorschlag / Möglichkeit)',ta:'يمكن',tka:'შეგიძლია (შეთავაზება / შესაძლებლობა)',ex:'"You could think about meeting people who work in the industry."',cat:'nov12'},
+  {w:'ought to',ph:'/ˈɔːt tə/',t:'sollte (Empfehlung / moralische Pflicht)',ta:'ينبغي أن',tka:'უნდა (რჩევა / მორალური ვალდებულება)',ex:'"You ought to update your LinkedIn profile before applying."',cat:'nov12'},
+  {w:'could',ph:'/kʊd/',t:'könntest (Vorschlag / Möglichkeit)',ta:'يمكنك أن',tka:'შეგიძლია (შეთავაზება / შესაძლებლობა)',ex:'"You could think about meeting people who work in the industry."',cat:'nov12'},
   {w:'How about + -ing',ph:'/haʊ əˈbaʊt/',t:'Was wäre mit ...? (Vorschlag)',ta:'ماذا لو + الفعل',tka:'რას იტყვი …? (შეთავაზება)',ex:'"How about setting up your own website?"',cat:'nov12'},
   {w:'Why don\'t you',ph:'/waɪ dəʊnt juː/',t:'Warum machst du nicht ...? (Vorschlag)',ta:'لماذا لا …؟ (اقتراح)',tka:'რატომ არ …? (შეთავაზება)',ex:'"Why don\'t you send an email to some companies?"',cat:'nov12'},
   {w:'Why not try + -ing',ph:'/waɪ nɒt traɪ/',t:'Warum nicht versuchen ...? (Vorschlag)',ta:'لماذا لا تجرب',tka:'რატომ არ სცადო …? (შეთავაზება)',ex:'"Why not try making a video for YouTube?"',cat:'nov12'},
@@ -1840,12 +1940,12 @@ const VOKABELN = [
   // --- Unit 8: Human Resources – Faktoren für Jobsuche ---
   {w:'appearance',ph:'/əˈpɪərəns/',t:'Äußeres / Erscheinungsbild',ta:'مظهر',tka:'გარეგნობა',ex:'"Appearance is the first thing people notice in a job interview."',cat:'nov13'},
   {w:'intelligence',ph:'/ɪnˈtelɪdʒəns/',t:'Intelligenz',ta:'ذكاء',tka:'ინტელექტი',ex:'"Intelligence alone is not enough — personality matters too."',cat:'nov13'},
-  {w:'references',ph:'/ˈrefərənsɪz/',t:'Referenzen / Empfehlungsschreiben',ta:'مراجع',tka:'რეკომენდაციები',ex:'"Please provide two references from previous employers."',cat:'nov13'},
+  {w:'references',ph:'/ˈrefərənsɪz/',t:'Referenzen / Empfehlungsschreiben',ta:'توصيات / خطابات توصية',tka:'რეკომენდაციები',ex:'"Please provide two references from previous employers."',cat:'nov13'},
   {w:'blood group',ph:'/blʌd ɡruːp/',t:'Blutgruppe',ta:'فصيلة الدم',tka:'სისხლის ჯგუფი',ex:'"Your blood group is not relevant for most job applications."',cat:'nov13'},
   {w:'marital status',ph:'/ˈmærɪtəl ˈsteɪtəs/',t:'Familienstand (ledig, verheiratet...)',ta:'الوضع الاجتماعي',tka:'ოჯახური მდგომარეობა',ex:'"Marital status should not affect your chances of getting a job."',cat:'nov13'},
   {w:'sickness record',ph:'/ˈsɪknəs ˈrekɔːd/',t:'Krankheitshistorie / Fehlzeiten',ta:'سجل الغياب',tka:'ავადმყოფობის ისტორია / გაცდენები',ex:'"Some employers look at your sickness record before hiring you."',cat:'nov13'},
   {w:'contacts / connections',ph:'/ˈkɒntækts kəˈnekʃənz/',t:'Kontakte / Verbindungen (Netzwerk)',ta:'اتصالات',tka:'კონტაქტები / კავშირები',ex:'"Having good contacts in the industry can open many doors."',cat:'nov13'},
-  {w:'astrological sign',ph:'/ˌæstrəˈlɒdʒɪkəl saɪn/',t:'Sternzeichen',ta:'برج الفلك',tka:'ზოდიაქოს ნიშანი',ex:'"Your astrological sign has nothing to do with your job performance!"',cat:'nov13'},
+  {w:'astrological sign',ph:'/ˌæstrəˈlɒdʒɪkəl saɪn/',t:'Sternzeichen',ta:'البرج الفلكي',tka:'ზოდიაქოს ნიშანი',ex:'"Your astrological sign has nothing to do with your job performance!"',cat:'nov13'},
   {w:'family background',ph:'/ˈfæməli ˈbækɡraʊnd/',t:'familiärer Hintergrund / Herkunft',ta:'خلفية عائلية',tka:'ოჯახური წარმომავლობა',ex:'"Family background should never be a reason to reject a candidate."',cat:'nov13'},
   {w:'qualifications',ph:'/ˌkwɒlɪfɪˈkeɪʃənz/',t:'Qualifikationen / Abschlüsse',ta:'مؤهلات',tka:'კვალიფიკაცია / დიპლომები',ex:'"She has all the qualifications needed for the position."',cat:'nov13'},
   {w:'handwriting',ph:'/ˈhændraɪtɪŋ/',t:'Handschrift',ta:'خط اليد',tka:'ხელწერა',ex:'"Some older companies still ask for a handwritten letter of application."',cat:'nov13'},
@@ -1855,9 +1955,9 @@ const VOKABELN = [
   // --- IELTS Speaking: Famous people & public eye ---
   {w:'well-known',ph:'/ˌwelˈnəʊn/',t:'bekannt / berühmt',ta:'معروف',tka:'ცნობილი',ex:'"She is a well-known actress in her home country."',cat:'nov13'},
   {w:'to admire',ph:'/tə ədˈmaɪə/',t:'bewundern / verehren',ta:'يعجب بـ',tka:'აღფრთოვანება / თაყვანისცემა',ex:'"I admire people who work hard and stay humble."',cat:'nov13'},
-  {w:'achievement',ph:'/əˈtʃiːvmənt/',t:'Leistung / Errungschaft',ta:'إنجاز',tka:'მიღწევა',ex:'"Winning three Olympic medals is an incredible achievement."',cat:'nov13'},
+  {w:'achievement',ph:'/əˈtʃiːvmənt/',t:'Leistung / Errungenschaft',ta:'إنجاز',tka:'მიღწევა',ex:'"Winning three Olympic medals is an incredible achievement."',cat:'nov13'},
   {w:'to become famous',ph:'/tə bɪˈkʌm ˈfeɪməs/',t:'berühmt werden',ta:'يصبح مشهورًا',tka:'ცნობილი გახდომა',ex:'"Many young people dream of becoming famous on social media."',cat:'nov13'},
-  {w:'public eye',ph:'/ˈpʌblɪk aɪ/',t:'Öffentlichkeit / im Rampenlicht',ta:'الرأي العام',tka:'საზოგადოების ყურადღების ცენტრი',ex:'"Being in the public eye means you have no private life."',cat:'nov13'},
+  {w:'public eye',ph:'/ˈpʌblɪk aɪ/',t:'Öffentlichkeit / im Rampenlicht',ta:'الأضواء / أنظار الناس',tka:'საზოგადოების ყურადღების ცენტრი',ex:'"Being in the public eye means you have no private life."',cat:'nov13'},
   {w:'disadvantage',ph:'/ˌdɪsədˈvɑːntɪdʒ/',t:'Nachteil',ta:'عيب',tka:'ნაკლი / უარყოფითი მხარე',ex:'"One disadvantage of being famous is the constant media attention."',cat:'nov13'},
   {w:'ordinary people',ph:'/ˈɔːdɪnəri ˈpiːpəl/',t:'gewöhnliche Menschen / Normalbürger',ta:'الناس العاديون',tka:'ჩვეულებრივი ადამიანები',ex:'"Ordinary people are often fascinated by the lives of celebrities."',cat:'nov13'},
   {w:'national anthem',ph:'/ˈnæʃənəl ˈænθəm/',t:'Nationalhymne',ta:'النشيد الوطني',tka:'სახელმწიფო ჰიმნი',ex:'"The national anthem is played at the start of every Olympic ceremony."',cat:'nov13'},
@@ -1880,17 +1980,17 @@ const VOKABELN = [
   // --- Stop and Check 1: Brief + Gary Kasparov ---
   {w:'sightseeing',ph:'/ˈsaɪtsiːɪŋ/',t:'Sightseeing / Sehenswürdigkeiten besichtigen',ta:'السياحة',tka:'ღირსშესანიშნაობების დათვალიერება',ex:'"We spent the afternoon sightseeing in York."',cat:'nov13'},
   {w:'embarrassing',ph:'/ɪmˈbærəsɪŋ/',t:'peinlich / unangenehm',ta:'محرج',tka:'სამარცხვინო / უხერხული',ex:'"Forgetting my purse at the shop was really embarrassing."',cat:'nov13'},
-  {w:'department store',ph:'/dɪˈpɑːtmənt stɔː/',t:'Kaufhaus',ta:'مركز تجاري كبير',tka:'უნივერმაღი',ex:'"I saw a beautiful sweater in a department store."',cat:'nov13'},
+  {w:'department store',ph:'/dɪˈpɑːtmənt stɔː/',t:'Kaufhaus',ta:'متجر كبير متعدد الأقسام',tka:'უნივერმაღი',ex:'"I saw a beautiful sweater in a department store."',cat:'nov13'},
   {w:'cathedral',ph:'/kəˈθiːdrəl/',t:'Dom / Kathedrale',ta:'كاتدرائية',tka:'ტაძარი / საკათედრო ტაძარი',ex:'"York Minster is one of the most beautiful cathedrals in England."',cat:'nov13'},
   {w:'coincidence',ph:'/kəʊˈɪnsɪdəns/',t:'Zufall / Koinzidenz',ta:'مصادفة',tka:'დამთხვევა',ex:'"What a coincidence — we were at the same concert!"',cat:'nov13'},
   {w:'to rebuild',ph:'/tə riːˈbɪld/',t:'wieder aufbauen / restaurieren',ta:'يُعيد البناء',tka:'აღდგენა / ხელახლა აშენება',ex:'"They rebuilt the cathedral after the fire in 1984."',cat:'nov13'},
-  {w:'Grand Master',ph:'/ɡrænd ˈmɑːstə/',t:'Großmeister (Schach)',ta:'سيد الشطرنج',tka:'დიდოსტატი (ჭადრაკი)',ex:'"Kasparov became an international Grand Master at the age of 17."',cat:'nov13'},
-  {w:'chess champion',ph:'/tʃes ˈtʃæmpiən/',t:'Schachweltmeister',ta:'بطل الشطرنج',tka:'ჭადრაკის ჩემპიონი',ex:'"He has been the world chess champion since 1984."',cat:'nov13'},
+  {w:'Grand Master',ph:'/ɡrænd ˈmɑːstə/',t:'Großmeister (Schach)',ta:'أستاذ كبير (شطرنج)',tka:'დიდოსტატი (ჭადრაკი)',ex:'"Kasparov became an international Grand Master at the age of 17."',cat:'nov13'},
+  {w:'chess champion',ph:'/tʃes ˈtʃæmpiən/',t:'Schachmeister / Schachchampion',ta:'بطل الشطرنج',tka:'ჭადრაკის ჩემპიონი',ex:'"He has been the world chess champion since 1984."',cat:'nov13'},
 
   // nov15 – Social Life & Night Out (15.11.2026)
   {w:'to go to the cinema',ph:'/tə ɡəʊ tə ðə ˈsɪnəmə/',t:'ins Kino gehen',ta:'يذهب إلى السينما',tka:'კინოში წასვლა',ex:'"Do you want to go to the cinema tonight?"',cat:'nov15'},
   {w:'to go to a private party',ph:'/tə ɡəʊ tə ə ˈpraɪvɪt ˈpɑːti/',t:'auf eine private Party gehen',ta:'يذهب إلى حفلة خاصة',tka:'კერძო წვეულებაზე წასვლა',ex:'"She went to a private party at her friend\'s house."',cat:'nov15'},
-  {w:'to watch live music',ph:'/tə wɒtʃ laɪv ˈmjuːzɪk/',t:'Live-Musik hören / anschauen',ta:'يستمع إلى الموسيقى',tka:'ცოცხალი მუსიკის მოსმენა',ex:'"We watched live music at the jazz bar last Friday."',cat:'nov15'},
+  {w:'to watch live music',ph:'/tə wɒtʃ laɪv ˈmjuːzɪk/',t:'Live-Musik hören / anschauen',ta:'يستمع إلى موسيقى حية',tka:'ცოცხალი მუსიკის მოსმენა',ex:'"We watched live music at the jazz bar last Friday."',cat:'nov15'},
   {w:'to go clubbing',ph:'/tə ɡəʊ ˈklʌbɪŋ/',t:'in den Club gehen / feiern gehen',ta:'يذهب إلى نادٍ ليلي',tka:'კლუბში წასვლა',ex:'"They go clubbing every Saturday night."',cat:'nov15'},
   {w:'to stay out late',ph:'/tə steɪ aʊt leɪt/',t:'lange wegbleiben / bis spät draußen sein',ta:'يبقى خارج البيت حتى وقت متأخر',tka:'გვიანობამდე გარეთ ყოფნა',ex:'"My parents don\'t like it when I stay out late."',cat:'nov15'},
   {w:'to go out for a coffee',ph:'/tə ɡəʊ aʊt fɔː ə ˈkɒfi/',t:'auf einen Kaffee ausgehen',ta:'يخرج لشرب القهوة',tka:'ყავაზე გასვლა',ex:'"Let\'s go out for a coffee after work."',cat:'nov15'},
@@ -1903,7 +2003,7 @@ const VOKABELN = [
   {w:'to go for a walk',ph:'/tə ɡəʊ fɔː ə wɔːk/',t:'spazieren gehen',ta:'يذهب للمشي',tka:'გასეირნება',ex:'"After dinner, we went for a walk along the river."',cat:'nov15'},
   {w:'to grab a snack',ph:'/tə ɡræb ə snæk/',t:'sich einen Snack holen / schnell etwas essen',ta:'يتناول وجبة خفيفة',tka:'წასახემსებლის აღება / სწრაფად რაღაცის ჭამა',ex:'"We grabbed a snack from the food stall before the concert."',cat:'nov15'},
   {w:'to hit the bars',ph:'/tə hɪt ðə bɑːz/',t:'die Bars unsicher machen / Bars besuchen',ta:'يزور الحانات',tka:'ბარების შემოვლა',ex:'"After the football match, the fans hit the bars to celebrate."',cat:'nov15'},
-  {w:'outrageous',ph:'/aʊtˈreɪdʒəs/',t:'unerhört / empörend / wild',ta:'فاضح',tka:'აღმაშფოთებელი / გაუგონარი',ex:'"The prices in that nightclub were absolutely outrageous!"',cat:'nov15'},
+  {w:'outrageous',ph:'/aʊtˈreɪdʒəs/',t:'unerhört / empörend / wild',ta:'صادم / مثير للغضب',tka:'აღმაშფოთებელი / გაუგონარი',ex:'"The prices in that nightclub were absolutely outrageous!"',cat:'nov15'},
   {w:'to make excuses',ph:'/tə meɪk ɪkˈskjuːzɪz/',t:'Ausreden machen / sich herausreden',ta:'يختلق الأعذار',tka:'თავის მართლება / მიზეზების მოგონება',ex:'"He always makes excuses when he doesn\'t want to come out."',cat:'nov15'},
   {w:'to head down to',ph:'/tə hed daʊn tə/',t:'sich auf den Weg machen zu / hinuntergehen zu',ta:'يتوجّه إلى',tka:'…-კენ გაემართება',ex:'"Let\'s head down to the seafront for a walk."',cat:'nov15'},
   {w:'the mainland',ph:'/ðə ˈmeɪnlænd/',t:'das Festland',ta:'البر الرئيسي',tka:'მატერიკი',ex:'"People on the island take a ferry to reach the mainland."',cat:'nov15'},
@@ -1919,13 +2019,13 @@ const VOKABELN = [
   {w:'prospects',ph:'/ˈprɒspekts/',t:'Aussichten / Chancen',ta:'الآفاق',tka:'პერსპექტივები / შანსები',ex:'"Her job prospects improved after she learned a second language."',cat:'nov16'},
   {w:'to accommodate',ph:'/tə əˈkɒmədeɪt/',t:'unterbringen / berücksichtigen / anpassen',ta:'يستوعب',tka:'განთავსება / გათვალისწინება / მორგება',ex:'"The hotel can accommodate up to 200 guests."',cat:'nov16'},
   {w:'fierce',ph:'/fɪəs/',t:'heftig / stark / wild',ta:'شديد',tka:'სასტიკი / ძლიერი / ველური',ex:'"There is fierce competition for jobs in this industry."',cat:'nov16'},
-  {w:'to cram',ph:'/tə kræm/',t:'pauken / vollstopfen',ta:'يحشو',tka:'ზეპირად ბუღლაობა / გადავსება',ex:'"I always cram the night before an exam."',cat:'nov16'},
+  {w:'to cram',ph:'/tə kræm/',t:'pauken / vollstopfen',ta:'يذاكر بكثافة / يحشو',tka:'ზეპირად ბუღლაობა / გადავსება',ex:'"I always cram the night before an exam."',cat:'nov16'},
   {w:'diaspora',ph:'/daɪˈæspərə/',t:'Diaspora (Menschen fern ihrer Heimat)',ta:'الشتات (الجالية في المهجر)',tka:'დიასპორა',ex:'"India has the world\'s largest diaspora with 18 million people abroad."',cat:'nov16'},
   {w:'testament',ph:'/ˈtestəmənt/',t:'Beweis / Zeugnis (für etwas)',ta:'شهادة',tka:'დასტური / მოწმობა',ex:'"Her success is a testament to years of hard work."',cat:'nov16'},
   {w:'spouse',ph:'/spaʊs/',t:'Ehepartner / Ehepartnerin',ta:'الزوج / الزوجة',tka:'მეუღლე',ex:'"You can add your spouse to your health insurance plan."',cat:'nov16'},
   {w:'gap',ph:'/ɡæp/',t:'Lücke / Unterschied / Kluft',ta:'فجوة',tka:'ხარვეზი / განსხვავება / უფსკრული',ex:'"There is still a big gap between rich and poor in many countries."',cat:'nov16'},
   {w:'volunteer',ph:'/ˌvɒlənˈtɪə/',t:'Freiwillige(r) / ehrenamtlich tätig sein',ta:'متطوع',tka:'მოხალისე / მოხალისეობა',ex:'"She volunteers at a local food bank every weekend."',cat:'nov16'},
-  {w:'STEM',ph:'/stem/',t:'Naturwissenschaften, Technik, Ingenieurwesen, Mathe (Abk.)',ta:'العلوم والتكنولوجيا',tka:'STEM',ex:'"More women are now working in STEM subjects than 20 years ago."',cat:'nov16'},
+  {w:'STEM',ph:'/stem/',t:'Naturwissenschaften, Technik, Ingenieurwesen, Mathe (Abk.)',ta:'العلوم والتكنولوجيا والهندسة والرياضيات',tka:'მეცნიერება, ტექნოლოგია, ინჟინერია, მათემატიკა',ex:'"More women are now working in STEM subjects than 20 years ago."',cat:'nov16'},
   {w:'board member',ph:'/bɔːd ˈmembə/',t:'Vorstandsmitglied',ta:'عضو مجلس إدارة',tka:'საბჭოს წევრი',ex:'"He became a board member of the company after 10 years."',cat:'nov16'},
   {w:'outlet',ph:'/ˈaʊtlet/',t:'Ventil / Möglichkeit / Auslass',ta:'منفذ',tka:'გამოსავალი / საშუალება / გასასვლელი',ex:'"Sport is a good outlet for stress."',cat:'nov16'},
   {w:'to decrease',ph:'/tə dɪˈkriːs/',t:'abnehmen / sinken / verringern',ta:'يتناقص',tka:'შემცირება / კლება',ex:'"The number of students has decreased over the last five years."',cat:'nov16'},
@@ -1956,8 +2056,8 @@ const VOKABELN = [
   {w:'to reduce',ph:'/tə rɪˈdjuːs/',t:'reduzieren / verringern',ta:'يُقلل',tka:'შემცირება',ex:'"We need to reduce waste to protect the environment."',cat:'nov17'},
   {w:'to protect',ph:'/tə prəˈtekt/',t:'schützen',ta:'يحمي',tka:'დაცვა',ex:'"Encourage your friends and family to protect the environment."',cat:'nov17'},
   {w:'to destroy',ph:'/tə dɪˈstrɔɪ/',t:'zerstören',ta:'يُدمر',tka:'განადგურება',ex:'"We are destroying the places where animals make their homes."',cat:'nov17'},
-  {w:'to recycle',ph:'/tə ˌriːˈsaɪkəl/',t:'recyceln',ta:'يُعاد تدويره',tka:'გადამუშავება',ex:'"Recycle things you no longer need."',cat:'nov17'},
-  {w:'to reuse',ph:'/tə ˌriːˈjuːz/',t:'wiederverwenden',ta:'يُعاد استخدامه',tka:'ხელახლა გამოყენება',ex:'"Save plastic bags and reuse them again!"',cat:'nov17'},
+  {w:'to recycle',ph:'/tə ˌriːˈsaɪkəl/',t:'recyceln',ta:'يعيد التدوير',tka:'გადამუშავება',ex:'"Recycle things you no longer need."',cat:'nov17'},
+  {w:'to reuse',ph:'/tə ˌriːˈjuːz/',t:'wiederverwenden',ta:'يعيد الاستخدام',tka:'ხელახლა გამოყენება',ex:'"Save plastic bags and reuse them again!"',cat:'nov17'},
   // === 17.11.2026 — Airport / Business English ===
   {w:'aisle seat',ph:'/ˈaɪl siːt/',t:'Gangplatz (im Flugzeug)',ta:'مقعد الممر (طائرة)',tka:'ადგილი გასასვლელთან',ex:'"I always choose an aisle seat so I can get up more easily."',cat:'nov17'},
   {w:'turbulence',ph:'/ˈtɜːbjʊləns/',t:'Turbulenz',ta:'اضطراب جوي',tka:'ტურბულენტობა',ex:'"Sometimes there is turbulence when the plane flies over the Andes."',cat:'nov17'},
@@ -1988,7 +2088,7 @@ const VOKABELN = [
   {w:'miss',ph:'/mɪs/',t:'vermissen / verpassen',ta:'يفتقد',tka:'მონატრება / გაცდენა',ex:'"I miss living in Berlin city centre."',cat:'nov19'},
   {w:'promise',ph:'/ˈprɒmɪs/',t:'versprechen',ta:'يَعِد',tka:'დაპირება',ex:'"She promised to call back later."',cat:'nov19'},
   {w:'refuse',ph:'/rɪˈfjuːz/',t:'ablehnen / sich weigern',ta:'يرفض',tka:'უარის თქმა',ex:'"He refused to work overtime without extra pay."',cat:'nov19'},
-  {w:'manage',ph:'/ˈmænɪdʒ/',t:'es schaffen / bewältigen',ta:'يستطيع',tka:'მოხერხება / გართმევა',ex:'"Did you manage to finish the report?"',cat:'nov19'},
+  {w:'manage',ph:'/ˈmænɪdʒ/',t:'es schaffen / bewältigen',ta:'يتمكّن من',tka:'მოხერხება / გართმევა',ex:'"Did you manage to finish the report?"',cat:'nov19'},
   {w:'expect',ph:'/ɪkˈspekt/',t:'erwarten',ta:'يتوقع',tka:'მოლოდინი',ex:'"I expect to hear from them by Friday."',cat:'nov19'},
 
   // 19.11 – Jobs & Work (Unit 8B)
@@ -1996,11 +2096,11 @@ const VOKABELN = [
   {w:'unemployed',ph:'/ˌʌnɪmˈplɔɪd/',t:'arbeitslos',ta:'عاطل عن العمل',tka:'უმუშევარი',ex:'"She was unemployed and had to look for a job."',cat:'nov19'},
   {w:'look for a job',ph:'/lʊk fər ə dʒɒb/',t:'eine Stelle suchen',ta:'يبحث عن عمل',tka:'სამსახურის ძებნა',ex:'"After being sacked, she had to look for a new job."',cat:'nov19'},
   {w:'sacked',ph:'/sækt/',t:'gefeuert (werden)',ta:'تم فصله من العمل',tka:'სამსახურიდან გაგდებული',ex:'"They had an argument, and Clare was sacked."',cat:'nov19'},
-  {w:'apply for',ph:'/əˈplaɪ fɔː/',t:'sich bewerben auf',ta:'يتقدم لـ',tka:'განაცხადის შეტანა / კანდიდატურის წარდგენა',ex:'"She applied for a lot of jobs and sent in CVs."',cat:'nov19'},
+  {w:'apply for',ph:'/əˈplaɪ fɔː/',t:'sich bewerben um',ta:'يتقدم بطلب لـ',tka:'განაცხადის შეტანა / კანდიდატურის წარდგენა',ex:'"She applied for a lot of jobs and sent in CVs."',cat:'nov19'},
   {w:'send in a CV',ph:'/send ɪn ə ˌsiːˈviː/',t:'einen Lebenslauf einschicken',ta:'يرسل سيرة ذاتية',tka:'რეზიუმეს (CV-ს) გაგზავნა',ex:'"She applied for a lot of jobs and sent in CVs."',cat:'nov19'},
-  {w:'do overtime',ph:'/duː ˈəʊvətaɪm/',t:'Überstunden machen',ta:'يعمل إضافي',tka:'ზეგანაკვეთური მუშაობა',ex:'"She had to work very hard and do overtime."',cat:'nov19'},
+  {w:'do overtime',ph:'/duː ˈəʊvətaɪm/',t:'Überstunden machen',ta:'يعمل ساعات إضافية',tka:'ზეგანაკვეთური მუშაობა',ex:'"She had to work very hard and do overtime."',cat:'nov19'},
   {w:'salary',ph:'/ˈsæləri/',t:'das Gehalt',ta:'الراتب',tka:'ხელფასი',ex:'"She had a good salary, but she didn\'t like her boss."',cat:'nov19'},
-  {w:'redundant',ph:'/rɪˈdʌndənt/',t:'überflüssig / entlassen (durch Stellenabbau)',ta:'فائض',tka:'შტატების შემცირების გამო დათხოვნილი',ex:'"He was made redundant when the company downsized."',cat:'nov19'},
+  {w:'redundant',ph:'/rɪˈdʌndənt/',t:'überflüssig / entlassen (durch Stellenabbau)',ta:'مُسرَّح (بسبب إلغاء الوظيفة)',tka:'შტატების შემცირების გამო დათხოვნილი',ex:'"He was made redundant when the company downsized."',cat:'nov19'},
   {w:'experience',ph:'/ɪkˈspɪəriəns/',t:'die Erfahrung / Berufserfahrung',ta:'خبرة',tka:'გამოცდილება',ex:'"You need five years of experience for this job."',cat:'nov19'},
   {w:'overtime',ph:'/ˈəʊvətaɪm/',t:'die Überstunden',ta:'وقت إضافي',tka:'ზეგანაკვეთური სამუშაო',ex:'"I get paid extra for overtime."',cat:'nov19'},
   {w:'permanent',ph:'/ˈpɜːmənənt/',t:'fest / dauerhaft (Stelle)',ta:'دائم',tka:'მუდმივი (სამსახური)',ex:'"After six months, he got a permanent contract."',cat:'nov19'},
@@ -2136,7 +2236,7 @@ const GRAMMATIK = [
       {q:'Welches Verb? "She ___ yoga every morning."',opts:['goes','plays','does','makes'],a:2},
       {q:'Welches Verb? "They ___ football every Saturday."',opts:['do','go','make','play'],a:3},
       {q:'Welches Verb? "Let\'s ___ swimming at the lake."',opts:['do','play','go','make'],a:2},
-      {q:'Welches Verb? "He ___ karate since he was seven."',opts:['plays','goes','does','makes'],a:2},
+      {q:'Welches Verb? "He ___ karate twice a week."',opts:['plays','goes','does','makes'],a:2},
       {q:'Welcher Satz ist korrekt?',opts:['She does basketball.','She plays basketball.','She goes basketball.','She makes basketball.'],a:1},
       {q:'Welcher Satz ist korrekt?',opts:['We went for hiking.','We did hiking.','We played hiking.','We went hiking.'],a:3},
     ]
@@ -2200,7 +2300,7 @@ const GRAMMATIK = [
       {q:'"___ you pass me the salt, please?" — Höfliche Bitte',opts:['Shall','Will','Would','Should'],a:1},
       {q:'"___ I call a taxi for you?" — Angebot machen',opts:['Will','Should','Shall','Would'],a:2},
       {q:'"___ we go to the cinema tonight?" — Vorschlag',opts:['Will','Shall','Should','Would'],a:1},
-      {q:'Welcher Satz ist FALSCH?',opts:['"Will you help me?','Shall I help you?','"Shall you close the door?"','"Shall we meet later?"'],a:2},
+      {q:'Welcher Satz ist FALSCH?',opts:['"Will you help me?"','"Shall I help you?"','"Shall you close the door?"','"Shall we meet later?"'],a:2},
       {q:'"Shall I…?" bedeutet:',opts:['Ich möchte etwas tun','Ich biete etwas an','Ich frage ob du etwas tun kannst','Ich gebe einen Ratschlag'],a:1},
       {q:'Welches Wort benutzt man NICHT mit "Shall"?',opts:['I','we','they','Alle sind möglich'],a:2},
     ]
@@ -2238,7 +2338,7 @@ const GRAMMATIK = [
       {en:'a CONtest (noun) vs. to conTEST (verb)',de:'der Wettbewerb ↔ anfechten / bestreiten'},
     ],
     quizzes:[
-      {q:'Wie spricht man "record" aus, wenn man "die Aufnahme" meint?',opts:['reCORD','REcord','reCord','RECord'],a:1},
+      {q:'Wie spricht man "record" aus, wenn man "die Aufnahme" meint?',opts:['reCORD (2. Silbe)','REcord (1. Silbe)','beide Silben gleich','hängt vom Satz ab'],a:1},
       {q:'"She will present the results." — Betonung auf?',opts:['1. Silbe (PRE-)','2. Silbe (-SENT)','beide gleich','keine Regel'],a:1},
       {q:'"I need a permit to park here." — "permit" ist hier...?',opts:['ein Verb','ein Nomen','ein Adjektiv','ein Adverb'],a:1},
       {q:'Welche Regel gilt: Nomen → Betonung auf...?',opts:['2. Silbe','letzter Silbe','1. Silbe','mittlerer Silbe'],a:2},
@@ -2260,7 +2360,7 @@ const GRAMMATIK = [
       {q:'"In 1963, Philips ___ the audiocassette." — welche Zeitform?',opts:['has introduced','introduced','have introduced','was introducing'],a:1},
       {q:'Welches Signalwort gehört zum Present Perfect?',opts:['yesterday','last week','just','two years ago'],a:2},
       {q:'"She ___ in this band since 2018." — richtige Form:',opts:['played','has played','was playing','did play'],a:1},
-      {q:'"I ___ this song ___ I was a child." — richtige Form:',opts:['have loved / since','loved / since','have loved / when','loved / when'],a:3},
+      {q:'"I ___ this song when I was a child." — richtige Form:',opts:['have loved','loved','am loving','love'],a:1},
       {q:'Was drückt Present Perfect aus (2 Fälle)?',opts:['Nur Ereignis zu bestimmter Zeit','Situation dauert bis jetzt ODER unbestimmte Vergangenheit','Nur Zustand in der Vergangenheit','Nur mit Zeitangaben wie "yesterday"'],a:1},
     ]
   },
@@ -2277,7 +2377,7 @@ const GRAMMATIK = [
     ],
     quizzes:[
       {q:'"___ you ever ridden a horse?" — richtig:',opts:['Did','Have','Do','Was'],a:1},
-      {q:'"What ___ you eat for breakfast?" — richtig:',opts:['have','has','did','do'],a:2},
+      {q:'"What ___ you eat for breakfast this morning?" — richtig:',opts:['have','has','did','do'],a:2},
       {q:'"How long ___ you studied English?" — richtig:',opts:['did','do','have','were'],a:2},
       {q:'"Which countries ___ you visit last year?" — richtig:',opts:['have','has','were','did'],a:3},
       {q:'"What is the most interesting film you ___ ever ___?" — richtig:',opts:['did / see','have / seen','did / seen','have / saw'],a:1},
@@ -2611,13 +2711,13 @@ const GRAMMATIK = [
     examples:[
       {en:"From a financial point of view, it's a good idea.", de:'Aus finanzieller Sicht ist es eine gute Idee.'},
       {en:"I'm afraid I completely disagree — our customers like the mix of ages.", de:'Leider bin ich völlig anderer Meinung — unsere Kunden mögen die Mischung der Altersgruppen.'},
-      {en:"I take your point, but maybe there's a new market out there.", de:'Ich nehme deinen Punkt zur Kenntnis, aber vielleicht gibt es einen neuen Markt.'},
+      {en:"I take your point, but maybe there's a new market out there.", de:'Ich verstehe deinen Punkt, aber vielleicht gibt es einen neuen Markt.'},
     ],
     quizzes:[
       {q:'Welche Phrase fragt nach einer Meinung?', opts:['I completely agree.',"What do you think about this?","I'm sorry, but I don't agree.",'I take your point.'], a:1},
       {q:'Welche Phrase stimmt ZU?', opts:["I'm afraid I completely disagree.",'From a financial point of view …',"Yes, that's a good point. I agree.",'I see what you mean, but …'], a:2},
       {q:'Welche Phrase widerspricht höflich?', opts:['Personally, I think …','I completely agree.',"What's your opinion?","I'm sorry, but I don't agree."], a:3},
-      {q:'Was bedeutet "I take your point, but …"?', opts:['Ich stimme völlig zu.','Ich nehme deinen Punkt zur Kenntnis, aber …','Ich verstehe dich nicht.','Meiner Meinung nach …'], a:1},
+      {q:'Was bedeutet "I take your point, but …"?', opts:['Ich stimme völlig zu.','Ich verstehe deinen Punkt, aber …','Ich verstehe dich nicht.','Meiner Meinung nach …'], a:1},
     ]
   },
   {
@@ -2680,7 +2780,7 @@ const CHALLENGE_QS = [
   {q:'Welches Signalwort gehört zum PAST SIMPLE?',opts:['just','already','never','last year'],a:3},
   {q:'"She ___ in London since 2015." — richtige Form:',opts:['lives','lived','has lived','is living'],a:2},
   {q:'"Have you ___ been to a live concert?" — fehlendes Wort:',opts:['just','ever','yet','since'],a:1},
-  {q:'Was bedeutet "The song has released"? — Fehler gefunden?',opts:['Kein Fehler','"released" → "been released" (Passive)','"has" → "have"','"The song" → "The songs"'],a:1},
+  {q:'Wo ist der Fehler in "The song has released."?',opts:['Kein Fehler','"released" → "been released" (Passive)','"has" → "have"','"The song" → "The songs"'],a:1},
   {q:'Past Simple von "rise" ist:',opts:['rised','risen','rose','has risen'],a:2},
   {q:'Past Participle (V3) von "fall" ist:',opts:['falled','felt','fell','fallen'],a:3},
   {q:'"Sales ___ significantly last year." — richtige Form:',opts:['have dropped','has dropped','dropped','drop'],a:2},
@@ -3055,6 +3155,7 @@ function go(name) {
     if (cw) cw.style.display = 'none';
     renderVokGroups();
   }
+  if (name === 'home') { try { mlUpdateHomeBadge(); } catch(e) {} }
   if (name === 'pinnwand') {
     pinnwandLoad();
   }
@@ -3609,6 +3710,7 @@ function markVok(known) {
   if (known) { vokState.known.add(v.w); vokState.unknown.delete(v.w); }
   else { vokState.unknown.add(v.w); vokState.known.delete(v.w); }
   srsSave(); // SRS: Fehler-Speicher persistieren
+  fehlerRecordVok(v.w, known); // Fehlerliste
   trackLernActivity(); // Lernkalender: heute als gelernt markieren
   if (vokState.idx < vokState.filtered.length - 1) vokState.idx++;
   renderVok();
@@ -4131,7 +4233,9 @@ function getTodaySeed() {
 function getSRSWeakWords() {
   try {
     const u = localStorage.getItem('vok_unknown');
-    return u ? new Set(JSON.parse(u)) : new Set();
+    const s = u ? new Set(JSON.parse(u)) : new Set();
+    try { fehlerVokWords().forEach(w => s.add(w)); } catch(e) {}
+    return s;
   } catch(e) { return new Set(); }
 }
 function saveSRSResult(wrongWords) {
@@ -4227,6 +4331,7 @@ function answerCQ(idx) {
   if (cqState.answered) return;
   cqState.answered = true;
   const q = cqState.questions[cqState.idx];
+  try { if (q.word) fehlerRecordVok(q.word, idx === q.a); else fehlerRecordQuestion(q.q, q.opts, q.opts[q.a], idx === q.a); } catch(e) {}
   if (idx === q.a) {
     cqState.correct++;
   } else {
@@ -5304,6 +5409,317 @@ function copyTranslation() {
   });
 }
 
+/* ========== MEIN LERNEN: Fehlerliste, Wörterbuch, Sicherung ========== */
+const FEHLER_KEY = 'ela_fehlerliste';
+const FEHLER_STATS_KEY = 'ela_fehler_stats';
+const FEHLER_DAYS = [0, 1, 3, 7];          // Abstand in Tagen je Stufe
+const FEHLER_DONE_AFTER = 3;               // 3× richtig hintereinander = gelernt
+
+function mlEsc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function mlShuffle(a) { const b = [...a]; for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
+
+function fehlerLoad() { try { return JSON.parse(localStorage.getItem(FEHLER_KEY) || '[]'); } catch(e) { return []; } }
+function fehlerSave(list) { try { localStorage.setItem(FEHLER_KEY, JSON.stringify(list)); } catch(e) {} mlUpdateHomeBadge(); }
+function fehlerStats() { try { return JSON.parse(localStorage.getItem(FEHLER_STATS_KEY) || '{"learned":0}'); } catch(e) { return {learned:0}; } }
+function fehlerId(kind, key) { return kind + ':' + String(key).trim().toLowerCase(); }
+
+// Falsch beantwortet → in die Liste (oder zurück auf Stufe 0)
+function fehlerAdd(item) {
+  const list = fehlerLoad();
+  const id = fehlerId(item.kind, item.kind === 'vok' ? item.w : item.q);
+  let e = list.find(x => x.id === id);
+  if (!e) { e = Object.assign({ id, wrong: 0, box: 0, added: Date.now() }, item); list.push(e); }
+  e.wrong = (e.wrong || 0) + 1;
+  e.box = 0;
+  e.due = Date.now();
+  e.last = Date.now();
+  fehlerSave(list);
+}
+// Richtig beantwortet → eine Stufe weiter; nach 3× richtig entfernt
+function fehlerRight(kind, key) {
+  const list = fehlerLoad();
+  const id = fehlerId(kind, key);
+  const i = list.findIndex(x => x.id === id);
+  if (i < 0) return;
+  const e = list[i];
+  e.box = (e.box || 0) + 1;
+  e.last = Date.now();
+  if (e.box >= FEHLER_DONE_AFTER) {
+    list.splice(i, 1);
+    const st = fehlerStats(); st.learned = (st.learned || 0) + 1;
+    try { localStorage.setItem(FEHLER_STATS_KEY, JSON.stringify(st)); } catch(err) {}
+  } else {
+    e.due = Date.now() + FEHLER_DAYS[e.box] * 86400000;
+  }
+  fehlerSave(list);
+}
+function fehlerRemove(id) { fehlerSave(fehlerLoad().filter(x => x.id !== id)); mlRenderFehler(); }
+function fehlerDue(list) { const now = Date.now(); return (list || fehlerLoad()).filter(x => (x.due || 0) <= now); }
+function fehlerVokWords() { return new Set(fehlerLoad().filter(x => x.kind === 'vok').map(x => x.w)); }
+function fehlerVokEntry(w) { return VOKABELN.find(v => v.w === w); }
+
+// Fragen (Grammatik / Prüfung) merken
+function fehlerRecordQuestion(q, opts, answerText, isRight, ex) {
+  if (!q || !opts || !answerText) return;
+  if (isRight) fehlerRight('q', q);
+  else fehlerAdd({ kind:'q', q, opts: [...opts], a: answerText, ex: ex || '' });
+}
+function fehlerRecordVok(w, isRight) {
+  if (!w) return;
+  if (isRight) fehlerRight('vok', w); else fehlerAdd({ kind:'vok', w });
+}
+
+// Einmalig: alte "schwache Wörter" übernehmen
+(function fehlerMigrate() {
+  try {
+    if (localStorage.getItem('ela_fehler_migrated')) return;
+    const old = new Set();
+    ['ela_srs_unknown', 'vok_unknown'].forEach(k => { try { JSON.parse(localStorage.getItem(k) || '[]').forEach(w => old.add(w)); } catch(e) {} });
+    if (old.size) {
+      const list = fehlerLoad();
+      old.forEach(w => { const id = fehlerId('vok', w); if (!list.find(x => x.id === id)) list.push({ id, kind:'vok', w, wrong:1, box:0, due:Date.now(), added:Date.now() }); });
+      localStorage.setItem(FEHLER_KEY, JSON.stringify(list));
+    }
+    localStorage.setItem('ela_fehler_migrated', '1');
+  } catch(e) {}
+})();
+
+/* ---- Ansicht ---- */
+let mlCurrentTab = 'fehler';
+function openMeinLernen(tab) { go('meins'); mlTab(tab || mlCurrentTab); }
+function mlTab(tab) {
+  mlCurrentTab = tab;
+  document.getElementById('ml-quiz').style.display = 'none';
+  ['fehler','dict','backup'].forEach(t => {
+    const pane = document.getElementById('ml-' + t); if (pane) pane.style.display = t === tab ? 'block' : 'none';
+    const b = document.getElementById('ml-tab-' + t); if (b) b.classList.toggle('active', t === tab);
+  });
+  if (tab === 'fehler') mlRenderFehler();
+  if (tab === 'dict') mlRenderDict();
+  if (tab === 'backup') mlRenderBackup();
+}
+function mlUpdateHomeBadge() {
+  const el = document.getElementById('home-ml-sub'); if (!el) return;
+  const list = fehlerLoad(); const due = fehlerDue(list).length;
+  const dict = loadCustomVoks().length;
+  el.textContent = (due ? due + ' fällig · ' : '') + list.length + ' Fehler · ' + dict + ' eigene Wörter';
+}
+
+function mlRenderFehler() {
+  const list = fehlerLoad();
+  const due = fehlerDue(list);
+  const st = fehlerStats();
+  document.getElementById('ml-fehler-stats').innerHTML =
+    `<div class="ml-stat"><b>${due.length}</b><span>jetzt fällig</span></div>` +
+    `<div class="ml-stat"><b>${list.length}</b><span>in der Liste</span></div>` +
+    `<div class="ml-stat"><b>${st.learned || 0}</b><span>gelernt</span></div>`;
+  const box = document.getElementById('ml-fehler-list');
+  if (!list.length) { box.innerHTML = '<div style="text-align:center;color:var(--fg-muted);padding:24px">🎉 Keine Fehler gespeichert.</div>'; return; }
+  const sorted = [...list].sort((a, b) => (a.due || 0) - (b.due || 0) || (b.wrong || 0) - (a.wrong || 0));
+  const now = Date.now();
+  box.innerHTML = '<div class="sec-lbl">Deine Fehler</div>' + sorted.map(e => {
+    let title, sub;
+    if (e.kind === 'vok') { const v = fehlerVokEntry(e.w); title = e.w; sub = v ? getTrans(v) : '(Wort nicht mehr vorhanden)'; }
+    else { title = e.q.length > 90 ? e.q.slice(0, 90) + '…' : e.q; sub = 'Richtig: ' + e.a; }
+    const days = Math.ceil(((e.due || 0) - now) / 86400000);
+    const when = (e.due || 0) <= now ? '<span style="color:var(--red);font-weight:700">fällig</span>' : 'in ' + days + (days === 1 ? ' Tag' : ' Tagen');
+    return `<div class="ml-row"><div class="ml-main"><div class="ml-w">${e.kind === 'vok' ? '🔤 ' : '📝 '}${mlEsc(title)}</div>` +
+      `<div class="ml-s">${mlEsc(sub)}</div><div class="ml-s">${e.wrong || 1}× falsch · Stufe ${e.box || 0}/${FEHLER_DONE_AFTER} · ${when}</div></div>` +
+      `<button class="ml-ico" title="Entfernen" onclick="fehlerRemove('${mlEsc(e.id).replace(/\\/g,'\\\\')}')">🗑️</button></div>`;
+  }).join('');
+}
+
+/* ---- Üben (Fehlerliste + Wörterbuch) ---- */
+let mlQ = null;
+function mlVokQuestion(v, pool) {
+  const tr = (getTrans(v) + '').trim();
+  const others = mlShuffle((pool && pool.length >= 4 ? pool : VOKABELN).concat(VOKABELN).filter(x => x.w !== v.w));
+  if (Math.random() < 0.5) {
+    const d = []; for (const x of others) { const s = (getTrans(x) + '').trim(); if (s && s !== tr && !d.includes(s)) d.push(s); if (d.length === 3) break; }
+    return { type:'🔤 Englisch → Übersetzung', q: `Was bedeutet „${v.w}"?`, opts: mlShuffle([tr, ...d]), a: tr, ex: v.ex || '', kind:'vok', key: v.w };
+  }
+  const d = []; for (const x of others) { if (x.w !== v.w && !d.includes(x.w)) d.push(x.w); if (d.length === 3) break; }
+  return { type:'🔤 Übersetzung → Englisch', q: `Wie heißt „${tr}" auf Englisch?`, opts: mlShuffle([v.w, ...d]), a: v.w, ex: v.ex || '', kind:'vok', key: v.w };
+}
+function mlStartFehler(all) {
+  const list = fehlerLoad();
+  const items = mlShuffle(all ? list : fehlerDue(list));
+  if (!items.length) { mlToast(list.length ? 'Gerade ist nichts fällig. Mit „Alle wiederholen“ kannst du trotzdem üben.' : 'Keine Fehler gespeichert. 🎉'); return; }
+  const qs = [];
+  items.slice(0, 20).forEach(e => {
+    if (e.kind === 'vok') { const v = fehlerVokEntry(e.w); if (v) qs.push(mlVokQuestion(v)); }
+    else qs.push({ type:'📝 Frage', q: e.q, opts: mlShuffle(e.opts), a: e.a, ex: e.ex || '', kind:'q', key: e.q });
+  });
+  mlQuizStart(qs, 'fehler');
+}
+function mlStartDict() {
+  const dict = loadCustomVoks();
+  if (!dict.length) { mlToast('Füge zuerst Wörter zu deinem Wörterbuch hinzu.'); return; }
+  mlQuizStart(mlShuffle(dict).slice(0, 20).map(v => mlVokQuestion(v, dict)), 'dict');
+}
+function mlQuizStart(qs, mode) {
+  if (!qs.length) { mlToast('Keine Fragen gefunden.'); return; }
+  mlQ = { qs, idx: 0, score: 0, mode, answered: false };
+  document.querySelectorAll('.ml-pane').forEach(p => p.style.display = 'none');
+  document.getElementById('ml-quiz').style.display = 'block';
+  mlQuizRender();
+}
+function mlQuizRender() {
+  const q = mlQ.qs[mlQ.idx];
+  document.getElementById('ml-q-num').textContent = `Frage ${mlQ.idx + 1} / ${mlQ.qs.length}`;
+  document.getElementById('ml-q-score').textContent = '✓ ' + mlQ.score;
+  document.getElementById('ml-q-type').textContent = q.type;
+  document.getElementById('ml-q-text').textContent = q.q;
+  document.getElementById('ml-q-fb').style.display = 'none';
+  document.getElementById('ml-q-next').style.display = 'none';
+  const box = document.getElementById('ml-q-opts'); box.innerHTML = '';
+  q.opts.forEach(o => { const b = document.createElement('button'); b.className = 'ml-opt'; b.textContent = o; b.onclick = () => mlQuizAnswer(o, b); box.appendChild(b); });
+  mlQ.answered = false;
+}
+function mlQuizAnswer(chosen, btn) {
+  if (mlQ.answered) return; mlQ.answered = true;
+  const q = mlQ.qs[mlQ.idx]; const ok = chosen === q.a;
+  if (ok) mlQ.score++;
+  document.querySelectorAll('#ml-q-opts .ml-opt').forEach(b => { b.disabled = true; if (b.textContent === q.a) b.classList.add('ok'); else if (b === btn) b.classList.add('bad'); });
+  if (q.kind === 'vok') fehlerRecordVok(q.key, ok);
+  else if (ok) fehlerRight('q', q.key); else fehlerAdd({ kind:'q', q: q.key, opts: q.opts, a: q.a, ex: q.ex });
+  const fb = document.getElementById('ml-q-fb'); fb.style.display = 'block';
+  fb.innerHTML = (ok ? '<span style="color:#16a34a;font-weight:700">✓ Richtig!</span>' : '<span style="color:#dc2626;font-weight:700">✗ Falsch.</span> Richtig: <strong>' + mlEsc(q.a) + '</strong>') + (q.ex ? '<br><em>' + mlEsc(q.ex) + '</em>' : '');
+  document.getElementById('ml-q-next').style.display = 'block';
+  try { trackLernActivity(); } catch(e) {}
+}
+function mlQuizNext() {
+  mlQ.idx++;
+  if (mlQ.idx < mlQ.qs.length) { mlQuizRender(); return; }
+  const total = mlQ.qs.length, sc = mlQ.score, mode = mlQ.mode;
+  mlQuizEnd();
+  mlToast(`Fertig: ${sc} von ${total} richtig.`);
+  mlTab(mode === 'dict' ? 'dict' : 'fehler');
+}
+function mlQuizEnd() { document.getElementById('ml-quiz').style.display = 'none'; mlTab(mlQ && mlQ.mode === 'dict' ? 'dict' : 'fehler'); }
+function mlToast(msg) {
+  let t = document.getElementById('ml-toast');
+  if (!t) { t = document.createElement('div'); t.id = 'ml-toast'; t.style.cssText = 'position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#0F1623;color:#fff;padding:10px 16px;border-radius:12px;font-size:14px;z-index:9999;max-width:86vw;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.25)'; document.body.appendChild(t); }
+  t.textContent = msg; t.style.display = 'block'; clearTimeout(t._h); t._h = setTimeout(() => { t.style.display = 'none'; }, 3200);
+}
+
+/* ---- Persönliches Wörterbuch ---- */
+let mlEditIdx = -1;
+function mlSyncCustomIntoVok() {
+  for (let i = VOKABELN.length - 1; i >= 0; i--) if (VOKABELN[i].custom) VOKABELN.splice(i, 1);
+  loadCustomVoks().forEach(v => VOKABELN.push(v));
+  try { if (typeof renderVokGroups === 'function') renderVokGroups(); updateVokStat(); } catch(e) {}
+  mlUpdateHomeBadge();
+}
+function mlRenderDict() {
+  const dict = loadCustomVoks();
+  const q = (document.getElementById('ml-dict-search').value || '').toLowerCase().trim();
+  const topics = [...new Set(dict.map(v => v.topic).filter(Boolean))];
+  document.getElementById('ml-topics').innerHTML = topics.map(t => `<option value="${mlEsc(t)}">`).join('');
+  const box = document.getElementById('ml-dict-list');
+  const rows = dict.map((v, i) => ({ v, i })).filter(({v}) => !q || [v.w, v.t, v.ta, v.tka, v.topic, v.ex].some(x => (x || '').toLowerCase().includes(q)));
+  if (!dict.length) { box.innerHTML = '<div style="text-align:center;color:var(--fg-muted);padding:24px">Noch keine eigenen Wörter. Füge oben dein erstes Wort hinzu.</div>'; return; }
+  box.innerHTML = `<div class="sec-lbl">${dict.length} eigene Wörter</div>` + rows.reverse().map(({v, i}) =>
+    `<div class="ml-row"><div class="ml-main"><div class="ml-w">${mlEsc(v.w)}</div><div class="ml-s">${mlEsc(v.t)}${v.ta ? ' · <span dir="rtl">' + mlEsc(v.ta) + '</span>' : ''}${v.tka ? ' · ' + mlEsc(v.tka) : ''}</div>` +
+    `${v.ex ? '<div class="ml-s"><em>' + mlEsc(v.ex) + '</em></div>' : ''}${v.topic ? '<div class="ml-s">🏷️ ' + mlEsc(v.topic) + '</div>' : ''}</div>` +
+    `<button class="ml-ico" title="Anhören" onclick="speakWordInline(${JSON.stringify(v.w).replace(/"/g,'&quot;')}, event)">🔊</button>` +
+    `<button class="ml-ico" title="Bearbeiten" onclick="mlDictEdit(${i})">✏️</button>` +
+    `<button class="ml-ico" title="Löschen" onclick="mlDictDelete(${i})">🗑️</button></div>`).join('') || '<div style="color:var(--fg-muted);padding:12px">Keine Treffer.</div>';
+}
+function mlFormVals() {
+  const g = id => document.getElementById(id).value.trim();
+  return { w: g('ml-f-en'), t: g('ml-f-de'), ta: g('ml-f-ar'), tka: g('ml-f-ka'), ex: g('ml-f-ex'), topic: g('ml-f-topic') };
+}
+function mlFormSet(v) {
+  const s = (id, x) => document.getElementById(id).value = x || '';
+  s('ml-f-en', v.w); s('ml-f-de', v.t); s('ml-f-ar', v.ta); s('ml-f-ka', v.tka); s('ml-f-ex', v.ex); s('ml-f-topic', v.topic);
+}
+function mlFormMsg(text, ok) { const m = document.getElementById('ml-f-msg'); m.style.display = 'block'; m.style.color = ok ? '#16a34a' : 'var(--red)'; m.textContent = text; clearTimeout(m._h); m._h = setTimeout(() => m.style.display = 'none', 2500); }
+function mlDictSave() {
+  const f = mlFormVals();
+  if (!f.w || !f.t) { mlFormMsg('⚠️ Englisch und Deutsch sind Pflichtfelder.', false); return; }
+  const dict = loadCustomVoks();
+  const dupe = dict.findIndex((v, i) => i !== mlEditIdx && v.w.toLowerCase() === f.w.toLowerCase());
+  if (dupe >= 0) { mlFormMsg('⚠️ Dieses Wort steht schon in deinem Wörterbuch.', false); return; }
+  const base = mlEditIdx >= 0 ? dict[mlEditIdx] : { ph:'', cat:'eigene', custom:true, added: Date.now() };
+  const oldW = base.w;
+  const entry = Object.assign({}, base, { w: f.w, t: f.t, ta: f.ta || undefined, tka: f.tka || undefined, ex: f.ex ? (/^".*"$/.test(f.ex) ? f.ex : '"' + f.ex + '"') : '', topic: f.topic || undefined, custom: true });
+  if (mlEditIdx >= 0) dict[mlEditIdx] = entry; else dict.push(entry);
+  saveCustomVoks(dict);
+  // Fehlerliste mitziehen, wenn das englische Wort geändert wurde
+  if (oldW && oldW !== f.w) { const list = fehlerLoad(); list.forEach(e => { if (e.kind === 'vok' && e.w === oldW) { e.w = f.w; e.id = fehlerId('vok', f.w); } }); fehlerSave(list); }
+  mlFormMsg(mlEditIdx >= 0 ? '✓ Änderung gespeichert.' : '✓ Wort gespeichert.', true);
+  mlDictCancel(true);
+  mlSyncCustomIntoVok();
+  mlRenderDict();
+}
+function mlDictEdit(i) {
+  const v = loadCustomVoks()[i]; if (!v) return;
+  mlEditIdx = i; mlFormSet(Object.assign({}, v, { ex: (v.ex || '').replace(/^"|"$/g, '') }));
+  document.getElementById('ml-form-title').textContent = '✏️ Wort bearbeiten';
+  document.getElementById('ml-f-cancel').style.display = '';
+  document.querySelector('#sc-meins').scrollIntoView({ behavior:'smooth' });
+  try { document.querySelector('.content').scrollTop = 0; } catch(e) {}
+}
+function mlDictCancel(keepMsg) {
+  mlEditIdx = -1; mlFormSet({});
+  document.getElementById('ml-form-title').textContent = '➕ Neues Wort';
+  document.getElementById('ml-f-cancel').style.display = 'none';
+}
+function mlDictDelete(i) {
+  const dict = loadCustomVoks(); const v = dict[i]; if (!v) return;
+  if (!confirm('„' + v.w + '“ wirklich löschen?')) return;
+  dict.splice(i, 1); saveCustomVoks(dict);
+  fehlerSave(fehlerLoad().filter(e => !(e.kind === 'vok' && e.w === v.w)));
+  if (mlEditIdx === i) mlDictCancel(); else if (mlEditIdx > i) mlEditIdx--;
+  mlSyncCustomIntoVok(); mlRenderDict();
+}
+
+/* ---- Sicherung (Export / Import) ---- */
+const ML_BACKUP_APP = 'mein-englisch';
+function mlRenderBackup() {
+  const last = localStorage.getItem('ela_last_backup');
+  document.getElementById('ml-backup-last').textContent = last ? 'Letzte Sicherung: ' + new Date(+last).toLocaleString('de-DE') : 'Noch keine Sicherung gespeichert.';
+}
+function mlExport() {
+  const data = {};
+  try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); data[k] = localStorage.getItem(k); } } catch(e) {}
+  const now = new Date();
+  const payload = { app: ML_BACKUP_APP, version: 1, created: now.toISOString(), data };
+  const blob = new Blob([JSON.stringify(payload, null, 1)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'mein-englisch-sicherung-' + now.toISOString().slice(0, 10) + '.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  try { localStorage.setItem('ela_last_backup', String(Date.now())); } catch(e) {}
+  mlRenderBackup();
+  mlToast('✓ Sicherung gespeichert (Ordner „Downloads“).');
+}
+function mlImport(input) {
+  const file = input.files && input.files[0]; if (!file) return;
+  const msg = document.getElementById('ml-import-msg');
+  const show = (t, ok) => { msg.style.display = 'block'; msg.style.color = ok ? '#16a34a' : 'var(--red)'; msg.textContent = t; };
+  const reader = new FileReader();
+  reader.onload = () => {
+    let p;
+    try { p = JSON.parse(reader.result); } catch(e) { show('⚠️ Die Datei ist keine gültige Sicherung.', false); input.value = ''; return; }
+    if (!p || p.app !== ML_BACKUP_APP || typeof p.data !== 'object') { show('⚠️ Das ist keine Sicherung dieser App.', false); input.value = ''; return; }
+    const n = Object.keys(p.data).length;
+    const when = p.created ? new Date(p.created).toLocaleString('de-DE') : 'unbekannt';
+    if (!confirm('Sicherung vom ' + when + ' (' + n + ' Einträge) wiederherstellen?\nDie aktuellen Daten in der App werden ersetzt.')) { input.value = ''; return; }
+    try {
+      localStorage.clear();
+      Object.entries(p.data).forEach(([k, v]) => localStorage.setItem(k, typeof v === 'string' ? v : JSON.stringify(v)));
+    } catch(e) { show('⚠️ Fehler beim Wiederherstellen: ' + e.message, false); return; }
+    show('✓ Wiederhergestellt. Die App lädt neu…', true);
+    setTimeout(() => location.reload(), 900);
+  };
+  reader.readAsText(file);
+}
+
+document.addEventListener('DOMContentLoaded', () => { try { mlUpdateHomeBadge(); } catch(e) {} });
+
 /* ========== PRÜFUNGSSIMULATION ========== */
 const PRUEF_KEY = 'ela_pruef_history';
 
@@ -5414,7 +5830,7 @@ function buildPruefQuestions(level) {
       .map(x => (getTrans(x)+'').trim()).filter((x,i,a) => a.indexOf(x) === i).slice(0, 3);
     if (distractors.length < 3) continue;
     used.add(v);
-    qs.push({ type:'vok', q:`Was bedeutet „${v.w}"?`, opts: pruefShuffle([correct, ...distractors]), a: correct, ex: v.ex });
+    qs.push({ type:'vok', w: v.w, q:`Was bedeutet „${v.w}"?`, opts: pruefShuffle([correct, ...distractors]), a: correct, ex: v.ex });
   }
 
   // 2) Umgekehrt: Übersetzung → Englisch
@@ -5428,7 +5844,7 @@ function buildPruefQuestions(level) {
       .filter((x,i,a) => a.indexOf(x) === i).slice(0, 3);
     if (distractors.length < 3) continue;
     used.add(v); c++;
-    qs.push({ type:'vok', q:`Wie heißt „${getTrans(v)}" auf Englisch?`, opts: pruefShuffle([correct, ...distractors]), a: correct, ex: v.ex });
+    qs.push({ type:'vok', w: v.w, q:`Wie heißt „${getTrans(v)}" auf Englisch?`, opts: pruefShuffle([correct, ...distractors]), a: correct, ex: v.ex });
   }
 
   // 3) Lückentext aus den Beispielsätzen (nur Englisch)
@@ -5450,7 +5866,7 @@ function buildPruefQuestions(level) {
     const distractors = [...new Set([...same, ...pruefShuffle(others)])].slice(0, 3);
     if (distractors.length < 3) continue;
     used.add(v); c++;
-    qs.push({ type:'cloze', q:`Welches Wort passt in die Lücke?\n„${gap}"`, opts: pruefShuffle([m[0], ...distractors]), a: m[0], ex: '"' + ex + '"' });
+    qs.push({ type:'cloze', w: v.w, q:`Welches Wort passt in die Lücke?\n„${gap}"`, opts: pruefShuffle([m[0], ...distractors]), a: m[0], ex: '"' + ex + '"' });
   }
 
   // 4) Rest: Grammatik (+ Use of English bei B2)
@@ -5479,7 +5895,7 @@ function buildPruefQuestions(level) {
     const distractors = pruefShuffle(pool.filter(x => x !== v && (getTrans(x)+'').trim() !== correct)).map(x => (getTrans(x)+'').trim()).slice(0, 3);
     if (distractors.length < 3) continue;
     used.add(v);
-    qs.push({ type:'vok', q:`Was bedeutet „${v.w}"?`, opts: pruefShuffle([correct, ...distractors]), a: correct, ex: v.ex });
+    qs.push({ type:'vok', w: v.w, q:`Was bedeutet „${v.w}"?`, opts: pruefShuffle([correct, ...distractors]), a: correct, ex: v.ex });
   }
   return pruefShuffle(qs).slice(0, total);
 }
@@ -5597,6 +6013,7 @@ function pruefAnswer(chosen, btn) {
   const correct = (q.a + '').trim();
   const isRight = chosen.trim() === correct;
   if (isRight) pruefState.score++;
+  try { if (q.w) fehlerRecordVok(q.w, isRight); else fehlerRecordQuestion(q.q, q.opts, correct, isRight, q.ex); } catch(e) {}
 
   // Buttons färben
   document.querySelectorAll('.pruef-opt-btn').forEach(b => {
