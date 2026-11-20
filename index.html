@@ -132,6 +132,30 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 .qc-hw{background:linear-gradient(135deg,#9B1C1C,#EF4444)}
 .qc-ref{background:linear-gradient(135deg,#1e3a5f,#2563eb)}
 /* ---- Grammatik-Übersicht Modal ---- */
+#heute-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.55);overflow-y:auto}
+#heute-modal.open{display:block}
+#heute-body{padding:14px 16px 30px}
+.heute-head{font-size:14px;font-weight:700;color:var(--fg-muted);margin:4px 0 8px}
+.heute-bar{height:10px;border-radius:6px;background:var(--border);overflow:hidden;margin-bottom:14px}
+.heute-bar div{height:100%;background:linear-gradient(90deg,#16a34a,#22c55e);transition:width .4s}
+.heute-step{display:flex;align-items:center;gap:10px;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:12px;margin-bottom:8px}
+.heute-step.done{border-color:#16a34a;background:rgba(22,163,74,.08)}
+.heute-step .t{flex:1}.heute-step .t b{display:block;font-size:16px;color:var(--fg)}.heute-step .t span{font-size:13px;color:var(--fg-muted)}
+.heute-go{border:none;border-radius:10px;padding:9px 14px;font-weight:800;font-size:14px;background:var(--accent-lt);color:var(--accent);cursor:pointer;font-family:var(--font)}
+.heute-go.main{background:var(--accent);color:#fff}
+.heute-ok{font-weight:800;color:#16a34a;font-size:14px}
+.heute-partdone{background:rgba(22,163,74,.12);color:#15803d;border-radius:10px;padding:10px 12px;font-weight:700;margin-bottom:10px}
+.heute-all{text-align:center;background:linear-gradient(135deg,#166534,#15803d);color:#fff;border-radius:14px;padding:16px;margin-bottom:12px;font-size:15px}
+.heute-all b{display:block;font-size:18px;margin:4px 0}
+.heute-card,.heute-q{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:16px;text-align:center;margin-bottom:12px}
+.heute-card .w,.heute-q .w{font-size:26px;font-weight:800;color:var(--fg)}
+.heute-card .ph,.heute-q .ph{font-size:14px;color:var(--fg-muted);margin-top:2px}
+.heute-card .tr{font-size:19px;font-weight:700;color:var(--accent);margin:10px 0 6px}
+.heute-card .ex{font-size:15px;color:var(--fg);font-style:italic;margin-bottom:8px}
+.heute-tag{font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--fg-muted);margin-bottom:6px}
+.heute-hint{font-size:13px;color:var(--fg-muted);text-align:center;margin-bottom:6px}
+.heute-res{font-weight:800;margin:10px 0 4px}.heute-res.ok{color:#16a34a}.heute-res.bad{color:#dc2626}
+.heute-why{font-size:14px;color:var(--fg-muted);margin:4px 0 6px}
 #gram-ref-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.55);overflow-y:auto}
 #gram-ref-modal.open{display:block}
 .gram-ref-inner{background:var(--bg-2);border-radius:18px 18px 0 0;min-height:60vh;margin-top:60px;padding:0 0 40px}
@@ -143,6 +167,8 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 .gram-tab{flex-shrink:0;padding:8px 14px;border-radius:999px;border:1.5px solid var(--border);background:var(--bg);color:var(--fg-muted);font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:var(--font)}
 .gram-tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
 .gram-sec{display:none;padding:12px 14px}
+.gram-merged .gram-tabs{padding:4px 0 6px}
+.gram-merged .gram-sec{padding:10px 0}
 .gram-sec.active{display:block}
 .gram-cards{display:grid;gap:10px}
 @media(min-width:600px){.gram-cards{grid-template-columns:repeat(2,1fr)}}
@@ -468,7 +494,7 @@ mark.tsg{background:#fde68a;color:#7c2d12;border-radius:4px;padding:0 2px}
         <div class="qc qc-gram" onclick="go('grammatik')">
           <div class="qc-icon">📖</div>
           <h3 id="home-gram-title">Grammatik</h3>
-          <p id="home-gram-sub">8 Regeln · A2/B1</p>
+          <p id="home-gram-sub">Themen · Quiz · Alle Tenses mit Tom</p>
         </div>
         <div class="qc qc-chal" onclick="go('challenge')">
           <div class="qc-icon">🎯</div>
@@ -479,11 +505,6 @@ mark.tsg{background:#fde68a;color:#7c2d12;border-radius:4px;padding:0 2px}
           <div class="qc-icon">📋</div>
           <h3 id="home-hw-title">Hausaufgaben</h3>
           <p id="hw-stat">Aufgaben ansehen</p>
-        </div>
-        <div class="qc qc-ref" onclick="openGramRef()" style="grid-column:1/-1">
-          <div class="qc-icon">📚</div>
-          <h3 id="home-gramref-title">Grammatik-Übersicht</h3>
-          <p id="home-gramref-sub">Alle Tenses · Zeitformen · Sätze · Verben</p>
         </div>
         <div class="qc" onclick="openMeinLernen('fehler')" style="grid-column:1/-1;background:linear-gradient(135deg,#dc2626,#c2410c)">
           <div class="qc-icon">📌</div>
@@ -648,8 +669,265 @@ mark.tsg{background:#fde68a;color:#7c2d12;border-radius:4px;padding:0 2px}
 
     <!-- GRAMMATIK -->
     <div class="screen" id="sc-grammatik">
-      <div class="screen-nav"><button class="snav-btn" onclick="goAdj(-1)">←</button><div class="sec-lbl">Grammatik-Regeln</div><button class="snav-btn" onclick="goAdj(1)">→</button></div>
+      <div class="screen-nav"><button class="snav-btn" onclick="goAdj(-1)">←</button><div class="sec-lbl">Grammatik</div><button class="snav-btn" onclick="goAdj(1)">→</button></div>
+  <div class="gram-merged">
+    <div class="gram-tabs">
+      <button class="gram-tab active" id="gtab-gsq" onclick="showGramSec('gsq',this)">📝 Themen &amp; Quiz</button>
+      <button class="gram-tab" id="gtab-gs0" onclick="showGramSec('gs0',this)">🧍 Alle Tenses &amp; Tom</button>
+      <button class="gram-tab" onclick="showGramSec('gs1',this)">⏱ Zeitformen</button>
+      <button class="gram-tab" onclick="showGramSec('gs2',this)">📐 Sätze</button>
+      <button class="gram-tab" onclick="showGramSec('gs3',this)">👤 Pronomen</button>
+      <button class="gram-tab" onclick="showGramSec('gs4',this)">🔧 Verben</button>
+      <button class="gram-tab" onclick="showGramSec('gs5',this)">📌 Sonstiges</button>
+    </div>
+
+    <!-- ALLE TENSES (20.11.2026) -->
+    <div class="gram-sec" id="gs0">
+      <div id="tom-box"></div>
+      <div class="gram-note"><strong>Ein Verb, alle Zeiten: watch.</strong> Für jede Zeit: Beispiel · Wann? · Signalwörter. Ganz unten: Kurzformen, Spelling-Regeln und typische Fehler.</div>
+      <div class="gtbl-card">
+        <h3 class="c1">⬅️ Past (Vergangenheit)</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Tense</th><th>Beispiel</th><th>Wann? · 🔑 Signalwörter</th></tr></thead>
+          <tbody>
+            <tr><td>Past Simple</td><td>I watched TV.</td><td>abgeschlossen, fertig<br><span class="tsig">🔑 yesterday, ago, last week, in 2010</span></td></tr>
+            <tr><td>Past Continuous</td><td>I was watching TV at 8pm.</td><td>lief gerade, wurde unterbrochen<br><span class="tsig">🔑 while, when, at 8pm yesterday</span></td></tr>
+            <tr><td>Past Perfect</td><td>I had watched it before.</td><td>noch vor einer anderen Vergangenheit<br><span class="tsig">🔑 before, after, already, by the time</span></td></tr>
+            <tr><td>Past Perf. Cont.</td><td>I had been watching for 2 hours.</td><td>Dauer bis zu einem Punkt in der Vergangenheit<br><span class="tsig">🔑 for, since, all day (bis damals)</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gtbl-card">
+        <h3 class="c1">⏺️ Present (Gegenwart)</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Tense</th><th>Beispiel</th><th>Wann? · 🔑 Signalwörter</th></tr></thead>
+          <tbody>
+            <tr><td>Present Simple</td><td>I watch TV every day.<br>She watch<b>es</b> TV.</td><td>Gewohnheit, Fakt<br><span class="tsig">🔑 every day, always, usually, often, never</span></td></tr>
+            <tr><td>Present Continuous</td><td>I am watching TV now.</td><td>gerade jetzt, vorübergehend<br><span class="tsig">🔑 now, at the moment, today, Look!</span></td></tr>
+            <tr><td>Present Perfect</td><td>I have watched this film.</td><td>Erfahrung, Verbindung zu jetzt<br><span class="tsig">🔑 already, yet, ever, never, just, for, since</span></td></tr>
+            <tr><td>Pres. Perf. Cont.</td><td>I have been watching for 1 hour.</td><td>Dauer bis jetzt<br><span class="tsig">🔑 for, since, all day, how long</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gtbl-card">
+        <h3 class="c1">➡️ Future (Zukunft)</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Form</th><th>Beispiel</th><th>Wann? · 🔑 Signalwörter</th></tr></thead>
+          <tbody>
+            <tr><td>will</td><td>I will watch it tomorrow.<br>I'll answer it!</td><td>spontan, Versprechen, Vorhersage (Meinung)<br><span class="tsig">🔑 tomorrow, I think, probably</span></td></tr>
+            <tr><td>going to</td><td>I am going to watch it tonight.</td><td>schon geplant · Vorhersage mit Beweis<br><span class="tsig">🔑 tonight, next week, Look at …!</span></td></tr>
+            <tr><td>Pres. Continuous</td><td>I am watching it on Saturday.</td><td>fester Termin, verabredet<br><span class="tsig">🔑 on Saturday, at 7pm, tomorrow</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gtbl-card">
+        <h3 class="c4">✅ ❌ ❓ Positiv · Negativ · Frage</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Tense</th><th>✅ Positiv</th><th>❌ Negativ</th><th>❓ Frage</th></tr></thead>
+          <tbody>
+            <tr><td>Present Simple</td><td>I watch / she watches</td><td>I don't watch / she doesn't watch</td><td>Do you watch? / Does she watch?</td></tr>
+            <tr><td>Present Continuous</td><td>I'm watching</td><td>I'm not watching</td><td>Are you watching?</td></tr>
+            <tr><td>Past Simple</td><td>I watched</td><td>I didn't watch</td><td>Did you watch?</td></tr>
+            <tr><td>Past Continuous</td><td>I was / we were watching</td><td>I wasn't / we weren't watching</td><td>Were you watching?</td></tr>
+            <tr><td>Present Perfect</td><td>I have / she has watched</td><td>I haven't / she hasn't watched</td><td>Have you watched?</td></tr>
+            <tr><td>will</td><td>I'll watch</td><td>I won't watch</td><td>Will you watch?</td></tr>
+            <tr><td>going to</td><td>I'm going to watch</td><td>I'm not going to watch</td><td>Are you going to watch?</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gram-cards">
+        <div class="gc"><div class="gc-name c1">will vs. going to</div><div class="gc-formula">spontan → will · schon entschieden → going to</div><div class="gc-ex"><strong>"The phone is ringing!" — "I'll answer it!"</strong></div><div class="gc-ex"><strong>"I'm going to call him later."</strong></div><div class="gc-de">Fester Termin mit Uhrzeit/Tag → Present Continuous: "We're flying to London on Monday."</div></div>
+        <div class="gc"><div class="gc-name c1">Past Continuous + Past Simple</div><div class="gc-formula">lange Aktion (was/were + -ing) + kurze Aktion (V2)</div><div class="gc-ex"><strong>"While I was watching TV, my phone rang."</strong></div><div class="gc-ex"><strong>"She was cooking when he came home."</strong></div><div class="gc-de">while + Past Continuous (Hintergrund) · when + Past Simple (unterbricht)</div></div>
+        <div class="gc"><div class="gc-name c1">am / is / are</div><div class="gc-formula">Subject + am/is/are + verb-ing</div><div class="gc-ex"><strong>I am · he/she/it is · you/we/they are</strong></div><div class="gc-de">I am watching TV. · She is reading a book. · They are learning English.</div></div>
+        <div class="gc"><div class="gc-name c1">did / didn't + Grundform</div><div class="gc-formula">Negativ & Frage im Past Simple: did + V</div><div class="gc-ex"><strong>❌ She didn't went. ✅ She didn't go.</strong></div><div class="gc-de">Die Vergangenheit steckt schon in "did" — das Verb bleibt in der Grundform.</div></div>
+      </div>
+      <div class="gtbl-card" style="margin-top:12px">
+        <h3 class="c3">✂️ Kurzformen (Short forms)</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Lang</th><th>Kurz</th><th>Negativ</th></tr></thead>
+          <tbody>
+            <tr><td>I am</td><td>I'm</td><td>I'm not</td></tr>
+            <tr><td>you are</td><td>you're</td><td>you aren't</td></tr>
+            <tr><td>he / she / it is</td><td>he's / she's / it's</td><td>he isn't / she isn't / it isn't</td></tr>
+            <tr><td>we / they are</td><td>we're / they're</td><td>we aren't / they aren't</td></tr>
+            <tr><td>was / were not</td><td>—</td><td>wasn't / weren't</td></tr>
+            <tr><td>do / does / did not</td><td>—</td><td>don't / doesn't / didn't</td></tr>
+            <tr><td>have / has</td><td>I've / she's</td><td>haven't / hasn't</td></tr>
+            <tr><td>will</td><td>I'll / you'll</td><td>won't (= will not)</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gtbl-card">
+        <h3 class="c5">🔤 Spelling-Regeln</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Regel</th><th>-ing</th><th>-ed (Past)</th></tr></thead>
+          <tbody>
+            <tr><td>normal</td><td>play → playing</td><td>work → worked</td></tr>
+            <tr><td>stummes -e fällt weg</td><td>come → coming</td><td>live → lived</td></tr>
+            <tr><td>kurz: Konsonant doppelt</td><td>sit → sitting</td><td>stop → stopped</td></tr>
+            <tr><td>Konsonant + y</td><td>study → studying</td><td>study → studied</td></tr>
+            <tr><td>-ie → -y</td><td>lie → lying</td><td>—</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gtbl-card">
+        <h3 class="c4">📌 Unregelmäßige Verben (auswendig!)</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Grundform</th><th>Past Simple</th><th>Beispiel</th></tr></thead>
+          <tbody>
+            <tr><td>go</td><td>went</td><td>I went to school yesterday.</td></tr>
+            <tr><td>have</td><td>had</td><td>We had a great time last night.</td></tr>
+            <tr><td>see</td><td>saw</td><td>I saw a good film last week.</td></tr>
+            <tr><td>buy</td><td>bought</td><td>She bought a new phone last month.</td></tr>
+            <tr><td>come</td><td>came</td><td>He came home late last night.</td></tr>
+            <tr><td>eat</td><td>ate</td><td>We ate pizza yesterday.</td></tr>
+            <tr><td>drink</td><td>drank</td><td>I drank too much coffee today.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gram-note"><strong>Typische Fehler:</strong> ❌ I m reading → ✅ I'm reading · "I" immer groß, Nomen klein (a book, football) · ❌ She didn't went → ✅ She didn't go · ❌ Have you seen it yesterday? → ✅ Did you see it yesterday? · enjoy + -ing: ✅ I'm enjoying playing football.</div>
+    </div>
+
+    <!-- ZEITFORMEN -->
+    <div class="gram-sec" id="gs1">
+      <div class="gram-legend">
+        <span><strong>V</strong> = Grundform (go, work)</span>
+        <span><strong>V2</strong> = Simple Past (went, worked)</span>
+        <span><strong>V3</strong> = Partizip (gone, worked)</span>
+        <span><strong>S</strong> = Subjekt &nbsp;<strong>O</strong> = Objekt</span>
+      </div>
+      <div class="gram-cards">
+        <div class="gc"><div class="gc-name c1">Simple Present</div><div class="gc-formula">S + V / V+s (he/she/it)</div><div class="gc-ex"><strong>"She works here every day."</strong></div><div class="gc-ex-de">„Sie arbeitet hier jeden Tag."</div><div class="gc-de">Gewohnheiten, Fakten, Zustände</div><span class="gc-chip c1s">always · often · never · every day</span></div>
+        <div class="gc"><div class="gc-name c1">Present Progressive</div><div class="gc-formula">S + am/is/are + V-ing</div><div class="gc-ex"><strong>"She is working right now."</strong></div><div class="gc-ex-de">„Sie arbeitet gerade jetzt."</div><div class="gc-de">Gerade passierend · Vorübergehend</div><span class="gc-chip c1s">now · at the moment · currently</span></div>
+        <div class="gc"><div class="gc-name c1">Present Perfect</div><div class="gc-formula">S + have/has + V3</div><div class="gc-ex"><strong>"She has worked here for 3 years."</strong></div><div class="gc-ex-de">„Sie hat hier 3 Jahre lang gearbeitet."</div><div class="gc-de">Ergebnis/Verbindung zur Gegenwart</div><span class="gc-chip c1s">just · already · yet · ever · since · for</span></div>
+        <div class="gc"><div class="gc-name c1">Present Perfect Progressive</div><div class="gc-formula">S + have/has been + V-ing</div><div class="gc-ex"><strong>"She has been working all day."</strong></div><div class="gc-ex-de">„Sie arbeitet schon den ganzen Tag."</div><div class="gc-de">Dauer einer andauernden Handlung</div><span class="gc-chip c1s">for · since · all day · how long</span></div>
+        <div class="gc"><div class="gc-name c1">Simple Past</div><div class="gc-formula">S + V-ed (reg.) / V2 (irreg.)</div><div class="gc-ex"><strong>"She worked yesterday."</strong></div><div class="gc-ex-de">„Sie hat gestern gearbeitet."</div><div class="gc-de">Abgeschlossene Vergangenheit</div><span class="gc-chip c1s">yesterday · last year · ago · in 1990</span></div>
+        <div class="gc"><div class="gc-name c1">Past Progressive</div><div class="gc-formula">S + was/were + V-ing</div><div class="gc-ex"><strong>"She was working when I called."</strong></div><div class="gc-ex-de">„Sie arbeitete gerade, als ich anrief."</div><div class="gc-de">Gleichzeitig in der Vergangenheit</div><span class="gc-chip c1s">while · when · at that time</span></div>
+        <div class="gc"><div class="gc-name c1">Past Perfect</div><div class="gc-formula">S + had + V3</div><div class="gc-ex"><strong>"She had worked before she left."</strong></div><div class="gc-ex-de">„Sie hatte gearbeitet, bevor sie ging."</div><div class="gc-de">Vor einem anderen Vergangenheitspunkt</div><span class="gc-chip c1s">before · after · already · by the time</span></div>
+        <div class="gc"><div class="gc-name c1">Will-Future</div><div class="gc-formula">S + will + V</div><div class="gc-ex"><strong>"I'll help you with that."</strong></div><div class="gc-ex-de">„Ich werde dir dabei helfen."</div><div class="gc-de">Spontane Entscheidung · Prognose</div><span class="gc-chip c1s">I think · probably · I'm sure · maybe</span></div>
+        <div class="gc"><div class="gc-name c1">Going-to-Future</div><div class="gc-formula">S + am/is/are going to + V</div><div class="gc-ex"><strong>"I'm going to visit Berlin."</strong></div><div class="gc-ex-de">„Ich werde Berlin besuchen." (geplant)</div><div class="gc-de">Geplante Absicht · sichtbarer Beweis</div><span class="gc-chip c1s">tomorrow · next week · this summer</span></div>
+        <div class="gc"><div class="gc-name c1">Future Perfect</div><div class="gc-formula">S + will have + V3</div><div class="gc-ex"><strong>"By Friday, she will have finished."</strong></div><div class="gc-ex-de">„Bis Freitag wird sie fertig sein."</div><div class="gc-de">Bis zu einem Zeitpunkt abgeschlossen</div><span class="gc-chip c1s">by … · until … · before …</span></div>
+      </div>
+    </div>
+
+    <!-- SÄTZE -->
+    <div class="gram-sec" id="gs2">
+      <div class="gram-note"><strong>Grundregel:</strong> Englisch = Subject + Verb + Object (SVO). Das Verb steht immer an 2. Stelle.</div>
+      <div class="gram-cards">
+        <div class="gc"><div class="gc-name c2">Satzbau</div><div class="gc-formula">S + V + O + (Place) + (Time)</div><div class="gc-ex"><strong>"She reads books at home every day."</strong></div><div class="gc-ex-de">„Sie liest jeden Tag zu Hause Bücher."</div><div class="gc-de">Ort vor Zeit; Häufigkeitsadverbien vor dem Verb</div></div>
+        <div class="gc"><div class="gc-name c2">If-Clause Type 1</div><div class="gc-formula">If + Simple Present, … will + V</div><div class="gc-ex"><strong>"If it rains, we will cancel the trip."</strong></div><div class="gc-ex-de">„Wenn es regnet, sagen wir die Reise ab."</div><div class="gc-de">Reale, mögliche Situation in der Zukunft</div><span class="gc-chip c2s">möglich · wahrscheinlich</span></div>
+        <div class="gc"><div class="gc-name c2">If-Clause Type 2</div><div class="gc-formula">If + Simple Past, … would + V</div><div class="gc-ex"><strong>"If I had more money, I would travel."</strong></div><div class="gc-ex-de">„Wenn ich mehr Geld hätte, würde ich reisen."</div><div class="gc-de">Hypothetische / unwahrscheinliche Situation</div><span class="gc-chip c2s">unreal · hypothetisch</span></div>
+        <div class="gc"><div class="gc-name c2">If-Clause Type 3</div><div class="gc-formula">If + Past Perfect, … would have + V3</div><div class="gc-ex"><strong>"If I had studied, I would have passed."</strong></div><div class="gc-ex-de">„Wenn ich gelernt hätte, hätte ich bestanden."</div><div class="gc-de">Verpasste Möglichkeit in der Vergangenheit</div><span class="gc-chip c2s">irreale Vergangenheit</span></div>
+        <div class="gc"><div class="gc-name c2">Relative Clause</div><div class="gc-formula">… who / which / that + V …</div><div class="gc-ex"><strong>"The man who called is my boss."</strong></div><div class="gc-ex-de">„Der Mann, der angerufen hat, ist mein Chef."</div><div class="gc-de">who = Personen · which = Dinge · that = beides</div></div>
+        <div class="gc"><div class="gc-name c2">Contact Clause</div><div class="gc-formula">… (ohne Relativpronomen) + V …</div><div class="gc-ex"><strong>"The book (that) I read was great."</strong></div><div class="gc-ex-de">„Das Buch, das ich gelesen habe, war toll."</div><div class="gc-de">Relativpronomen kann wegfallen, wenn es Objekt ist</div></div>
+        <div class="gc"><div class="gc-name c2">Participle Construction</div><div class="gc-formula">V-ing / V3 … (statt Relativsatz)</div><div class="gc-ex"><strong>"The woman sitting there is my teacher."</strong></div><div class="gc-ex-de">„Die Frau, die dort sitzt, ist meine Lehrerin."</div><div class="gc-de">Kurzform des Relativsatzes · formeller Stil</div></div>
+        <div class="gc"><div class="gc-name c2">Sport-Verben: do / play / go</div><div class="gc-formula">GO + -ing · PLAY + Spiel/Instrument · DO + Fitness/Kampfsport</div><div class="gc-ex"><strong>"I go hiking / play chess / do yoga."</strong></div><div class="gc-ex-de">„go + -ing · play + Sportart · do + Einzelsport"</div><div class="gc-de">go hiking ✓ — go for hiking ✗ · play chess ✓ — do chess ✗ · do yoga ✓ — play yoga ✗</div><span class="gc-chip c2s">go -ing · play Spiel · do Fitness</span></div>
+        <div class="gc"><div class="gc-name c2">Satzbau: Die 4 häufigsten Fehler</div><div class="gc-formula">S + V + O · Do/Does/Did + S + V? · don't/doesn't/didn't + V · Simple Present vs. Progressive</div><div class="gc-ex"><strong>"I go to school every day." ✓ — "I go every day to school." ✗</strong></div><div class="gc-ex-de">„Deutsch: Verb kann ans Ende — Englisch: Verb bleibt auf Platz 2"</div><div class="gc-ex"><strong>"Do you like coffee?" ✓ — "You like coffee?" ✗</strong></div><div class="gc-ex-de">„Fragen immer mit Do/Does/Did beginnen (außer bei be/have)"</div><div class="gc-ex"><strong>"I don't know." ✓ — "I know not." ✗</strong></div><div class="gc-ex-de">„Verneinung: don't/doesn't/didn't + Grundform"</div><div class="gc-ex"><strong>"I work here." (Fakt) vs. "I am working now." (gerade jetzt)</strong></div><div class="gc-ex-de">„Simple Present = Gewohnheit · Progressive = gerade passierend"</div><div class="gc-de">1. Wortstellung: S+V+O · 2. Fragen: Do/Does/Did · 3. Verneinung: don't/doesn't · 4. Zeiten: Simple vs. -ing</div><span class="gc-chip c2s">S + V + O · Do? · don't · -ing jetzt</span></div>
+        <div class="gc"><div class="gc-name c2">Advice &amp; Suggestions</div><div class="gc-formula">should/ought to/could + V · Why don't you + V · How about/What about + -ing</div><div class="gc-ex"><strong>"Why don't you send an email to some companies?"</strong></div><div class="gc-ex-de">„Warum schickst du nicht eine E-Mail an einige Firmen?"</div><div class="gc-ex"><strong>"How about setting up your own website?"</strong></div><div class="gc-ex-de">„Was wäre damit, deine eigene Website aufzubauen?"</div><div class="gc-ex"><strong>"You ought to spend time improving your profile."</strong></div><div class="gc-ex-de">„Du solltest Zeit damit verbringen, dein Profil zu verbessern."</div><div class="gc-de">should/ought to/could + Infinitiv · Why don't you + Infinitiv · How about/What about/Why not try + -ing</div><span class="gc-chip c2s">could (schwach) · should · ought to · had better (dringend)</span></div>
+        <div class="gc"><div class="gc-name c2">Polite Requests: Will &amp; Shall</div><div class="gc-formula">Will you + V? (Bitte) · Shall I/we + V? (Angebot / Vorschlag)</div><div class="gc-ex"><strong>"Will you close the window, please?" ✓</strong></div><div class="gc-ex-de">„Kannst du bitte das Fenster schließen?" — Höfliche Bitte an jemanden</div><div class="gc-ex"><strong>"Shall I get you a coffee?" ✓</strong></div><div class="gc-ex-de">„Soll ich dir einen Kaffee holen?" — Angebot machen</div><div class="gc-ex"><strong>"Shall we go out tonight?" ✓</strong></div><div class="gc-ex-de">„Sollen wir heute Abend ausgehen?" — Vorschlag für gemeinsame Aktivität</div><div class="gc-de">will you = Bitte (du tust etwas) · shall I = Angebot (ich tue etwas) · shall we = Vorschlag (wir tun etwas zusammen)</div><span class="gc-chip c2s">Will you? (Bitte) · Shall I? (Angebot) · Shall we? (Vorschlag)</span></div>
+      </div>
+    </div>
+
+    <!-- PRONOMEN -->
+    <div class="gram-sec" id="gs3">
+      <div class="gtbl-card">
+        <h3 class="c3">Personalpronomen &amp; Possessivpronomen</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Subjekt</th><th>Objekt</th><th>Besitz (adj.)</th><th>Besitz (noun)</th><th>Reflexiv</th></tr></thead>
+          <tbody>
+            <tr><td>I</td><td>me</td><td>my</td><td>mine</td><td>myself</td></tr>
+            <tr><td>you</td><td>you</td><td>your</td><td>yours</td><td>yourself</td></tr>
+            <tr><td>he</td><td>him</td><td>his</td><td>his</td><td>himself</td></tr>
+            <tr><td>she</td><td>her</td><td>her</td><td>hers</td><td>herself</td></tr>
+            <tr><td>it</td><td>it</td><td>its</td><td>its</td><td>itself</td></tr>
+            <tr><td>we</td><td>us</td><td>our</td><td>ours</td><td>ourselves</td></tr>
+            <tr><td>they</td><td>them</td><td>their</td><td>theirs</td><td>themselves</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gtbl-card">
+        <h3 class="c3">Fragewörter (Question Words)</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Wort</th><th>Bedeutung</th><th>Beispiel</th></tr></thead>
+          <tbody>
+            <tr><td>Who</td><td>Wer / Wen</td><td>"Who called you?"</td></tr>
+            <tr><td>What</td><td>Was</td><td>"What do you want?"</td></tr>
+            <tr><td>Where</td><td>Wo / Wohin</td><td>"Where are you going?"</td></tr>
+            <tr><td>When</td><td>Wann</td><td>"When does it start?"</td></tr>
+            <tr><td>Why</td><td>Warum</td><td>"Why are you late?"</td></tr>
+            <tr><td>How</td><td>Wie</td><td>"How did you do that?"</td></tr>
+            <tr><td>Which</td><td>Welche(r/s)</td><td>"Which one do you prefer?"</td></tr>
+            <tr><td>Whose</td><td>Wessen</td><td>"Whose bag is this?"</td></tr>
+            <tr><td>How much</td><td>Wie viel (unzählbar)</td><td>"How much does it cost?"</td></tr>
+            <tr><td>How many</td><td>Wie viele (zählbar)</td><td>"How many people are there?"</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- VERBEN -->
+    <div class="gram-sec" id="gs4">
+      <div class="gtbl-card">
+        <h3 class="c4">Modalverben</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Modal</th><th>Bedeutung</th><th>Beispiel</th></tr></thead>
+          <tbody>
+            <tr><td>can / could</td><td>können / konnte</td><td>"I can speak English."</td></tr>
+            <tr><td>may / might</td><td>darf / könnte</td><td>"It might rain today."</td></tr>
+            <tr><td>must</td><td>muss (Pflicht)</td><td>"You must wear a seatbelt."</td></tr>
+            <tr><td>have to</td><td>muss (Notwendigkeit)</td><td>"I have to finish this."</td></tr>
+            <tr><td>should</td><td>sollte (Empfehlung)</td><td>"You should see a doctor."</td></tr>
+            <tr><td>will</td><td>wird (Zukunft)</td><td>"I will help you."</td></tr>
+            <tr><td>would</td><td>würde (Höflichkeit)</td><td>"Would you like some tea?"</td></tr>
+            <tr><td>needn't</td><td>muss nicht</td><td>"You needn't hurry."</td></tr>
+            <tr><td>mustn't</td><td>darf nicht</td><td>"You mustn't smoke here."</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gtbl-card">
+        <h3 class="c4">Passiv (Passive Voice)</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Zeitform</th><th>Formel</th><th>Beispiel</th></tr></thead>
+          <tbody>
+            <tr><td>Present</td><td>is/are + V3</td><td>"English is spoken here."</td></tr>
+            <tr><td>Past</td><td>was/were + V3</td><td>"The car was stolen."</td></tr>
+            <tr><td>Present Perfect</td><td>has/have been + V3</td><td>"It has been done."</td></tr>
+            <tr><td>Will</td><td>will be + V3</td><td>"It will be delivered."</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gtbl-card">
+        <h3 class="c4">Wichtige Phrasal Verbs</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Phrasal Verb</th><th>Bedeutung</th><th>Beispiel</th></tr></thead>
+          <tbody>
+            <tr><td>get along with</td><td>auskommen mit</td><td>"I get along with my colleagues."</td></tr>
+            <tr><td>find out</td><td>herausfinden</td><td>"I found out the truth."</td></tr>
+            <tr><td>give up</td><td>aufgeben</td><td>"Don't give up!"</td></tr>
+            <tr><td>look forward to</td><td>sich freuen auf</td><td>"I look forward to meeting you."</td></tr>
+            <tr><td>set up</td><td>einrichten / gründen</td><td>"They set up a new company."</td></tr>
+            <tr><td>carry out</td><td>durchführen</td><td>"We carried out a survey."</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- SONSTIGES -->
+    <div class="gram-sec" id="gs5">
+      <div class="gram-cards">
+        <div class="gc"><div class="gc-name c5">Steigerung der Adjektive</div><div class="gc-formula">kurz: -er/-est · lang: more/most</div><div class="gc-ex"><strong>fast → faster → the fastest</strong></div><div class="gc-ex"><strong>interesting → more interesting → the most interesting</strong></div><div class="gc-de">Unregelmäßig: good→better→best · bad→worse→worst</div></div>
+        <div class="gc"><div class="gc-name c5">much / many / a lot of</div><div class="gc-formula">much + unzählbar · many + zählbar</div><div class="gc-ex"><strong>"How much time?" / "How many people?"</strong></div><div class="gc-de">a lot of geht mit beiden; much/many in Fragen &amp; Verneinungen</div><span class="gc-chip c5s">little/few (wenig) · a little/a few (etwas)</span></div>
+        <div class="gc"><div class="gc-name c5">Gerund vs. Infinitiv</div><div class="gc-formula">V-ing = Gerund · to + V = Infinitiv</div><div class="gc-ex"><strong>"I enjoy swimming." / "I want to swim."</strong></div><div class="gc-de">enjoy/finish/avoid + Gerund · want/need/decide + Infinitiv</div><div style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px"><div style="background:var(--green-lt);border-radius:8px;padding:8px"><strong style="color:var(--green)">+ Gerund (-ing)</strong><br>enjoy · don't mind<br>consider · recommend<br>suggest · practise<br>give up · avoid<br>deny · miss</div><div style="background:var(--accent-lt);border-radius:8px;padding:8px"><strong style="color:var(--accent)">+ Infinitiv (to)</strong><br>would like · try<br>promise · hope<br>want · decide<br>refuse · manage<br>expect</div></div><div class="gc-ex" style="margin-top:8px"><strong>"Learning English is fun." (Gerund als Subjekt)</strong><br><strong>"I'm good at speaking English." (nach Präposition)</strong></div></div>
+        <div class="gc"><div class="gc-name c5">Präpositionen (Zeit)</div><div class="gc-formula">at · in · on</div><div class="gc-ex"><strong>at 9 o'clock · in January · on Monday</strong></div><div class="gc-de">at = Uhrzeit · in = Monat/Jahr · on = Tag/Datum</div></div>
+        <div class="gc"><div class="gc-name c5">Präpositionen (Ort)</div><div class="gc-formula">at · in · on</div><div class="gc-ex"><strong>at the station · in Berlin · on the table</strong></div><div class="gc-de">at = Punkt/Adresse · in = Ort/Stadt · on = Oberfläche</div></div>
+        <div class="gc"><div class="gc-name c5">Häufigkeitsadverbien</div><div class="gc-formula">Position: vor Hauptverb / nach be</div><div class="gc-ex"><strong>"She always works hard."</strong></div><div class="gc-de">always(100%) → usually → often → sometimes → rarely → never(0%)</div></div>
+      </div>
+    </div>
+
+    <div class="gram-sec active" id="gsq">
       <div class="gram-list" id="gram-list"></div>
+    </div>
+  </div>
     </div>
 
     <!-- CHALLENGE -->
@@ -2201,7 +2479,7 @@ const VOKABELN = [
 const GRAMMATIK = [
   {
     icon:'🧭', name:'Alle Tenses — Übersicht mit "watch" (20.11.2026)', level:'A2/B1',
-    rule:'<b>Ein Verb, alle Zeiten: watch.</b><br>PAST: I watched TV (abgeschlossen) · I was watching TV at 8pm (lief gerade) · I had watched it before (noch früher) · I had been watching for 2 hours (Dauer bis zu einem Punkt in der Vergangenheit).<br>PRESENT: I watch TV every day (Gewohnheit, Fakt) · I am watching TV now (gerade jetzt) · I have watched this film (Erfahrung, Verbindung zu jetzt) · I have been watching for 1 hour (Dauer bis jetzt).<br>FUTURE: I will watch it tomorrow (spontan, Versprechen, Vorhersage) · I am going to watch it tonight (geplant) · I am watching it on Saturday (fester Termin).<br><b>Signalwörter:</b> yesterday/ago/last week → Past Simple · while/when/at 8pm yesterday → Past Continuous · already/yet/ever/never/just/for/since → Present Perfect · now/at the moment/Look! → Present Continuous · every day/always/usually → Present Simple · tomorrow/next week → will / going to.<br>👉 Alle Tabellen, Kurzformen und Spelling-Regeln: Home → <b>Grammatik-Übersicht</b> → Tab <b>Alle Tenses</b>.',
+    rule:'<b>Ein Verb, alle Zeiten: watch.</b><br>PAST: I watched TV (abgeschlossen) · I was watching TV at 8pm (lief gerade) · I had watched it before (noch früher) · I had been watching for 2 hours (Dauer bis zu einem Punkt in der Vergangenheit).<br>PRESENT: I watch TV every day (Gewohnheit, Fakt) · I am watching TV now (gerade jetzt) · I have watched this film (Erfahrung, Verbindung zu jetzt) · I have been watching for 1 hour (Dauer bis jetzt).<br>FUTURE: I will watch it tomorrow (spontan, Versprechen, Vorhersage) · I am going to watch it tonight (geplant) · I am watching it on Saturday (fester Termin).<br><b>Signalwörter:</b> yesterday/ago/last week → Past Simple · while/when/at 8pm yesterday → Past Continuous · already/yet/ever/never/just/for/since → Present Perfect · now/at the moment/Look! → Present Continuous · every day/always/usually → Present Simple · tomorrow/next week → will / going to.<br>👉 Alle Tabellen, Kurzformen und Spelling-Regeln: Grammatik → Tab <b>Alle Tenses &amp; Tom</b>.',
     examples:[
       {en:'I watched a film yesterday.',de:'Past Simple — abgeschlossen, mit Zeitangabe (yesterday). Verneinung: I didn\'t watch.'},
       {en:'While I was watching TV, my phone rang.',de:'Past Continuous (längere Aktion im Hintergrund) + Past Simple (kurze Aktion, unterbricht).'},
@@ -3061,7 +3339,7 @@ const UI_TRANS = {
     save: '💾 Speichern',
     vok_stat_of: 'von', vok_stat_learned: 'gelernt',
     hw_stat: 'Aufgaben ansehen',
-    gram_sub: '8 Regeln · A2/B1',
+    gram_sub: 'Themen · Quiz · Alle Tenses mit Tom',
     chal_sub: 'Tägliche Übung',
     days_names: ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],
     nav_home: 'Start', nav_vokabeln: 'Vokabeln', nav_grammatik: 'Grammatik',
@@ -3106,7 +3384,7 @@ const UI_TRANS = {
     save: '💾 حفظ',
     vok_stat_of: 'من', vok_stat_learned: 'تم تعلمها',
     hw_stat: 'عرض المهام',
-    gram_sub: '8 قواعد · A2/B1',
+    gram_sub: 'المواضيع · اختبار · الأزمنة مع توم',
     chal_sub: 'تمرين يومي',
     days_names: ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'],
     nav_home: 'الرئيسية', nav_vokabeln: 'المفردات', nav_grammatik: 'القواعد',
@@ -3151,7 +3429,7 @@ const UI_TRANS = {
     save: '💾 შენახვა',
     vok_stat_of: '', vok_stat_learned: 'სიტყვა ნასწავლია',
     hw_stat: 'დავალებების ნახვა',
-    gram_sub: '8 წესი · A2/B1',
+    gram_sub: 'თემები · ტესტი · დროები ტომთან',
     chal_sub: 'ყოველდღიური ვარჯიში',
     days_names: ['კვირა','ორშაბათი','სამშაბათი','ოთხშაბათი','ხუთშაბათი','პარასკევი','შაბათი'],
     nav_home: 'მთავარი', nav_vokabeln: 'სიტყვები', nav_grammatik: 'გრამატ.',
@@ -4384,37 +4662,35 @@ function initChallenge() {
 function updateDailyBanner() {
   const banner = document.getElementById('daily-banner');
   if (!banner) return;
-  const todayKey = new Date().toISOString().slice(0,10);
-  const lastDone = localStorage.getItem('dq-last-done') || '';
-  const done = lastDone === todayKey;
   const icon = document.getElementById('daily-banner-icon');
   const title = document.getElementById('daily-banner-title');
   const sub = document.getElementById('daily-banner-sub');
   const arrow = document.getElementById('daily-banner-arrow');
-  const lang = localStorage.getItem('ela_lang') || 'de';
+  let st = null;
+  try { st = heuteState(); } catch(e) {}
   banner.style.display = 'flex';
   banner.classList.remove('pending','done');
-  if (done) {
+  banner.onclick = function(){ try { openHeute(); } catch(e) { go('challenge'); } };
+  if (!st) return;
+  const nDone = st.done.filter(Boolean).length;
+  if (nDone === 4) {
     banner.classList.add('done');
-    banner.onclick = null;
+    banner.style.cursor = 'pointer';
     if (icon) icon.textContent = '✅';
-    if (title) title.textContent = lang==='ar' ? 'أحسنت! اكتملت مهمة اليوم' : lang==='ka' ? 'გაიკეთე! დღევანდელი ამოცანა დასრულდა' : 'Super! Heutiges Quiz erledigt';
-    if (sub) sub.textContent = lang==='ar' ? 'عد غداً للتحدي التالي 🌟' : lang==='ka' ? 'ხვალ დაბრუნდი შემდეგი გამოწვევისთვის 🌟' : 'Morgen wartet das nächste Quiz 🌟';
+    if (title) title.textContent = heuteU('bannerDone');
+    if (sub) sub.textContent = heuteU('bannerDoneSub');
     if (arrow) arrow.textContent = '✓';
   } else {
     banner.classList.add('pending');
-    banner.onclick = function(){ go('challenge'); };
-    if (icon) icon.textContent = '🎯';
-    if (title) title.textContent = lang==='ar' ? 'لم تتدرب اليوم بعد!' : lang==='ka' ? 'დღეს ჯერ არ ვარჯიშობდი!' : 'Heute noch nicht geübt!';
-    if (sub) sub.textContent = lang==='ar' ? 'ابدأ اختبار اليوم ←' : lang==='ka' ? 'დღევანდელი ვიქტორინის დაწყება ←' : 'Tägliches Quiz starten →';
+    if (icon) icon.textContent = nDone ? '⏳' : '📚';
+    if (title) title.textContent = heuteU('bannerTitle');
+    if (sub) sub.textContent = heuteU('bannerSub')(nDone, 4, heuteMinutes(st));
     if (arrow) arrow.textContent = '→';
   }
 }
 
 function dailyBannerClick() {
-  const todayKey = new Date().toISOString().slice(0,10);
-  const lastDone = localStorage.getItem('dq-last-done') || '';
-  if (lastDone !== todayKey) go('challenge');
+  try { openHeute(); } catch(e) { go('challenge'); }
 }
 
 function showChStart() {
@@ -4619,7 +4895,7 @@ function nextCQ() {
       document.getElementById('s-best').textContent = Math.max(score,best) + '/10';
       // Banner ausblenden
       const banner = document.getElementById('daily-banner');
-      if (banner) banner.style.display = 'none';
+      updateDailyBanner();
     } catch(e){}
   } else {
     renderCQ();
@@ -6328,271 +6604,21 @@ function resetPruefung() {
 }
 </script>
 <!-- ===== GRAMMATIK-ÜBERSICHT MODAL ===== -->
-<div id="gram-ref-modal" onclick="closeGramRefOutside(event)">
+<div id="heute-modal" onclick="if(event.target===this)closeHeute()">
   <div class="gram-ref-inner" onclick="event.stopPropagation()">
     <div class="gram-ref-header">
-      <h2>📚 Grammatik-Übersicht</h2>
-      <button class="gram-ref-close" onclick="closeGramRef();event.stopPropagation()">✕</button>
+      <h2 id="heute-title">📚 Heute lernen</h2>
+      <button class="gram-ref-close" onclick="closeHeute();event.stopPropagation()">✕</button>
     </div>
-    <div class="gram-tabs">
-      <button class="gram-tab active" onclick="showGramSec('gs0',this)">🧭 Alle Tenses</button>
-      <button class="gram-tab" onclick="showGramSec('gs1',this)">⏱ Zeitformen</button>
-      <button class="gram-tab" onclick="showGramSec('gs2',this)">📐 Sätze</button>
-      <button class="gram-tab" onclick="showGramSec('gs3',this)">👤 Pronomen</button>
-      <button class="gram-tab" onclick="showGramSec('gs4',this)">🔧 Verben</button>
-      <button class="gram-tab" onclick="showGramSec('gs5',this)">📌 Sonstiges</button>
-    </div>
-
-    <!-- ALLE TENSES (20.11.2026) -->
-    <div class="gram-sec active" id="gs0">
-      <div id="tom-box"></div>
-      <div class="gram-note"><strong>Ein Verb, alle Zeiten: watch.</strong> Für jede Zeit: Beispiel · Wann? · Signalwörter. Ganz unten: Kurzformen, Spelling-Regeln und typische Fehler.</div>
-      <div class="gtbl-card">
-        <h3 class="c1">⬅️ Past (Vergangenheit)</h3>
-        <div class="gtbl-wrap"><table>
-          <thead><tr><th>Tense</th><th>Beispiel</th><th>Wann? · 🔑 Signalwörter</th></tr></thead>
-          <tbody>
-            <tr><td>Past Simple</td><td>I watched TV.</td><td>abgeschlossen, fertig<br><span class="tsig">🔑 yesterday, ago, last week, in 2010</span></td></tr>
-            <tr><td>Past Continuous</td><td>I was watching TV at 8pm.</td><td>lief gerade, wurde unterbrochen<br><span class="tsig">🔑 while, when, at 8pm yesterday</span></td></tr>
-            <tr><td>Past Perfect</td><td>I had watched it before.</td><td>noch vor einer anderen Vergangenheit<br><span class="tsig">🔑 before, after, already, by the time</span></td></tr>
-            <tr><td>Past Perf. Cont.</td><td>I had been watching for 2 hours.</td><td>Dauer bis zu einem Punkt in der Vergangenheit<br><span class="tsig">🔑 for, since, all day (bis damals)</span></td></tr>
-          </tbody>
-        </table></div>
-      </div>
-      <div class="gtbl-card">
-        <h3 class="c1">⏺️ Present (Gegenwart)</h3>
-        <div class="gtbl-wrap"><table>
-          <thead><tr><th>Tense</th><th>Beispiel</th><th>Wann? · 🔑 Signalwörter</th></tr></thead>
-          <tbody>
-            <tr><td>Present Simple</td><td>I watch TV every day.<br>She watch<b>es</b> TV.</td><td>Gewohnheit, Fakt<br><span class="tsig">🔑 every day, always, usually, often, never</span></td></tr>
-            <tr><td>Present Continuous</td><td>I am watching TV now.</td><td>gerade jetzt, vorübergehend<br><span class="tsig">🔑 now, at the moment, today, Look!</span></td></tr>
-            <tr><td>Present Perfect</td><td>I have watched this film.</td><td>Erfahrung, Verbindung zu jetzt<br><span class="tsig">🔑 already, yet, ever, never, just, for, since</span></td></tr>
-            <tr><td>Pres. Perf. Cont.</td><td>I have been watching for 1 hour.</td><td>Dauer bis jetzt<br><span class="tsig">🔑 for, since, all day, how long</span></td></tr>
-          </tbody>
-        </table></div>
-      </div>
-      <div class="gtbl-card">
-        <h3 class="c1">➡️ Future (Zukunft)</h3>
-        <div class="gtbl-wrap"><table>
-          <thead><tr><th>Form</th><th>Beispiel</th><th>Wann? · 🔑 Signalwörter</th></tr></thead>
-          <tbody>
-            <tr><td>will</td><td>I will watch it tomorrow.<br>I'll answer it!</td><td>spontan, Versprechen, Vorhersage (Meinung)<br><span class="tsig">🔑 tomorrow, I think, probably</span></td></tr>
-            <tr><td>going to</td><td>I am going to watch it tonight.</td><td>schon geplant · Vorhersage mit Beweis<br><span class="tsig">🔑 tonight, next week, Look at …!</span></td></tr>
-            <tr><td>Pres. Continuous</td><td>I am watching it on Saturday.</td><td>fester Termin, verabredet<br><span class="tsig">🔑 on Saturday, at 7pm, tomorrow</span></td></tr>
-          </tbody>
-        </table></div>
-      </div>
-      <div class="gtbl-card">
-        <h3 class="c4">✅ ❌ ❓ Positiv · Negativ · Frage</h3>
-        <div class="gtbl-wrap"><table>
-          <thead><tr><th>Tense</th><th>✅ Positiv</th><th>❌ Negativ</th><th>❓ Frage</th></tr></thead>
-          <tbody>
-            <tr><td>Present Simple</td><td>I watch / she watches</td><td>I don't watch / she doesn't watch</td><td>Do you watch? / Does she watch?</td></tr>
-            <tr><td>Present Continuous</td><td>I'm watching</td><td>I'm not watching</td><td>Are you watching?</td></tr>
-            <tr><td>Past Simple</td><td>I watched</td><td>I didn't watch</td><td>Did you watch?</td></tr>
-            <tr><td>Past Continuous</td><td>I was / we were watching</td><td>I wasn't / we weren't watching</td><td>Were you watching?</td></tr>
-            <tr><td>Present Perfect</td><td>I have / she has watched</td><td>I haven't / she hasn't watched</td><td>Have you watched?</td></tr>
-            <tr><td>will</td><td>I'll watch</td><td>I won't watch</td><td>Will you watch?</td></tr>
-            <tr><td>going to</td><td>I'm going to watch</td><td>I'm not going to watch</td><td>Are you going to watch?</td></tr>
-          </tbody>
-        </table></div>
-      </div>
-      <div class="gram-cards">
-        <div class="gc"><div class="gc-name c1">will vs. going to</div><div class="gc-formula">spontan → will · schon entschieden → going to</div><div class="gc-ex"><strong>"The phone is ringing!" — "I'll answer it!"</strong></div><div class="gc-ex"><strong>"I'm going to call him later."</strong></div><div class="gc-de">Fester Termin mit Uhrzeit/Tag → Present Continuous: "We're flying to London on Monday."</div></div>
-        <div class="gc"><div class="gc-name c1">Past Continuous + Past Simple</div><div class="gc-formula">lange Aktion (was/were + -ing) + kurze Aktion (V2)</div><div class="gc-ex"><strong>"While I was watching TV, my phone rang."</strong></div><div class="gc-ex"><strong>"She was cooking when he came home."</strong></div><div class="gc-de">while + Past Continuous (Hintergrund) · when + Past Simple (unterbricht)</div></div>
-        <div class="gc"><div class="gc-name c1">am / is / are</div><div class="gc-formula">Subject + am/is/are + verb-ing</div><div class="gc-ex"><strong>I am · he/she/it is · you/we/they are</strong></div><div class="gc-de">I am watching TV. · She is reading a book. · They are learning English.</div></div>
-        <div class="gc"><div class="gc-name c1">did / didn't + Grundform</div><div class="gc-formula">Negativ & Frage im Past Simple: did + V</div><div class="gc-ex"><strong>❌ She didn't went. ✅ She didn't go.</strong></div><div class="gc-de">Die Vergangenheit steckt schon in "did" — das Verb bleibt in der Grundform.</div></div>
-      </div>
-      <div class="gtbl-card" style="margin-top:12px">
-        <h3 class="c3">✂️ Kurzformen (Short forms)</h3>
-        <div class="gtbl-wrap"><table>
-          <thead><tr><th>Lang</th><th>Kurz</th><th>Negativ</th></tr></thead>
-          <tbody>
-            <tr><td>I am</td><td>I'm</td><td>I'm not</td></tr>
-            <tr><td>you are</td><td>you're</td><td>you aren't</td></tr>
-            <tr><td>he / she / it is</td><td>he's / she's / it's</td><td>he isn't / she isn't / it isn't</td></tr>
-            <tr><td>we / they are</td><td>we're / they're</td><td>we aren't / they aren't</td></tr>
-            <tr><td>was / were not</td><td>—</td><td>wasn't / weren't</td></tr>
-            <tr><td>do / does / did not</td><td>—</td><td>don't / doesn't / didn't</td></tr>
-            <tr><td>have / has</td><td>I've / she's</td><td>haven't / hasn't</td></tr>
-            <tr><td>will</td><td>I'll / you'll</td><td>won't (= will not)</td></tr>
-          </tbody>
-        </table></div>
-      </div>
-      <div class="gtbl-card">
-        <h3 class="c5">🔤 Spelling-Regeln</h3>
-        <div class="gtbl-wrap"><table>
-          <thead><tr><th>Regel</th><th>-ing</th><th>-ed (Past)</th></tr></thead>
-          <tbody>
-            <tr><td>normal</td><td>play → playing</td><td>work → worked</td></tr>
-            <tr><td>stummes -e fällt weg</td><td>come → coming</td><td>live → lived</td></tr>
-            <tr><td>kurz: Konsonant doppelt</td><td>sit → sitting</td><td>stop → stopped</td></tr>
-            <tr><td>Konsonant + y</td><td>study → studying</td><td>study → studied</td></tr>
-            <tr><td>-ie → -y</td><td>lie → lying</td><td>—</td></tr>
-          </tbody>
-        </table></div>
-      </div>
-      <div class="gtbl-card">
-        <h3 class="c4">📌 Unregelmäßige Verben (auswendig!)</h3>
-        <div class="gtbl-wrap"><table>
-          <thead><tr><th>Grundform</th><th>Past Simple</th><th>Beispiel</th></tr></thead>
-          <tbody>
-            <tr><td>go</td><td>went</td><td>I went to school yesterday.</td></tr>
-            <tr><td>have</td><td>had</td><td>We had a great time last night.</td></tr>
-            <tr><td>see</td><td>saw</td><td>I saw a good film last week.</td></tr>
-            <tr><td>buy</td><td>bought</td><td>She bought a new phone last month.</td></tr>
-            <tr><td>come</td><td>came</td><td>He came home late last night.</td></tr>
-            <tr><td>eat</td><td>ate</td><td>We ate pizza yesterday.</td></tr>
-            <tr><td>drink</td><td>drank</td><td>I drank too much coffee today.</td></tr>
-          </tbody>
-        </table></div>
-      </div>
-      <div class="gram-note"><strong>Typische Fehler:</strong> ❌ I m reading → ✅ I'm reading · "I" immer groß, Nomen klein (a book, football) · ❌ She didn't went → ✅ She didn't go · ❌ Have you seen it yesterday? → ✅ Did you see it yesterday? · enjoy + -ing: ✅ I'm enjoying playing football.</div>
-    </div>
-
-    <!-- ZEITFORMEN -->
-    <div class="gram-sec" id="gs1">
-      <div class="gram-legend">
-        <span><strong>V</strong> = Grundform (go, work)</span>
-        <span><strong>V2</strong> = Simple Past (went, worked)</span>
-        <span><strong>V3</strong> = Partizip (gone, worked)</span>
-        <span><strong>S</strong> = Subjekt &nbsp;<strong>O</strong> = Objekt</span>
-      </div>
-      <div class="gram-cards">
-        <div class="gc"><div class="gc-name c1">Simple Present</div><div class="gc-formula">S + V / V+s (he/she/it)</div><div class="gc-ex"><strong>"She works here every day."</strong></div><div class="gc-ex-de">„Sie arbeitet hier jeden Tag."</div><div class="gc-de">Gewohnheiten, Fakten, Zustände</div><span class="gc-chip c1s">always · often · never · every day</span></div>
-        <div class="gc"><div class="gc-name c1">Present Progressive</div><div class="gc-formula">S + am/is/are + V-ing</div><div class="gc-ex"><strong>"She is working right now."</strong></div><div class="gc-ex-de">„Sie arbeitet gerade jetzt."</div><div class="gc-de">Gerade passierend · Vorübergehend</div><span class="gc-chip c1s">now · at the moment · currently</span></div>
-        <div class="gc"><div class="gc-name c1">Present Perfect</div><div class="gc-formula">S + have/has + V3</div><div class="gc-ex"><strong>"She has worked here for 3 years."</strong></div><div class="gc-ex-de">„Sie hat hier 3 Jahre lang gearbeitet."</div><div class="gc-de">Ergebnis/Verbindung zur Gegenwart</div><span class="gc-chip c1s">just · already · yet · ever · since · for</span></div>
-        <div class="gc"><div class="gc-name c1">Present Perfect Progressive</div><div class="gc-formula">S + have/has been + V-ing</div><div class="gc-ex"><strong>"She has been working all day."</strong></div><div class="gc-ex-de">„Sie arbeitet schon den ganzen Tag."</div><div class="gc-de">Dauer einer andauernden Handlung</div><span class="gc-chip c1s">for · since · all day · how long</span></div>
-        <div class="gc"><div class="gc-name c1">Simple Past</div><div class="gc-formula">S + V-ed (reg.) / V2 (irreg.)</div><div class="gc-ex"><strong>"She worked yesterday."</strong></div><div class="gc-ex-de">„Sie hat gestern gearbeitet."</div><div class="gc-de">Abgeschlossene Vergangenheit</div><span class="gc-chip c1s">yesterday · last year · ago · in 1990</span></div>
-        <div class="gc"><div class="gc-name c1">Past Progressive</div><div class="gc-formula">S + was/were + V-ing</div><div class="gc-ex"><strong>"She was working when I called."</strong></div><div class="gc-ex-de">„Sie arbeitete gerade, als ich anrief."</div><div class="gc-de">Gleichzeitig in der Vergangenheit</div><span class="gc-chip c1s">while · when · at that time</span></div>
-        <div class="gc"><div class="gc-name c1">Past Perfect</div><div class="gc-formula">S + had + V3</div><div class="gc-ex"><strong>"She had worked before she left."</strong></div><div class="gc-ex-de">„Sie hatte gearbeitet, bevor sie ging."</div><div class="gc-de">Vor einem anderen Vergangenheitspunkt</div><span class="gc-chip c1s">before · after · already · by the time</span></div>
-        <div class="gc"><div class="gc-name c1">Will-Future</div><div class="gc-formula">S + will + V</div><div class="gc-ex"><strong>"I'll help you with that."</strong></div><div class="gc-ex-de">„Ich werde dir dabei helfen."</div><div class="gc-de">Spontane Entscheidung · Prognose</div><span class="gc-chip c1s">I think · probably · I'm sure · maybe</span></div>
-        <div class="gc"><div class="gc-name c1">Going-to-Future</div><div class="gc-formula">S + am/is/are going to + V</div><div class="gc-ex"><strong>"I'm going to visit Berlin."</strong></div><div class="gc-ex-de">„Ich werde Berlin besuchen." (geplant)</div><div class="gc-de">Geplante Absicht · sichtbarer Beweis</div><span class="gc-chip c1s">tomorrow · next week · this summer</span></div>
-        <div class="gc"><div class="gc-name c1">Future Perfect</div><div class="gc-formula">S + will have + V3</div><div class="gc-ex"><strong>"By Friday, she will have finished."</strong></div><div class="gc-ex-de">„Bis Freitag wird sie fertig sein."</div><div class="gc-de">Bis zu einem Zeitpunkt abgeschlossen</div><span class="gc-chip c1s">by … · until … · before …</span></div>
-      </div>
-    </div>
-
-    <!-- SÄTZE -->
-    <div class="gram-sec" id="gs2">
-      <div class="gram-note"><strong>Grundregel:</strong> Englisch = Subject + Verb + Object (SVO). Das Verb steht immer an 2. Stelle.</div>
-      <div class="gram-cards">
-        <div class="gc"><div class="gc-name c2">Satzbau</div><div class="gc-formula">S + V + O + (Place) + (Time)</div><div class="gc-ex"><strong>"She reads books at home every day."</strong></div><div class="gc-ex-de">„Sie liest jeden Tag zu Hause Bücher."</div><div class="gc-de">Ort vor Zeit; Häufigkeitsadverbien vor dem Verb</div></div>
-        <div class="gc"><div class="gc-name c2">If-Clause Type 1</div><div class="gc-formula">If + Simple Present, … will + V</div><div class="gc-ex"><strong>"If it rains, we will cancel the trip."</strong></div><div class="gc-ex-de">„Wenn es regnet, sagen wir die Reise ab."</div><div class="gc-de">Reale, mögliche Situation in der Zukunft</div><span class="gc-chip c2s">möglich · wahrscheinlich</span></div>
-        <div class="gc"><div class="gc-name c2">If-Clause Type 2</div><div class="gc-formula">If + Simple Past, … would + V</div><div class="gc-ex"><strong>"If I had more money, I would travel."</strong></div><div class="gc-ex-de">„Wenn ich mehr Geld hätte, würde ich reisen."</div><div class="gc-de">Hypothetische / unwahrscheinliche Situation</div><span class="gc-chip c2s">unreal · hypothetisch</span></div>
-        <div class="gc"><div class="gc-name c2">If-Clause Type 3</div><div class="gc-formula">If + Past Perfect, … would have + V3</div><div class="gc-ex"><strong>"If I had studied, I would have passed."</strong></div><div class="gc-ex-de">„Wenn ich gelernt hätte, hätte ich bestanden."</div><div class="gc-de">Verpasste Möglichkeit in der Vergangenheit</div><span class="gc-chip c2s">irreale Vergangenheit</span></div>
-        <div class="gc"><div class="gc-name c2">Relative Clause</div><div class="gc-formula">… who / which / that + V …</div><div class="gc-ex"><strong>"The man who called is my boss."</strong></div><div class="gc-ex-de">„Der Mann, der angerufen hat, ist mein Chef."</div><div class="gc-de">who = Personen · which = Dinge · that = beides</div></div>
-        <div class="gc"><div class="gc-name c2">Contact Clause</div><div class="gc-formula">… (ohne Relativpronomen) + V …</div><div class="gc-ex"><strong>"The book (that) I read was great."</strong></div><div class="gc-ex-de">„Das Buch, das ich gelesen habe, war toll."</div><div class="gc-de">Relativpronomen kann wegfallen, wenn es Objekt ist</div></div>
-        <div class="gc"><div class="gc-name c2">Participle Construction</div><div class="gc-formula">V-ing / V3 … (statt Relativsatz)</div><div class="gc-ex"><strong>"The woman sitting there is my teacher."</strong></div><div class="gc-ex-de">„Die Frau, die dort sitzt, ist meine Lehrerin."</div><div class="gc-de">Kurzform des Relativsatzes · formeller Stil</div></div>
-        <div class="gc"><div class="gc-name c2">Sport-Verben: do / play / go</div><div class="gc-formula">GO + -ing · PLAY + Spiel/Instrument · DO + Fitness/Kampfsport</div><div class="gc-ex"><strong>"I go hiking / play chess / do yoga."</strong></div><div class="gc-ex-de">„go + -ing · play + Sportart · do + Einzelsport"</div><div class="gc-de">go hiking ✓ — go for hiking ✗ · play chess ✓ — do chess ✗ · do yoga ✓ — play yoga ✗</div><span class="gc-chip c2s">go -ing · play Spiel · do Fitness</span></div>
-        <div class="gc"><div class="gc-name c2">Satzbau: Die 4 häufigsten Fehler</div><div class="gc-formula">S + V + O · Do/Does/Did + S + V? · don't/doesn't/didn't + V · Simple Present vs. Progressive</div><div class="gc-ex"><strong>"I go to school every day." ✓ — "I go every day to school." ✗</strong></div><div class="gc-ex-de">„Deutsch: Verb kann ans Ende — Englisch: Verb bleibt auf Platz 2"</div><div class="gc-ex"><strong>"Do you like coffee?" ✓ — "You like coffee?" ✗</strong></div><div class="gc-ex-de">„Fragen immer mit Do/Does/Did beginnen (außer bei be/have)"</div><div class="gc-ex"><strong>"I don't know." ✓ — "I know not." ✗</strong></div><div class="gc-ex-de">„Verneinung: don't/doesn't/didn't + Grundform"</div><div class="gc-ex"><strong>"I work here." (Fakt) vs. "I am working now." (gerade jetzt)</strong></div><div class="gc-ex-de">„Simple Present = Gewohnheit · Progressive = gerade passierend"</div><div class="gc-de">1. Wortstellung: S+V+O · 2. Fragen: Do/Does/Did · 3. Verneinung: don't/doesn't · 4. Zeiten: Simple vs. -ing</div><span class="gc-chip c2s">S + V + O · Do? · don't · -ing jetzt</span></div>
-        <div class="gc"><div class="gc-name c2">Advice &amp; Suggestions</div><div class="gc-formula">should/ought to/could + V · Why don't you + V · How about/What about + -ing</div><div class="gc-ex"><strong>"Why don't you send an email to some companies?"</strong></div><div class="gc-ex-de">„Warum schickst du nicht eine E-Mail an einige Firmen?"</div><div class="gc-ex"><strong>"How about setting up your own website?"</strong></div><div class="gc-ex-de">„Was wäre damit, deine eigene Website aufzubauen?"</div><div class="gc-ex"><strong>"You ought to spend time improving your profile."</strong></div><div class="gc-ex-de">„Du solltest Zeit damit verbringen, dein Profil zu verbessern."</div><div class="gc-de">should/ought to/could + Infinitiv · Why don't you + Infinitiv · How about/What about/Why not try + -ing</div><span class="gc-chip c2s">could (schwach) · should · ought to · had better (dringend)</span></div>
-        <div class="gc"><div class="gc-name c2">Polite Requests: Will &amp; Shall</div><div class="gc-formula">Will you + V? (Bitte) · Shall I/we + V? (Angebot / Vorschlag)</div><div class="gc-ex"><strong>"Will you close the window, please?" ✓</strong></div><div class="gc-ex-de">„Kannst du bitte das Fenster schließen?" — Höfliche Bitte an jemanden</div><div class="gc-ex"><strong>"Shall I get you a coffee?" ✓</strong></div><div class="gc-ex-de">„Soll ich dir einen Kaffee holen?" — Angebot machen</div><div class="gc-ex"><strong>"Shall we go out tonight?" ✓</strong></div><div class="gc-ex-de">„Sollen wir heute Abend ausgehen?" — Vorschlag für gemeinsame Aktivität</div><div class="gc-de">will you = Bitte (du tust etwas) · shall I = Angebot (ich tue etwas) · shall we = Vorschlag (wir tun etwas zusammen)</div><span class="gc-chip c2s">Will you? (Bitte) · Shall I? (Angebot) · Shall we? (Vorschlag)</span></div>
-      </div>
-    </div>
-
-    <!-- PRONOMEN -->
-    <div class="gram-sec" id="gs3">
-      <div class="gtbl-card">
-        <h3 class="c3">Personalpronomen &amp; Possessivpronomen</h3>
-        <div class="gtbl-wrap"><table>
-          <thead><tr><th>Subjekt</th><th>Objekt</th><th>Besitz (adj.)</th><th>Besitz (noun)</th><th>Reflexiv</th></tr></thead>
-          <tbody>
-            <tr><td>I</td><td>me</td><td>my</td><td>mine</td><td>myself</td></tr>
-            <tr><td>you</td><td>you</td><td>your</td><td>yours</td><td>yourself</td></tr>
-            <tr><td>he</td><td>him</td><td>his</td><td>his</td><td>himself</td></tr>
-            <tr><td>she</td><td>her</td><td>her</td><td>hers</td><td>herself</td></tr>
-            <tr><td>it</td><td>it</td><td>its</td><td>its</td><td>itself</td></tr>
-            <tr><td>we</td><td>us</td><td>our</td><td>ours</td><td>ourselves</td></tr>
-            <tr><td>they</td><td>them</td><td>their</td><td>theirs</td><td>themselves</td></tr>
-          </tbody>
-        </table></div>
-      </div>
-      <div class="gtbl-card">
-        <h3 class="c3">Fragewörter (Question Words)</h3>
-        <div class="gtbl-wrap"><table>
-          <thead><tr><th>Wort</th><th>Bedeutung</th><th>Beispiel</th></tr></thead>
-          <tbody>
-            <tr><td>Who</td><td>Wer / Wen</td><td>"Who called you?"</td></tr>
-            <tr><td>What</td><td>Was</td><td>"What do you want?"</td></tr>
-            <tr><td>Where</td><td>Wo / Wohin</td><td>"Where are you going?"</td></tr>
-            <tr><td>When</td><td>Wann</td><td>"When does it start?"</td></tr>
-            <tr><td>Why</td><td>Warum</td><td>"Why are you late?"</td></tr>
-            <tr><td>How</td><td>Wie</td><td>"How did you do that?"</td></tr>
-            <tr><td>Which</td><td>Welche(r/s)</td><td>"Which one do you prefer?"</td></tr>
-            <tr><td>Whose</td><td>Wessen</td><td>"Whose bag is this?"</td></tr>
-            <tr><td>How much</td><td>Wie viel (unzählbar)</td><td>"How much does it cost?"</td></tr>
-            <tr><td>How many</td><td>Wie viele (zählbar)</td><td>"How many people are there?"</td></tr>
-          </tbody>
-        </table></div>
-      </div>
-    </div>
-
-    <!-- VERBEN -->
-    <div class="gram-sec" id="gs4">
-      <div class="gtbl-card">
-        <h3 class="c4">Modalverben</h3>
-        <div class="gtbl-wrap"><table>
-          <thead><tr><th>Modal</th><th>Bedeutung</th><th>Beispiel</th></tr></thead>
-          <tbody>
-            <tr><td>can / could</td><td>können / konnte</td><td>"I can speak English."</td></tr>
-            <tr><td>may / might</td><td>darf / könnte</td><td>"It might rain today."</td></tr>
-            <tr><td>must</td><td>muss (Pflicht)</td><td>"You must wear a seatbelt."</td></tr>
-            <tr><td>have to</td><td>muss (Notwendigkeit)</td><td>"I have to finish this."</td></tr>
-            <tr><td>should</td><td>sollte (Empfehlung)</td><td>"You should see a doctor."</td></tr>
-            <tr><td>will</td><td>wird (Zukunft)</td><td>"I will help you."</td></tr>
-            <tr><td>would</td><td>würde (Höflichkeit)</td><td>"Would you like some tea?"</td></tr>
-            <tr><td>needn't</td><td>muss nicht</td><td>"You needn't hurry."</td></tr>
-            <tr><td>mustn't</td><td>darf nicht</td><td>"You mustn't smoke here."</td></tr>
-          </tbody>
-        </table></div>
-      </div>
-      <div class="gtbl-card">
-        <h3 class="c4">Passiv (Passive Voice)</h3>
-        <div class="gtbl-wrap"><table>
-          <thead><tr><th>Zeitform</th><th>Formel</th><th>Beispiel</th></tr></thead>
-          <tbody>
-            <tr><td>Present</td><td>is/are + V3</td><td>"English is spoken here."</td></tr>
-            <tr><td>Past</td><td>was/were + V3</td><td>"The car was stolen."</td></tr>
-            <tr><td>Present Perfect</td><td>has/have been + V3</td><td>"It has been done."</td></tr>
-            <tr><td>Will</td><td>will be + V3</td><td>"It will be delivered."</td></tr>
-          </tbody>
-        </table></div>
-      </div>
-      <div class="gtbl-card">
-        <h3 class="c4">Wichtige Phrasal Verbs</h3>
-        <div class="gtbl-wrap"><table>
-          <thead><tr><th>Phrasal Verb</th><th>Bedeutung</th><th>Beispiel</th></tr></thead>
-          <tbody>
-            <tr><td>get along with</td><td>auskommen mit</td><td>"I get along with my colleagues."</td></tr>
-            <tr><td>find out</td><td>herausfinden</td><td>"I found out the truth."</td></tr>
-            <tr><td>give up</td><td>aufgeben</td><td>"Don't give up!"</td></tr>
-            <tr><td>look forward to</td><td>sich freuen auf</td><td>"I look forward to meeting you."</td></tr>
-            <tr><td>set up</td><td>einrichten / gründen</td><td>"They set up a new company."</td></tr>
-            <tr><td>carry out</td><td>durchführen</td><td>"We carried out a survey."</td></tr>
-          </tbody>
-        </table></div>
-      </div>
-    </div>
-
-    <!-- SONSTIGES -->
-    <div class="gram-sec" id="gs5">
-      <div class="gram-cards">
-        <div class="gc"><div class="gc-name c5">Steigerung der Adjektive</div><div class="gc-formula">kurz: -er/-est · lang: more/most</div><div class="gc-ex"><strong>fast → faster → the fastest</strong></div><div class="gc-ex"><strong>interesting → more interesting → the most interesting</strong></div><div class="gc-de">Unregelmäßig: good→better→best · bad→worse→worst</div></div>
-        <div class="gc"><div class="gc-name c5">much / many / a lot of</div><div class="gc-formula">much + unzählbar · many + zählbar</div><div class="gc-ex"><strong>"How much time?" / "How many people?"</strong></div><div class="gc-de">a lot of geht mit beiden; much/many in Fragen &amp; Verneinungen</div><span class="gc-chip c5s">little/few (wenig) · a little/a few (etwas)</span></div>
-        <div class="gc"><div class="gc-name c5">Gerund vs. Infinitiv</div><div class="gc-formula">V-ing = Gerund · to + V = Infinitiv</div><div class="gc-ex"><strong>"I enjoy swimming." / "I want to swim."</strong></div><div class="gc-de">enjoy/finish/avoid + Gerund · want/need/decide + Infinitiv</div><div style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px"><div style="background:var(--green-lt);border-radius:8px;padding:8px"><strong style="color:var(--green)">+ Gerund (-ing)</strong><br>enjoy · don't mind<br>consider · recommend<br>suggest · practise<br>give up · avoid<br>deny · miss</div><div style="background:var(--accent-lt);border-radius:8px;padding:8px"><strong style="color:var(--accent)">+ Infinitiv (to)</strong><br>would like · try<br>promise · hope<br>want · decide<br>refuse · manage<br>expect</div></div><div class="gc-ex" style="margin-top:8px"><strong>"Learning English is fun." (Gerund als Subjekt)</strong><br><strong>"I'm good at speaking English." (nach Präposition)</strong></div></div>
-        <div class="gc"><div class="gc-name c5">Präpositionen (Zeit)</div><div class="gc-formula">at · in · on</div><div class="gc-ex"><strong>at 9 o'clock · in January · on Monday</strong></div><div class="gc-de">at = Uhrzeit · in = Monat/Jahr · on = Tag/Datum</div></div>
-        <div class="gc"><div class="gc-name c5">Präpositionen (Ort)</div><div class="gc-formula">at · in · on</div><div class="gc-ex"><strong>at the station · in Berlin · on the table</strong></div><div class="gc-de">at = Punkt/Adresse · in = Ort/Stadt · on = Oberfläche</div></div>
-        <div class="gc"><div class="gc-name c5">Häufigkeitsadverbien</div><div class="gc-formula">Position: vor Hauptverb / nach be</div><div class="gc-ex"><strong>"She always works hard."</strong></div><div class="gc-de">always(100%) → usually → often → sometimes → rarely → never(0%)</div></div>
-      </div>
-    </div>
-
+    <div id="heute-body"></div>
   </div>
 </div>
 
+
 <script>
-function openGramRef(){document.getElementById('gram-ref-modal').classList.add('open');document.body.style.overflow='hidden';if(typeof tomRender==='function')tomRender();}
-function closeGramRef(){document.getElementById('gram-ref-modal').classList.remove('open');document.body.style.overflow='';}
-function closeGramRefOutside(e){if(e.target===document.getElementById('gram-ref-modal'))closeGramRef();}
+function openGramRef(tab){go('grammatik');const id=tab||'gs0';const b=document.getElementById('gtab-'+id)||document.querySelector('.gram-tab');showGramSec(id,b);if(typeof tomRender==='function')tomRender();}
+function closeGramRef(){}
+function closeGramRefOutside(e){}
 function showGramSec(id,btn){
   document.querySelectorAll('.gram-sec').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.gram-tab').forEach(t=>t.classList.remove('active'));
@@ -7117,4 +7143,195 @@ function tomAnswer(k){
 }
 document.addEventListener('DOMContentLoaded', tomRender);
 if (document.readyState !== 'loading') tomRender();
+</script>
+<script>
+/* ========== HEUTE LERNEN (tägliche Lerneinheit, 20.11.2026) ========== */
+const HEUTE_KEY = 'ela_heute';
+const HEUTE_SEEN_KEY = 'ela_heute_seen';
+const HEUTE_UI = {
+  de:{title:"📚 Heute lernen",sub:"Dein Plan für heute",steps:["🔁 Wiederholen","🆕 Neue Wörter","🧍 Tenses mit Tom","📝 Grammatik-Quiz"],stepSub:["Fehler und schwache Wörter (3 Übungsarten)","Neue Wörter aus dem Unterricht","Welche Zeit passt zur Szene?","Kurze Fragen zur Grammatik"],start:"Starten",cont:"Weiter",done:"erledigt",min:"Min",of:"von",parts:"Teile",next:"Weiter →",right:"✅ Richtig!",wrong:"❌ Richtig ist:",partDone:"Teil geschafft!",back:"Zurück zum Plan",allDone:"🎉 Super! Heute gelernt!",allDoneSub:"Morgen wartet ein neuer Plan.",result:"richtig",newWord:"Neues Wort",learnFirst:"Lies das Wort, hör es an, dann kommt ein kurzer Test.",check:"Kurzer Test",qWord:"Was bedeutet …?",qRev:"Wie heißt das auf Englisch?",qCloze:"Welches Wort fehlt im Satz?",tomQ:"Welcher Satz passt zur Szene?",bannerTitle:"Heute lernen",bannerSub:(d,n,m)=>d+" von "+n+" erledigt · ca. "+m+" Min",bannerDone:"Super! Heute gelernt ✅",bannerDoneSub:"Morgen wartet ein neuer Plan 🌟",again:"Nochmal üben"},
+  ar:{title:"📚 تعلّم اليوم",sub:"خطتك لليوم",steps:["🔁 مراجعة","🆕 كلمات جديدة","🧍 الأزمنة مع توم","📝 اختبار القواعد"],stepSub:["الأخطاء والكلمات الضعيفة","كلمات جديدة من الدرس","أي زمن يناسب المشهد؟","أسئلة قصيرة في القواعد"],start:"ابدأ",cont:"تابع",done:"تم",min:"دقيقة",of:"من",parts:"أجزاء",next:"التالي ←",right:"✅ صحيح!",wrong:"❌ الصحيح:",partDone:"أنهيت هذا الجزء!",back:"العودة إلى الخطة",allDone:"🎉 ممتاز! تعلّمت اليوم!",allDoneSub:"غدًا خطة جديدة.",result:"صحيح",newWord:"كلمة جديدة",learnFirst:"اقرأ الكلمة واستمع إليها، ثم يأتي اختبار قصير.",check:"اختبار قصير",qWord:"ما معنى …؟",qRev:"كيف تقول هذا بالإنجليزية؟",qCloze:"ما الكلمة الناقصة في الجملة؟",tomQ:"أي جملة تناسب المشهد؟",bannerTitle:"تعلّم اليوم",bannerSub:(d,n,m)=>"تم "+d+" من "+n+" · حوالي "+m+" دقيقة",bannerDone:"ممتاز! تعلّمت اليوم ✅",bannerDoneSub:"غدًا خطة جديدة 🌟",again:"تدرّب مرة أخرى"},
+  ka:{title:"📚 დღეს ვსწავლობ",sub:"შენი დღევანდელი გეგმა",steps:["🔁 გამეორება","🆕 ახალი სიტყვები","🧍 დროები ტომთან","📝 გრამატიკის ტესტი"],stepSub:["შეცდომები და სუსტი სიტყვები","ახალი სიტყვები გაკვეთილიდან","რომელი დრო შეესაბამება სცენას?","მოკლე კითხვები გრამატიკაზე"],start:"დაწყება",cont:"გაგრძელება",done:"შესრულდა",min:"წთ",of:"-დან",parts:"ნაწილი",next:"შემდეგი →",right:"✅ სწორია!",wrong:"❌ სწორია:",partDone:"ნაწილი დასრულდა!",back:"გეგმაზე დაბრუნება",allDone:"🎉 შესანიშნავია! დღეს ისწავლე!",allDoneSub:"ხვალ ახალი გეგმა გელოდება.",result:"სწორი",newWord:"ახალი სიტყვა",learnFirst:"წაიკითხე სიტყვა, მოუსმინე, შემდეგ მოკლე ტესტია.",check:"მოკლე ტესტი",qWord:"რას ნიშნავს …?",qRev:"როგორ არის ინგლისურად?",qCloze:"რომელი სიტყვა აკლია წინადადებას?",tomQ:"რომელი წინადადება შეესაბამება სცენას?",bannerTitle:"დღეს ვსწავლობ",bannerSub:(d,n,m)=>d+" / "+n+" შესრულდა · დაახლ. "+m+" წთ",bannerDone:"შესანიშნავია! დღეს ისწავლე ✅",bannerDoneSub:"ხვალ ახალი გეგმა გელოდება 🌟",again:"კიდევ ივარჯიშე"}
+};
+const HEUTE_SEC = [20, 40, 30, 25]; // Sekunden pro Aufgabe (Schätzung)
+let heuteRun = null;
+function heuteU(k){ let l='de'; try{ l=localStorage.getItem('ela_lang')||'de'; }catch(e){} return (HEUTE_UI[l]||HEUTE_UI.de)[k]; }
+function heuteToday(){ return new Date().toISOString().slice(0,10); }
+function heuteEsc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function heuteSeen(){ try{ return new Set(JSON.parse(localStorage.getItem(HEUTE_SEEN_KEY)||'[]')); }catch(e){ return new Set(); } }
+function heuteSaveState(st){ try{ localStorage.setItem(HEUTE_KEY, JSON.stringify(st)); }catch(e){} }
+
+function heuteBuildPlan(){
+  const seed = getTodaySeed();
+  const voks = VOKABELN.filter(v => v && v.w && (v.t||v.ta||v.tka));
+  // 1) Wiederholen: fällige Fehler + schwache Wörter, sonst zufällige
+  let rev = [];
+  try { rev = fehlerDue().filter(x=>x.kind==='vok').map(x=>x.w); } catch(e){}
+  try { getSRSWeakWords().forEach(w=>{ if(!rev.includes(w)) rev.push(w); }); } catch(e){}
+  rev = rev.filter(w => voks.some(v=>v.w===w)).slice(0,6);
+  if (rev.length < 6) seededShuffle(voks, seed+7).forEach(v=>{ if(rev.length<6 && !rev.includes(v.w)) rev.push(v.w); });
+  // 2) Neue Wörter: neueste Gruppen zuerst, noch nicht gesehen
+  const seen = heuteSeen(), neu = [];
+  const groups = (typeof VOK_GROUPS!=='undefined' ? VOK_GROUPS.map(g=>g.key) : []);
+  groups.forEach(k => voks.filter(v=>v.cat===k).forEach(v=>{ if(neu.length<5 && !seen.has(v.w) && !rev.includes(v.w) && !neu.includes(v.w)) neu.push(v.w); }));
+  if (neu.length < 5) seededShuffle(voks, seed+13).forEach(v=>{ if(neu.length<5 && !seen.has(v.w) && !rev.includes(v.w) && !neu.includes(v.w)) neu.push(v.w); });
+  // 3) Tom: 3 Zeiten
+  const tom = (typeof TOM_T!=='undefined') ? seededShuffle(TOM_T.filter(x=>x.grp!=='more'), seed+3).slice(0,3).map(x=>x.id) : [];
+  // 4) Grammatik: 5 Fragen
+  const gpool = [];
+  GRAMMATIK.forEach((g,gi)=>{ if (/Reading/.test(g.level)) return; (g.quizzes||[]).forEach((q,qi)=>{ if (q.opts && q.opts.length>=3) gpool.push([gi,qi]); }); });
+  const gram = seededShuffle(gpool, seed+21).slice(0,5);
+  return {date:heuteToday(), rev, neu, tom, gram, done:[false,false,false,false], score:[0,0,0,0]};
+}
+function heuteState(){
+  let st = null;
+  try { st = JSON.parse(localStorage.getItem(HEUTE_KEY)||'null'); } catch(e){}
+  if (!st || st.date !== heuteToday() || !st.done) { st = heuteBuildPlan(); heuteSaveState(st); }
+  return st;
+}
+function heuteCounts(st){ return [st.rev.length, st.neu.length, st.tom.length, st.gram.length]; }
+function heuteMinutes(st){ const c=heuteCounts(st); let s=0; c.forEach((n,i)=>{ if(!st.done[i]) s+=n*HEUTE_SEC[i]; }); return Math.max(1, Math.round(s/60)); }
+function heuteTotalMinutes(st){ const c=heuteCounts(st); let s=0; c.forEach((n,i)=>s+=n*HEUTE_SEC[i]); return Math.max(1, Math.round(s/60)); }
+function heuteIsDone(st){ st = st||heuteState(); return st.done.every(Boolean); }
+
+function openHeute(){
+  heuteRun = null;
+  document.getElementById('heute-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+  heuteRender();
+}
+function closeHeute(){
+  document.getElementById('heute-modal').classList.remove('open');
+  document.body.style.overflow='';
+  heuteRun = null;
+  try { updateDailyBanner(); } catch(e){}
+}
+function heuteVokQ(w, mode){
+  const v = VOKABELN.find(x=>x.w===w); if (!v) return null;
+  const right = getTrans(v);
+  const pool = shuffle(VOKABELN.filter(x=>x.w!==w && x.w && getTrans(x) && getTrans(x)!==right));
+  const pick = f => { const out=[]; pool.forEach(x=>{ const o=f(x); if(out.length<3 && o && !out.includes(o) && o!==f(v)) out.push(o); }); return out; };
+  const exTxt = String(v.ex||'').replace(/^"|"$/g,'');
+  const core = String(v.w).replace(/^(to |a |an |the )/i,'');
+  const re = new RegExp('\\b'+core.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'[a-z]*','i');
+  if (mode==='cloze' && exTxt && re.test(exTxt)) {
+    const m = exTxt.match(re)[0];
+    const opts = shuffle([m, ...pick(x=>String(x.w).replace(/^(to |a |an |the )/i,'')).slice(0,3)]);
+    return {type:'vok', mode, w, q:exTxt.replace(re,'_____'), ph:'', ex:v.ex||'', say:exTxt, opts, a:opts.indexOf(m)};
+  }
+  if (mode==='rev') {
+    const opts = shuffle([v.w, ...pick(x=>x.w)]);
+    return {type:'vok', mode, w, q:right, ph:'', ex:v.ex||'', say:v.w, opts, a:opts.indexOf(v.w)};
+  }
+  const opts = shuffle([right, ...pick(getTrans)]);
+  return {type:'vok', mode:'en', w, q:v.w, ph:v.ph||'', ex:v.ex||'', say:v.w, opts, a:opts.indexOf(right)};
+}
+function heuteTomQ(id){
+  const x = TOM_T.find(t=>t.id===id); if (!x) return null;
+  const pool = TOM_T.filter(t=>t.grp!=='more' && t.id!==x.id);
+  const partner = TOM_T.find(t=>t.id===x.cmp) || pool[0];
+  const third = shuffle(pool.filter(t=>t.id!==partner.id))[0];
+  const optsT = shuffle([x, partner, third]);
+  return {type:'tom', id, opts:optsT.map(t=>t.say), a:optsT.indexOf(x)};
+}
+function heuteGramQ(p){
+  const g = GRAMMATIK[p[0]]; const q = g && g.quizzes && g.quizzes[p[1]]; if (!q) return null;
+  return {type:'gram', q:q.q, name:g.name, opts:q.opts.slice(), a:q.a};
+}
+function heuteStart(step){
+  const st = heuteState();
+  let qs = [];
+  if (step===0) qs = st.rev.map((w,i)=>heuteVokQ(w, ['en','rev','cloze'][i%3]));
+  if (step===1) qs = st.neu.map((w,i)=>heuteVokQ(w, ['cloze','rev','en'][i%3]));
+  if (step===2) qs = st.tom.map(heuteTomQ);
+  if (step===3) qs = st.gram.map(heuteGramQ);
+  qs = qs.filter(Boolean);
+  heuteRun = {step, qs, i:0, ok:0, answered:false, cards: step===1 ? st.neu.slice() : null, ci:0};
+  heuteRender();
+}
+function heuteAnswer(k){
+  const r = heuteRun; if (!r || r.answered) return;
+  r.answered = true;
+  const q = r.qs[r.i], ok = k===q.a;
+  if (ok) r.ok++;
+  try { if (q.type==='vok') fehlerRecordVok(q.w, ok); else if (q.type==='gram') fehlerRecordQuestion(q.q, q.opts, q.opts[q.a], ok); } catch(e){}
+  document.querySelectorAll('#heute-body .qopt').forEach((b,j)=>{ b.style.pointerEvents='none'; if (j===q.a) b.classList.add('correct'); else if (j===k) b.classList.add('wrong'); });
+  const fb = document.getElementById('heute-fb');
+  let extra = '';
+  if (q.type==='tom') { const x = TOM_T.find(t=>t.id===q.id); extra = '<div class="heute-why">💡 <b>'+heuteEsc(x.name)+':</b> '+heuteEsc(tomTr(x.why))+'</div>'; }
+  if (q.type==='vok' && q.ex) extra = '<div class="heute-why">'+heuteEsc(q.ex)+'</div>';
+  fb.innerHTML = '<div class="heute-res '+(ok?'ok':'bad')+'">'+(ok?heuteU('right'):heuteU('wrong')+' '+heuteEsc(q.opts[q.a]))+'</div>'+extra+'<button class="gram-quiz-btn" onclick="heuteNext()">'+heuteU('next')+'</button>';
+  if (q.type==='vok' || q.type==='tom') { try { const txt = q.type==='vok' ? q.say : q.opts[q.a]; if (typeof tomSpeak==='function') tomSpeak(txt); } catch(e){} }
+}
+function heuteNext(){
+  const r = heuteRun; if (!r) return;
+  r.i++; r.answered=false;
+  if (r.i >= r.qs.length) {
+    const st = heuteState();
+    st.done[r.step] = true; st.score[r.step] = r.ok;
+    if (r.step===1) { const seen = heuteSeen(); st.neu.forEach(w=>seen.add(w)); try{ localStorage.setItem(HEUTE_SEEN_KEY, JSON.stringify([...seen])); }catch(e){} }
+    heuteSaveState(st);
+    try { trackLernActivity(); } catch(e){}
+    if (heuteIsDone(st)) heuteFinish();
+    r.finished = true;
+  }
+  heuteRender();
+}
+function heuteFinish(){
+  try {
+    const todayKey = heuteToday();
+    const yesterday = new Date(Date.now()-86400000).toISOString().slice(0,10);
+    const lastDone = localStorage.getItem('dq-last-done')||'';
+    let streak = parseInt(localStorage.getItem('dq-streak')||'0');
+    if (lastDone === yesterday) streak++; else if (lastDone !== todayKey) streak = 1;
+    localStorage.setItem('dq-streak', streak);
+    localStorage.setItem('dq-last-done', todayKey);
+    const el = document.getElementById('s-streak'); if (el) el.textContent = streak;
+  } catch(e){}
+  try { updateDailyBanner(); } catch(e){}
+}
+function heuteRender(){
+  const body = document.getElementById('heute-body'); if (!body) return;
+  document.getElementById('heute-title').textContent = heuteU('title');
+  const st = heuteState(), c = heuteCounts(st), r = heuteRun;
+  const nDone = st.done.filter(Boolean).length;
+  const bar = '<div class="heute-bar"><div style="width:'+Math.round(nDone/4*100)+'%"></div></div>';
+  if (!r || r.finished) {
+    let h = '';
+    if (r && r.finished) h += '<div class="heute-partdone">✅ '+heuteU('partDone')+' '+r.ok+' / '+r.qs.length+' '+heuteU('result')+'</div>';
+    if (heuteIsDone(st)) h += '<div class="heute-all"><div style="font-size:40px">🏆</div><b>'+heuteU('allDone')+'</b><div>'+heuteU('allDoneSub')+'</div></div>';
+    h += '<div class="heute-head">'+heuteU('sub')+' · '+nDone+' / 4 '+heuteU('done')+' · ⏱ ~'+(heuteIsDone(st)?heuteTotalMinutes(st):heuteMinutes(st))+' '+heuteU('min')+'</div>'+bar;
+    const nextStep = st.done.indexOf(false);
+    h += heuteU('steps').map((s,i)=>{
+      const d = st.done[i];
+      const btn = d ? '<span class="heute-ok">✓ '+st.score[i]+'/'+c[i]+'</span>' : '<button class="heute-go'+(i===nextStep?' main':'')+'" onclick="heuteStart('+i+')">'+(i===nextStep?heuteU('start'):'▶')+'</button>';
+      return '<div class="heute-step'+(d?' done':'')+'"><div class="t"><b>'+s+'</b><span>'+heuteU('stepSub')[i]+' · '+c[i]+' × · ~'+Math.max(1,Math.round(c[i]*HEUTE_SEC[i]/60))+' '+heuteU('min')+'</span></div>'+btn+'</div>';
+    }).join('');
+    if (heuteIsDone(st)) h += '<button class="heute-go" style="width:100%;margin-top:10px" onclick="heuteStart(3)">🔁 '+heuteU('again')+'</button>';
+    body.innerHTML = h;
+    if (r && r.finished) heuteRun = null;
+    return;
+  }
+  // laufender Teil
+  let h = '<div class="heute-head">'+heuteU('steps')[r.step]+' · '+(r.cards && r.ci<r.cards.length ? (r.ci+1)+' / '+r.cards.length : (r.i+1)+' / '+r.qs.length)+'</div>'+bar;
+  if (r.cards && r.ci < r.cards.length) {
+    const v = VOKABELN.find(x=>x.w===r.cards[r.ci]) || {};
+    h += '<div class="heute-card"><div class="heute-tag">🆕 '+heuteU('newWord')+'</div><div class="w">'+heuteEsc(v.w)+'</div><div class="ph">'+heuteEsc(v.ph||'')+'</div><div class="tr">'+heuteEsc(getTrans(v))+'</div><div class="ex">'+heuteEsc(v.ex||'')+'</div>';
+    h += '<div class="tom-btns" style="justify-content:center"><button class="tom-btn" onclick="tomSpeak(heuteRun.cards[heuteRun.ci])">🔊</button><button class="tom-btn" onclick="tomSpeak(String(VOKABELN.find(x=>x.w===heuteRun.cards[heuteRun.ci]).ex||\'\').replace(/[\\u0022]/g,\'\'))">🔊 Beispiel</button></div></div>';
+    h += '<div class="heute-hint">'+heuteU('learnFirst')+'</div><button class="gram-quiz-btn" onclick="heuteRun.ci++;heuteRender()">'+heuteU('next')+'</button>';
+    body.innerHTML = h; return;
+  }
+  const q = r.qs[r.i];
+  if (q.type==='vok') {
+    const tag = q.mode==='cloze' ? heuteU('qCloze') : q.mode==='rev' ? heuteU('qRev') : heuteU('qWord');
+    const big = q.mode==='cloze' ? '<div class="quiz-q">'+heuteEsc(q.q)+'</div>' : '<div class="w">'+heuteEsc(q.q)+(q.mode==='en'?' <button class="tom-btn" onclick="tomSpeak(heuteRun.qs[heuteRun.i].say)">🔊</button>':'')+'</div><div class="ph">'+heuteEsc(q.ph)+'</div>';
+    h += '<div class="heute-q"><div class="heute-tag">'+tag+'</div>'+big+'</div>';
+  }
+  if (q.type==='tom') { const x = TOM_T.find(t=>t.id===q.id); h += '<div class="heute-tag">'+heuteU('tomQ')+'</div><div class="tom-scene">'+tomScene(Object.assign({},x.scene,{bub:x.id==='will'?'':x.scene.bub}))+'</div>'+(x.tl?'<div class="tom-tl">'+tomTimeline(x.tl)+'</div>':''); }
+  if (q.type==='gram') h += '<div class="heute-q"><div class="heute-tag">'+heuteEsc(q.name)+'</div><div class="quiz-q">'+heuteEsc(q.q)+'</div></div>';
+  h += '<div class="quiz-opts">'+q.opts.map((o,j)=>'<button class="qopt" onclick="heuteAnswer('+j+')">'+heuteEsc(o)+'</button>').join('')+'</div><div id="heute-fb"></div>';
+  body.innerHTML = h;
+}
+
+try { updateDailyBanner(); } catch(e) {}
 </script>
