@@ -159,6 +159,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 .gtbl-wrap td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
 .gtbl-wrap td:first-child{font-family:monospace;font-size:15px;font-weight:600;color:var(--accent);white-space:nowrap}
 .gtbl-wrap tr:last-child td{border-bottom:none}
+#gs0 .gtbl-wrap table{min-width:0;font-size:15px}#gs0 .gtbl-wrap td,#gs0 .gtbl-wrap th{padding:8px 9px}#gs0 .gtbl-wrap td:first-child{white-space:normal;font-family:inherit;font-size:14px;min-width:84px}.tsig{display:block;margin-top:4px;font-size:13px;color:var(--fg-muted)}
 .gtbl-card{background:var(--bg);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:12px}
 .gtbl-card h3{font-size:13px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:10px 14px 8px;color:var(--accent)}
 .gram-note{background:rgba(37,99,235,.12);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:10px 14px;font-size:15px;color:var(--fg-muted);margin-bottom:10px}
@@ -435,7 +436,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
         <div class="qc qc-ref" onclick="openGramRef()" style="grid-column:1/-1">
           <div class="qc-icon">📚</div>
           <h3 id="home-gramref-title">Grammatik-Übersicht</h3>
-          <p id="home-gramref-sub">Zeitformen · Sätze · Verben · Pronomen</p>
+          <p id="home-gramref-sub">Alle Tenses · Zeitformen · Sätze · Verben</p>
         </div>
         <div class="qc" onclick="openMeinLernen('fehler')" style="grid-column:1/-1;background:linear-gradient(135deg,#dc2626,#c2410c)">
           <div class="qc-icon">📌</div>
@@ -513,6 +514,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
                 <option value="nov16">🇮🇳 16.11 – International India</option>
                 <option value="nov17">✉️ 17.11 – Emails &amp; Airport</option>
                 <option value="nov19">💼 19.11 – Jobs &amp; Work</option>
+                <option value="nov20">📝 20.11 – Progress Test &amp; Tenses</option>
                 <option value="nov18">⚖️ 18.11 – Differences &amp; Conflict</option>
                 <option value="nov06">💬 06.11 – Giving Opinions</option>
                 <option value="unit8b">💬 Unit 8B – Comment Adverbs</option>
@@ -2111,6 +2113,22 @@ const VOKABELN = [
   {w:'self-employed',ph:'/ˌself ɪmˈplɔɪd/',t:'selbstständig',ta:'يعمل لحسابه الخاص',tka:'თვითდასაქმებული',ex:'"She\'s self-employed — she runs her own business."',cat:'nov19'},
   {w:'part-time',ph:'/ˈpɑːt taɪm/',t:'Teilzeit',ta:'بدوام جزئي',tka:'ნახევარ განაკვეთზე',ex:'"She works part-time, only three days a week."',cat:'nov19'},
   {w:'promoted',ph:'/prəˈməʊtɪd/',t:'befördert (werden)',ta:'تمت ترقيته',tka:'დაწინაურებული',ex:'"He was promoted to senior manager last year."',cat:'nov19'},
+  // 20.11 – Review: Vocabulary (Section 2) & Wortformen
+  {w:'prospect',ph:'/ˈprɒspekt/',t:'die Aussicht / Chance',ta:'احتمال / فرصة مستقبلية',tka:'პერსპექტივა / შანსი',ex:'"There is little prospect of finding a cheap flat in the city centre."',cat:'nov20'},
+  {w:'accommodate',ph:'/əˈkɒmədeɪt/',t:'unterbringen / Platz bieten für',ta:'يستوعب / يُؤوي',tka:'დაბინავება / დატევა',ex:'"The new hall can accommodate 500 people."',cat:'nov20'},
+  {w:'accommodation',ph:'/əˌkɒməˈdeɪʃn/',t:'die Unterkunft',ta:'سكن / مكان إقامة',tka:'საცხოვრებელი / ბინა',ex:'"The school helps students to find accommodation in Berlin."',cat:'nov20'},
+  {w:'reckless',ph:'/ˈrekləs/',t:'rücksichtslos / leichtsinnig',ta:'متهوّر',tka:'დაუდევარი / უგუნური',ex:'"He lost his licence for reckless driving."',cat:'nov20'},
+  {w:'recklessly',ph:'/ˈrekləsli/',t:'leichtsinnig / rücksichtslos (Adverb)',ta:'بتهوّر',tka:'დაუდევრად / უგუნურად',ex:'"She spent her money recklessly and had nothing left at the end of the month."',cat:'nov20'},
+  {w:'engage',ph:'/ɪnˈɡeɪdʒ/',t:'einbinden / fesseln / sich beteiligen (engage in)',ta:'يُشرك / يجذب الانتباه',tka:'ჩართვა / დაინტერესება',ex:'"Good teachers know how to engage their students."',cat:'nov20'},
+  {w:'engaging',ph:'/ɪnˈɡeɪdʒɪŋ/',t:'fesselnd / ansprechend',ta:'جذّاب / ممتع',tka:'მიმზიდველი / საინტერესო',ex:'"The film has an engaging story and great actors."',cat:'nov20'},
+  {w:'column',ph:'/ˈkɒləm/',t:'die Kolumne / Spalte / Säule',ta:'عمود (في صحيفة) / عمود',tka:'სვეტი / რუბრიკა',ex:'"She writes a weekly column for a newspaper."',cat:'nov20'},
+  {w:'seasick',ph:'/ˈsiːsɪk/',t:'seekrank',ta:'مصاب بدوار البحر',tka:'ზღვის ავადმყოფობით შეპყრობილი',ex:'"I always get seasick on boats."',cat:'nov20'},
+  {w:'seasickness',ph:'/ˈsiːsɪknəs/',t:'die Seekrankheit',ta:'دوار البحر',tka:'ზღვის ავადმყოფობა',ex:'"Seasickness can make a short ferry trip very unpleasant."',cat:'nov20'},
+  {w:'flowchart',ph:'/ˈfləʊtʃɑːt/',t:'das Flussdiagramm / Ablaufdiagramm',ta:'مخطط انسيابي',tka:'ბლოკ-სქემა',ex:'"The flowchart shows every step of the process."',cat:'nov20'},
+  {w:'flood',ph:'/flʌd/',t:'die Überschwemmung / überfluten',ta:'فيضان / يُغرق',tka:'წყალდიდობა / დატბორვა',ex:'"After days of heavy rain, the river flooded the town."',cat:'nov20'},
+  {w:'tide',ph:'/taɪd/',t:'die Gezeiten (high tide = Flut, low tide = Ebbe)',ta:'المدّ والجزر',tka:'მიქცევა-მოქცევა',ex:'"You can walk to the island when the tide is out."',cat:'nov20'},
+  {w:'vulnerability',ph:'/ˌvʌlnərəˈbɪləti/',t:'die Verwundbarkeit / Schwachstelle',ta:'الضعف / قابلية التعرّض للخطر',tka:'მოწყვლადობა / დაუცველობა',ex:'"The report shows the city\'s vulnerability to floods."',cat:'nov20'},
+  {w:'vulnerable',ph:'/ˈvʌlnərəbl/',t:'verletzlich / gefährdet',ta:'ضعيف / معرَّض للخطر',tka:'დაუცველი / მოწყვლადი',ex:'"Old people are more vulnerable in very hot weather."',cat:'nov20'},
 
   // 18.11 – Showing Differences & Conflict
   {w:'whereas',ph:'/weərˈæz/',t:'wohingegen / während',ta:'في حين أن',tka:'მაშინ როცა / ხოლო',ex:'"She likes tea, whereas he prefers coffee."',cat:'nov18'},
@@ -2134,6 +2152,161 @@ const VOKABELN = [
 ];
 
 const GRAMMATIK = [
+  {
+    icon:'🧭', name:'Alle Tenses — Übersicht mit "watch" (20.11.2026)', level:'A2/B1',
+    rule:'<b>Ein Verb, alle Zeiten: watch.</b><br>PAST: I watched TV (abgeschlossen) · I was watching TV at 8pm (lief gerade) · I had watched it before (noch früher) · I had been watching for 2 hours (Dauer bis zu einem Punkt in der Vergangenheit).<br>PRESENT: I watch TV every day (Gewohnheit, Fakt) · I am watching TV now (gerade jetzt) · I have watched this film (Erfahrung, Verbindung zu jetzt) · I have been watching for 1 hour (Dauer bis jetzt).<br>FUTURE: I will watch it tomorrow (spontan, Versprechen, Vorhersage) · I am going to watch it tonight (geplant) · I am watching it on Saturday (fester Termin).<br><b>Signalwörter:</b> yesterday/ago/last week → Past Simple · while/when/at 8pm yesterday → Past Continuous · already/yet/ever/never/just/for/since → Present Perfect · now/at the moment/Look! → Present Continuous · every day/always/usually → Present Simple · tomorrow/next week → will / going to.<br>👉 Alle Tabellen, Kurzformen und Spelling-Regeln: Home → <b>Grammatik-Übersicht</b> → Tab <b>Alle Tenses</b>.',
+    examples:[
+      {en:'I watched a film yesterday.',de:'Past Simple — abgeschlossen, mit Zeitangabe (yesterday). Verneinung: I didn\'t watch.'},
+      {en:'While I was watching TV, my phone rang.',de:'Past Continuous (längere Aktion im Hintergrund) + Past Simple (kurze Aktion, unterbricht).'},
+      {en:'I watch the news every evening.',de:'Present Simple — Gewohnheit. He/she/it: she watches.'},
+      {en:'Look! They are watching the match.',de:'Present Continuous — passiert gerade jetzt: am/is/are + verb-ing.'},
+      {en:'I have never watched this series.',de:'Present Perfect — Erfahrung, ohne genaue Zeit: have/has + 3. Form.'},
+      {en:'"The phone is ringing!" — "I\'ll answer it!"',de:'will — spontane Entscheidung im Moment.'},
+      {en:'I\'m going to watch a film tonight.',de:'going to — schon geplant, schon entschieden.'},
+    ],
+    quizzes:[
+      {q:'"Look! It ___ again." (rain)',opts:['rains','is raining','rained','has rained'],a:1},
+      {q:'"Water ___ at 100 degrees Celsius." (boil)',opts:['is boiling','boil','boils','will boil'],a:2},
+      {q:'"My sister usually ___ to work, but today she ___ the bus." (cycle / take)',opts:['cycle / take','is cycling / takes','cycles / is taking','cycled / took'],a:2},
+      {q:'"While I ___ for the bus, it started to rain." (wait)',opts:['waited','was waiting','am waiting','have waited'],a:1},
+      {q:'"At eight o\'clock last night, we ___ dinner." (have)',opts:['were having','had','are having','have had'],a:0},
+      {q:'"There\'s no milk." — "I ___ some on my way home." (buy)',opts:['buy','buys','\'ll buy','bought'],a:2},
+      {q:'"I ___ my grandparents tomorrow. I\'ve already bought the train tickets." (visit)',opts:['visit','\'ll visit','am visiting','visited'],a:2},
+      {q:'"I ___ never ___ sushi."',opts:['did / eat','have / ate','have / eaten','was / eating'],a:2},
+      {q:'"Look at those clouds! It ___ rain."',opts:['is going to','will','rains','is raining'],a:0},
+      {q:'Welcher Satz ist richtig?',opts:['She didn\'t went home.','She didn\'t go home.','She don\'t went home.','She not went home.'],a:1},
+      {q:'Signalwörter "already, yet, ever, never, just" gehören meistens zu …',opts:['Past Simple','Present Continuous','Present Perfect','Past Continuous'],a:2},
+      {q:'Richtige Kurzform von "I am reading a book."?',opts:['I m reading a book.','i\'m reading a book.','I\'m reading a book.','Im reading a book.'],a:2},
+    ]
+  },
+  {
+    icon:'🎬', name:'Progress-Test 20.11 – Reading: A New Face for 007', level:'B1 · Reading',
+    rule:'<b>Lies den Text, dann starte das Quiz.</b><br><br>On Monday 16 November, Amazon MGM Studios announced that Robert Pattinson will be the next James Bond. The 40-year-old British actor, who is famous for the <i>Twilight</i> films and <i>The Batman</i>, will take over from Daniel Craig, who played 007 for fifteen years. Pattinson is only the seventh actor to play Bond in the official film series, which began in 1962.<br><br>The new film will be directed by Denis Villeneuve, the Canadian filmmaker behind <i>Dune</i>. The screenplay is by Steven Knight, who created the TV series <i>Peaky Blinders</i>. Villeneuve said that there were many talented actors to choose from, but that Pattinson has the spirit of the classic Bond and also brings something completely new to the character.<br><br>Fans had waited a long time for the news. The gap since Craig\'s last film is the longest break in the history of the series, and for years people have argued online about who should get the part. When the announcement finally came, reactions were mixed. Some fans were surprised because Pattinson often chooses unusual, serious roles in small independent films. Others pointed out that he has also starred in huge blockbusters, so he is used to enormous public attention.<br><br>Pattinson said he felt very honoured to be trusted with such a famous character. Now the hard work begins: he has to convince the fans, and the whole world will be watching.<br><br><b>Tipp T/F/NG:</b> False = der Text sagt das Gegenteil. Not Given = der Text sagt dazu nichts.',
+    examples:[
+      {en:'Pattinson will take over from Daniel Craig.',de:'take over from = jemanden ablösen / Nachfolger werden.'},
+      {en:'When the announcement finally came, reactions were mixed.',de:'mixed reactions = gemischte Reaktionen (nicht alle gleich).'},
+      {en:'He has also starred in huge blockbusters.',de:'blockbuster = sehr großer, teurer, erfolgreicher Film.'},
+      {en:'People have argued about who should get the part.',de:'the part = die Rolle.'},
+    ],
+    quizzes:[
+      {q:'1. Pattinson is the sixth actor to play James Bond.',opts:['True','False','Not Given'],a:1},
+      {q:'2. Pattinson appeared in the Twilight films.',opts:['True','False','Not Given'],a:0},
+      {q:'3. Denis Villeneuve also wrote the screenplay.',opts:['True','False','Not Given'],a:1},
+      {q:'4. Daniel Craig played Bond for fifteen years.',opts:['True','False','Not Given'],a:0},
+      {q:'5. Pattinson will earn more money than Daniel Craig.',opts:['True','False','Not Given'],a:2},
+      {q:'6. All fans were happy about the news.',opts:['True','False','Not Given'],a:1},
+      {q:'7. What is the main purpose of the article?',opts:['To report the news about the new Bond and how people reacted','To review the film Dune','To explain the history of Peaky Blinders'],a:0},
+      {q:'8. Who is Denis Villeneuve?',opts:['An actor from Britain','A Canadian film director','The head of Amazon MGM Studios'],a:1},
+      {q:'9. Why were some fans surprised by the choice of Pattinson?',opts:['He has never been in a film before.','He is too old to play Bond.','He often chooses unusual, serious roles in small films.'],a:2},
+      {q:'10. Why is Pattinson "used to enormous public attention"?',opts:['He has been in some very big films.','He has worked as a journalist.','He has played Bond before.'],a:0},
+      {q:'11. What is special about the gap since Craig\'s last Bond film?',opts:['It is the shortest gap in the series.','It is the longest gap in the series.','It is the same as every other gap.'],a:1},
+      {q:'12. On which day was the announcement made?',opts:['Sunday 15 November','Monday 16 November','Friday 20 November'],a:1},
+      {q:'13. Which TV series did Steven Knight create?',opts:['Dune','The Batman','Peaky Blinders'],a:2},
+      {q:'14. In which year did the official Bond film series begin?',opts:['1962','1972','1952'],a:0},
+      {q:'16. "take over from" bedeutet …',opts:['replace / succeed (ablösen)','attack','borrow from'],a:0},
+      {q:'17. "mixed reactions" bedeutet …',opts:['all very positive','not all the same / divided','very angry'],a:1},
+      {q:'18. "blockbusters" sind …',opts:['small independent films','very big, expensive, popular films','TV news programmes'],a:1},
+      {q:'19. "the part" in "who should get the part" bedeutet …',opts:['a piece of something','the role / the job','the payment'],a:1},
+    ]
+  },
+  {
+    icon:'📖', name:'Progress-Test 20.11 – Vocabulary', level:'B1',
+    rule:'Wörter aus dem Kasten: <b>tide · reckless · prospect · flowchart · accommodate · seasick · engage · column · vulnerability · flood</b>.<br><b>Wortbildung:</b> accommodate → accommodation (Nomen) · reckless → recklessly (Adverb) · engage → engaging (Adjektiv) · vulnerability → vulnerable (Adjektiv) · seasick → seasickness (Nomen).<br>Alle Wörter mit Übersetzung: Vokabeln → Gruppe <b>📝 20.11</b>.',
+    examples:[
+      {en:'The prospect of getting a promotion made her very happy.',de:'prospect = Aussicht.'},
+      {en:'At low tide you can walk far out onto the beach.',de:'low tide = Ebbe, high tide = Flut.'},
+      {en:'Showing your vulnerability in front of other people can be difficult, but it is also brave.',de:'vulnerability = Verletzlichkeit / Schwäche zeigen.'},
+      {en:'He drove recklessly and nearly had an accident.',de:'Adverb beschreibt das Verb (drove) → recklessly.'},
+    ],
+    quizzes:[
+      {q:'1. The ___ of getting a promotion made her very happy.',opts:['prospect','column','tide','flood'],a:0},
+      {q:'2. This hotel can ___ up to 200 guests.',opts:['engage','accommodate','flood','prospect'],a:1},
+      {q:'3. It was ___ to drive so fast in the rain.',opts:['seasick','engaging','reckless','vulnerable'],a:2},
+      {q:'4. A good teacher knows how to ___ students in the lesson.',opts:['accommodate','flood','engage','column'],a:2},
+      {q:'5. Have you read the sports ___ in today\'s newspaper?',opts:['flowchart','column','tide','prospect'],a:1},
+      {q:'6. I felt ___ on the ferry because the sea was so rough.',opts:['reckless','seasick','vulnerability','engaging'],a:1},
+      {q:'7. The ___ shows each step of the process with arrows.',opts:['column','flowchart','tide','prospect'],a:1},
+      {q:'8. After the heavy rain, the river began to ___ the streets.',opts:['flood','engage','accommodate','tide'],a:0},
+      {q:'9. At low ___ you can walk far out onto the beach.',opts:['flood','column','tide','prospect'],a:2},
+      {q:'10. Showing your ___ in front of other people can be difficult, but it is also brave.',opts:['vulnerability','prospect','flowchart','column'],a:0},
+      {q:'11. If a person is reckless, they …',opts:['think carefully before they act','do not think about the danger','feel very tired'],a:1},
+      {q:'12. To engage someone in a conversation means to …',opts:['interest them and get them involved','interrupt them','say goodbye to them'],a:0},
+      {q:'13. The tide is …',opts:['a very strong wind','the regular rise and fall of the sea','a small boat'],a:1},
+      {q:'14. A newspaper column is …',opts:['a regular article written by one person','a photo on the front page','an advertisement'],a:0},
+      {q:'15. Which word is NOT connected with water?',opts:['flood','tide','flowchart','seasick'],a:2},
+      {q:'16. We booked ___ near the beach. (accommodate)',opts:['accommodate','accommodation','accommodating','accommodated'],a:1},
+      {q:'17. He drove ___ and nearly had an accident. (reckless)',opts:['reckless','recklessness','recklessly','unreckless'],a:2},
+      {q:'18. The teacher\'s lessons are always very ___ . (engage)',opts:['engage','engagement','engaged','engaging'],a:3},
+      {q:'19. Young children are ___ to illness. (vulnerability)',opts:['vulnerable','vulnerability','vulnerably','vulnerabled'],a:0},
+      {q:'20. ___ is common on small boats. (seasick)',opts:['Seasick','Seasickly','Seasickness','Seasicking'],a:2},
+    ]
+  },
+  {
+    icon:'🧩', name:'Progress-Test 20.11 – Grammar: Modals, Question Tags, Present Perfect', level:'B1',
+    rule:'<b>Modalverben</b> + Grundform ohne "to": You should go to bed. · You could try Portugal. · You shouldn\'t eat so much sugar. · Why don\'t we …? (Vorschlag) · <b>If I were you, I would …</b> (Ratschlag — immer "were", auch bei I!).<br><b>Question Tags:</b> positiver Satz → negativer Tag, negativer Satz → positiver Tag. Hilfsverb aus dem Satz wiederholen (be / do / have / Modalverb): You\'re from Berlin, aren\'t you? · She doesn\'t like coffee, does she? · They went, didn\'t they?<br><b>Present Perfect vs. Past Simple:</b> have/has + 3. Form = bis jetzt, Erfahrung, ohne genaue Zeit (for, since, now, ever, never, yet). Past Simple = abgeschlossen mit Zeitpunkt (in 2019, last weekend, yesterday). Frage mit "When …?" → immer Past Simple.',
+    examples:[
+      {en:'If I were you, I would talk to your boss.',de:'Ratschlag: If I were you … (nicht "If I am you").'},
+      {en:'Why don\'t we ask Jo to help us?',de:'Why don\'t we …? = Vorschlag.'},
+      {en:'The film isn\'t very long, is it?',de:'Negativer Satz → positiver Tag.'},
+      {en:'I have lived in Pankow for three years now. We moved to Berlin in 2019.',de:'Present Perfect (bis jetzt) — Past Simple (Zeitpunkt).'},
+    ],
+    quizzes:[
+      {q:'You look exhausted. You ___ go to bed early tonight.',opts:['should','must to','can'],a:0},
+      {q:'"I can\'t decide where to go on holiday." — "You ___ try Portugal. It\'s lovely."',opts:['could','ought','can\'t'],a:0},
+      {q:'You ___ eat so much sugar. It\'s bad for your teeth.',opts:['don\'t','shouldn\'t','not should'],a:1},
+      {q:'Why ___ we ask Jo to help us?',opts:['don\'t','aren\'t','won\'t'],a:0},
+      {q:'If I ___ you, I would talk to your boss.',opts:['am','were','will be'],a:1},
+      {q:'"My advice is to see a doctor." Mit should:',opts:['You should see a doctor.','You should to see a doctor.','You should seeing a doctor.'],a:0},
+      {q:'You\'re from Berlin, ___?',opts:['are you','aren\'t you','don\'t you','isn\'t it'],a:1},
+      {q:'She doesn\'t like coffee, ___?',opts:['does she','doesn\'t she','is she','did she'],a:0},
+      {q:'They went to the concert last night, ___?',opts:['did they','weren\'t they','didn\'t they','don\'t they'],a:2},
+      {q:'We should leave soon, ___?',opts:['should we','shouldn\'t we','don\'t we','won\'t we'],a:1},
+      {q:'He has finished his homework, ___?',opts:['didn\'t he','hasn\'t he','doesn\'t he','isn\'t he'],a:1},
+      {q:'The film isn\'t very long, ___?',opts:['isn\'t it','is it','does it','was it'],a:1},
+      {q:'I ___ in Pankow for three years now. (live)',opts:['live','lived','have lived','am living'],a:2},
+      {q:'We ___ to Berlin in 2019. (move)',opts:['have moved','moved','move','were moving'],a:1},
+      {q:'___ you ever ___ to Ecuador? (be)',opts:['Did / go','Have / been','Were / been','Have / was'],a:1},
+      {q:'She ___ her essay yet. (not / finish)',opts:['didn\'t finish','hasn\'t finished','doesn\'t finish','wasn\'t finished'],a:1},
+      {q:'Last weekend I ___ to a festival with friends. (go)',opts:['have gone','went','go','have been'],a:1},
+      {q:'He ___ his keys, so he can\'t open the door. (lose)',opts:['lost','has lost','loses','was losing'],a:1},
+      {q:'When ___ you ___ that film? (see)',opts:['have / seen','did / see','did / saw','have / see'],a:1},
+      {q:'I ___ sushi. (never / eat)',opts:['never ate','have never eaten','have never ate','never eaten'],a:1},
+    ]
+  },
+  {
+    icon:'🔀', name:'Progress-Test 20.11 – Grammar: Konjunktionen, Gerund/Infinitiv, Relativsätze', level:'B1',
+    rule:'<b>Konjunktionen:</b> because (weil) · although (obwohl) · so (deshalb) · unless (wenn … nicht) · while (während) · however (jedoch — mit Komma: "However, …" oder "…, however, …").<br><b>Gerund (-ing)</b> nach: enjoy, be good at, look forward to (to = Präposition!), would you mind.<br><b>Infinitiv mit to</b> nach: decide, want, too + Adjektiv (too dark to read).<br><b>Grundform ohne to</b> nach make/let: Our teacher made us repeat the exercise.<br><b>Relativsätze:</b> who (Personen) · which/that (Dinge) · whose (Besitz) · where (Orte). Zusatzinfo, die man weglassen kann → mit Kommas und nie "that": Berlin, which is the capital of Germany, has a lot of museums. Notwendige Info → keine Kommas: The students who study hard usually pass the exam.',
+    examples:[
+      {en:'I took an umbrella because it was going to rain.',de:'because = weil.'},
+      {en:'Although it was cold, we went swimming in the lake.',de:'although = obwohl.'},
+      {en:'You\'ll miss the train unless you hurry.',de:'unless = wenn … nicht.'},
+      {en:'I\'m looking forward to seeing you soon.',de:'look forward to + -ing.'},
+      {en:'Daniel Craig, who played Bond for fifteen years, has been replaced by Robert Pattinson.',de:'Zusatzinfo → Kommas nötig.'},
+    ],
+    quizzes:[
+      {q:'I took an umbrella ___ it was going to rain.',opts:['although','because','so','unless'],a:1},
+      {q:'___ it was cold, we went swimming in the lake.',opts:['Because','So','Although','Unless'],a:2},
+      {q:'It\'s raining, ___ we\'re staying at home.',opts:['so','because','although','however'],a:0},
+      {q:'You\'ll miss the train ___ you hurry.',opts:['while','unless','so','because'],a:1},
+      {q:'She was cooking dinner ___ he was setting the table.',opts:['while','unless','so','however'],a:0},
+      {q:'I like the flat. ___, it\'s too expensive.',opts:['Because','Unless','However','So'],a:2},
+      {q:'I enjoy ___ for my friends. (cook)',opts:['to cook','cook','cooking'],a:2},
+      {q:'She decided ___ for the job. (apply)',opts:['applying','to apply','apply'],a:1},
+      {q:'He\'s very good at ___ problems. (solve)',opts:['solving','to solve','solve'],a:0},
+      {q:'We want ___ Quito next year. (visit)',opts:['visiting','to visit','visit'],a:1},
+      {q:'Our teacher made us ___ the exercise. (repeat)',opts:['to repeat','repeating','repeat'],a:2},
+      {q:'I\'m looking forward to ___ you soon. (see)',opts:['see','to see','seeing'],a:2},
+      {q:'It\'s too dark ___ here. (read)',opts:['reading','to read','read'],a:1},
+      {q:'Would you mind ___ the window? (open)',opts:['to open','opening','open'],a:1},
+      {q:'The woman ___ lives next door is my teacher.',opts:['which','who','whose','where'],a:1},
+      {q:'This is the café ___ we first met.',opts:['which','who','where','whose'],a:2},
+      {q:'That\'s the man ___ car was stolen.',opts:['who','whose','which','where'],a:1},
+      {q:'I lost the book ___ you lent to me.',opts:['who','where','that','whose'],a:2},
+      {q:'Welcher Satz ist richtig?',opts:['Berlin which is the capital of Germany has a lot of museums.','Berlin, that is the capital of Germany, has a lot of museums.','Berlin, which is the capital of Germany, has a lot of museums.'],a:2},
+      {q:'"The students who study hard usually pass the exam." Braucht der Satz Kommas?',opts:['Ja, vor und nach dem Relativsatz','Nur ein Komma vor "who"','Nein, er ist richtig (notwendige Info)'],a:2},
+      {q:'"The film that we watched last night was really long." Braucht der Satz Kommas?',opts:['Ja, vor "that"','Ja, vor und nach "that we watched last night"','Nein, er ist richtig ("that" nie mit Komma)'],a:2},
+    ]
+  },
   {
     icon:'🔗', name:'Relativsätze (Relative Clauses)', level:'B1',
     rule:'Relativsätze verbinden zwei Sätze. WHO = Personen | WHICH = Dinge/Objekte | WHOSE = Besitz (dessen/deren) | WHERE = Orte. Definierend (kein Komma) = notwendige Info. Nicht-definierend (mit Komma) = Zusatzinfo, die man weglassen kann.',
@@ -2834,7 +3007,7 @@ const UI_TRANS = {
     quickaccess: 'Schnellzugriff',
     vok: 'Vokabeln', gram: 'Grammatik', chal: 'Challenge',
     hw: 'Hausaufgaben', gramref: 'Grammatik-Übersicht',
-    gramref_sub: 'Zeitformen · Sätze · Verben · Pronomen',
+    gramref_sub: 'Alle Tenses · Zeitformen · Sätze · Verben',
     settings: '⚙️ Kurseinstellungen',
     settings_title: 'Kursstart & Kursende anpassen',
     kursstart: '📅 Kursstart', kursende: '🏁 Kursende',
@@ -3295,6 +3468,7 @@ function addCustomVok() {
 /* ========== VOKABELN ========== */
 // Gruppen-Definitionen: Reihenfolge neueste zuerst
 const VOK_GROUPS = [
+  { key:'nov20', label:'📝 20.11 – Progress Test & Tenses', date:'20.11' },
   { key:'nov19', label:'💼 19.11 – Jobs & Work', date:'19.11' },
   { key:'nov18', label:'⚖️ 18.11 – Differences & Conflict', date:'18.11' },
   { key:'nov17', label:'✉️ 17.11 – Emails & Airport', date:'17.11' },
@@ -5742,8 +5916,8 @@ let pruefState = {
 const PRUEF_VOK_LEVEL = {
   A1: ['questions','time','transport','restaurant','school','appear','irregular','nov10','nov15','travel','kitchen'],
   A2: ['general','tourism','feelings','adverbs','verbs','food_adj','nov04','nov02b','nov12','nov09','nov06','music','phrasal','comm'],
-  B1: ['tech','env','trend','money','present','media','future','unit6a','nov02','generations','unit8b','nov09b','nov13','nov17','nov19','nov18'],
-  B2: ['nov11','nov16','money','media','trend','generations','nov13','nov17','nov18','unit8b']
+  B1: ['tech','env','trend','money','present','media','future','unit6a','nov02','generations','unit8b','nov09b','nov13','nov17','nov19','nov18','nov20'],
+  B2: ['nov11','nov16','money','media','trend','generations','nov13','nov17','nov18','unit8b','nov20']
 };
 // Welche Vokabel-Niveaus und Grammatik-Niveaus pro Prüfungslevel
 const PRUEF_POOLS = {
@@ -6114,15 +6288,122 @@ function resetPruefung() {
       <button class="gram-ref-close" onclick="closeGramRef();event.stopPropagation()">✕</button>
     </div>
     <div class="gram-tabs">
-      <button class="gram-tab active" onclick="showGramSec('gs1',this)">⏱ Zeitformen</button>
+      <button class="gram-tab active" onclick="showGramSec('gs0',this)">🧭 Alle Tenses</button>
+      <button class="gram-tab" onclick="showGramSec('gs1',this)">⏱ Zeitformen</button>
       <button class="gram-tab" onclick="showGramSec('gs2',this)">📐 Sätze</button>
       <button class="gram-tab" onclick="showGramSec('gs3',this)">👤 Pronomen</button>
       <button class="gram-tab" onclick="showGramSec('gs4',this)">🔧 Verben</button>
       <button class="gram-tab" onclick="showGramSec('gs5',this)">📌 Sonstiges</button>
     </div>
 
+    <!-- ALLE TENSES (20.11.2026) -->
+    <div class="gram-sec active" id="gs0">
+      <div class="gram-note"><strong>Ein Verb, alle Zeiten: watch.</strong> Für jede Zeit: Beispiel · Wann? · Signalwörter. Ganz unten: Kurzformen, Spelling-Regeln und typische Fehler.</div>
+      <div class="gtbl-card">
+        <h3 class="c1">⬅️ Past (Vergangenheit)</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Tense</th><th>Beispiel</th><th>Wann? · 🔑 Signalwörter</th></tr></thead>
+          <tbody>
+            <tr><td>Past Simple</td><td>I watched TV.</td><td>abgeschlossen, fertig<br><span class="tsig">🔑 yesterday, ago, last week, in 2010</span></td></tr>
+            <tr><td>Past Continuous</td><td>I was watching TV at 8pm.</td><td>lief gerade, wurde unterbrochen<br><span class="tsig">🔑 while, when, at 8pm yesterday</span></td></tr>
+            <tr><td>Past Perfect</td><td>I had watched it before.</td><td>noch vor einer anderen Vergangenheit<br><span class="tsig">🔑 before, after, already, by the time</span></td></tr>
+            <tr><td>Past Perf. Cont.</td><td>I had been watching for 2 hours.</td><td>Dauer bis zu einem Punkt in der Vergangenheit<br><span class="tsig">🔑 for, since, all day (bis damals)</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gtbl-card">
+        <h3 class="c1">⏺️ Present (Gegenwart)</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Tense</th><th>Beispiel</th><th>Wann? · 🔑 Signalwörter</th></tr></thead>
+          <tbody>
+            <tr><td>Present Simple</td><td>I watch TV every day.<br>She watch<b>es</b> TV.</td><td>Gewohnheit, Fakt<br><span class="tsig">🔑 every day, always, usually, often, never</span></td></tr>
+            <tr><td>Present Continuous</td><td>I am watching TV now.</td><td>gerade jetzt, vorübergehend<br><span class="tsig">🔑 now, at the moment, today, Look!</span></td></tr>
+            <tr><td>Present Perfect</td><td>I have watched this film.</td><td>Erfahrung, Verbindung zu jetzt<br><span class="tsig">🔑 already, yet, ever, never, just, for, since</span></td></tr>
+            <tr><td>Pres. Perf. Cont.</td><td>I have been watching for 1 hour.</td><td>Dauer bis jetzt<br><span class="tsig">🔑 for, since, all day, how long</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gtbl-card">
+        <h3 class="c1">➡️ Future (Zukunft)</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Form</th><th>Beispiel</th><th>Wann? · 🔑 Signalwörter</th></tr></thead>
+          <tbody>
+            <tr><td>will</td><td>I will watch it tomorrow.<br>I'll answer it!</td><td>spontan, Versprechen, Vorhersage (Meinung)<br><span class="tsig">🔑 tomorrow, I think, probably</span></td></tr>
+            <tr><td>going to</td><td>I am going to watch it tonight.</td><td>schon geplant · Vorhersage mit Beweis<br><span class="tsig">🔑 tonight, next week, Look at …!</span></td></tr>
+            <tr><td>Pres. Continuous</td><td>I am watching it on Saturday.</td><td>fester Termin, verabredet<br><span class="tsig">🔑 on Saturday, at 7pm, tomorrow</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gtbl-card">
+        <h3 class="c4">✅ ❌ ❓ Positiv · Negativ · Frage</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Tense</th><th>✅ Positiv</th><th>❌ Negativ</th><th>❓ Frage</th></tr></thead>
+          <tbody>
+            <tr><td>Present Simple</td><td>I watch / she watches</td><td>I don't watch / she doesn't watch</td><td>Do you watch? / Does she watch?</td></tr>
+            <tr><td>Present Continuous</td><td>I'm watching</td><td>I'm not watching</td><td>Are you watching?</td></tr>
+            <tr><td>Past Simple</td><td>I watched</td><td>I didn't watch</td><td>Did you watch?</td></tr>
+            <tr><td>Past Continuous</td><td>I was / we were watching</td><td>I wasn't / we weren't watching</td><td>Were you watching?</td></tr>
+            <tr><td>Present Perfect</td><td>I have / she has watched</td><td>I haven't / she hasn't watched</td><td>Have you watched?</td></tr>
+            <tr><td>will</td><td>I'll watch</td><td>I won't watch</td><td>Will you watch?</td></tr>
+            <tr><td>going to</td><td>I'm going to watch</td><td>I'm not going to watch</td><td>Are you going to watch?</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gram-cards">
+        <div class="gc"><div class="gc-name c1">will vs. going to</div><div class="gc-formula">spontan → will · schon entschieden → going to</div><div class="gc-ex"><strong>"The phone is ringing!" — "I'll answer it!"</strong></div><div class="gc-ex"><strong>"I'm going to call him later."</strong></div><div class="gc-de">Fester Termin mit Uhrzeit/Tag → Present Continuous: "We're flying to London on Monday."</div></div>
+        <div class="gc"><div class="gc-name c1">Past Continuous + Past Simple</div><div class="gc-formula">lange Aktion (was/were + -ing) + kurze Aktion (V2)</div><div class="gc-ex"><strong>"While I was watching TV, my phone rang."</strong></div><div class="gc-ex"><strong>"She was cooking when he came home."</strong></div><div class="gc-de">while + Past Continuous (Hintergrund) · when + Past Simple (unterbricht)</div></div>
+        <div class="gc"><div class="gc-name c1">am / is / are</div><div class="gc-formula">Subject + am/is/are + verb-ing</div><div class="gc-ex"><strong>I am · he/she/it is · you/we/they are</strong></div><div class="gc-de">I am watching TV. · She is reading a book. · They are learning English.</div></div>
+        <div class="gc"><div class="gc-name c1">did / didn't + Grundform</div><div class="gc-formula">Negativ & Frage im Past Simple: did + V</div><div class="gc-ex"><strong>❌ She didn't went. ✅ She didn't go.</strong></div><div class="gc-de">Die Vergangenheit steckt schon in "did" — das Verb bleibt in der Grundform.</div></div>
+      </div>
+      <div class="gtbl-card" style="margin-top:12px">
+        <h3 class="c3">✂️ Kurzformen (Short forms)</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Lang</th><th>Kurz</th><th>Negativ</th></tr></thead>
+          <tbody>
+            <tr><td>I am</td><td>I'm</td><td>I'm not</td></tr>
+            <tr><td>you are</td><td>you're</td><td>you aren't</td></tr>
+            <tr><td>he / she / it is</td><td>he's / she's / it's</td><td>he isn't / she isn't / it isn't</td></tr>
+            <tr><td>we / they are</td><td>we're / they're</td><td>we aren't / they aren't</td></tr>
+            <tr><td>was / were not</td><td>—</td><td>wasn't / weren't</td></tr>
+            <tr><td>do / does / did not</td><td>—</td><td>don't / doesn't / didn't</td></tr>
+            <tr><td>have / has</td><td>I've / she's</td><td>haven't / hasn't</td></tr>
+            <tr><td>will</td><td>I'll / you'll</td><td>won't (= will not)</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gtbl-card">
+        <h3 class="c5">🔤 Spelling-Regeln</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Regel</th><th>-ing</th><th>-ed (Past)</th></tr></thead>
+          <tbody>
+            <tr><td>normal</td><td>play → playing</td><td>work → worked</td></tr>
+            <tr><td>stummes -e fällt weg</td><td>come → coming</td><td>live → lived</td></tr>
+            <tr><td>kurz: Konsonant doppelt</td><td>sit → sitting</td><td>stop → stopped</td></tr>
+            <tr><td>Konsonant + y</td><td>study → studying</td><td>study → studied</td></tr>
+            <tr><td>-ie → -y</td><td>lie → lying</td><td>—</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gtbl-card">
+        <h3 class="c4">📌 Unregelmäßige Verben (auswendig!)</h3>
+        <div class="gtbl-wrap"><table>
+          <thead><tr><th>Grundform</th><th>Past Simple</th><th>Beispiel</th></tr></thead>
+          <tbody>
+            <tr><td>go</td><td>went</td><td>I went to school yesterday.</td></tr>
+            <tr><td>have</td><td>had</td><td>We had a great time last night.</td></tr>
+            <tr><td>see</td><td>saw</td><td>I saw a good film last week.</td></tr>
+            <tr><td>buy</td><td>bought</td><td>She bought a new phone last month.</td></tr>
+            <tr><td>come</td><td>came</td><td>He came home late last night.</td></tr>
+            <tr><td>eat</td><td>ate</td><td>We ate pizza yesterday.</td></tr>
+            <tr><td>drink</td><td>drank</td><td>I drank too much coffee today.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="gram-note"><strong>Typische Fehler:</strong> ❌ I m reading → ✅ I'm reading · "I" immer groß, Nomen klein (a book, football) · ❌ She didn't went → ✅ She didn't go · ❌ Have you seen it yesterday? → ✅ Did you see it yesterday? · enjoy + -ing: ✅ I'm enjoying playing football.</div>
+    </div>
+
     <!-- ZEITFORMEN -->
-    <div class="gram-sec active" id="gs1">
+    <div class="gram-sec" id="gs1">
       <div class="gram-legend">
         <span><strong>V</strong> = Grundform (go, work)</span>
         <span><strong>V2</strong> = Simple Past (went, worked)</span>
