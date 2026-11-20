@@ -159,6 +159,53 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 .gtbl-wrap td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
 .gtbl-wrap td:first-child{font-family:monospace;font-size:15px;font-weight:600;color:var(--accent);white-space:nowrap}
 .gtbl-wrap tr:last-child td{border-bottom:none}
+#tom-box{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:14px;margin-bottom:14px}
+#tom-box h3{font-size:17px;font-weight:800;color:var(--fg);margin:0 0 4px}
+.tom-intro{font-size:14px;color:var(--fg-muted);margin-bottom:10px}
+.tom-grp{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-muted);margin:10px 0 6px}
+.tom-chips{display:flex;flex-wrap:wrap;gap:6px}
+.tom-chip{padding:8px 12px;border-radius:999px;border:1.5px solid var(--border);background:var(--bg-2);color:var(--fg);font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)}
+.tom-chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.tom-chip.ex{border-style:dashed}
+.tom-detail{margin-top:14px;border-top:1px solid var(--border);padding-top:12px}
+.tom-scene svg{width:100%;max-width:460px;display:block;margin:0 auto}
+.tom-st{stroke:var(--fg);stroke-width:3.5;fill:none;stroke-linecap:round}
+.tom-tv{fill:var(--bg-2);stroke:var(--fg-muted);stroke-width:3}
+.tom-lbl{font-size:14px;fill:var(--fg-muted);font-family:var(--font)}
+.tom-bt{font-size:14px;fill:var(--fg);font-family:var(--font);font-weight:700}
+@keyframes tomBob{50%{transform:translateY(-5px)}}
+.tom-bob{animation:tomBob 1s ease-in-out infinite}
+@keyframes tomRing{0%,100%{transform:rotate(0)}25%{transform:rotate(14deg)}75%{transform:rotate(-14deg)}}
+.tom-ring{animation:tomRing .35s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes tomFlick{0%,100%{opacity:1}50%{opacity:.65}}
+.tom-flick{animation:tomFlick 1.2s infinite}
+@keyframes tomWalk{0%{transform:translateX(-70px)}100%{transform:translateX(0)}}
+.tom-walk{animation:tomWalk 2.2s ease-out infinite}
+@keyframes tomJump{0%,100%{transform:translate(0,0)}40%{transform:translate(30px,-14px)}70%{transform:translate(60px,0)}}
+.tom-jump{animation:tomJump 1.6s ease-in-out infinite}
+@keyframes tomZ{0%{opacity:0;transform:translate(0,0)}50%{opacity:1}100%{opacity:0;transform:translate(14px,-20px)}}
+.tom-z{animation:tomZ 2s infinite}
+.tom-tl svg{width:100%;max-width:460px;display:block;margin:4px auto 0}
+.tom-say{display:flex;gap:8px;align-items:flex-start;background:rgba(37,99,235,.10);border-radius:12px;padding:10px 12px;margin:10px 0 8px}
+.tom-say .s{font-size:18px;font-weight:700;color:var(--fg);flex:1;line-height:1.35}
+.tom-btns{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
+.tom-btn{border:none;border-radius:16px;padding:6px 11px;font-size:13px;font-weight:700;background:var(--accent-lt);color:var(--accent);cursor:pointer;font-family:var(--font)}
+.tom-btn.mic{background:#fde68a;color:#92400e}
+.tom-mic-res{font-size:14px;margin:-4px 0 10px;color:var(--fg-muted);min-height:0}
+.tom-row{margin:8px 0;font-size:15px;color:var(--fg)}
+.tom-row b.k{display:block;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
+.tom-why{font-size:15px;line-height:1.45}
+.tom-why[dir=rtl]{text-align:right}
+.tom-formula{font-family:monospace;font-size:15px;background:var(--bg-2);border-radius:8px;padding:6px 10px;display:inline-block}
+.tom-ex{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--border)}
+.tom-ex:last-child{border-bottom:none}
+.tom-ex .e{flex:1}.tom-ex .e span{display:block;font-size:13px;color:var(--fg-muted)}
+.tom-cmp{border:1.5px dashed var(--accent);border-radius:12px;padding:10px 12px;margin:10px 0}
+.tom-mis{border-radius:12px;padding:10px 12px;margin:10px 0;background:rgba(220,38,38,.08)}
+mark.tsg{background:#fde68a;color:#7c2d12;border-radius:4px;padding:0 2px}
+.tom-quiz-opt{display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg-2);color:var(--fg);font-size:15px;cursor:pointer;font-family:var(--font)}
+.tom-quiz-opt.ok{background:#d4edda;border-color:#16a34a;color:#155724}
+.tom-quiz-opt.bad{background:#f8d7da;border-color:#dc2626;color:#721c24}
 #gs0 .gtbl-wrap table{min-width:0;font-size:15px}#gs0 .gtbl-wrap td,#gs0 .gtbl-wrap th{padding:8px 9px}#gs0 .gtbl-wrap td:first-child{white-space:normal;font-family:inherit;font-size:14px;min-width:84px}.tsig{display:block;margin-top:4px;font-size:13px;color:var(--fg-muted)}
 .gtbl-card{background:var(--bg);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:12px}
 .gtbl-card h3{font-size:13px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:10px 14px 8px;color:var(--accent)}
@@ -6298,6 +6345,7 @@ function resetPruefung() {
 
     <!-- ALLE TENSES (20.11.2026) -->
     <div class="gram-sec active" id="gs0">
+      <div id="tom-box"></div>
       <div class="gram-note"><strong>Ein Verb, alle Zeiten: watch.</strong> Für jede Zeit: Beispiel · Wann? · Signalwörter. Ganz unten: Kurzformen, Spelling-Regeln und typische Fehler.</div>
       <div class="gtbl-card">
         <h3 class="c1">⬅️ Past (Vergangenheit)</h3>
@@ -6542,7 +6590,7 @@ function resetPruefung() {
 </div>
 
 <script>
-function openGramRef(){document.getElementById('gram-ref-modal').classList.add('open');document.body.style.overflow='hidden';}
+function openGramRef(){document.getElementById('gram-ref-modal').classList.add('open');document.body.style.overflow='hidden';if(typeof tomRender==='function')tomRender();}
 function closeGramRef(){document.getElementById('gram-ref-modal').classList.remove('open');document.body.style.overflow='';}
 function closeGramRefOutside(e){if(e.target===document.getElementById('gram-ref-modal'))closeGramRef();}
 function showGramSec(id,btn){
@@ -6712,4 +6760,361 @@ function pinnwandAdminLogin() {
   // Pinnwand Badge-Check beim Start
   setTimeout(pinnwandCheckNew, 3000);
   setInterval(pinnwandCheckNew, 60000);
+</script>
+<script>
+/* ========== TENSES MIT TOM (20.11.2026) ========== */
+const TOM_UI = {
+  de:{title:"🧍 Tenses mit Tom",intro:"Tippe auf eine Zeit. Tom zeigt, was passiert, und sagt den Satz.",past:"⬅️ Past",present:"⏺️ Present",future:"➡️ Future",more:"➕ Mehr mit Tom (20.11)",why:"Warum diese Zeit?",formula:"Formel",neg:"Verneinung · Frage",ex:"Mehr Beispiele aus dem Alltag",cmp:"Vergleich",mis:"Typischer Fehler",listen:"🔊 Anhören",slow:"🐢 Langsam",mic:"🎤 Nachsprechen",both:"▶️ Beide vorlesen",quiz:"🎯 Übung: Was macht Tom?",quizQ:"Schau dir die Szene an. Welcher Satz passt?",next:"Nächste Szene →",right:"✅ Richtig!",wrong:"❌ Leider falsch. Richtig ist:",score:"Punkte",micNo:"Nachsprechen geht in diesem Browser leider nicht. Probiere es in Chrome.",micListen:"🎤 Ich höre zu … sprich jetzt den Satz.",micHeard:"Gehört:",micGood:"✅ Sehr gut!",micAlmost:"🙂 Fast! Hör noch einmal zu und probiere es wieder.",micAgain:"🔁 Nochmal versuchen.",micErr:"Mikrofon nicht verfügbar. Bitte Zugriff erlauben."},
+  ar:{title:"🧍 الأزمنة مع توم",intro:"اضغط على زمن. توم يُظهر ما يحدث ويقول الجملة.",past:"⬅️ الماضي",present:"⏺️ الحاضر",future:"➡️ المستقبل",more:"➕ المزيد مع توم (20.11)",why:"لماذا هذا الزمن؟",formula:"القاعدة",neg:"النفي · السؤال",ex:"أمثلة من الحياة اليومية",cmp:"مقارنة",mis:"خطأ شائع",listen:"🔊 استمع",slow:"🐢 ببطء",mic:"🎤 كرّر",both:"▶️ اقرأ الجملتين",quiz:"🎯 تمرين: ماذا يفعل توم؟",quizQ:"انظر إلى المشهد. أي جملة مناسبة؟",next:"المشهد التالي ←",right:"✅ صحيح!",wrong:"❌ خطأ. الصحيح:",score:"النقاط",micNo:"التكرار بالميكروفون غير مدعوم في هذا المتصفح. جرّب Chrome.",micListen:"🎤 أستمع … قل الجملة الآن.",micHeard:"سمعت:",micGood:"✅ ممتاز!",micAlmost:"🙂 قريب! استمع مرة أخرى وحاول من جديد.",micAgain:"🔁 حاول مرة أخرى.",micErr:"الميكروفون غير متاح. يرجى السماح بالوصول."},
+  ka:{title:"🧍 დროები ტომთან ერთად",intro:"შეეხე დროს. ტომი გაჩვენებს, რა ხდება, და იტყვის წინადადებას.",past:"⬅️ წარსული",present:"⏺️ აწმყო",future:"➡️ მომავალი",more:"➕ მეტი ტომთან (20.11)",why:"რატომ ეს დრო?",formula:"ფორმულა",neg:"უარყოფა · კითხვა",ex:"მაგალითები ყოველდღიური ცხოვრებიდან",cmp:"შედარება",mis:"ტიპური შეცდომა",listen:"🔊 მოსმენა",slow:"🐢 ნელა",mic:"🎤 გაიმეორე",both:"▶️ ორივეს წაკითხვა",quiz:"🎯 სავარჯიშო: რას აკეთებს ტომი?",quizQ:"შეხედე სცენას. რომელი წინადადება შეესაბამება?",next:"შემდეგი სცენა →",right:"✅ სწორია!",wrong:"❌ არასწორია. სწორი:",score:"ქულა",micNo:"ამ ბრაუზერში მიკროფონით გამეორება არ მუშაობს. სცადე Chrome.",micListen:"🎤 გისმენ … თქვი წინადადება ახლა.",micHeard:"გავიგე:",micGood:"✅ შესანიშნავია!",micAlmost:"🙂 თითქმის! კიდევ მოუსმინე და სცადე.",micAgain:"🔁 სცადე ხელახლა.",micErr:"მიკროფონი მიუწვდომელია. გთხოვ, დაუშვი წვდომა."}
+};
+
+const TOM_T = [
+ {id:"ps",grp:"past",name:"Past Simple",
+  scene:{tv:0,clock:"yesterday",face:"🙂",bub:"Good match!"},tl:[{t:"pt",x:25}],
+  say:"Tom watched the match yesterday.",
+  sig:["yesterday","last week","last Friday","in 2019","ago"],
+  why:{de:"Die Handlung ist fertig, und es gibt einen Zeitpunkt in der Vergangenheit (yesterday). Darum Past Simple: Verb + -ed oder die 2. Form.",ar:"انتهى الفعل في الماضي، ولدينا وقت محدد (yesterday). لذلك نستخدم Past Simple: الفعل + ed- أو التصريف الثاني.",ka:"მოქმედება დასრულდა წარსულში და დრო ცნობილია (yesterday). ამიტომ Past Simple: ზმნა + -ed ან მე-2 ფორმა."},
+  formula:"Subjekt + Verb-ed / 2. Form (go → went)",
+  neg:"Tom didn't watch the match. · Did Tom watch the match?",
+  ex:[{en:"I worked late yesterday.",de:"Ich habe gestern lange gearbeitet."},{en:"We moved to Berlin in 2019.",de:"Wir sind 2019 nach Berlin gezogen."},{en:"She bought a new phone last week.",de:"Sie hat letzte Woche ein neues Handy gekauft."}],
+  cmp:"pc",
+  mis:{w:"Tom didn't watched TV.",r:"Tom didn't watch TV.",why:{de:"Nach did / didn't kommt immer die Grundform.",ar:"بعد did / didn't يأتي دائمًا المصدر.",ka:"did / didn't-ის შემდეგ ყოველთვის საწყისი ფორმაა."}}},
+ {id:"pc",grp:"past",name:"Past Continuous",
+  scene:{tv:1,clock:"yesterday, 8 pm",face:"😮",phone:1},tl:[{t:"bar",x1:8,x2:40},{t:"int",x:30}],
+  say:"Tom was watching the match when the phone rang.",
+  sig:["when","while","at 8 pm"],
+  why:{de:"Tom war mittendrin: Er schaute gerade, als etwas Kurzes passierte (das Telefon klingelte). Lange Handlung = was/were + -ing. Kurze Unterbrechung = Past Simple.",ar:"كان توم في منتصف الفعل: كان يشاهد عندما حدث شيء قصير (رنّ الهاتف). الفعل الطويل = was/were + ing-، والمقاطعة القصيرة = Past Simple.",ka:"ტომი შუა საქმეში იყო: უყურებდა, როცა რაღაც მოკლე მოხდა (ტელეფონმა დარეკა). გრძელი მოქმედება = was/were + -ing, მოკლე შეწყვეტა = Past Simple."},
+  formula:"Subjekt + was/were + Verb-ing",
+  neg:"Tom wasn't watching the match. · Was Tom watching the match?",
+  ex:[{en:"I was driving home when it started to rain.",de:"Ich fuhr gerade nach Hause, als es anfing zu regnen."},{en:"She was cooking while he was setting the table.",de:"Sie kochte, während er den Tisch deckte."},{en:"What were you doing at 8 pm?",de:"Was hast du um 20 Uhr gerade gemacht?"}],
+  cmp:"ps",
+  mis:{w:"Tom was watch TV.",r:"Tom was watching TV.",why:{de:"Nach was / were kommt das Verb mit -ing.",ar:"بعد was / were يأتي الفعل مع ing-.",ka:"was / were-ის შემდეგ ზმნა -ing-ით."}}},
+ {id:"pp",grp:"past",name:"Past Perfect",
+  scene:{tv:0,clock:"yesterday, 11 pm",face:"😴",bed:1},tl:[{t:"pt",x:14,l:"1"},{t:"pt",x:34,l:"2"}],
+  say:"Tom had watched the match before he went to bed.",
+  sig:["before","already","by the time","after"],
+  why:{de:"Zwei Dinge in der Vergangenheit. Was zuerst passiert ist (1), bekommt had + 3. Form. Was danach passiert ist (2), steht im Past Simple.",ar:"حدثان في الماضي. الحدث الأول (1) يأخذ had + التصريف الثالث، والحدث الذي بعده (2) يكون Past Simple.",ka:"წარსულში ორი მოვლენაა. რაც პირველი მოხდა (1), იღებს had + მე-3 ფორმას. რაც შემდეგ მოხდა (2) — Past Simple."},
+  formula:"Subjekt + had + 3. Form",
+  neg:"Tom hadn't watched the match. · Had Tom watched the match?",
+  ex:[{en:"When we arrived, the film had already started.",de:"Als wir ankamen, hatte der Film schon angefangen."},{en:"I had never seen snow before I came to Berlin.",de:"Ich hatte nie Schnee gesehen, bevor ich nach Berlin kam."}],
+  cmp:"ps",
+  mis:{w:"Tom had watch it.",r:"Tom had watched it.",why:{de:"Nach had kommt die 3. Form.",ar:"بعد had يأتي التصريف الثالث.",ka:"had-ის შემდეგ მე-3 ფორმა მოდის."}}},
+ {id:"ppc",grp:"past",name:"Past Perfect Continuous",
+  scene:{tv:1,clock:"3 hours",face:"😩"},tl:[{t:"bar",x1:6,x2:34},{t:"pt",x:34}],
+  say:"Tom had been watching TV for three hours, so his eyes were tired.",
+  sig:["for three hours","for an hour","all day"],
+  why:{de:"Es geht um die Dauer bis zu einem Punkt in der Vergangenheit: Tom schaute drei Stunden lang, darum waren seine Augen müde. had been + -ing.",ar:"المهم هو المدة حتى نقطة في الماضي: شاهد توم ثلاث ساعات، لذلك كانت عيناه متعبتين. had been + ing-.",ka:"მთავარია ხანგრძლივობა წარსულის გარკვეულ მომენტამდე: ტომი სამი საათი უყურებდა, ამიტომ თვალები დაეღალა. had been + -ing."},
+  formula:"Subjekt + had been + Verb-ing",
+  neg:"Tom hadn't been watching TV. · Had Tom been watching TV?",
+  ex:[{en:"She was tired because she had been working all day.",de:"Sie war müde, weil sie den ganzen Tag gearbeitet hatte."},{en:"We had been waiting for an hour when the bus finally came.",de:"Wir hatten schon eine Stunde gewartet, als der Bus endlich kam."}],
+  cmp:"pc",
+  mis:{w:"Tom had been watch for hours.",r:"Tom had been watching for hours.",why:{de:"Nach been kommt das Verb mit -ing.",ar:"بعد been يأتي الفعل مع ing-.",ka:"been-ის შემდეგ ზმნა -ing-ით."}}},
+ {id:"prs",grp:"present",name:"Present Simple",
+  scene:{tv:1,clock:"every evening",face:"🙂",cal:"week"},tl:[{t:"dots"}],
+  say:"Tom watches TV every evening.",
+  sig:["every evening","every morning","every day","always","usually","at 8 o'clock"],
+  why:{de:"Das passiert immer wieder, es ist eine Gewohnheit (every evening). Darum Present Simple. Bei he / she / it kommt ein -s dazu: Tom watches.",ar:"هذا يتكرر دائمًا، إنه عادة (every evening). لذلك Present Simple. مع he / she / it نضيف s-: Tom watches.",ka:"ეს ხშირად მეორდება, ჩვევაა (every evening). ამიტომ Present Simple. he / she / it-თან ემატება -s: Tom watches."},
+  formula:"Subjekt + Verb (he/she/it: Verb + -s)",
+  neg:"Tom doesn't watch TV. · Does Tom watch TV?",
+  ex:[{en:"I drink coffee every morning.",de:"Ich trinke jeden Morgen Kaffee."},{en:"The bus leaves at 8 o'clock.",de:"Der Bus fährt um 8 Uhr ab."},{en:"She usually doesn't eat meat.",de:"Sie isst normalerweise kein Fleisch."}],
+  cmp:"prc",
+  mis:{w:"Tom watch TV every evening.",r:"Tom watches TV every evening.",why:{de:"Bei he / she / it das -s nicht vergessen!",ar:"مع he / she / it لا تنسَ s-!",ka:"he / she / it-თან -s არ დაგავიწყდეს!"}}},
+ {id:"prc",grp:"present",name:"Present Continuous",
+  scene:{tv:1,clock:"now",face:"😃",bob:1},tl:[{t:"bar",x1:44,x2:56}],
+  say:"Tom is watching TV right now.",
+  sig:["right now","now","at the moment","this month","Look!"],
+  why:{de:"Es passiert genau jetzt und ist noch nicht fertig. Darum am / is / are + -ing.",ar:"يحدث الآن بالضبط ولم ينتهِ بعد. لذلك am / is / are + ing-.",ka:"ეს ზუსტად ახლა ხდება და ჯერ არ დასრულებულა. ამიტომ am / is / are + -ing."},
+  formula:"Subjekt + am/is/are + Verb-ing",
+  neg:"Tom isn't watching TV. · Is Tom watching TV?",
+  ex:[{en:"I'm waiting for the bus right now.",de:"Ich warte gerade auf den Bus."},{en:"She's learning English this month.",de:"Sie lernt diesen Monat Englisch."},{en:"Look! It's raining.",de:"Schau! Es regnet."}],
+  cmp:"prs",
+  mis:{w:"I m watching TV.",r:"I'm watching TV.",why:{de:"Die Kurzform braucht einen Apostroph: I'm = I am. Und I schreibt man immer groß.",ar:"الاختصار يحتاج فاصلة عليا: I'm = I am. وحرف I يُكتب دائمًا كبيرًا.",ka:"შემოკლებას აპოსტროფი სჭირდება: I'm = I am. და I ყოველთვის დიდი ასოთი იწერება."}}},
+ {id:"prp",grp:"present",name:"Present Perfect",
+  scene:{tv:0,clock:"now",face:"😎",bub:"I know the end!"},tl:[{t:"pt",x:28},{t:"arrow",x1:28,x2:50}],
+  say:"Tom has already watched this film.",
+  sig:["already","ever","never","just","yet","for five years"],
+  why:{de:"Wann Tom den Film gesehen hat, ist egal. Wichtig ist das Ergebnis jetzt: Er kennt den Film. Darum have / has + 3. Form.",ar:"متى شاهد توم الفيلم غير مهم. المهم النتيجة الآن: هو يعرف الفيلم. لذلك have / has + التصريف الثالث.",ka:"როდის ნახა ტომმა ფილმი, მნიშვნელობა არ აქვს. მთავარია შედეგი ახლა: ფილმი უკვე იცის. ამიტომ have / has + მე-3 ფორმა."},
+  formula:"Subjekt + have/has + 3. Form",
+  neg:"Tom hasn't watched this film yet. · Has Tom ever watched this film?",
+  ex:[{en:"I've lived in Berlin for five years.",de:"Ich wohne seit fünf Jahren in Berlin."},{en:"Have you ever been to London?",de:"Warst du schon einmal in London?"},{en:"She has just finished her homework.",de:"Sie hat gerade ihre Hausaufgaben fertig gemacht."}],
+  cmp:"ps",
+  mis:{w:"Tom has seen it yesterday.",r:"Tom saw it yesterday.",why:{de:"yesterday ist ein Zeitpunkt in der Vergangenheit, darum Past Simple.",ar:"yesterday وقت محدد في الماضي، لذلك Past Simple.",ka:"yesterday წარსულის კონკრეტული დროა, ამიტომ Past Simple."}}},
+ {id:"prpc",grp:"present",name:"Present Perfect Continuous",
+  scene:{tv:1,clock:"6 → 9 pm",face:"🙂",bob:1},tl:[{t:"bar",x1:24,x2:50}],
+  say:"Tom has been watching TV since six o'clock.",
+  sig:["since six o'clock","since September","since","all day","How long"],
+  why:{de:"Es hat in der Vergangenheit angefangen (um sechs) und läuft immer noch. Wichtig ist die Dauer. have / has been + -ing.",ar:"بدأ في الماضي (الساعة السادسة) وما زال مستمرًا. المهم هو المدة. have / has been + ing-.",ka:"დაიწყო წარსულში (ექვს საათზე) და ისევ გრძელდება. მთავარია ხანგრძლივობა. have / has been + -ing."},
+  formula:"Subjekt + have/has been + Verb-ing",
+  neg:"Tom hasn't been watching TV. · How long has Tom been watching TV?",
+  ex:[{en:"I've been learning English since September.",de:"Ich lerne seit September Englisch."},{en:"It has been raining all day.",de:"Es regnet schon den ganzen Tag."},{en:"How long have you been waiting?",de:"Wie lange wartest du schon?"}],
+  cmp:"prp",
+  mis:{w:"Tom is watching TV since six.",r:"Tom has been watching TV since six.",why:{de:"since / for und es läuft noch: have been + -ing, nicht Present Continuous.",ar:"since / for والفعل ما زال مستمرًا: have been + ing-، وليس Present Continuous.",ka:"since / for და ისევ გრძელდება: have been + -ing, და არა Present Continuous."}}},
+ {id:"will",grp:"future",name:"will",
+  scene:{tv:0,clock:"now → in a second",face:"😃",phone:1,jump:1,bub:"I'll answer it!"},tl:[{t:"pt",x:58}],
+  say:"The phone is ringing! I'll answer it!",
+  sig:["I think","tomorrow","probably"],
+  why:{de:"Tom entscheidet sich genau jetzt, ganz spontan (das Telefon klingelt). Darum will + Grundform, kurz: I'll.",ar:"توم يقرّر الآن بشكل عفوي (الهاتف يرنّ). لذلك will + المصدر، والاختصار: I'll.",ka:"ტომი ახლა, სპონტანურად წყვეტს (ტელეფონი რეკავს). ამიტომ will + საწყისი ფორმა, მოკლედ: I'll."},
+  formula:"Subjekt + will + Grundform",
+  neg:"I won't answer it. · Will you answer it?",
+  ex:[{en:"It's cold. I'll close the window.",de:"Es ist kalt. Ich mache das Fenster zu."},{en:"I think it will rain tomorrow.",de:"Ich glaube, es regnet morgen."},{en:"Don't worry, I won't tell anyone.",de:"Keine Sorge, ich sage es niemandem."}],
+  cmp:"goingto",
+  mis:{w:"The phone is ringing! I'm going to answer it.",r:"The phone is ringing! I'll answer it.",why:{de:"Die Entscheidung fällt spontan im Moment, darum will.",ar:"القرار عفوي في اللحظة، لذلك will.",ka:"გადაწყვეტილება წამიერი და სპონტანურია, ამიტომ will."}}},
+ {id:"goingto",grp:"future",name:"going to",
+  scene:{tv:0,clock:"tonight",face:"😃",ticket:1,walk:1},tl:[{t:"plan",x1:44,x2:72}],
+  say:"Tom is going to watch the match tonight.",
+  sig:["tonight","next month","at the weekend","Look at those clouds!"],
+  why:{de:"Tom hat es schon vorher entschieden, das Ticket ist gekauft. Ein Plan heißt am / is / are going to + Grundform.",ar:"قرّر توم ذلك مسبقًا، والتذكرة مشتراة. الخطة = am / is / are going to + المصدر.",ka:"ტომმა ეს წინასწარ გადაწყვიტა, ბილეთი ნაყიდია. გეგმა = am / is / are going to + საწყისი ფორმა."},
+  formula:"Subjekt + am/is/are going to + Grundform",
+  neg:"Tom isn't going to watch the match. · Is Tom going to watch the match?",
+  ex:[{en:"I'm going to start a new job next month.",de:"Ich fange nächsten Monat einen neuen Job an."},{en:"Look at those clouds! It's going to rain.",de:"Schau dir die Wolken an! Es wird gleich regnen."},{en:"We're going to visit my parents at the weekend.",de:"Wir besuchen am Wochenende meine Eltern."}],
+  cmp:"will",
+  mis:{w:"Tom is going to watching the match.",r:"Tom is going to watch the match.",why:{de:"Nach going to kommt die Grundform.",ar:"بعد going to يأتي المصدر.",ka:"going to-ს შემდეგ საწყისი ფორმა მოდის."}}},
+ {id:"fpc",grp:"future",name:"Present Continuous (Termin)",
+  scene:{tv:0,clock:"Saturday",face:"😊",cal:"sat"},tl:[{t:"pt",x:80}],
+  say:"Tom is meeting Sara at the cinema on Saturday.",
+  sig:["on Saturday","on Monday","tomorrow at 7","this weekend"],
+  why:{de:"Ein fester Termin mit Tag oder Uhrzeit, mit einer anderen Person verabredet. Darum Present Continuous mit Zeitangabe (on Saturday).",ar:"موعد ثابت بيوم أو ساعة، متفق عليه مع شخص آخر. لذلك Present Continuous مع ذكر الوقت (on Saturday).",ka:"მყარი შეხვედრა კონკრეტულ დღეს ან საათზე, სხვასთან შეთანხმებული. ამიტომ Present Continuous დროის მითითებით (on Saturday)."},
+  formula:"Subjekt + am/is/are + Verb-ing + Zeitangabe",
+  neg:"Tom isn't meeting Sara on Saturday. · Is Tom meeting Sara on Saturday?",
+  ex:[{en:"I'm meeting my friend tomorrow at 7.",de:"Ich treffe morgen um 7 meinen Freund."},{en:"We're flying to London on Monday.",de:"Wir fliegen am Montag nach London."},{en:"What are you doing this weekend?",de:"Was machst du an diesem Wochenende?"}],
+  cmp:"goingto",
+  mis:{w:"Tom is meet Sara on Saturday.",r:"Tom is meeting Sara on Saturday.",why:{de:"Nach am / is / are kommt das Verb mit -ing.",ar:"بعد am / is / are يأتي الفعل مع ing-.",ka:"am / is / are-ის შემდეგ ზმნა -ing-ით."}}},
+ /* --- Mehr mit Tom (Themen vom 20.11) --- */
+ {id:"modal",grp:"more",name:"Modalverben",
+  scene:{tv:1,clock:"1 am",face:"🥱",bub:"You should go to bed!"},
+  say:"Tom looks tired. He should go to bed.",
+  sig:["should","shouldn't","could","If I were you"],
+  why:{de:"should = einen Rat geben (sollte). Danach kommt die Grundform ohne to. Ein Rat geht auch mit: If I were you, I would …",ar:"should = تقديم نصيحة. بعدها المصدر بدون to. ويمكن أيضًا: If I were you, I would …",ka:"should = რჩევა. მის შემდეგ საწყისი ფორმა to-ს გარეშე. რჩევა ასეც შეიძლება: If I were you, I would …"},
+  formula:"should / shouldn't / could + Grundform",
+  ex:[{en:"He shouldn't watch TV all night.",de:"Er sollte nicht die ganze Nacht fernsehen."},{en:"You could try Portugal. It's lovely.",de:"Du könntest Portugal probieren. Es ist schön."},{en:"If I were you, I would talk to your boss.",de:"An deiner Stelle würde ich mit deinem Chef sprechen."},{en:"Why don't we ask Jo to help us?",de:"Warum fragen wir nicht Jo, ob er uns hilft?"}]},
+ {id:"tags",grp:"more",name:"Question Tags",
+  scene:{tv:1,clock:"now",face:"🙂",bub:"…, aren't you?"},
+  say:"You're watching the match, aren't you?",
+  sig:["aren't you","did you","does she","shouldn't we"],
+  why:{de:"Plus-Satz → Minus-Tag, Minus-Satz → Plus-Tag. Das Hilfsverb aus dem Satz wird wiederholt (are → aren't you?).",ar:"جملة مثبتة ← سؤال ذيلي منفي، وجملة منفية ← سؤال ذيلي مثبت. نكرر الفعل المساعد من الجملة (are ← aren't you?).",ka:"დადებითი წინადადება → უარყოფითი tag, უარყოფითი → დადებითი. წინადადების დამხმარე ზმნა მეორდება (are → aren't you?)."},
+  formula:"Satz +, Hilfsverb (+/–) + Pronomen?",
+  ex:[{en:"You didn't see it, did you?",de:"Du hast es nicht gesehen, oder?"},{en:"She doesn't like coffee, does she?",de:"Sie mag keinen Kaffee, oder?"},{en:"We should leave soon, shouldn't we?",de:"Wir sollten bald gehen, oder?"}]},
+ {id:"conj",grp:"more",name:"Konjunktionen",
+  scene:{tv:1,clock:"11 pm",face:"🥱",bob:1},
+  say:"Although Tom was tired, he watched the match.",
+  sig:["Although","so","because","unless","while","However"],
+  why:{de:"although = obwohl (Gegensatz). because = weil (Grund). so = deshalb (Folge). unless = wenn nicht. while = während.",ar:"although = بالرغم من أن (تناقض). because = لأن (سبب). so = لذلك (نتيجة). unless = إلا إذا. while = بينما.",ka:"although = მიუხედავად იმისა, რომ (წინააღმდეგობა). because = იმიტომ, რომ (მიზეზი). so = ამიტომ (შედეგი). unless = თუ არა. while = სანამ / როცა."},
+  formula:"Satz 1 + although / because / so / unless + Satz 2",
+  ex:[{en:"He was tired, so he went to bed.",de:"Er war müde, deshalb ging er ins Bett."},{en:"He stayed at home because it was raining.",de:"Er blieb zu Hause, weil es regnete."},{en:"You'll miss the bus unless you hurry.",de:"Du verpasst den Bus, wenn du dich nicht beeilst."}]},
+ {id:"ger",grp:"more",name:"Gerund & Infinitiv",
+  scene:{tv:1,clock:"Saturday",face:"😃",bob:1,bub:"Goal! ⚽"},
+  say:"Tom enjoys watching football. He wants to buy a new TV.",
+  sig:["enjoys","wants to","looking forward to","decided to"],
+  why:{de:"Nach enjoy, finish, avoid, look forward to kommt -ing. Nach want, decide, hope kommt to + Verb.",ar:"بعد enjoy وfinish وavoid وlook forward to يأتي ing-. وبعد want وdecide وhope يأتي to + الفعل.",ka:"enjoy, finish, avoid, look forward to-ს შემდეგ -ing. want, decide, hope-ის შემდეგ to + ზმნა."},
+  formula:"enjoy + Verb-ing · want + to + Verb",
+  ex:[{en:"I'm looking forward to seeing you.",de:"Ich freue mich darauf, dich zu sehen."},{en:"She decided to apply for the job.",de:"Sie beschloss, sich auf die Stelle zu bewerben."},{en:"Would you mind opening the window?",de:"Würdest du bitte das Fenster öffnen?"}]},
+ {id:"rel",grp:"more",name:"Relativsätze",
+  scene:{tv:1,clock:"every evening",face:"🙂",bed:1},
+  say:"Tom is the man who watches TV every evening.",
+  sig:["who","which","where","whose"],
+  why:{de:"who = Person, which / that = Ding, where = Ort, whose = Besitz. Zusatzinfo mit Kommas: Berlin, which is the capital, …",ar:"who = شخص، which / that = شيء، where = مكان، whose = ملكية. المعلومة الإضافية بين فاصلتين: Berlin, which is the capital, …",ka:"who = ადამიანი, which / that = საგანი, where = ადგილი, whose = კუთვნილება. დამატებითი ინფორმაცია მძიმეებით: Berlin, which is the capital, …"},
+  formula:"Nomen + who / which / where / whose + Satz",
+  ex:[{en:"This is the sofa where he sleeps.",de:"Das ist das Sofa, auf dem er schläft."},{en:"The TV which he bought is huge.",de:"Der Fernseher, den er gekauft hat, ist riesig."},{en:"That's the man whose car was stolen.",de:"Das ist der Mann, dessen Auto gestohlen wurde."}]}
+];
+
+const TOM_CMP = {
+ "ps|pc":{de:"Past Simple = kurz und fertig (ein Punkt). Past Continuous = lief gerade (ein Balken) und wurde unterbrochen.",ar:"Past Simple = قصير ومنتهٍ (نقطة). Past Continuous = كان مستمرًا (خط) ثم انقطع.",ka:"Past Simple = მოკლე და დასრულებული (წერტილი). Past Continuous = მიმდინარეობდა (ხაზი) და შეწყდა."},
+ "pp|ps":{de:"Was zuerst passiert ist → Past Perfect (had + 3. Form). Was danach passiert ist → Past Simple.",ar:"ما حدث أولًا ← Past Perfect (had + التصريف الثالث). ما حدث بعده ← Past Simple.",ka:"რაც პირველი მოხდა → Past Perfect (had + მე-3 ფორმა). რაც შემდეგ მოხდა → Past Simple."},
+ "ppc|pc":{de:"Past Continuous = lief zu einem Zeitpunkt. Past Perfect Continuous = wie lange es schon lief bis zu diesem Punkt.",ar:"Past Continuous = كان مستمرًا في لحظة معينة. Past Perfect Continuous = كم من الوقت استمر حتى تلك اللحظة.",ka:"Past Continuous = მიმდინარეობდა გარკვეულ მომენტში. Past Perfect Continuous = რამდენ ხანს გრძელდებოდა იმ მომენტამდე."},
+ "prs|prc":{de:"Present Simple = immer wieder, eine Gewohnheit. Present Continuous = nur jetzt gerade.",ar:"Present Simple = يتكرر دائمًا، عادة. Present Continuous = الآن فقط.",ka:"Present Simple = ხშირად, ჩვევა. Present Continuous = მხოლოდ ახლა."},
+ "prp|ps":{de:"Mit Zeitangabe (yesterday, last Friday) → Past Simple. Ohne Zeitangabe, wichtig ist das Ergebnis jetzt → Present Perfect.",ar:"مع ذكر الوقت (yesterday, last Friday) ← Past Simple. بدون وقت، والمهم النتيجة الآن ← Present Perfect.",ka:"დროის მითითებით (yesterday, last Friday) → Past Simple. დროის გარეშე, მთავარია შედეგი ახლა → Present Perfect."},
+ "prpc|prp":{de:"Present Perfect = das Ergebnis (Er hat 3 Filme gesehen). Present Perfect Continuous = die Dauer, es läuft noch.",ar:"Present Perfect = النتيجة (شاهد 3 أفلام). Present Perfect Continuous = المدة، وما زال مستمرًا.",ka:"Present Perfect = შედეგი (3 ფილმი ნახა). Present Perfect Continuous = ხანგრძლივობა, ისევ გრძელდება."},
+ "will|goingto":{de:"will = jetzt spontan entschieden. going to = schon vorher geplant.",ar:"will = قرار عفوي الآن. going to = خطة مسبقة.",ka:"will = ახლა, სპონტანურად გადაწყვეტილი. going to = წინასწარ დაგეგმილი."},
+ "fpc|goingto":{de:"going to = Plan, Absicht. Present Continuous = fester Termin mit Tag oder Uhrzeit, schon verabredet.",ar:"going to = خطة، نيّة. Present Continuous = موعد ثابت بيوم أو ساعة، متفق عليه.",ka:"going to = გეგმა, განზრახვა. Present Continuous = მყარი შეხვედრა დღით ან საათით, უკვე შეთანხმებული."}
+};
+
+let tomSel = null, tomQ = null, tomScore = {ok:0,all:0};
+function tomLang(){ try{ return localStorage.getItem('ela_lang')||'de'; }catch(e){ return 'de'; } }
+function tomU(k){ const l=tomLang(); return (TOM_UI[l]||TOM_UI.de)[k]||TOM_UI.de[k]; }
+function tomTr(o){ const l=tomLang(); return (o&&(o[l]||o.de))||''; }
+function tomEsc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function tomMark(s, sig){
+  let h = tomEsc(s);
+  if (!sig || !sig.length) return h;
+  const list = sig.slice().sort((a,b)=>b.length-a.length).map(w=>tomEsc(w).replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+  const re = new RegExp('(^|[^A-Za-z])('+list.join('|')+')(?![A-Za-z])','gi');
+  return h.replace(re,(m,p,w)=>p+'<mark class="tsg">'+w+'</mark>');
+}
+function tomById(id){ return TOM_T.find(x=>x.id===id); }
+
+function tomScene(c){
+  c = c||{};
+  const x = 150;
+  let s = '<svg viewBox="0 0 460 200" role="img" aria-label="Tom">';
+  if (c.clock) s += '<text x="452" y="22" text-anchor="end" class="tom-lbl">⏰ '+tomEsc(c.clock)+'</text>';
+  // TV
+  s += '<rect class="tom-tv" x="290" y="70" width="120" height="82" rx="6"/>';
+  s += '<rect x="298" y="78" width="104" height="66" rx="3" fill="'+(c.tv?'#3b82f6':'#9ca3af')+'" '+(c.tv?'class="tom-flick"':'')+'/>';
+  if (c.tv) s += '<text x="350" y="118" text-anchor="middle" font-size="22">⚽</text>';
+  else s += '<text x="350" y="117" text-anchor="middle" class="tom-lbl" fill="#fff">off</text>';
+  s += '<line class="tom-st" x1="330" y1="152" x2="320" y2="172"/><line class="tom-st" x1="370" y1="152" x2="380" y2="172"/>';
+  if (c.phone) s += '<text x="425" y="70" font-size="30" class="tom-ring">📱</text><text x="424" y="46" class="tom-lbl">ring!</text>';
+  if (c.bed) s += '<text x="18" y="182" font-size="44">🛏️</text>';
+  if (c.face==='😴') s += '<text x="78" y="120" class="tom-bt tom-z">Z z z</text>';
+  if (c.ticket) s += '<text x="232" y="182" font-size="28">🎟️</text><text x="262" y="182" font-size="26">🍿</text>';
+  if (c.cal==='week'){
+    const d=['Mo','Tu','We','Th','Fr','Sa','Su'];
+    s += d.map((t,i)=>'<g><rect x="'+(12+i*30)+'" y="36" width="26" height="30" rx="4" fill="none" stroke="#9ca3af"/><text x="'+(25+i*30)+'" y="49" text-anchor="middle" font-size="10" class="tom-lbl">'+t+'</text><text x="'+(25+i*30)+'" y="63" text-anchor="middle" font-size="12">✅</text></g>').join('');
+  }
+  if (c.cal==='sat') s += '<rect x="12" y="36" width="96" height="46" rx="6" fill="none" stroke="#9ca3af"/><text x="60" y="54" text-anchor="middle" class="tom-lbl">Saturday</text><text x="60" y="75" text-anchor="middle" font-size="15">🎬 Sara</text>';
+  // Tom
+  let cls = c.bob?'tom-bob':(c.walk?'tom-walk':(c.jump?'tom-jump':''));
+  const tx = c.face==='😴' ? 70 : x;
+  s += '<g class="'+cls+'"><g transform="translate('+(tx-150)+',0)">';
+  s += '<circle cx="150" cy="96" r="17" fill="var(--bg)" stroke="var(--fg)" stroke-width="3.5"/>';
+  s += '<text x="150" y="104" text-anchor="middle" font-size="22">'+(c.face||'🙂')+'</text>';
+  s += '<line class="tom-st" x1="150" y1="113" x2="150" y2="152"/>';
+  s += '<line class="tom-st" x1="150" y1="124" x2="174" y2="138"/><line class="tom-st" x1="150" y1="124" x2="128" y2="140"/>';
+  s += '<line class="tom-st" x1="150" y1="152" x2="136" y2="186"/><line class="tom-st" x1="150" y1="152" x2="164" y2="186"/>';
+  s += '<text x="150" y="70" text-anchor="middle" class="tom-lbl">Tom</text>';
+  s += '</g></g>';
+  if (c.bub){
+    const w = Math.max(90, c.bub.length*8.4+24);
+    const bx = Math.min(Math.max(150, 30+w/2), 455-w/2);
+    s += '<g><rect x="'+(bx-w/2)+'" y="6" width="'+w+'" height="34" rx="16" fill="var(--bg-2)" stroke="var(--accent)" stroke-width="2"/><text x="'+bx+'" y="28" text-anchor="middle" class="tom-bt">'+tomEsc(c.bub)+'</text></g>';
+  }
+  s += '<line x1="0" y1="190" x2="460" y2="190" stroke="#9ca3af" stroke-width="2"/></svg>';
+  return s;
+}
+function tomTimeline(marks){
+  if (!marks) return '';
+  const X = p => 20 + p*4.2;
+  let s = '<svg viewBox="0 0 460 64"><line x1="20" y1="34" x2="440" y2="34" stroke="#9ca3af" stroke-width="3"/>';
+  s += '<polygon points="440,28 452,34 440,40" fill="#9ca3af"/>';
+  s += '<line x1="'+X(50)+'" y1="10" x2="'+X(50)+'" y2="46" stroke="#dc2626" stroke-width="3"/>';
+  s += '<text x="20" y="60" class="tom-lbl">PAST</text><text x="'+X(50)+'" y="60" text-anchor="middle" class="tom-lbl" fill="#dc2626">NOW</text><text x="440" y="60" text-anchor="end" class="tom-lbl">FUTURE</text>';
+  marks.forEach(m=>{
+    if (m.t==='pt'){ s += '<circle cx="'+X(m.x)+'" cy="34" r="8" fill="#2563eb"/>'; if (m.l) s += '<text x="'+X(m.x)+'" y="20" text-anchor="middle" class="tom-bt">'+m.l+'</text>'; }
+    if (m.t==='bar') s += '<rect x="'+X(m.x1)+'" y="28" width="'+(X(m.x2)-X(m.x1))+'" height="12" rx="6" fill="#2563eb" opacity=".85"/>';
+    if (m.t==='int') s += '<rect x="'+(X(m.x)-3)+'" y="16" width="6" height="30" rx="2" fill="#f59e0b"/><text x="'+X(m.x)+'" y="12" text-anchor="middle" font-size="12">📱</text>';
+    if (m.t==='dots') for (let i=6;i<=94;i+=8) s += '<circle cx="'+X(i)+'" cy="34" r="5" fill="#2563eb"/>';
+    if (m.t==='arrow') s += '<path d="M'+X(m.x1)+' 22 Q '+((X(m.x1)+X(m.x2))/2)+' 2 '+X(m.x2)+' 22" fill="none" stroke="#2563eb" stroke-width="2" stroke-dasharray="4 3"/>';
+    if (m.t==='plan') s += '<line x1="'+X(m.x1)+'" y1="34" x2="'+X(m.x2)+'" y2="34" stroke="#2563eb" stroke-width="3" stroke-dasharray="6 5"/><circle cx="'+X(m.x2)+'" cy="34" r="8" fill="#2563eb"/><text x="'+X(m.x1+6)+'" y="22" font-size="13">🎟️</text>';
+  });
+  return s+'</svg>';
+}
+
+function tomSpeak(text, slow){
+  if (!window.speechSynthesis) return;
+  if (!slow && typeof speakText==='function') { speakText(text,'en-GB'); return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang='en-GB'; u.rate = slow?0.6:0.9;
+  try { if (typeof ttsVoice!=='undefined' && ttsVoice) u.voice = ttsVoice; } catch(e){}
+  speechSynthesis.speak(u);
+}
+function tomSpeakPair(a,b){
+  if (typeof speakText==='function') speakText(a,'en-GB',()=>speakText(b,'en-GB'));
+  else tomSpeak(a+' … '+b);
+}
+function tomNorm(s){ return String(s).toLowerCase().replace(/’/g,"'").replace(/[^a-z0-9' ]/g,' ').replace(/\s+/g,' ').trim(); }
+function tomMic(i, resId){
+  const out = document.getElementById(resId);
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { out.textContent = tomU('micNo'); return; }
+  const target = tomGetSentence(i);
+  let rec;
+  try { rec = new SR(); } catch(e){ out.textContent = tomU('micNo'); return; }
+  rec.lang='en-GB'; rec.interimResults=false; rec.maxAlternatives=3;
+  out.textContent = tomU('micListen');
+  rec.onresult = ev => {
+    const alts = Array.from(ev.results[0]).map(a=>a.transcript);
+    const tw = tomNorm(target).split(' ');
+    let best = 0, heard = alts[0]||'';
+    alts.forEach(a=>{ const hw = tomNorm(a).split(' '); const hit = tw.filter(w=>hw.includes(w)).length/tw.length; if (hit>best){best=hit;heard=a;} });
+    const verdict = best>=0.85 ? tomU('micGood') : best>=0.5 ? tomU('micAlmost') : tomU('micAgain');
+    out.innerHTML = tomU('micHeard')+' „'+tomEsc(heard)+'“ ('+Math.round(best*100)+'%)<br>'+verdict;
+  };
+  rec.onerror = ev => { out.textContent = (ev && (ev.error==='not-allowed'||ev.error==='service-not-allowed')) ? tomU('micErr') : tomU('micAgain'); };
+  try { rec.start(); } catch(e){ out.textContent = tomU('micErr'); }
+}
+let tomSentences = [];
+function tomGetSentence(i){ return tomSentences[i]||''; }
+function tomSBtns(text, sig){
+  const i = tomSentences.push(text)-1, rid = 'tom-mic-'+i;
+  return '<div class="tom-btns"><button class="tom-btn" onclick="tomSpeak(tomGetSentence('+i+'))">'+tomU('listen')+'</button><button class="tom-btn" onclick="tomSpeak(tomGetSentence('+i+'),true)">'+tomU('slow')+'</button><button class="tom-btn mic" onclick="tomMic('+i+',\''+rid+'\')">'+tomU('mic')+'</button></div><div class="tom-mic-res" id="'+rid+'"></div>';
+}
+
+function tomRender(){
+  const box = document.getElementById('tom-box');
+  if (!box) return;
+  tomSentences = [];
+  const l = tomLang();
+  const grp = g => '<div class="tom-grp">'+tomU(g)+'</div><div class="tom-chips">'+TOM_T.filter(x=>x.grp===g).map(x=>'<button class="tom-chip'+(tomSel===x.id?' on':'')+'" onclick="tomPick(\''+x.id+'\')">'+tomEsc(x.name)+'</button>').join('')+'</div>';
+  let h = '<h3>'+tomU('title')+'</h3><div class="tom-intro">'+tomU('intro')+'</div>';
+  h += grp('past')+grp('present')+grp('future')+grp('more');
+  h += '<div class="tom-chips" style="margin-top:12px"><button class="tom-chip ex'+(tomSel==='quiz'?' on':'')+'" onclick="tomPick(\'quiz\')">'+tomU('quiz')+'</button></div>';
+  if (tomSel==='quiz') h += '<div class="tom-detail" id="tom-quiz">'+tomQuizHtml()+'</div>';
+  else if (tomSel) h += '<div class="tom-detail">'+tomDetail(tomById(tomSel))+'</div>';
+  box.innerHTML = h;
+  box.setAttribute('dir','ltr');
+}
+function tomDetail(x){
+  if (!x) return '';
+  const l = tomLang(), rtl = l==='ar' ? ' dir="rtl"' : '';
+  let h = '<div class="tom-scene">'+tomScene(x.scene)+'</div>';
+  if (x.tl) h += '<div class="tom-tl">'+tomTimeline(x.tl)+'</div>';
+  h += '<div class="tom-say"><span style="font-size:22px">🧍</span><div class="s">„'+tomMark(x.say,x.sig)+'“</div></div>';
+  h += tomSBtns(x.say);
+  h += '<div class="tom-row"><b class="k">💡 '+tomU('why')+'</b><div class="tom-why"'+rtl+'>'+tomEsc(tomTr(x.why))+'</div></div>';
+  h += '<div class="tom-row"><b class="k">🧩 '+tomU('formula')+'</b><span class="tom-formula">'+tomEsc(x.formula)+'</span></div>';
+  if (x.neg) h += '<div class="tom-row"><b class="k">❌ ❓ '+tomU('neg')+'</b>'+tomEsc(x.neg)+'</div>';
+  h += '<div class="tom-row"><b class="k">📚 '+tomU('ex')+'</b>'+x.ex.map(e=>{const i=tomSentences.push(e.en)-1;return '<div class="tom-ex"><div class="e">'+tomMark(e.en,x.sig)+(l==='de'?'<span>'+tomEsc(e.de)+'</span>':'')+'</div><button class="tom-btn" onclick="tomSpeak(tomGetSentence('+i+'))">🔊</button></div>';}).join('')+'</div>';
+  if (x.cmp){
+    const o = tomById(x.cmp);
+    const key = TOM_CMP[x.id+'|'+o.id] ? x.id+'|'+o.id : o.id+'|'+x.id;
+    const ia = tomSentences.push(x.say)-1, ib = tomSentences.push(o.say)-1;
+    h += '<div class="tom-cmp"><b class="k" style="display:block;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">⚖️ '+tomU('cmp')+': '+tomEsc(x.name)+' ↔ '+tomEsc(o.name)+'</b>';
+    h += '<div class="tom-scene" style="max-width:300px;margin:0 auto">'+tomScene(o.scene)+'</div>';
+    h += '<div class="tom-row">• <b>'+tomEsc(x.name)+':</b> '+tomMark(x.say,x.sig)+'</div><div class="tom-row">• <b>'+tomEsc(o.name)+':</b> '+tomMark(o.say,o.sig)+'</div>';
+    h += '<div class="tom-why"'+rtl+' style="margin:6px 0">👉 '+tomEsc(tomTr(TOM_CMP[key]))+'</div>';
+    h += '<div class="tom-btns"><button class="tom-btn" onclick="tomSpeakPair(tomGetSentence('+ia+'),tomGetSentence('+ib+'))">'+tomU('both')+'</button><button class="tom-chip" style="padding:5px 10px;font-size:13px" onclick="tomPick(\''+o.id+'\')">→ '+tomEsc(o.name)+'</button></div></div>';
+  }
+  if (x.mis) h += '<div class="tom-mis"><b class="k" style="display:block;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#dc2626;margin-bottom:4px">⚠️ '+tomU('mis')+'</b><div>❌ <s>'+tomEsc(x.mis.w)+'</s></div><div>✅ <b>'+tomEsc(x.mis.r)+'</b></div><div class="tom-why"'+rtl+' style="margin-top:4px">'+tomEsc(tomTr(x.mis.why))+'</div></div>';
+  return h;
+}
+function tomPick(id){
+  tomSel = (tomSel===id) ? null : id;
+  if (tomSel==='quiz') tomNewQ();
+  tomRender();
+  const d = document.querySelector('#tom-box .tom-detail');
+  if (d && d.scrollIntoView) d.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function tomNewQ(){
+  const pool = TOM_T.filter(x=>x.grp!=='more');
+  const x = pool[Math.floor(Math.random()*pool.length)];
+  const others = pool.filter(o=>o.id!==x.id);
+  const partner = tomById(x.cmp);
+  const rest = others.filter(o=>o.id!==partner.id);
+  const third = rest[Math.floor(Math.random()*rest.length)];
+  const opts = [x, partner, third].sort(()=>Math.random()-.5);
+  tomQ = {id:x.id, opts:opts.map(o=>o.id), done:false};
+}
+function tomQuizHtml(){
+  if (!tomQ) tomNewQ();
+  const x = tomById(tomQ.id);
+  let h = '<div class="tom-row"><b>'+tomU('quizQ')+'</b> <span style="float:right;font-size:13px;color:var(--fg-muted)">'+tomU('score')+': '+tomScore.ok+' / '+tomScore.all+'</span></div>';
+  h += '<div class="tom-scene">'+tomScene(Object.assign({},x.scene,{bub:x.id==='will'?'':x.scene.bub}))+'</div>';
+  if (x.tl) h += '<div class="tom-tl">'+tomTimeline(x.tl)+'</div>';
+  h += tomQ.opts.map((id,k)=>'<button class="tom-quiz-opt" id="tomqo-'+k+'" onclick="tomAnswer('+k+')">'+tomEsc(tomById(id).say)+'</button>').join('');
+  h += '<div id="tom-qfb"></div>';
+  return h;
+}
+function tomAnswer(k){
+  if (!tomQ || tomQ.done) return;
+  tomQ.done = true;
+  const x = tomById(tomQ.id), ok = tomQ.opts[k]===x.id;
+  tomScore.all++; if (ok) tomScore.ok++;
+  tomQ.opts.forEach((id,j)=>{ const b=document.getElementById('tomqo-'+j); if(!b) return; if(id===x.id) b.classList.add('ok'); else if(j===k) b.classList.add('bad'); });
+  const rtl = tomLang()==='ar' ? ' dir="rtl"' : '';
+  document.getElementById('tom-qfb').innerHTML = '<div class="tom-row" style="font-weight:700">'+(ok?tomU('right'):tomU('wrong')+' '+tomEsc(x.name))+'</div><div class="tom-why"'+rtl+'>💡 '+tomEsc(tomTr(x.why))+'</div><div class="tom-btns" style="margin-top:8px"><button class="tom-btn" onclick="tomSpeak(\''+x.say.replace(/'/g,"\\'")+'\')">'+tomU('listen')+'</button><button class="gram-quiz-btn" style="margin:0" onclick="tomNewQ();document.getElementById(\'tom-quiz\').innerHTML=tomQuizHtml()">'+tomU('next')+'</button></div>';
+}
+document.addEventListener('DOMContentLoaded', tomRender);
+if (document.readyState !== 'loading') tomRender();
 </script>
