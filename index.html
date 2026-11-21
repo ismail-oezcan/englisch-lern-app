@@ -490,6 +490,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
                 <option value="nov15">🎉 15.11 – Social Life &amp; Night Out</option>
                 <option value="nov16">🇮🇳 16.11 – International India</option>
                 <option value="nov17">✉️ 17.11 – Emails &amp; Airport</option>
+                <option value="nov20">⏰ 20.11 – Tenses Übersicht</option>
                 <option value="nov19">💼 19.11 – Jobs &amp; Work</option>
                 <option value="nov18">⚖️ 18.11 – Differences &amp; Conflict</option>
                 <option value="nov06">💬 06.11 – Giving Opinions</option>
@@ -2050,6 +2051,22 @@ const VOKABELN = [
   {w:'customs',ph:'/ˈkʌstəmz/',t:'Zoll',ta:'الجمارك',tka:'ს.',ex:'"Nothing to declare at customs."',cat:'nov17'},
   {w:'departures',ph:'/dɪˈpɑːtʃəz/',t:'Abflug / Abflughalle',ta:'المغادرة',tka:'გ.',ex:'"Please proceed to the departures gate."',cat:'nov17'},
 
+  // 20.11 – Tenses Übersicht (Irregular Verbs + Key Tense Vocabulary)
+  {w:'boil',ph:'/bɔɪl/',t:'kochen / sieden',ta:'يغلي',tka:'დუღს',ex:'"Water boils at 100°C." (Present Simple — Fakt)',cat:'nov20'},
+  {w:'temporary',ph:'/ˈtempərəri/',t:'vorübergehend / zeitweilig',ta:'مؤقت',tka:'დ.',ex:'"She is living in Berlin temporarily — just this month."',cat:'nov20'},
+  {w:'interrupt',ph:'/ˌɪntəˈrʌpt/',t:'unterbrechen',ta:'يقاطع',tka:'წ.',ex:'"While I was watching TV, my phone rang and interrupted me."',cat:'nov20'},
+  {w:'background action',ph:'/ˈbækɡraʊnd ˈækʃən/',t:'Hintergrundhandlung',ta:'الحدث الخلفي',tka:'ფ. ქ.',ex:'"Past Continuous = background action (was/were + V-ing)."',cat:'nov20'},
+  {w:'spontaneous',ph:'/spɒnˈteɪniəs/',t:'spontan / ungeplant',ta:'تلقائي',tka:'ს.',ex:'"\'I\'ll answer it!\' — spontaneous decision with will."',cat:'nov20'},
+  {w:'intention',ph:'/ɪnˈtenʃən/',t:'die Absicht / Vorhaben',ta:'النية',tka:'ჩ.',ex:'"\'I\'m going to learn Spanish.\' — intention = be going to."',cat:'nov20'},
+  {w:'evidence',ph:'/ˈevɪdəns/',t:'der Beweis / Hinweis',ta:'الدليل',tka:'მ.',ex:'"Look at the clouds!" — evidence for a prediction (be going to).',cat:'nov20'},
+  {w:'arrangement',ph:'/əˈreɪndʒmənt/',t:'die Vereinbarung / feste Planung',ta:'ترتيب',tka:'შ. შ.',ex:'"I\'m meeting my friend tomorrow." — fixed arrangement = Present Continuous.',cat:'nov20'},
+  {w:'go → went',ph:'/ɡəʊ → went/',t:'gehen → ging',ta:'يذهب → ذهب',tka:'მ. → წ.',ex:'"I went to school yesterday." (irregular Past Simple)',cat:'nov20'},
+  {w:'have → had',ph:'/hæv → hæd/',t:'haben → hatte',ta:'يملك → امتلك',tka:'გ. → ჰ.',ex:'"We had a great time last night." (irregular)',cat:'nov20'},
+  {w:'see → saw',ph:'/siː → sɔː/',t:'sehen → sah',ta:'يرى → رأى',tka:'ხ. → ი.',ex:'"I saw a good film last week." (irregular)',cat:'nov20'},
+  {w:'buy → bought',ph:'/baɪ → bɔːt/',t:'kaufen → kaufte',ta:'يشتري → اشترى',tka:'ი. → ი.',ex:'"She bought a new phone last month." (irregular)',cat:'nov20'},
+  {w:'eat → ate',ph:'/iːt → eɪt/',t:'essen → aß',ta:'يأكل → أكل',tka:'ჭ. → ჭ.',ex:'"We ate pizza yesterday." (irregular)',cat:'nov20'},
+  {w:'drink → drank',ph:'/drɪŋk → dræŋk/',t:'trinken → trank',ta:'يشرب → شرب',tka:'სვ. → დ.',ex:'"I drank too much coffee today." (irregular)',cat:'nov20'},
+
   // 19.11 – Jobs & Work + Gerunds (Unit 8B)
   {w:'road works',ph:'/rəʊd wɜːks/',t:'Straßenbaustelle / Bauarbeiten',ta:'أعمال الطريق',tka:'ს. ს.',ex:'"There are road works on the A100 — expect delays."',cat:'nov19'},
   {w:'speed limit',ph:'/spiːd ˈlɪmɪt/',t:'die Geschwindigkeitsbegrenzung',ta:'حد السرعة',tka:'ს. შ.',ex:'"The speed limit on this road is 50 km/h."',cat:'nov19'},
@@ -2684,6 +2701,31 @@ const GRAMMATIK = [
     ]
   },
   {
+    icon:'⏰', name:'Alle Tenses — Vollständige Übersicht (20.11.2026)', level:'A2/B1',
+    rule:'PRESENT: (1) Present Simple (Gewohnheit/Fakt): I watch TV every day. / She doesn\'t like coffee. — Schlüsselwörter: every day, always, usually, never. (2) Present Continuous (gerade jetzt / temporär / geplante Zukunft): I am watching TV now. / She is living here this month. / We are meeting tomorrow. — Form: am/is/are + V-ing. Kurzformen: I\'m, You\'re, He\'s, She\'s, We\'re, They\'re. Negativ: I\'m not, You aren\'t, He isn\'t. (3) Present Perfect (Vergangenheit mit Verbindung zur Gegenwart): I have lived in Berlin for 5 years. / She has already finished. — Schlüsselwörter: already, yet, ever, never, just, for, since. PAST: (4) Past Simple (abgeschlossen, gestern): I watched TV. / I went to school yesterday. — Negativ/Frage: did/didn\'t + base verb! Irregular: go→went, have→had, see→saw, buy→bought, eat→ate. (5) Past Continuous (lief gerade, wurde unterbrochen): I was watching TV at 8pm. / While I was watching TV, my phone rang. — Form: was/were + V-ing. FUTURE: (6) will (spontan/Versprechen/Vorhersage): I will help you. (7) be going to (Plan/Absicht oder Vorhersage mit Beweis): I\'m going to watch a film. / Look at those clouds — it\'s going to rain! (8) Present Continuous (fester Termin): I am meeting my friend tomorrow. SPELLING Present Continuous: come→coming (e fällt weg) | sit→sitting (Konsonant verdoppeln) | play→playing (normal).',
+    examples:[
+      {en:'I watch TV every day. (Present Simple — Gewohnheit)', de:'Ich schaue jeden Tag Fernsehen.'},
+      {en:'I am watching TV now. (Present Continuous — gerade jetzt)', de:'Ich schaue gerade Fernsehen.'},
+      {en:'I have watched this film. (Present Perfect — Erfahrung)', de:'Ich habe diesen Film gesehen.'},
+      {en:'I watched TV yesterday. (Past Simple — abgeschlossen)', de:'Ich habe gestern Fernsehen geschaut.'},
+      {en:'I was watching TV when my phone rang. (Past Continuous — unterbrochen)', de:'Ich schaute Fernsehen, als mein Handy klingelte.'},
+      {en:'I will watch it tomorrow. (will — spontan)', de:'Ich werde es morgen anschauen.'},
+      {en:"I'm going to watch it tonight. (going to — Plan)", de:'Ich habe vor, es heute Abend anzuschauen.'},
+      {en:"I'm watching it on Saturday. (Pres. Cont. — Termin)", de:'Ich schaue es am Samstag. (fester Termin)'},
+    ],
+    quizzes:[
+      {q:'"Water _____ at 100°C." — welches Tense?', opts:['is boiling','was boiling','boils','will boil'], a:2},
+      {q:'"Look! It _____ !" (rain) — welches Tense?', opts:["it's raining",'it rains','it rained','it will rain'], a:0},
+      {q:'"I _____ never _____ sushi." (eat) — welches Tense?', opts:['did / eat','was / eating','have / eaten','am / eating'], a:2},
+      {q:'Kurzform von "She is not listening."?', opts:["She isn't listening.",'She not listening.',"She don't listen.",'She not is listening.'], a:0},
+      {q:'"She didn\'t went." — was ist der Fehler?', opts:['Falsches Subjekt','Nach did/didn\'t kommt Base Verb: didn\'t go','Falsches Tense','Fehlendes Objekt'], a:1},
+      {q:'Spelling: "sit" im Present Continuous?', opts:['siting','sitting','siteing','sitted'], a:1},
+      {q:'"While I _____ TV, my phone rang." — Past Continuous:', opts:['watched','am watching','was watching','have watched'], a:2},
+      {q:'Spontane Entscheidung — welche Future-Form?', opts:['be going to','Present Continuous','will','Present Simple'], a:2},
+      {q:'Vorhersage mit sichtbarem Beweis (dunkle Wolken) — welche Form?', opts:['will','be going to','Present Continuous','Past Simple'], a:1},
+    ]
+  },
+  {
     icon:'💬', name:'Giving Opinions', level:'A2/B1',
     rule:'Um Meinungen auf Englisch auszudrücken, gibt es feste Phrasen für 5 Situationen: (1) Meinung erfragen: "What do you think about …?" / "What\'s your opinion of that?" (2) Meinung äußern: "Personally, I think …" / "From a … point of view, …" / "In my opinion, …" (3) Zustimmen: "I completely agree." / "Yes, that\'s a good point." (4) Widersprechen: "I\'m afraid I completely disagree." / "I\'m sorry, but I don\'t agree." (5) Standpunkt anerkennen: "I see what you mean." / "I take your point, but …"',
     examples:[
@@ -3272,6 +3314,7 @@ function addCustomVok() {
 /* ========== VOKABELN ========== */
 // Gruppen-Definitionen: Reihenfolge neueste zuerst
 const VOK_GROUPS = [
+  { key:'nov20', label:'⏰ 20.11 – Tenses Übersicht', date:'20.11' },
   { key:'nov19', label:'💼 19.11 – Jobs & Work', date:'19.11' },
   { key:'nov18', label:'⚖️ 18.11 – Differences & Conflict', date:'18.11' },
   { key:'nov17', label:'✉️ 17.11 – Emails & Airport', date:'17.11' },
@@ -5123,6 +5166,9 @@ const HW_DEFAULT = [
   {id:'hw24', datum:'2026-10-29', uebung:'Part 4 — Write Your Own Recipe: Menemen (Turkish Scrambled Eggs)', notiz:'Step 1: Plan | Step 2: Write | Step 3: Check | Step 4: Speaking — Lehrerin fragt 3 Fragen', done:false,
    erklaerung:'Rezept schreiben — Checkliste Step 3: ✅ 6+ Zutaten mit Mengen | ✅ 6 Schritte | ✅ 6 Küchen-Verben (chop, pour, add, crack, stir, season, serve) | ✅ Imperative (kein "you", kein -ing am Anfang) | ✅ Sequencing words (First, Next, Finally) | ✅ 2+ Quantifiers (a little olive oil, a pinch of salt, a few parsley leaves). Step 4 Fragen: 1) Why do you like this dish? 2) How long does it take? 3) What can you change if you don\'t have an ingredient?',
    beispiele:[{en:'First, chop the tomatoes and green pepper into small pieces.',de:'Zuerst die Tomaten und Paprika in kleine Stücke schneiden.'},{en:'Next, pour a little olive oil into the frying pan and heat it.',de:'Dann etwas Olivenöl in die Pfanne gießen und erhitzen.'},{en:'Crack the eggs into the pan and stir everything together.',de:'Die Eier in die Pfanne aufschlagen und alles zusammenrühren.'},{en:'Finally, season with salt and pepper and serve with bread.',de:'Zum Schluss mit Salz und Pfeffer würzen und mit Brot servieren.'}]},
+  {id:'hw26', datum:'2026-11-20', uebung:'Tenses Übersicht — Stundenmitschrift & Übungssätze', notiz:'Present Simple | Present Continuous (Kurzformen) | Past Simple (Irregular Verbs) | Past Continuous | Future (will / going to / Pres. Cont.)', done:true,
+   erklaerung:'Present Simple = Gewohnheit/Fakt (every day, always). Present Continuous = gerade jetzt (am/is/are + V-ing). Kurzformen: I\'m, You\'re, He\'s/She\'s, We\'re, They\'re. Negativ: I\'m not, You aren\'t, He/She isn\'t. Past Simple Irregular: go→went, have→had, see→saw, buy→bought, eat→ate, drink→drank. WICHTIG: Negativ/Frage → did/didn\'t + BASE VERB (nicht "She didn\'t went" sondern "She didn\'t go"). Past Continuous = was/were + V-ing (Hintergrundaktion). Future: will (spontan) | be going to (Plan/Absicht) | Present Continuous (fester Termin).',
+   beispiele:[{en:'I am reading a book. (Pres. Cont.)',de:'Ich lese gerade ein Buch.'},{en:"I'm enjoying playing football.",de:'Ich genieße es, Fußball zu spielen. (enjoy + V-ing)'},{en:'She went home at 5 o\'clock. (Past Simple)',de:'Sie ging um 5 Uhr nach Hause.'},{en:'While I was watching TV, my phone rang.',de:'Während ich TV schaute, klingelte mein Handy.'},{en:"Look at those clouds — it's going to rain!",de:'Schau die Wolken — es wird regnen! (Vorhersage mit Beweis)'}]},
   {id:'hw25', datum:'2026-11-03', uebung:'Unit 8B — Übung 1, 2 (Comment Adverbs) + Übung 3, 4, 5 (Passive Voice)', notiz:'Comment Adverbs: richtige Wahl + Lückentext | Passive: Sätze zuordnen, Alternativen wählen, aktiv → passiv umformen', done:false,
    erklaerung:'Comment Adverbs stehen am Satzanfang + Komma (Thankfully, Sadly, Luckily…). Passive Voice: be + past participle. Present Simple: is/are + V3. Past Simple: was/were + V3. Present Continuous: is/are being + V3. Past Continuous: was/were being + V3. "by + Person" nur wenn wichtig.',
    beispiele:[
