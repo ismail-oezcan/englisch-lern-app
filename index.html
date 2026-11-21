@@ -1185,6 +1185,21 @@ mark.tsg{background:#fde68a;color:#7c2d12;border-radius:4px;padding:0 2px}
     <!-- DeepL Übersetzer -->
     <div class="screen" id="sc-translator">
       <div class="sec-lbl">🌐 Übersetzer</div>
+
+      <!-- Tabs: Übersetzen / Vorlesen -->
+      <div style="display:flex;gap:0;margin-bottom:18px;background:var(--bg-2);border-radius:10px;padding:4px;border:1px solid var(--border)">
+        <button id="tab-uebersetzen" onclick="switchTranslatorTab('uebersetzen')"
+          style="flex:1;padding:9px;border:none;border-radius:7px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);background:var(--accent);color:#fff;transition:all .2s">
+          🌐 Übersetzen
+        </button>
+        <button id="tab-vorlesen" onclick="switchTranslatorTab('vorlesen')"
+          style="flex:1;padding:9px;border:none;border-radius:7px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);background:transparent;color:var(--fg-muted);transition:all .2s">
+          🔊 Vorlesen
+        </button>
+      </div>
+
+      <!-- TAB: Übersetzen -->
+      <div id="tab-content-uebersetzen">
       <div style="font-size:13px;color:var(--fg-muted);margin-bottom:16px">Englisch ↔ Deutsch – powered by DeepL</div>
 
       <!-- Sprach-Auswahl -->
@@ -1230,6 +1245,69 @@ mark.tsg{background:#fde68a;color:#7c2d12;border-radius:4px;padding:0 2px}
       <div id="tr-loading" style="display:none;text-align:center;padding:20px;color:var(--fg-muted);font-size:14px">
         ⏳ Wird übersetzt…
       </div>
+      </div><!-- end tab-content-uebersetzen -->
+
+      <!-- TAB: Vorlesen -->
+      <div id="tab-content-vorlesen" style="display:none">
+        <div style="font-size:13px;color:var(--fg-muted);margin-bottom:16px">Text eingeben oder einfügen — App liest laut vor</div>
+
+        <!-- Sprache + Geschwindigkeit -->
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+          <select id="tts-lang" style="flex:1;min-width:140px;padding:10px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:var(--bg-2);color:var(--fg);font-family:var(--font);cursor:pointer">
+            <option value="en-US">🇬🇧 English</option>
+            <option value="de-DE">🇩🇪 Deutsch</option>
+            <option value="ar-SA">🇸🇦 Arabisch</option>
+            <option value="ka-GE">🇬🇪 Georgisch</option>
+          </select>
+          <div style="display:flex;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;overflow:hidden">
+            <button id="tts-btn-normal" onclick="ttsSetSpeed('normal')"
+              style="padding:10px 16px;border:none;font-size:13px;font-weight:600;font-family:var(--font);cursor:pointer;background:var(--accent);color:#fff;transition:all .2s">Normal</button>
+            <button id="tts-btn-slow" onclick="ttsSetSpeed('slow')"
+              style="padding:10px 16px;border:none;font-size:13px;font-weight:600;font-family:var(--font);cursor:pointer;background:transparent;color:var(--fg-muted);transition:all .2s">Langsam</button>
+          </div>
+        </div>
+
+        <!-- Statistik-Chips -->
+        <div style="display:flex;gap:8px;margin-bottom:12px">
+          <div style="flex:1;background:var(--accent-pale,#eef2ff);border-radius:8px;padding:8px 12px;text-align:center">
+            <div id="tts-wc" style="font-size:20px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums">0</div>
+            <div style="font-size:11px;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.05em">Wörter</div>
+          </div>
+          <div style="flex:1;background:var(--accent-pale,#eef2ff);border-radius:8px;padding:8px 12px;text-align:center">
+            <div id="tts-cc" style="font-size:20px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums">0</div>
+            <div style="font-size:11px;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.05em">Zeichen</div>
+          </div>
+          <div style="flex:1;background:var(--accent-pale,#eef2ff);border-radius:8px;padding:8px 12px;text-align:center">
+            <div id="tts-dur" style="font-size:20px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums">0s</div>
+            <div style="font-size:11px;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.05em">ca. Dauer</div>
+          </div>
+        </div>
+
+        <!-- Textarea -->
+        <textarea id="tts-input" rows="6" placeholder="Hier Text eingeben oder einfügen…"
+          style="width:100%;padding:12px;border:1px solid var(--border);border-radius:var(--radius);font-size:15px;background:var(--bg-2);color:var(--fg);font-family:var(--font);resize:vertical;box-sizing:border-box;line-height:1.6"
+          oninput="ttsUpdateStats()"></textarea>
+        <div style="text-align:right;font-size:12px;color:var(--fg-muted);margin-top:4px" id="tts-char-bottom">0 / 5000</div>
+
+        <!-- Play-Button -->
+        <button id="tts-play-btn" onclick="ttsTogglePlay()"
+          style="width:100%;margin-top:12px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);padding:14px;font-size:16px;font-weight:700;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s">
+          <span id="tts-play-icon">▶</span>
+          <span id="tts-play-label">Vorlesen</span>
+        </button>
+
+        <!-- Fortschrittsbalken -->
+        <div id="tts-progress-wrap" style="display:none;margin-top:12px">
+          <div style="height:5px;background:var(--border);border-radius:99px;overflow:hidden">
+            <div id="tts-progress-fill" style="height:100%;background:var(--accent);border-radius:99px;width:0%;transition:width .3s"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--fg-muted);margin-top:5px">
+            <span id="tts-progress-word">Lese…</span>
+            <span id="tts-progress-pct">0%</span>
+          </div>
+        </div>
+      </div><!-- end tab-content-vorlesen -->
+
     </div>
 
     <!-- MEIN LERNEN: Fehlerliste, Wörterbuch, Sicherung -->
@@ -5859,6 +5937,97 @@ renderLinks();
 
 /* ========== ÜBERSETZER (MyMemory API – kein CORS-Problem) ========== */
 
+// ── TAB SWITCHER: Übersetzen / Vorlesen ──────────────────────────
+function switchTranslatorTab(tab) {
+  const isUe = tab === 'uebersetzen';
+  document.getElementById('tab-content-uebersetzen').style.display = isUe ? '' : 'none';
+  document.getElementById('tab-content-vorlesen').style.display = isUe ? 'none' : '';
+  const btnUe = document.getElementById('tab-uebersetzen');
+  const btnVl = document.getElementById('tab-vorlesen');
+  btnUe.style.background = isUe ? 'var(--accent)' : 'transparent';
+  btnUe.style.color = isUe ? '#fff' : 'var(--fg-muted)';
+  btnVl.style.background = isUe ? 'transparent' : 'var(--accent)';
+  btnVl.style.color = isUe ? 'var(--fg-muted)' : '#fff';
+  if (!isUe && window.speechSynthesis && window.speechSynthesis.speaking) {
+    window.speechSynthesis.cancel();
+    ttsSetIdle();
+  }
+}
+
+// ── TEXT-TO-SPEECH ───────────────────────────────────────────────
+let ttsSpeed = 'normal';
+let ttsSpeaking = false;
+
+function ttsUpdateStats() {
+  const text = (document.getElementById('tts-input') || {}).value || '';
+  const wc = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+  const cc = text.length;
+  const wpm = ttsSpeed === 'slow' ? 100 : 150;
+  const secs = wc === 0 ? 0 : Math.round((wc / wpm) * 60);
+  document.getElementById('tts-wc').textContent = wc;
+  document.getElementById('tts-cc').textContent = cc;
+  document.getElementById('tts-dur').textContent = secs < 60 ? secs + 's' : Math.round(secs / 60) + 'm';
+  document.getElementById('tts-char-bottom').textContent = cc + ' / 5000';
+}
+
+function ttsSetSpeed(s) {
+  ttsSpeed = s;
+  const btnN = document.getElementById('tts-btn-normal');
+  const btnS = document.getElementById('tts-btn-slow');
+  btnN.style.background = s === 'normal' ? 'var(--accent)' : 'transparent';
+  btnN.style.color = s === 'normal' ? '#fff' : 'var(--fg-muted)';
+  btnS.style.background = s === 'slow' ? 'var(--accent)' : 'transparent';
+  btnS.style.color = s === 'slow' ? '#fff' : 'var(--fg-muted)';
+  ttsUpdateStats();
+}
+
+function ttsTogglePlay() {
+  if (!window.speechSynthesis) return;
+  if (ttsSpeaking) {
+    window.speechSynthesis.cancel();
+    ttsSetIdle();
+    return;
+  }
+  const text = (document.getElementById('tts-input').value || '').trim();
+  if (!text) return;
+  const words = text.split(/\s+/);
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = document.getElementById('tts-lang').value;
+  utt.rate = ttsSpeed === 'slow' ? 0.75 : 1.1;
+  utt.onboundary = function(e) {
+    if (e.name !== 'word') return;
+    const spoken = text.substring(0, e.charIndex + e.charLength).trim().split(/\s+/).length;
+    const pct = Math.min(100, Math.round((spoken / words.length) * 100));
+    document.getElementById('tts-progress-fill').style.width = pct + '%';
+    document.getElementById('tts-progress-pct').textContent = pct + '%';
+    document.getElementById('tts-progress-word').textContent = '„' + (words[spoken - 1] || '') + '"';
+  };
+  utt.onend = ttsSetIdle;
+  utt.onerror = ttsSetIdle;
+  window.speechSynthesis.speak(utt);
+  ttsSpeaking = true;
+  const btn = document.getElementById('tts-play-btn');
+  btn.style.background = '#e03131';
+  document.getElementById('tts-play-icon').textContent = '■';
+  document.getElementById('tts-play-label').textContent = 'Stoppen';
+  document.getElementById('tts-progress-wrap').style.display = '';
+  document.getElementById('tts-progress-fill').style.width = '0%';
+}
+
+function ttsSetIdle() {
+  ttsSpeaking = false;
+  const btn = document.getElementById('tts-play-btn');
+  if (btn) {
+    btn.style.background = 'var(--accent)';
+    document.getElementById('tts-play-icon').textContent = '▶';
+    document.getElementById('tts-play-label').textContent = 'Vorlesen';
+    document.getElementById('tts-progress-word').textContent = 'Fertig ✓';
+    document.getElementById('tts-progress-pct').textContent = '100%';
+    document.getElementById('tts-progress-fill').style.width = '100%';
+  }
+}
+
+// ── ÜBERSETZER (original) ────────────────────────────────────────
 function swapLangs() {
   const from = document.getElementById('tr-from');
   const to = document.getElementById('tr-to');
