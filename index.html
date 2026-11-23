@@ -5553,6 +5553,8 @@ const SP_PREFILL = {
 // SP_INFO[datum] = [Block1, Block2, Block3]; je Block: {x:{de,ar,ka}, l:[[Link-Typ:Ziel, Label]], soon:true = Vorschau (Inhalt kommt noch)}
 // SP_NOTE[datum] = Termin-/Hausaufgaben-Hinweis für den Tag
 const SP_NOTE = {
+  '2026-11-23': {de:"📝 Hausaufgabe bis Di 24.11.: Present Continuous – Fill in the Blanks (25 Sätze). In der App: Mein Tag → ✍️ Fill in the Blanks.",ar:"📝 واجب حتى الثلاثاء 24.11: Present Continuous – املأ الفراغات (25 جملة). في التطبيق: يومي ← ✍️ Fill in the Blanks.",ka:"📝 დავალება სამშაბათამდე (24.11): Present Continuous – შეავსე გამოტოვებული (25 წინადადება). აპში: ჩემი დღე → ✍️ Fill in the Blanks.",l:[['gram:gs7#fill','✍️ Hausaufgabe öffnen']]},
+  '2026-11-24': {de:"✅ Heute 09:30: Hausaufgabe wird besprochen (Present Continuous, 25 Sätze).",ar:"✅ اليوم 09:30: تصحيح الواجب (Present Continuous، 25 جملة).",ka:"✅ დღეს 09:30: დავალების გასწორება (Present Continuous, 25 წინადადება).",l:[['gram:gs7#fill','✍️ Hausaufgabe öffnen']]},
   '2026-11-25': {de:"📝 Hausaufgabe bis Mo 30.11.: Stichpunkt-Gliederung für die Präsentation schreiben und die erste Minute üben.",ar:"📝 واجب حتى الاثنين 30.11: اكتب نقاط العرض التقديمي وتدرّب على الدقيقة الأولى.",ka:"📝 დავალება ორშაბათამდე (30.11): პრეზენტაციის გეგმა პუნქტებად და პირველი წუთის ვარჯიში."},
   '2026-11-27': {de:"📊 Progress-Test + Feedback zur Kurshälfte. Keine Hausaufgabe – aber an die Präsentation denken!",ar:"📊 اختبار التقدّم + تقييم منتصف الدورة. لا واجب – لكن تذكّر العرض التقديمي!",ka:"📊 პროგრესის ტესტი + შუა კურსის შეფასება. დავალება არ არის – მაგრამ გახსოვდეს პრეზენტაცია!"},
   '2026-11-30': {de:"⏰ Heute fällig: Gliederung der Präsentation + erste Minute. Im Unterricht: Probe und Feedback.",ar:"⏰ مطلوب اليوم: نقاط العرض + الدقيقة الأولى. في الدرس: تدريب وتقييم.",ka:"⏰ დღეს ჩასაბარებელია: პრეზენტაციის გეგმა + პირველი წუთი. გაკვეთილზე: რეპეტიცია და შეფასება."},
@@ -5608,7 +5610,8 @@ function spT(o){ const l=spLang(); return o?(o[l]||o.de):''; }
 function spEsc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 function spGoLink(t){
   const [k,v]=t.split(':');
-  if(k==='gram'){ if(typeof openGramRef==='function') openGramRef(v); }
+  if(k==='gram'){ const p=v.split('#'); if(typeof openGramRef==='function') openGramRef(p[0]); if(p[0]==='gs7'&&typeof tagRender==='function') tagRender();
+    if(p[1]==='fill') setTimeout(()=>{ const fb=document.getElementById('tag-fillbox'); const det=fb&&fb.closest('details'); if(det){ det.open=true; det.scrollIntoView({behavior:'smooth',block:'start'}); } },120); }
   else if(k==='tom'){ if(typeof tomPick==='function'){ tomSel=null; openGramRef('gs0'); tomPick(v); } }
   else if(k==='vok'){ go('vokabeln'); setTimeout(()=>{ if(typeof vokActiveGroup!=='undefined'&&vokActiveGroup!==v&&typeof toggleVokGroup==='function') toggleVokGroup(v); const el=document.getElementById('vg-'+v); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); },80); }
   else if(k==='go'){ go(v); }
@@ -5621,7 +5624,7 @@ function spSlotInfo(key,i){
   if(s.l&&s.l.length) h+='<div class="sp-links">'+s.l.map(x=>'<button class="sp-link" onclick="spGoLink(\''+x[0]+'\')">'+spEsc(x[1])+'</button>').join('')+'</div>';
   return h+'</div>';
 }
-function spDayNote(key){ const n=SP_NOTE[key]; if(!n) return ''; return '<div class="sp-note"'+(spLang()==='ar'?' dir="rtl"':'')+'>'+spEsc(spT(n))+'</div>'; }
+function spDayNote(key){ const n=SP_NOTE[key]; if(!n) return ''; return '<div class="sp-note"'+(spLang()==='ar'?' dir="rtl"':'')+'>'+spEsc(spT(n))+(n.l?'<div class="sp-links">'+n.l.map(x=>'<button class="sp-link" onclick="spGoLink(\''+x[0]+'\')">'+spEsc(x[1])+'</button>').join('')+'</div>':'')+'</div>'; }
 
 async function spPrefillIfEmpty(d, blocks) {
   const key = spKey(d);
@@ -6046,6 +6049,9 @@ const HW_DEFAULT = [
   {id:'hw24', datum:'2026-10-29', uebung:'Part 4 — Write Your Own Recipe: Menemen (Turkish Scrambled Eggs)', notiz:'Step 1: Plan | Step 2: Write | Step 3: Check | Step 4: Speaking — Lehrerin fragt 3 Fragen', done:false,
    erklaerung:'Rezept schreiben — Checkliste Step 3: ✅ 6+ Zutaten mit Mengen | ✅ 6 Schritte | ✅ 6 Küchen-Verben (chop, pour, add, crack, stir, season, serve) | ✅ Imperative (kein "you", kein -ing am Anfang) | ✅ Sequencing words (First, Next, Finally) | ✅ 2+ Quantifiers (a little olive oil, a pinch of salt, a few parsley leaves). Step 4 Fragen: 1) Why do you like this dish? 2) How long does it take? 3) What can you change if you don\'t have an ingredient?',
    beispiele:[{en:'First, chop the tomatoes and green pepper into small pieces.',de:'Zuerst die Tomaten und Paprika in kleine Stücke schneiden.'},{en:'Next, pour a little olive oil into the frying pan and heat it.',de:'Dann etwas Olivenöl in die Pfanne gießen und erhitzen.'},{en:'Crack the eggs into the pan and stir everything together.',de:'Die Eier in die Pfanne aufschlagen und alles zusammenrühren.'},{en:'Finally, season with salt and pepper and serve with bread.',de:'Zum Schluss mit Salz und Pfeffer würzen und mit Brot servieren.'}]},
+  {id:'hw27', datum:'2026-11-23', uebung:'Present Continuous – Fill in the Blanks (25 Sätze) · fällig Di 24.11.', notiz:'am/is/are + -ing · Verneinung: isn\'t / aren\'t / \'m not · Fragen: What are you doing? · In der App: Grammatik → ☀️ Mein Tag → ✍️ Fill in the Blanks (mit Prüfen + Lösung)', done:false,
+   erklaerung:'Present Continuous = jetzt gerade / vorübergehend / Trend / fester Plan. Bildung: I am + -ing, he/she/it is + -ing, you/we/they are + -ing. Schreibung: make → making, get → getting, travel → travelling, study → studying. Bei zwei Lücken (What ___ you ___?) kommt am/is/are vor das Subjekt.',
+   beispiele:[{en:'Sarah is studying for her English exam at the moment.',de:'Sarah lernt gerade für ihre Englischprüfung.'},{en:'I am not watching TV right now.',de:'Ich schaue gerade nicht fern.'},{en:'What are you doing at the moment?',de:'Was machst du gerade?'},{en:'The weather is getting colder.',de:'Das Wetter wird kälter.'}]},
   {id:'hw26', datum:'2026-11-20', uebung:'Tenses Übersicht — Stundenmitschrift & Übungssätze', notiz:'Present Simple | Present Continuous (Kurzformen) | Past Simple (Irregular Verbs) | Past Continuous | Future (will / going to / Pres. Cont.)', done:true,
    erklaerung:'Present Simple = Gewohnheit/Fakt (every day, always). Present Continuous = gerade jetzt (am/is/are + V-ing). Kurzformen: I\'m, You\'re, He\'s/She\'s, We\'re, They\'re. Negativ: I\'m not, You aren\'t, He/She isn\'t. Past Simple Irregular: go→went, have→had, see→saw, buy→bought, eat→ate, drink→drank. WICHTIG: Negativ/Frage → did/didn\'t + BASE VERB (nicht "She didn\'t went" sondern "She didn\'t go"). Past Continuous = was/were + V-ing (Hintergrundaktion). Future: will (spontan) | be going to (Plan/Absicht) | Present Continuous (fester Termin).',
    beispiele:[{en:'I am reading a book. (Pres. Cont.)',de:'Ich lese gerade ein Buch.'},{en:"I'm enjoying playing football.",de:'Ich genieße es, Fußball zu spielen. (enjoy + V-ing)'},{en:'She went home at 5 o\'clock. (Past Simple)',de:'Sie ging um 5 Uhr nach Hause.'},{en:'While I was watching TV, my phone rang.',de:'Während ich TV schaute, klingelte mein Handy.'},{en:"Look at those clouds — it's going to rain!",de:'Schau die Wolken — es wird regnen! (Vorhersage mit Beweis)'}]},
