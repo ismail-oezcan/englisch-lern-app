@@ -227,6 +227,11 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 .tag-verb{color:var(--fg-muted);font-style:italic}
 .tag-fbar{display:flex;flex-wrap:wrap;gap:8px}
 .uhr-go.alt{background:var(--accent-lt);color:var(--accent)}
+.sp-info{margin-top:8px;background:var(--bg-2);border-radius:10px;padding:8px 10px;font-size:13px;color:var(--fg)}
+.sp-soon{display:inline-block;margin-top:6px;background:#fef3c7;color:#92400e;border-radius:999px;padding:3px 9px;font-size:12px;font-weight:700}
+.sp-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.sp-link{border:none;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:700;background:var(--accent-lt);color:var(--accent);cursor:pointer;font-family:var(--font)}
+.sp-note{margin-top:8px;background:#fde68a;color:#78350f;border-radius:10px;padding:10px 12px;font-size:14px;font-weight:700}
 #uhr-box{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:14px;margin-bottom:14px}
 #uhr-box h3{font-size:17px;font-weight:800;color:var(--fg);margin:0 0 4px}
 .uhr-svg{display:block;margin:0 auto}
@@ -5489,8 +5494,134 @@ const SP_PREFILL = {
     {time:'09:30 – 11:00', teacher:'',        topic:'Check HW\nReview of Cycle'},
     {time:'11:15 – 12:45', teacher:'',        topic:'Communication Skills Option 2\nEnd of cycle feedback and reflection'},
     {time:'13:15 – 14:45', teacher:'',        topic:'Open Slot\nGoodbyes / Auf Wiedersehen'}
-  ]
+  ],
+  // Kursplan B1 Intensiv (Rot), Woche 1: 23.11.–27.11.2026, Woche 2: 30.11.–04.12.2026
+  '2026-11-23': [
+    {time:'09:30 – 11:00', teacher:'',        topic:'Introduction to course\nSelect optional slot content · Vocab slots x3 · Communication skills x2 · Grammar/Function input x2'},
+    {time:'11:15 – 12:45', teacher:'',        topic:'Grammar: Present Simple vs. Present Continuous\nSet homework'},
+    {time:'13:15 – 14:45', teacher:'',        topic:'Speaking: Expressing Opinions and Explaining Reasons'}
+  ],
+  '2026-11-24': [
+    {time:'09:30 – 11:00', teacher:'',        topic:'Correct homework\nVocab Option 1\nSet homework'},
+    {time:'11:15 – 12:45', teacher:'',        topic:'Communication Skills Option 1'},
+    {time:'13:15 – 14:45', teacher:'',        topic:'Listening: Understanding Simple Everyday Conversations'}
+  ],
+  '2026-11-25': [
+    {time:'09:30 – 11:00', teacher:'',        topic:'Correct homework\nVocab: Travel and Transport\nSet homework'},
+    {time:'11:15 – 12:45', teacher:'',        topic:'Presentation Preparation 1: Setting Expectations\nSet presentation as HW for next week\nHomework for Monday: Plan short bullet point outline of presentation and rehearse opening minute'},
+    {time:'13:15 – 14:45', teacher:'',        topic:'Writing development slot: A professional profile'}
+  ],
+  '2026-11-26': [
+    {time:'09:30 – 11:00', teacher:'',        topic:'Correct homework\nVocab Option 2'},
+    {time:'11:15 – 12:45', teacher:'',        topic:'Grammar/Function Option 1\nSet homework'},
+    {time:'13:15 – 14:45', teacher:'',        topic:'Vocabulary review (10 minutes)\nReading development skills slot: Job listings'}
+  ],
+  '2026-11-27': [
+    {time:'09:30 – 11:00', teacher:'',        topic:'Correct homework\nVocab: Meetings and Presentations\nNo HW – see Wed slot 2'},
+    {time:'11:15 – 12:45', teacher:'',        topic:'Progress assessment task & feedback\nMid-course feedback'},
+    {time:'13:15 – 14:45', teacher:'',        topic:'Vocabulary review (10 minutes)\nLive Listening'}
+  ],
+  '2026-11-30': [
+    {time:'09:30 – 11:00', teacher:'',        topic:'Vocabulary review (10 minutes)\nVocab: Hobbies and Leisure activities\nSet homework'},
+    {time:'11:15 – 12:45', teacher:'',        topic:'Presentation Preparation 2: Focused rehearsal/editing\nRehearse opening minute of presentation, get feedback on bullet point structure, check resource requirements\nSet up reading workshop for next teacher'},
+    {time:'13:15 – 14:45', teacher:'',        topic:'Reading workshop'}
+  ],
+  '2026-12-01': [
+    {time:'09:30 – 11:00', teacher:'',        topic:'Correct homework\nWriting: Using Basic Linking Words (e.g. because, so, but)'},
+    {time:'11:15 – 12:45', teacher:'',        topic:'Vocabulary review (10 minutes)\nGrammar/Function Option 2\nSet homework'},
+    {time:'13:15 – 14:45', teacher:'',        topic:'Listening skills development: Video / other media'}
+  ],
+  '2026-12-02': [
+    {time:'09:30 – 11:00', teacher:'',        topic:'Correct homework\nVocab slot 3\nSet HW reminder for presentations tomorrow'},
+    {time:'11:15 – 12:45', teacher:'',        topic:'Articles: a, an, the & ___ (no article)'},
+    {time:'13:15 – 14:45', teacher:'',        topic:'Vocabulary review (10 minutes)\nOpen Slot'}
+  ],
+  '2026-12-03': [
+    {time:'09:30 – 11:00', teacher:'',        topic:'Correct homework\nReading: Understanding Main Points in More Complex Texts'},
+    {time:'11:15 – 12:45', teacher:'',        topic:'Vocabulary review (10 minutes)\nGrammar: Past Simple vs. Present Perfect\nSet homework'},
+    {time:'13:15 – 14:45', teacher:'',        topic:'Presentations with feedback'}
+  ],
+  '2026-12-04': [
+    {time:'09:30 – 11:00', teacher:'',        topic:'Check HW\nReview of Cycle'},
+    {time:'11:15 – 12:45', teacher:'',        topic:'Communication Skills Option 2\nEnd of cycle feedback and reflection'},
+    {time:'13:15 – 14:45', teacher:'',        topic:'Open Slot\nGoodbyes / Auf Wiedersehen'}
+  ],
 };
+
+
+/* ===== Kursplan B1 Intensiv (Rot) 23.11.–04.12.2026: Erklärungen + Links pro Block ===== */
+// SP_INFO[datum] = [Block1, Block2, Block3]; je Block: {x:{de,ar,ka}, l:[[Link-Typ:Ziel, Label]], soon:true = Vorschau (Inhalt kommt noch)}
+// SP_NOTE[datum] = Termin-/Hausaufgaben-Hinweis für den Tag
+const SP_NOTE = {
+  '2026-11-25': {de:"📝 Hausaufgabe bis Mo 30.11.: Stichpunkt-Gliederung für die Präsentation schreiben und die erste Minute üben.",ar:"📝 واجب حتى الاثنين 30.11: اكتب نقاط العرض التقديمي وتدرّب على الدقيقة الأولى.",ka:"📝 დავალება ორშაბათამდე (30.11): პრეზენტაციის გეგმა პუნქტებად და პირველი წუთის ვარჯიში."},
+  '2026-11-27': {de:"📊 Progress-Test + Feedback zur Kurshälfte. Keine Hausaufgabe – aber an die Präsentation denken!",ar:"📊 اختبار التقدّم + تقييم منتصف الدورة. لا واجب – لكن تذكّر العرض التقديمي!",ka:"📊 პროგრესის ტესტი + შუა კურსის შეფასება. დავალება არ არის – მაგრამ გახსოვდეს პრეზენტაცია!"},
+  '2026-11-30': {de:"⏰ Heute fällig: Gliederung der Präsentation + erste Minute. Im Unterricht: Probe und Feedback.",ar:"⏰ مطلوب اليوم: نقاط العرض + الدقيقة الأولى. في الدرس: تدريب وتقييم.",ka:"⏰ დღეს ჩასაბარებელია: პრეზენტაციის გეგმა + პირველი წუთი. გაკვეთილზე: რეპეტიცია და შეფასება."},
+  '2026-12-02': {de:"🔔 Morgen sind die Präsentationen! Heute Abend noch einmal laut üben.",ar:"🔔 العروض التقديمية غدًا! تدرّب الليلة بصوت عالٍ مرة أخرى.",ka:"🔔 ხვალ პრეზენტაციებია! ამაღამ კიდევ ერთხელ ივარჯიშე ხმამაღლა."},
+  '2026-12-03': {de:"🎤 Heute 13:15: Präsentationen mit Feedback.",ar:"🎤 اليوم 13:15: العروض التقديمية مع التقييم.",ka:"🎤 დღეს 13:15: პრეზენტაციები შეფასებით."},
+  '2026-12-04': {de:"🏁 Letzter Kurstag: Wiederholung, Feedback und Abschied.",ar:"🏁 آخر يوم في الدورة: مراجعة وتقييم ووداع.",ka:"🏁 კურსის ბოლო დღე: გამეორება, შეფასება და დამშვიდობება."}
+};
+const SP_INFO = {
+ '2026-11-23':[
+  {x:{de:"Kursstart: Die Klasse wählt, welche Wahl-Themen (Vokabeln, Kommunikation, Grammatik) in den Optionsblöcken kommen.",ar:"بداية الدورة: يختار الصف المواضيع الاختيارية (مفردات، تواصل، قواعد).",ka:"კურსის დაწყება: ჯგუფი ირჩევს არჩევით თემებს (ლექსიკა, კომუნიკაცია, გრამატიკა)."}},
+  {x:{de:"Present Simple (immer, Gewohnheit) vs. Present Continuous (jetzt gerade).",ar:"Present Simple (دائمًا، عادة) مقابل Present Continuous (الآن).",ka:"Present Simple (ყოველთვის, ჩვევა) და Present Continuous (ახლა)."},l:[['gram:gs7','☀️ Mein Tag'],['tom:prc','🧍 Tom: Present Continuous'],['tom:prs','🧍 Tom: Present Simple']]},
+  {x:{de:"Meinung sagen und begründen: I think … because …, In my opinion …",ar:"التعبير عن الرأي وتعليله: I think … because …، In my opinion …",ka:"აზრის გამოთქმა და დასაბუთება: I think … because …, In my opinion …"},l:[['vok:nov06','💬 Vokabeln: Giving Opinions']]}],
+ '2026-11-24':[
+  {x:{de:"Hausaufgabe besprechen + Vokabel-Thema (Wahl 1).",ar:"تصحيح الواجب + مفردات (اختيار 1).",ka:"დავალების გასწორება + ლექსიკა (არჩევანი 1)."}},
+  {x:{de:"Kommunikation (Wahl 1) – wird im Kurs festgelegt.",ar:"مهارات التواصل (اختيار 1) – يُحدَّد في الدرس.",ka:"კომუნიკაცია (არჩევანი 1) – გაკვეთილზე განისაზღვრება."},soon:true},
+  {x:{de:"Hören: einfache Alltagsgespräche verstehen.",ar:"الاستماع: فهم محادثات يومية بسيطة.",ka:"მოსმენა: მარტივი ყოველდღიური საუბრების გაგება."},l:[['gram:gs6','🕐 Uhrzeit (mit Vorlesen)']]}],
+ '2026-11-25':[
+  {x:{de:"Vokabeln: Reisen und Verkehr (Bus, Zug, Flughafen, Tickets).",ar:"مفردات: السفر والمواصلات (حافلة، قطار، مطار، تذاكر).",ka:"ლექსიკა: მოგზაურობა და ტრანსპორტი (ავტობუსი, მატარებელი, აეროპორტი, ბილეთები)."},l:[['vok:transport','🚗 Transport'],['vok:travel','✈️ Reise/Hotel'],['vok:nov17','✉️ Emails & Airport']]},
+  {x:{de:"Präsentation vorbereiten 1: Was wird erwartet? Aufbau, Länge, Bewertung.",ar:"التحضير للعرض 1: ما المطلوب؟ البنية، المدة، التقييم.",ka:"პრეზენტაციის მომზადება 1: რას ელიან? სტრუქტურა, ხანგრძლივობა, შეფასება."},l:[['go:praesi','📊 Meine Präsentationen']]},
+  {x:{de:"Schreiben: ein berufliches Profil (wie bei LinkedIn / im Lebenslauf).",ar:"الكتابة: ملف مهني (مثل LinkedIn / السيرة الذاتية).",ka:"წერა: პროფესიული პროფილი (როგორც LinkedIn-ზე / CV-ში)."},l:[['vok:nov19','💼 Jobs & Work']]}],
+ '2026-11-26':[
+  {x:{de:"Hausaufgabe besprechen + Vokabel-Thema (Wahl 2).",ar:"تصحيح الواجب + مفردات (اختيار 2).",ka:"დავალების გასწორება + ლექსიკა (არჩევანი 2)."}},
+  {x:{de:"Grammatik/Funktion (Wahl 1) – wird im Kurs festgelegt.",ar:"قواعد/وظيفة (اختيار 1) – يُحدَّد في الدرس.",ka:"გრამატიკა/ფუნქცია (არჩევანი 1) – გაკვეთილზე განისაზღვრება."},soon:true},
+  {x:{de:"Lesen: Stellenanzeigen verstehen. Davor 10 Min. Vokabel-Wiederholung.",ar:"القراءة: فهم إعلانات الوظائف. قبلها 10 دقائق مراجعة مفردات.",ka:"კითხვა: ვაკანსიების გაგება. მანამდე 10 წთ ლექსიკის გამეორება."},l:[['vok:nov19','💼 Jobs & Work'],['vok:nov13','🏢 Human Resources']]}],
+ '2026-11-27':[
+  {x:{de:"Vokabeln: Meetings und Präsentationen (agenda, slide, to sum up …).",ar:"مفردات: الاجتماعات والعروض (agenda, slide, to sum up …).",ka:"ლექსიკა: შეხვედრები და პრეზენტაციები (agenda, slide, to sum up …)."},soon:true},
+  {x:{de:"Test zum Lernstand + Feedback zur Kurshälfte.",ar:"اختبار المستوى + تقييم منتصف الدورة.",ka:"ცოდნის ტესტი + შუა კურსის შეფასება."},l:[['go:pruefung','📝 Prüfungssimulation']]},
+  {x:{de:"Live-Hören (echte Aufnahmen). Davor 10 Min. Vokabel-Wiederholung.",ar:"استماع حيّ (تسجيلات حقيقية). قبلها 10 دقائق مراجعة مفردات.",ka:"ცოცხალი მოსმენა (ნამდვილი ჩანაწერები). მანამდე 10 წთ ლექსიკის გამეორება."}}],
+ '2026-11-30':[
+  {x:{de:"Vokabeln: Hobbys und Freizeit.",ar:"مفردات: الهوايات وأوقات الفراغ.",ka:"ლექსიკა: ჰობი და თავისუფალი დრო."},l:[['vok:nov12','🧘 Leisure & Careers'],['vok:nov15','🎉 Social Life']]},
+  {x:{de:"Präsentation vorbereiten 2: erste Minute proben, Feedback zur Gliederung.",ar:"التحضير للعرض 2: تدريب الدقيقة الأولى، تقييم النقاط.",ka:"პრეზენტაციის მომზადება 2: პირველი წუთის რეპეტიცია, გეგმის შეფასება."},l:[['go:praesi','📊 Meine Präsentationen']]},
+  {x:{de:"Lese-Workshop.",ar:"ورشة القراءة.",ka:"კითხვის სემინარი."}}],
+ '2026-12-01':[
+  {x:{de:"Schreiben mit Verbindungswörtern: because, so, but, and, although.",ar:"الكتابة بأدوات الربط: because, so, but, and, although.",ka:"წერა მაკავშირებლებით: because, so, but, and, although."},l:[['tom:conj','🧍 Tom: Konjunktionen'],['vok:unit8b','💬 Comment Adverbs']],soon:true},
+  {x:{de:"Grammatik/Funktion (Wahl 2) – wird im Kurs festgelegt.",ar:"قواعد/وظيفة (اختيار 2) – يُحدَّد في الدرس.",ka:"გრამატიკა/ფუნქცია (არჩევანი 2) – გაკვეთილზე განისაზღვრება."},soon:true},
+  {x:{de:"Hören mit Videos und anderen Medien.",ar:"الاستماع عبر الفيديو ووسائل أخرى.",ka:"მოსმენა ვიდეოებით და სხვა მედიით."}}],
+ '2026-12-02':[
+  {x:{de:"Vokabel-Thema 3 + Erinnerung an die Präsentationen.",ar:"مفردات 3 + تذكير بالعروض التقديمية.",ka:"ლექსიკა 3 + შეხსენება პრეზენტაციებზე."}},
+  {x:{de:"Artikel: a, an, the – und wann man gar keinen Artikel braucht.",ar:"أدوات التعريف: a, an, the – ومتى لا نحتاج أداة.",ka:"არტიკლები: a, an, the – და როდის არ გვჭირდება არტიკლი."},soon:true},
+  {x:{de:"Freier Block. Davor 10 Min. Vokabel-Wiederholung.",ar:"حصة حرّة. قبلها 10 دقائق مراجعة مفردات.",ka:"თავისუფალი ბლოკი. მანამდე 10 წთ ლექსიკის გამეორება."}}],
+ '2026-12-03':[
+  {x:{de:"Lesen: Hauptpunkte in schwierigeren Texten finden.",ar:"القراءة: إيجاد النقاط الرئيسية في نصوص أصعب.",ka:"კითხვა: მთავარი აზრების პოვნა რთულ ტექსტებში."}},
+  {x:{de:"Past Simple (fertig, mit Zeitpunkt) vs. Present Perfect (Bezug zu jetzt).",ar:"Past Simple (منتهٍ، بوقت محدّد) مقابل Present Perfect (له علاقة بالآن).",ka:"Past Simple (დასრულებული, დროით) და Present Perfect (კავშირი ახლასთან)."},l:[['tom:ps','🧍 Tom: Past Simple'],['tom:prp','🧍 Tom: Present Perfect']],soon:true},
+  {x:{de:"🎤 Präsentationen mit Feedback.",ar:"🎤 العروض التقديمية مع التقييم.",ka:"🎤 პრეზენტაციები შეფასებით."},l:[['go:praesi','📊 Meine Präsentationen']]}],
+ '2026-12-04':[
+  {x:{de:"Hausaufgabe + Wiederholung des ganzen Kurses.",ar:"الواجب + مراجعة الدورة كاملة.",ka:"დავალება + მთელი კურსის გამეორება."},l:[['gram:gs0','🧍 Alle Tenses']]},
+  {x:{de:"Kommunikation (Wahl 2) + Feedback und Rückblick.",ar:"التواصل (اختيار 2) + تقييم ومراجعة.",ka:"კომუნიკაცია (არჩევანი 2) + შეფასება და შეჯამება."}},
+  {x:{de:"Freier Block + Abschied. Goodbye! 👋",ar:"حصة حرّة + وداع. Goodbye! 👋",ka:"თავისუფალი ბლოკი + დამშვიდობება. Goodbye! 👋"}}]
+};
+const SP_UI = {de:{soon:"🔜 Vorschau – Inhalt kommt noch",app:"📚 In der App",inApp:"Passt dazu"},ar:{soon:"🔜 قريبًا – المحتوى قادم",app:"📚 في التطبيق",inApp:"مرتبط"},ka:{soon:"🔜 მალე – შინაარსი ემატება",app:"📚 აპში",inApp:"დაკავშირებული"}};
+function spLang(){ try{ return localStorage.getItem('ela_lang')||'de'; }catch(e){ return 'de'; } }
+function spT(o){ const l=spLang(); return o?(o[l]||o.de):''; }
+function spEsc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function spGoLink(t){
+  const [k,v]=t.split(':');
+  if(k==='gram'){ if(typeof openGramRef==='function') openGramRef(v); }
+  else if(k==='tom'){ if(typeof tomPick==='function'){ tomSel=null; openGramRef('gs0'); tomPick(v); } }
+  else if(k==='vok'){ go('vokabeln'); setTimeout(()=>{ if(typeof vokActiveGroup!=='undefined'&&vokActiveGroup!==v&&typeof toggleVokGroup==='function') toggleVokGroup(v); const el=document.getElementById('vg-'+v); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); },80); }
+  else if(k==='go'){ go(v); }
+}
+function spSlotInfo(key,i){
+  const s=(SP_INFO[key]||[])[i]; if(!s) return '';
+  const d=spLang()==='ar'?' dir="rtl"':'';
+  let h='<div class="sp-info"><div'+d+'>'+spEsc(spT(s.x))+'</div>';
+  if(s.soon) h+='<span class="sp-soon">'+SP_UI[spLang()].soon+'</span>';
+  if(s.l&&s.l.length) h+='<div class="sp-links">'+s.l.map(x=>'<button class="sp-link" onclick="spGoLink(\''+x[0]+'\')">'+spEsc(x[1])+'</button>').join('')+'</div>';
+  return h+'</div>';
+}
+function spDayNote(key){ const n=SP_NOTE[key]; if(!n) return ''; return '<div class="sp-note"'+(spLang()==='ar'?' dir="rtl"':'')+'>'+spEsc(spT(n))+'</div>'; }
 
 async function spPrefillIfEmpty(d, blocks) {
   const key = spKey(d);
@@ -5586,6 +5717,7 @@ async function renderDay(d) {
         <span class="tag tag-y">${dayNames[d.getDay()]}</span>
       </div>
     </div>
+    ${typeof spDayNote==='function'?spDayNote(spKey(d)):''}
     <div style="margin-top:8px;font-size:12px;color:var(--fg-muted);font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:0 2px">Unterrichtsblöcke</div>
     ${blocks.map((b, i) => `
     <div class="card" style="margin-top:6px">
@@ -5602,6 +5734,7 @@ async function renderDay(d) {
           <div style="font-size:11px;color:var(--fg-muted);font-weight:600;margin-bottom:4px">📚 THEMA / NOTIZ</div>
           <textarea class="sp-input" id="sp-topic-${i}" placeholder="Was war heute Thema? Notizen…" oninput="spUpdate(${i},'topic',this.value)" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;font-size:14px;font-family:var(--font);background:var(--bg-2);color:var(--fg);outline:none;resize:none;min-height:60px;line-height:1.5" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"></textarea>
         </div>
+          ${typeof spSlotInfo==='function'?spSlotInfo(spKey(d),i):''}
       </div>
     </div>`).join('')}`;
   // Werte per JS setzen (sicher gegen HTML-Sonderzeichen)
