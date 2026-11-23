@@ -185,6 +185,97 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 .gtbl-wrap td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
 .gtbl-wrap td:first-child{font-family:monospace;font-size:15px;font-weight:600;color:var(--accent);white-space:nowrap}
 .gtbl-wrap tr:last-child td{border-bottom:none}
+/* Uhrzeit (23.11.2026) */
+#tag-box{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:14px;margin-bottom:14px}
+#tag-box h3{font-size:17px;font-weight:800;color:var(--fg);margin:0 0 4px}
+.tag-tblwrap{overflow-x:auto;margin:6px 0}
+.tag-tbl{border-collapse:collapse;width:100%;font-size:14px;color:var(--fg)}
+.tag-tbl th,.tag-tbl td{border:1px solid var(--border);padding:6px 7px;text-align:center;white-space:nowrap}
+.tag-tbl th{background:var(--bg-2);font-size:13px}
+.tag-tbl td.pr{font-weight:800;text-align:left}
+.tag-tbl tr.tag-3p td{background:rgba(220,38,38,.08)}
+.tag-tbl b,.tag-v{color:#dc2626;font-weight:800}
+.tom-ex .e span.tag-v{display:inline;font-size:inherit;color:#dc2626;font-weight:800}
+.tag-who{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.tag-who button{padding:8px 12px;border-radius:999px;border:1.5px solid var(--border);background:var(--bg-2);color:var(--fg);font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)}
+.tag-who button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.tag-em{font-size:22px;line-height:1.2;width:30px;text-align:center}
+.tom-ex .e i,.tag-time .e i{display:block;font-size:13px;color:var(--fg-muted)}
+.tag-ph{color:var(--fg-muted)}
+.tag-time{display:flex;gap:8px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border)}
+.tag-time .e{flex:1}.tag-time .e span{display:block;font-size:13px;color:var(--fg-muted)}
+.tag-time .e u{color:#dc2626;text-decoration-thickness:2px}
+.tag-time .e span.tag-rng{display:inline;color:#dc2626;font-weight:700}
+.tag-big{font-size:30px;line-height:1}
+.tag-scard{transition:box-shadow .3s,transform .3s}.tag-scard.on{box-shadow:0 0 0 3px var(--accent);transform:scale(1.02)}
+.tag-spic,.tag-bpic{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:84px}
+.tag-spic .uhr-svg,.tag-bpic .uhr-svg{width:70px;height:70px}
+.tag-bpic{flex-direction:row;justify-content:center;gap:14px;margin:6px 0}
+.tag-snum{font-weight:800;color:var(--accent);font-size:14px;align-self:flex-start}
+.tag-okl{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
+.tag-okl span{background:#d4edda;color:#155724;border-radius:999px;padding:4px 10px;font-size:13px;font-weight:700}
+.tag-fix{font-size:15px;color:var(--fg)}.tag-fix s{color:#dc2626}
+.tag-bline{min-height:46px;border:2px dashed var(--border);border-radius:12px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}
+.tag-bpool{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.tag-chip{padding:8px 12px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg-2);color:var(--fg);font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font)}
+.tag-chip.in{background:var(--accent-lt);border-color:var(--accent);color:var(--accent)}
+.tag-fill{display:flex;gap:6px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);font-size:15px;color:var(--fg);line-height:2}
+.tag-fill .n{font-weight:800;color:var(--accent);min-width:24px}.tag-fill .e{flex:1}
+.tag-gap{border:none;border-bottom:2px solid var(--accent);background:var(--bg-2);color:var(--fg);font-size:15px;padding:2px 6px;border-radius:6px 6px 0 0;font-family:var(--font);max-width:100%}
+.tag-gap.ok{border-color:#16a34a;background:#d4edda;color:#155724}.tag-gap.bad{border-color:#dc2626;background:#f8d7da;color:#721c24}
+.tag-sol{color:#16a34a;font-weight:800;margin:0 4px}
+.tag-verb{color:var(--fg-muted);font-style:italic}
+.tag-fbar{display:flex;flex-wrap:wrap;gap:8px}
+.uhr-go.alt{background:var(--accent-lt);color:var(--accent)}
+#uhr-box{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:14px;margin-bottom:14px}
+#uhr-box h3{font-size:17px;font-weight:800;color:var(--fg);margin:0 0 4px}
+.uhr-svg{display:block;margin:0 auto}
+.uhr-svg.big{width:100%;max-width:300px}
+.uhr-svg:not(.big){width:110px;flex:none}
+.uhr-past{fill:rgba(22,163,74,.13)}.uhr-to{fill:rgba(234,88,12,.13)}
+.uhr-ring{fill:none;stroke:var(--fg);stroke-width:3}
+.uhr-tick{stroke:var(--fg-muted);stroke-width:1}.uhr-tick.l{stroke:var(--fg);stroke-width:2.2}
+.uhr-num{fill:var(--fg);font-weight:800;font-family:var(--font)}
+.uhr-lbl{fill:var(--fg-muted);font-family:var(--font)}
+.uhr-out{fill:var(--fg-muted);font-size:15px;font-weight:800;font-family:var(--font)}
+.uhr-out.p{fill:#16a34a}.uhr-out.t{fill:#ea580c}
+.uhr-arc{fill:none;stroke-linecap:round;opacity:.55}.uhr-arc.p{stroke:#16a34a}.uhr-arc.t{stroke:#ea580c}
+.uhr-hh{stroke:var(--fg);stroke-linecap:round}
+.uhr-mh{stroke:var(--fg);stroke-linecap:round}.uhr-mh.p{stroke:#16a34a}.uhr-mh.t{stroke:#ea580c}
+.uhr-dot{fill:var(--fg)}
+.uhr-live{display:flex;flex-direction:column;align-items:center;gap:6px}
+.uhr-digi{display:flex;flex-direction:column;align-items:center}
+.uhr-digi .d24{font-size:34px;font-weight:800;color:var(--fg);font-variant-numeric:tabular-nums}
+.uhr-digi .ap{font-size:14px;color:var(--fg-muted);font-weight:700}
+.uhr-ctrl{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:8px 0}
+.uhr-ctrl button,.uhr-ctrl input{padding:8px 12px;border-radius:999px;border:1.5px solid var(--border);background:var(--bg-2);color:var(--fg);font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);min-width:44px}
+.uhr-way{font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-top:8px}
+.tom-say.alt{background:rgba(22,163,74,.10)}
+.uhr-sec{border-top:1px solid var(--border);margin-top:12px;padding-top:10px}
+.uhr-sec>summary{font-size:16px;font-weight:800;color:var(--fg);cursor:pointer;padding:4px 0}
+.uhr-rule{padding:8px 0;border-bottom:1px solid var(--border);font-size:15px;color:var(--fg);line-height:1.45}
+.uhr-rule:last-of-type{border-bottom:none}
+.uhr-rule b.k{display:block;font-size:13px;color:var(--accent);margin-bottom:2px}
+.uhr-eg{font-family:monospace;font-size:14px;background:var(--bg-2);border-radius:8px;padding:5px 9px;margin-top:4px;display:inline-block;color:var(--fg)}
+.uhr-exgrid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:8px}
+@media(min-width:620px){.uhr-exgrid{grid-template-columns:1fr 1fr}}
+.uhr-excard{display:flex;gap:10px;align-items:center;background:var(--bg-2);border-radius:12px;padding:8px}
+.uhr-exr{flex:1;min-width:0}
+.uhr-exr .uhr-dg{font-size:20px;font-weight:800;color:var(--fg)}
+.uhr-exr .s{font-weight:700;color:var(--fg)}.uhr-exr .s2{font-size:13px;color:var(--fg-muted)}
+.uhr-exr .tom-btns{margin:4px 0 0}
+.uhr-day{width:100%;max-width:480px;display:block;margin:8px auto 0}
+.uhr-brace{fill:none;stroke-width:2}.uhr-brace.a{stroke:#2563eb}.uhr-brace.p{stroke:#ea580c}
+.uhr-daylbl{display:flex;justify-content:space-between;max-width:480px;margin:0 auto 6px;font-size:12px;font-weight:700;color:var(--fg-muted)}
+.uhr-go{border:none;border-radius:12px;padding:10px 16px;font-size:15px;font-weight:800;background:var(--accent);color:#fff;cursor:pointer;font-family:var(--font);margin-top:8px}
+.uhr-qhead{display:flex;justify-content:space-between;font-weight:800;color:var(--fg-muted);font-size:14px}
+.uhr-qq{font-size:16px;font-weight:700;color:var(--fg);margin:6px 0}
+.uhr-qclock .uhr-svg.big{max-width:230px}
+.uhr-ask{font-size:30px;font-weight:800;text-align:center;color:var(--fg);margin:6px 0}
+.uhr-ask small{display:block;font-size:15px;color:var(--fg-muted)}
+.uhr-fb{border-radius:10px;padding:8px 10px;margin:8px 0;font-weight:700}
+.uhr-fb.ok{background:#d4edda;color:#155724}.uhr-fb.bad{background:#f8d7da;color:#721c24}
+.uhr-res{text-align:center;padding:10px 0;color:var(--fg)}
 #tom-box{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:14px;margin-bottom:14px}
 #tom-box h3{font-size:17px;font-weight:800;color:var(--fg);margin:0 0 4px}
 .tom-intro{font-size:14px;color:var(--fg-muted);margin-bottom:10px}
@@ -583,6 +674,8 @@ details.tov{margin-top:18px;border:1px solid var(--border);border-radius:12px;pa
                 <option value="nov16">🇮🇳 16.11 – International India</option>
                 <option value="nov17">✉️ 17.11 – Emails &amp; Airport</option>
                 <option value="nov19">💼 19.11 – Jobs &amp; Work</option>
+                <option value="nov23b">☀️ 23.11 – Daily Routine</option>
+                <option value="nov23">🕐 23.11 – What time is it?</option>
                 <option value="nov20">📝 20.11 – Progress Test &amp; Tenses</option>
                 <option value="nov18">⚖️ 18.11 – Differences &amp; Conflict</option>
                 <option value="nov06">💬 06.11 – Giving Opinions</option>
@@ -680,6 +773,8 @@ details.tov{margin-top:18px;border:1px solid var(--border);border-radius:12px;pa
       <button class="gram-tab" onclick="showGramSec('gs3',this)">👤 Pronomen</button>
       <button class="gram-tab" onclick="showGramSec('gs4',this)">🔧 Verben</button>
       <button class="gram-tab" onclick="showGramSec('gs5',this)">📌 Sonstiges</button>
+      <button class="gram-tab" id="gtab-gs6" onclick="showGramSec('gs6',this)">🕐 Uhrzeit</button>
+      <button class="gram-tab" id="gtab-gs7" onclick="showGramSec('gs7',this)">☀️ Mein Tag</button>
     </div>
 
     <!-- ALLE TENSES (20.11.2026) -->
@@ -925,6 +1020,16 @@ details.tov{margin-top:18px;border:1px solid var(--border);border-radius:12px;pa
         <div class="gc"><div class="gc-name c5">Präpositionen (Ort)</div><div class="gc-formula">at · in · on</div><div class="gc-ex"><strong>at the station · in Berlin · on the table</strong></div><div class="gc-de">at = Punkt/Adresse · in = Ort/Stadt · on = Oberfläche</div></div>
         <div class="gc"><div class="gc-name c5">Häufigkeitsadverbien</div><div class="gc-formula">Position: vor Hauptverb / nach be</div><div class="gc-ex"><strong>"She always works hard."</strong></div><div class="gc-de">always(100%) → usually → often → sometimes → rarely → never(0%)</div></div>
       </div>
+    </div>
+
+    <!-- UHRZEIT (23.11.2026) -->
+    <div class="gram-sec" id="gs6">
+      <div id="uhr-box"></div>
+    </div>
+
+    <!-- MEIN TAG / DAILY ROUTINE (23.11.2026) -->
+    <div class="gram-sec" id="gs7">
+      <div id="tag-box"></div>
     </div>
 
     <div class="gram-sec active" id="gsq">
@@ -2569,7 +2674,45 @@ const VOKABELN = [
   {w:'faulty',ph:'/ˈfɔːlti/',t:'defekt / fehlerhaft',ta:'معطوب',tka:'დეფექტური / გაუმართავი',ex:'"The machine was faulty and had to be repaired."',cat:'nov18'},
   {w:'concern',ph:'/kənˈsɜːn/',t:'die Sorge / das Anliegen',ta:'قلق / مخاوف',tka:'შეშფოთება / საზრუნავი',ex:'"Alex understood Tony\'s concerns about the deadline."',cat:'nov18'},
   {w:'apprentice',ph:'/əˈprentɪs/',t:'der Auszubildende',ta:'متدرب',tka:'შეგირდი / სტაჟიორი',ex:'"The apprentices are responsible for cleaning the workshop."',cat:'nov18'},
-  {w:'workshop',ph:'/ˈwɜːkʃɒp/',t:'die Werkstatt',ta:'ورشة عمل',tka:'სახელოსნო',ex:'"The workshop needs to be cleaned before the inspection."',cat:'nov18'},
+  {w:'daily routine',ph:'/ˈdeɪli ruːˈtiːn/',t:'der Tagesablauf',ta:'الروتين اليومي',tka:'დღის რეჟიმი',ex:'"My daily routine starts at six o\'clock."',cat:'nov23b'},
+  {w:'to wake up',ph:'/weɪk ʌp/',t:'aufwachen',ta:'يستيقظ',tka:'გაღვიძება',ex:'"He wakes up at six in the morning."',cat:'nov23b'},
+  {w:'to get up',ph:'/ɡet ʌp/',t:'aufstehen',ta:'ينهض (من السرير)',tka:'ადგომა (საწოლიდან)',ex:'"She gets up at ten past six."',cat:'nov23b'},
+  {w:'to wash your face',ph:'/wɒʃ jɔː feɪs/',t:'sich das Gesicht waschen',ta:'يغسل وجهه',tka:'პირის დაბანა',ex:'"He washes his face with cold water."',cat:'nov23b'},
+  {w:'to brush your teeth',ph:'/brʌʃ jɔː tiːθ/',t:'sich die Zähne putzen',ta:'ينظّف أسنانه بالفرشاة',tka:'კბილების გახეხვა',ex:'"She brushes her teeth twice a day."',cat:'nov23b'},
+  {w:'to get dressed',ph:'/ɡet drest/',t:'sich anziehen',ta:'يرتدي ملابسه',tka:'ჩაცმა',ex:'"He gets dressed after breakfast."',cat:'nov23b'},
+  {w:'to comb your hair',ph:'/kəʊm jɔː heə/',t:'sich die Haare kämmen',ta:'يمشّط شعره',tka:'თმის დავარცხნა',ex:'"He combs his hair. (b ist stumm!)"',cat:'nov23b'},
+  {w:'to leave home',ph:'/liːv həʊm/',t:'das Haus verlassen',ta:'يغادر المنزل',tka:'სახლიდან გასვლა',ex:'"She leaves home at seven."',cat:'nov23b'},
+  {w:'to arrive at work',ph:'/əˈraɪv ət wɜːk/',t:'bei der Arbeit ankommen',ta:'يصل إلى العمل',tka:'სამსახურში მისვლა',ex:'"He arrives at work at eight."',cat:'nov23b'},
+  {w:'to exercise',ph:'/ˈeksəsaɪz/',t:'Sport treiben / sich bewegen',ta:'يمارس الرياضة',tka:'ვარჯიში / მოძრაობა',ex:'"She exercises every morning."',cat:'nov23b'},
+  {w:'to work out',ph:'/wɜːk aʊt/',t:'trainieren (im Fitnessstudio)',ta:'يتمرّن (في النادي الرياضي)',tka:'ვარჯიში (სპორტდარბაზში)',ex:'"He works out three times a week."',cat:'nov23b'},
+  {w:'to drop off',ph:'/drɒp ɒf/',t:'(jemanden) hinbringen / absetzen',ta:'يُوصِل (شخصًا إلى مكان)',tka:'მიყვანა / ჩამოსმა (მანქანით)',ex:'"I drop off my son at school at 8 a.m."',cat:'nov23b'},
+  {w:'to pick up',ph:'/pɪk ʌp/',t:'(jemanden) abholen',ta:'يُقِلّ / يأخذ (شخصًا من مكان)',tka:'ვინმეს წამოყვანა',ex:'"She picks up the kids at 4 p.m."',cat:'nov23b'},
+  {w:'to go to bed',ph:'/ɡəʊ tə bed/',t:'ins Bett gehen',ta:'يذهب إلى النوم',tka:'დასაძინებლად წასვლა',ex:'"He goes to bed at eleven at night."',cat:'nov23b'},
+  {w:'to study',ph:'/ˈstʌdi/',t:'lernen / studieren (he studies)',ta:'يدرس',tka:'სწავლა',ex:'"My sister studies English in the evening."',cat:'nov23b'},
+  {w:'in the morning',ph:'/ɪn ðə ˈmɔːnɪŋ/',t:'morgens (0:00–11:59)',ta:'في الصباح',tka:'დილით',ex:'"I drink coffee in the morning."',cat:'nov23b'},
+  {w:'in the evening',ph:'/ɪn ði ˈiːvnɪŋ/',t:'abends (18:00–20:59)',ta:'في المساء',tka:'საღამოს',ex:'"We watch TV in the evening."',cat:'nov23b'},
+  {w:'at night',ph:'/ət naɪt/',t:'nachts (21:00–23:59) – ohne „the“!',ta:'في الليل',tka:'ღამით',ex:'"I read a book at night."',cat:'nov23b'},
+  {w:'to climb',ph:'/klaɪm/',t:'klettern / steigen (b ist stumm)',ta:'يتسلّق',tka:'ცოცვა / ასვლა',ex:'"He climbs the stairs every day."',cat:'nov23b'},
+  {w:'lamb',ph:'/læm/',t:'das Lamm (b ist stumm)',ta:'حَمَل (خروف صغير)',tka:'ბატკანი',ex:'"The lamb is in the field."',cat:'nov23b'},
+  {w:'bomb',ph:'/bɒm/',t:'die Bombe (b ist stumm)',ta:'قنبلة',tka:'ბომბი',ex:'"The police found an old bomb."',cat:'nov23b'},
+  {w:'workshop',ph:'/ˈwɜːkʃɒp/',t:'die Werkstatt',ta:'ورشة عمل',tka:'სახელოსნო',ex:'"The workshop needs to be cleaned before the inspection."',cat:'nov18'},  {w:'What time is it?',ph:'/wɒt taɪm ɪz ɪt/',t:'Wie spät ist es?',ta:'كم الساعة؟',tka:'რომელი საათია?',ex:'"Excuse me, what time is it?"',cat:'nov23'},
+  {w:'Excuse me',ph:'/ɪkˈskjuːz miː/',t:'Entschuldigung (um jemanden anzusprechen)',ta:'عفوًا / لو سمحت',tka:'უკაცრავად',ex:'"Excuse me, have you got the time?"',cat:'nov23'},
+  {w:'o\'clock',ph:'/əˈklɒk/',t:'… Uhr (volle Stunde)',ta:'الساعة … تمامًا',tka:'ზუსტად … საათი',ex:'"It\'s one o\'clock."',cat:'nov23'},
+  {w:'past',ph:'/pɑːst/',t:'nach (bei der Uhrzeit)',ta:'بعد (في الوقت)',tka:'გადასული (წუთები)',ex:'"It\'s twenty past nine. (9:20)"',cat:'nov23'},
+  {w:'to',ph:'/tuː/',t:'vor (bei der Uhrzeit)',ta:'إلا (في الوقت)',tka:'აკლია (წუთები)',ex:'"It\'s ten to five. (4:50)"',cat:'nov23'},
+  {w:'quarter past',ph:'/ˈkwɔːtə pɑːst/',t:'Viertel nach',ta:'والربع',tka:'თხუთმეტი წუთი გადასული',ex:'"It\'s quarter past three. (3:15)"',cat:'nov23'},
+  {w:'quarter to',ph:'/ˈkwɔːtə tuː/',t:'Viertel vor',ta:'إلا ربعًا',tka:'თხუთმეტი წუთი აკლია',ex:'"It\'s a quarter to two. (1:45)"',cat:'nov23'},
+  {w:'half past',ph:'/hɑːf pɑːst/',t:'halb (30 Minuten nach!) – half past three = 3:30',ta:'والنصف',tka:'ნახევარი (30 წუთი გადასული)',ex:'"It\'s half past three. (3:30 – nicht 2:30!)"',cat:'nov23'},
+  {w:'minute',ph:'/ˈmɪnɪt/',t:'die Minute',ta:'دقيقة',tka:'წუთი',ex:'"It\'s seven minutes to three. (2:53)"',cat:'nov23'},
+  {w:'hour',ph:'/ˈaʊə/',t:'die Stunde',ta:'ساعة (مدة زمنية)',tka:'საათი (დროის ერთეული)',ex:'"The lesson is one hour long."',cat:'nov23'},
+  {w:'noon / midday',ph:'/nuːn/ /ˌmɪdˈdeɪ/',t:'der Mittag (12:00 Uhr)',ta:'الظهر / منتصف النهار',tka:'შუადღე (12:00)',ex:'"We have lunch at noon."',cat:'nov23'},
+  {w:'midnight',ph:'/ˈmɪdnaɪt/',t:'die Mitternacht (0:00 Uhr)',ta:'منتصف الليل',tka:'შუაღამე',ex:'"The shop is open until midnight."',cat:'nov23'},
+  {w:'a.m.',ph:'/ˌeɪ ˈem/',t:'vormittags (0:00–11:59 Uhr)',ta:'صباحًا (قبل الظهر)',tka:'შუადღემდე (დილის)',ex:'"The train leaves at 7 a.m."',cat:'nov23'},
+  {w:'p.m.',ph:'/ˌpiː ˈem/',t:'nachmittags / abends (12:00–23:59 Uhr)',ta:'بعد الظهر / مساءً',tka:'შუადღის შემდეგ (საღამოს)',ex:'"The film starts at 8 p.m. (20:00)"',cat:'nov23'},
+  {w:'the 24-hour clock',ph:'/ðə ˌtwenti fɔːr ˈaʊə klɒk/',t:'das 24-Stunden-Format',ta:'نظام الأربع والعشرين ساعة',tka:'24-საათიანი ფორმატი',ex:'"15:00 on the 24-hour clock is 3 p.m."',cat:'nov23'},
+  {w:'clock',ph:'/klɒk/',t:'die Uhr (Wand-/Standuhr)',ta:'ساعة حائط',tka:'საათი (კედლის)',ex:'"The clock in the classroom is slow."',cat:'nov23'},
+  {w:'watch',ph:'/wɒtʃ/',t:'die Armbanduhr',ta:'ساعة يد',tka:'მაჯის საათი',ex:'"I always look at my watch."',cat:'nov23'},
+  {w:'in the afternoon',ph:'/ɪn ði ˌɑːftəˈnuːn/',t:'am Nachmittag',ta:'بعد الظهر',tka:'შუადღის შემდეგ / ნაშუადღევს',ex:'"I\'ll call you at four in the afternoon."',cat:'nov23'},
 ];
 
 const GRAMMATIK = [
@@ -3914,6 +4057,8 @@ function addCustomVok() {
 /* ========== VOKABELN ========== */
 // Gruppen-Definitionen: Reihenfolge neueste zuerst
 const VOK_GROUPS = [
+  { key:'nov23b', label:'☀️ 23.11 – Daily Routine', date:'23.11' },
+  { key:'nov23', label:'🕐 23.11 – What time is it?', date:'23.11' },
   { key:'nov20', label:'📝 20.11 – Progress Test & Tenses', date:'20.11' },
   { key:'nov19', label:'💼 19.11 – Jobs & Work', date:'19.11' },
   { key:'nov18', label:'⚖️ 18.11 – Differences & Conflict', date:'18.11' },
@@ -6452,7 +6597,7 @@ let pruefState = {
 
 // Welche Vokabel-Gruppe gehört zu welchem Niveau
 const PRUEF_VOK_LEVEL = {
-  A1: ['questions','time','transport','restaurant','school','appear','irregular','nov10','nov15','travel','kitchen'],
+  A1: ['questions','time','nov23','nov23b','transport','restaurant','school','appear','irregular','nov10','nov15','travel','kitchen'],
   A2: ['general','tourism','feelings','adverbs','verbs','food_adj','nov04','nov02b','nov12','nov09','nov06','music','phrasal','comm'],
   B1: ['tech','env','trend','money','present','media','future','unit6a','nov02','generations','unit8b','nov09b','nov13','nov17','nov19','nov18','nov20'],
   B2: ['nov11','nov16','money','media','trend','generations','nov13','nov17','nov18','unit8b','nov20']
@@ -6840,6 +6985,8 @@ function showGramSec(id,btn){
   document.querySelectorAll('.gram-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
+  if(id==='gs6'&&typeof uhrRender==='function')uhrRender();
+  if(id==='gs7'&&typeof tagRender==='function')tagRender();
 }
 
 /* ========== PINNWAND (Supabase) ========== */
@@ -7596,4 +7743,810 @@ function heuteFwd(){
 }
 
 try { updateDailyBanner(); } catch(e) {}
+</script>
+<script>
+/* ========== UHRZEIT: WHAT TIME IS IT? (23.11.2026) ========== */
+const UHR_UI = {
+  de:{title:"🕐 What time is it? – Die Uhrzeit",intro:"Stell die Uhr mit den Knöpfen. Die App zeigt und sagt dir die Uhrzeit auf Englisch.",
+    now:"Jetzt",rand:"🎲 Zufall",way1:"Klassisch (past / to)",way2:"Einfach (nur Zahlen)",slow:"🐢 langsam",
+    rulesT:"📘 Die Regeln",exT:"🗣️ Beispiele",ampmT:"🌞 AM / PM · 12 und 24 Stunden",phrT:"💬 Fragen & Antworten",quizT:"✏️ Übung",
+    quizIntro:"10 Fragen. Uhr lesen, Sätze verstehen, AM/PM umrechnen.",start:"▶ Übung starten",again:"🔁 Nochmal",next:"Weiter →",
+    q1:"Wie spät ist es? Wähle den richtigen Satz.",q2:"Hör zu / lies: Welche Uhrzeit ist das?",q3:"Welche Uhrzeit ist das im 12-Stunden-Format?",q4:"Welche Uhrzeit ist das im 24-Stunden-Format?",
+    right:"✅ Richtig!",wrong:"❌ Leider falsch. Richtig ist:",res:"Ergebnis",best:"Bester Wert",
+    rules:[
+      ["o'clock","Der große Zeiger steht auf der 12 → volle Stunde.","3:00 → It's three o'clock."],
+      ["past = nach","Minuten 1 bis 30 (rechte, grüne Hälfte). Man zählt die Minuten <b>nach</b> der Stunde.","3:10 → It's ten past three."],
+      ["to = vor","Minuten 31 bis 59 (linke, orange Hälfte). Man zählt die Minuten <b>bis zur nächsten</b> Stunde!","3:40 → It's twenty to four."],
+      ["quarter · half","quarter = 15 Minuten, half = 30 Minuten. Das „a“ bei „a quarter“ kann man sagen oder weglassen.","3:15 → (a) quarter past three · 3:45 → (a) quarter to four"],
+      ["⚠️ half past","half past three = <b>3:30</b>! Nicht verwechseln mit deutsch „halb drei“ (= 2:30).","3:30 → It's half past three."],
+      ["minutes","Wenn die Minuten nicht in 5er-Schritten sind, sagt man „minutes“ dazu.","2:53 → It's seven minutes to three."],
+      ["Einfacher Weg","Man kann auch nur die Zahlen sagen: Stunde + Minuten. 1–9 Minuten: „oh“ (= 0).","9:20 → nine twenty · 9:05 → nine oh five"]
+    ],
+    ampm:[
+      ["a.m.","von Mitternacht bis Mittag (0:00–11:59)","7:00 → 7 a.m. = seven in the morning"],
+      ["p.m.","von Mittag bis Mitternacht (12:00–23:59)","19:00 → 7 p.m. = seven in the evening"],
+      ["noon / midday","12:00 Uhr mittags","It's twelve noon."],
+      ["midnight","0:00 Uhr (24:00)","It's midnight."],
+      ["24 Stunden","Im Alltag sagt man meist 12 Stunden + a.m./p.m. 24 Stunden sieht man bei Zug, Bus und Flug. Umrechnen: über 12 → minus 12.","15:00 → 3 p.m. · 21:30 → 9:30 p.m."]
+    ],
+    parts:"Tageszeiten: in the morning (morgens) · in the afternoon (nachmittags) · in the evening (abends) · at night (nachts)"
+  },
+  ar:{title:"🕐 What time is it? – الساعة",intro:"حرّك الساعة بالأزرار. التطبيق يعرض لك الوقت بالإنجليزية وينطقه.",
+    now:"الآن",rand:"🎲 عشوائي",way1:"الطريقة التقليدية (past / to)",way2:"الطريقة السهلة (أرقام فقط)",slow:"🐢 ببطء",
+    rulesT:"📘 القواعد",exT:"🗣️ أمثلة",ampmT:"🌞 AM / PM · نظام 12 و24 ساعة",phrT:"💬 أسئلة وأجوبة",quizT:"✏️ تمرين",
+    quizIntro:"10 أسئلة: قراءة الساعة، فهم الجمل، التحويل بين AM/PM.",start:"▶ ابدأ التمرين",again:"🔁 مرة أخرى",next:"التالي ←",
+    q1:"كم الساعة؟ اختر الجملة الصحيحة.",q2:"استمع / اقرأ: ما هو هذا الوقت؟",q3:"ما هو هذا الوقت بنظام 12 ساعة؟",q4:"ما هو هذا الوقت بنظام 24 ساعة؟",
+    right:"✅ صحيح!",wrong:"❌ خطأ. الصحيح هو:",res:"النتيجة",best:"أفضل نتيجة",
+    rules:[
+      ["o'clock","العقرب الكبير على 12 ← ساعة كاملة.","3:00 → It's three o'clock."],
+      ["past = بعد","الدقائق من 1 إلى 30 (النصف الأيمن الأخضر). نعدّ الدقائق <b>بعد</b> الساعة.","3:10 → It's ten past three."],
+      ["to = إلا","الدقائق من 31 إلى 59 (النصف الأيسر البرتقالي). نعدّ الدقائق الباقية <b>حتى الساعة التالية</b>!","3:40 → It's twenty to four."],
+      ["quarter · half","quarter = ربع (15 دقيقة)، half = نصف (30 دقيقة). يمكن قول „a quarter“ أو „quarter“.","3:15 → (a) quarter past three · 3:45 → (a) quarter to four"],
+      ["⚠️ half past","half past three = <b>3:30</b> (الثالثة والنصف).","3:30 → It's half past three."],
+      ["minutes","إذا لم تكن الدقائق من مضاعفات 5 نضيف كلمة „minutes“.","2:53 → It's seven minutes to three."],
+      ["الطريقة السهلة","يمكن قول الأرقام فقط: الساعة ثم الدقائق. من 1 إلى 9 دقائق نقول „oh“ (= صفر).","9:20 → nine twenty · 9:05 → nine oh five"]
+    ],
+    ampm:[
+      ["a.m.","من منتصف الليل حتى الظهر (0:00–11:59)","7:00 → 7 a.m. = seven in the morning"],
+      ["p.m.","من الظهر حتى منتصف الليل (12:00–23:59)","19:00 → 7 p.m. = seven in the evening"],
+      ["noon / midday","الساعة 12 ظهرًا","It's twelve noon."],
+      ["midnight","الساعة 0:00 (منتصف الليل)","It's midnight."],
+      ["24 ساعة","في الكلام نستخدم غالبًا 12 ساعة مع a.m./p.m. ونظام 24 ساعة نراه في القطارات والحافلات والطيران. التحويل: أكثر من 12 ← نطرح 12.","15:00 → 3 p.m. · 21:30 → 9:30 p.m."]
+    ],
+    parts:"أوقات اليوم: in the morning (صباحًا) · in the afternoon (بعد الظهر) · in the evening (مساءً) · at night (ليلًا)"
+  },
+  ka:{title:"🕐 What time is it? – საათი",intro:"დააყენე საათი ღილაკებით. აპი გაჩვენებს და გეტყვის დროს ინგლისურად.",
+    now:"ახლა",rand:"🎲 შემთხვევითი",way1:"კლასიკური (past / to)",way2:"მარტივი (მხოლოდ რიცხვები)",slow:"🐢 ნელა",
+    rulesT:"📘 წესები",exT:"🗣️ მაგალითები",ampmT:"🌞 AM / PM · 12 და 24 საათი",phrT:"💬 კითხვები და პასუხები",quizT:"✏️ სავარჯიშო",
+    quizIntro:"10 კითხვა: საათის წაკითხვა, წინადადებების გაგება, AM/PM-ის გადაყვანა.",start:"▶ დაწყება",again:"🔁 თავიდან",next:"შემდეგი →",
+    q1:"რომელი საათია? აირჩიე სწორი წინადადება.",q2:"მოისმინე / წაიკითხე: რომელი დროა ეს?",q3:"რა დროა ეს 12-საათიან ფორმატში?",q4:"რა დროა ეს 24-საათიან ფორმატში?",
+    right:"✅ სწორია!",wrong:"❌ არასწორია. სწორი პასუხი:",res:"შედეგი",best:"საუკეთესო შედეგი",
+    rules:[
+      ["o'clock","დიდი ისარი 12-ზეა → სრული საათი.","3:00 → It's three o'clock."],
+      ["past = გადასული","1-დან 30 წუთამდე (მარჯვენა, მწვანე ნახევარი). ვითვლით, რამდენი წუთია <b>გადასული</b>.","3:10 → It's ten past three."],
+      ["to = აკლია","31-დან 59 წუთამდე (მარცხენა, ნარინჯისფერი ნახევარი). ვითვლით, რამდენი წუთი <b>აკლია შემდეგ</b> საათს!","3:40 → It's twenty to four."],
+      ["quarter · half","quarter = 15 წუთი, half = 30 წუთი. „a quarter“ ან უბრალოდ „quarter“ — ორივე სწორია.","3:15 → (a) quarter past three · 3:45 → (a) quarter to four"],
+      ["⚠️ half past","half past three = <b>3:30</b>! ქართულად ეს არის „ოთხის ნახევარი“ — არ აგერიოს!","3:30 → It's half past three."],
+      ["minutes","თუ წუთები 5-ის ჯერადი არ არის, ვამატებთ სიტყვას „minutes“.","2:53 → It's seven minutes to three."],
+      ["მარტივი გზა","შეიძლება მხოლოდ რიცხვების თქმა: საათი + წუთები. 1–9 წუთზე ვამბობთ „oh“ (= 0).","9:20 → nine twenty · 9:05 → nine oh five"]
+    ],
+    ampm:[
+      ["a.m.","შუაღამიდან შუადღემდე (0:00–11:59)","7:00 → 7 a.m. = seven in the morning"],
+      ["p.m.","შუადღიდან შუაღამემდე (12:00–23:59)","19:00 → 7 p.m. = seven in the evening"],
+      ["noon / midday","12:00 შუადღე","It's twelve noon."],
+      ["midnight","0:00 შუაღამე","It's midnight."],
+      ["24 საათი","ლაპარაკისას ძირითადად 12 საათს + a.m./p.m. ვიყენებთ. 24-საათიანი ფორმატია მატარებლის, ავტობუსის და ფრენის განრიგში. გადაყვანა: 12-ზე მეტი → გამოაკელი 12.","15:00 → 3 p.m. · 21:30 → 9:30 p.m."]
+    ],
+    parts:"დღის ნაწილები: in the morning (დილით) · in the afternoon (შუადღის შემდეგ) · in the evening (საღამოს) · at night (ღამით)"
+  }
+};
+const UHR_EX = [[1,0],[1,45],[9,20],[2,53],[3,15],[3,30],[6,5],[11,35]];
+const UHR_PHR = [
+  ["Excuse me, what time is it?","—"],
+  ["What's the time, please?","—"],
+  ["Have you got the time?","—"],
+  ["It's about half past three.","—"],
+  ["It's exactly nine o'clock.","—"],
+  ["The lesson starts at nine o'clock.","at + time"],
+  ["See you at quarter to six!","at + time"]
+];
+let uhrT = 9*60+20;     // Minuten des Tages (0..1439)
+let uhrQ = null;        // Quiz-Zustand
+
+function uhrU(k){ const l=(typeof tomLang==='function')?tomLang():'de'; return (UHR_UI[l]||UHR_UI.de)[k]||UHR_UI.de[k]; }
+function uhrIsRtl(){ return ((typeof tomLang==='function')?tomLang():'de')==='ar'; }
+const UHR_N=['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+function uhrNum(n){ if(n<20) return UHR_N[n]; const t=['','','twenty','thirty','forty','fifty'][Math.floor(n/10)]; return n%10 ? t+'-'+UHR_N[n%10] : t; }
+function uhrH12(h){ h=((h%12)+12)%12; return h===0?12:h; }
+// Klassisch: past / to
+function uhrSay(h,m){
+  const H=uhrH12(h), N=uhrH12(h+1);
+  if(m===0) return "It's "+uhrNum(H)+" o'clock.";
+  if(m===15) return "It's quarter past "+uhrNum(H)+".";
+  if(m===30) return "It's half past "+uhrNum(H)+".";
+  if(m===45) return "It's quarter to "+uhrNum(N)+".";
+  if(m<30){ const w=uhrNum(m)+(m%5? (m===1?' minute':' minutes'):''); return "It's "+w+" past "+uhrNum(H)+"."; }
+  const r=60-m; const w=uhrNum(r)+(r%5? (r===1?' minute':' minutes'):''); return "It's "+w+" to "+uhrNum(N)+".";
+}
+// Einfach: nur Zahlen
+function uhrSay2(h,m){
+  const H=uhrH12(h);
+  if(m===0) return "It's "+uhrNum(H)+" o'clock.";
+  return "It's "+uhrNum(H)+" "+(m<10?'oh '+uhrNum(m):uhrNum(m))+".";
+}
+function uhrDig(h,m){ return uhrH12(h)+':'+String(m).padStart(2,'0'); }
+function uhrD24(h,m){ return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0'); }
+function uhrAP(h,m){ return uhrDig(h,m)+(h<12?' a.m.':' p.m.'); }
+function uhrPart(h,m){
+  if(h===0&&m===0) return 'midnight';
+  if(h===12&&m===0) return 'noon / midday';
+  if(h>=5&&h<12) return 'in the morning';
+  if(h>=12&&h<18) return 'in the afternoon';
+  if(h>=18&&h<22) return 'in the evening';
+  return 'at night';
+}
+function uhrPartIcon(h){ return (h>=6&&h<18)?'☀️':(h>=18&&h<22?'🌆':'🌙'); }
+
+// eigene Uhr als SVG
+function uhrClock(h,m,big){
+  const S=big?300:120, c=S/2, R=big?108:54;
+  const P=(deg,r)=>{const a=(deg-90)*Math.PI/180;return [c+r*Math.cos(a), c+r*Math.sin(a)];};
+  const f=x=>x.toFixed(1);
+  let s='<svg viewBox="0 0 '+S+' '+S+'" class="uhr-svg'+(big?' big':'')+'" data-c="'+c+'" role="img" aria-label="'+uhrDig(h,m)+'">';
+  // Hälften: rechts past (grün), links to (orange)
+  const t1=P(0,R), b1=P(180,R);
+  s+='<path d="M'+c+' '+c+' L'+f(t1[0])+' '+f(t1[1])+' A'+R+' '+R+' 0 0 1 '+f(b1[0])+' '+f(b1[1])+' Z" class="uhr-past"/>';
+  s+='<path d="M'+c+' '+c+' L'+f(b1[0])+' '+f(b1[1])+' A'+R+' '+R+' 0 0 1 '+f(t1[0])+' '+f(t1[1])+' Z" class="uhr-to"/>';
+  s+='<circle cx="'+c+'" cy="'+c+'" r="'+R+'" class="uhr-ring"/>';
+  // Minutenbogen
+  if(m>0){
+    const rr=R*0.86, past=m<=30;
+    const a0=past?0:m*6, a1=past?m*6:360;
+    const p0=P(a0,rr), p1=P(a1-0.01,rr), large=(a1-a0)>180?1:0;
+    s+='<path d="M'+f(p0[0])+' '+f(p0[1])+' A'+f(rr)+' '+f(rr)+' 0 '+large+' 1 '+f(p1[0])+' '+f(p1[1])+'" class="uhr-arc '+(past?'p':'t')+'" stroke-width="'+(big?9:6)+'"/>';
+  }
+  // Striche
+  for(let i=0;i<60;i++){
+    const long=i%5===0; const a=P(i*6,R-1), b=P(i*6,R-(long?(big?12:8):(big?5:3)));
+    s+='<line x1="'+f(a[0])+'" y1="'+f(a[1])+'" x2="'+f(b[0])+'" y2="'+f(b[1])+'" class="uhr-tick'+(long?' l':'')+'"/>';
+  }
+  // Zahlen
+  for(let i=1;i<=12;i++){
+    const p=P(i*30,R-(big?26:17));
+    s+='<text x="'+f(p[0])+'" y="'+f(p[1])+'" class="uhr-num" font-size="'+(big?20:12)+'" text-anchor="middle" dominant-baseline="central">'+i+'</text>';
+  }
+  // Beschriftung außen (nur groß)
+  if(big){
+    s+='<text x="'+c+'" y="20" class="uhr-out" text-anchor="middle">o\'clock</text>';
+    s+='<text x="'+c+'" y="'+(S-8)+'" class="uhr-out" text-anchor="middle">half past</text>';
+    s+='<text x="'+(S-6)+'" y="'+c+'" class="uhr-out p" text-anchor="end" dominant-baseline="central">past</text>';
+    s+='<text x="6" y="'+c+'" class="uhr-out t" text-anchor="start" dominant-baseline="central">to</text>';
+  }
+  // Zeiger
+  const ha=((h%12)+m/60)*30, ma=m*6;
+  s+='<line x1="'+c+'" y1="'+c+'" x2="'+c+'" y2="'+f(c-R*0.5)+'" transform="rotate('+f(ha)+' '+c+' '+c+')" class="uhr-hh" stroke-width="'+(big?7:4.5)+'"/>';
+  s+='<line x1="'+c+'" y1="'+c+'" x2="'+c+'" y2="'+f(c-R*0.78)+'" transform="rotate('+f(ma)+' '+c+' '+c+')" class="uhr-mh '+(m===0?'':(m<=30?'p':'t'))+'" stroke-width="'+(big?4.5:3)+'"/>';
+  s+='<circle cx="'+c+'" cy="'+c+'" r="'+(big?6:4)+'" class="uhr-dot"/>';
+  return s+'</svg>';
+}
+function uhrEsc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function uhrJs(s){ return uhrEsc(String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'")); }
+function uhrSpk(t,slow){ if(typeof tomSpeak==='function') tomSpeak(t,!!slow); else if(window.speechSynthesis){const u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=slow?.6:.9;speechSynthesis.speak(u);} }
+function uhrSpkBtns(t){ return '<button class="tom-btn" onclick="uhrSpk(\''+uhrJs(t)+'\')">🔊</button><button class="tom-btn" onclick="uhrSpk(\''+uhrJs(t)+'\',1)">🐢</button>'; }
+
+function uhrRender(){
+  const box=document.getElementById('uhr-box'); if(!box) return;
+  const rtl=uhrIsRtl(), d=rtl?' dir="rtl"':'';
+  let h='<h3>'+uhrU('title')+'</h3><div class="tom-intro"'+d+'>'+uhrU('intro')+'</div>';
+  h+='<div id="uhr-live">'+uhrLiveHtml()+'</div>';
+  // Regeln
+  h+='<details class="uhr-sec" open><summary>'+uhrU('rulesT')+'</summary>';
+  uhrU('rules').forEach(r=>{ h+='<div class="uhr-rule"><b class="k">'+uhrEsc(r[0])+'</b><div'+d+'>'+r[1]+'</div><div class="uhr-eg">'+uhrEsc(r[2])+'</div></div>'; });
+  h+='</details>';
+  // Beispiele
+  h+='<details class="uhr-sec"><summary>'+uhrU('exT')+'</summary><div class="uhr-exgrid">';
+  UHR_EX.forEach(e=>{ const a=uhrSay(e[0],e[1]), b=uhrSay2(e[0],e[1]);
+    h+='<div class="uhr-excard">'+uhrClock(e[0],e[1],false)+'<div class="uhr-exr"><div class="uhr-dg">'+uhrDig(e[0],e[1])+'</div><div class="s">'+uhrEsc(a)+'</div><div class="s2">('+uhrEsc(b.replace("It's ",'').replace('.',''))+')</div><div class="tom-btns">'+uhrSpkBtns(a)+'</div></div></div>'; });
+  h+='</div></details>';
+  // AM/PM
+  h+='<details class="uhr-sec"><summary>'+uhrU('ampmT')+'</summary>'+uhrDayline();
+  uhrU('ampm').forEach(r=>{ h+='<div class="uhr-rule"><b class="k">'+uhrEsc(r[0])+'</b><div'+d+'>'+r[1]+'</div><div class="uhr-eg">'+uhrEsc(r[2])+'</div></div>'; });
+  h+='<div class="gram-note"'+d+'>'+uhrEsc(uhrU('parts'))+'</div></details>';
+  // Fragen
+  h+='<details class="uhr-sec"><summary>'+uhrU('phrT')+'</summary>';
+  UHR_PHR.forEach(p=>{ h+='<div class="tom-ex"><div class="e"><b>'+uhrEsc(p[0])+'</b>'+(p[1]!=='—'?'<span>'+uhrEsc(p[1])+'</span>':'')+'</div>'+uhrSpkBtns(p[0])+'</div>'; });
+  h+='</details>';
+  // Quiz
+  h+='<details class="uhr-sec" id="uhr-say-sec"><summary>'+uhrU('sayT')+'</summary><div id="uhr-say"></div></details>';
+  h+='<details class="uhr-sec" id="uhr-quiz-sec"'+(uhrQ?' open':'')+'><summary>'+uhrU('quizT')+'</summary><div id="uhr-quiz">'+uhrQuizHtml()+'</div></details>';
+  box.innerHTML=h; uhrShownT=uhrT;
+  if(typeof uhrSpUpd==='function') uhrSpUpd(false);
+  const ss=document.getElementById('uhr-say-sec'); if(ss) ss.addEventListener('toggle',()=>{ if(ss.open){ uhrSp.prev=uhrSp.h*60+uhrSp.m-180; uhrSpUpd(true); } });
+}
+function uhrLiveHtml(){
+  const H=Math.floor(uhrT/60), M=uhrT%60, a=uhrSay(H,M), b=uhrSay2(H,M);
+  let h='<div class="uhr-live">'+uhrClock(H,M,true)+'<div class="uhr-digi"><span class="d24">'+uhrD24(H,M)+'</span><span class="ap">'+uhrPartIcon(H)+' '+uhrAP(H,M)+' · '+uhrPart(H,M)+'</span></div></div>';
+  h+='<div class="uhr-ctrl"><button onclick="uhrMove(-60)">−1 h</button><button onclick="uhrMove(-5)">−5</button><button onclick="uhrMove(-1)">−1</button><button onclick="uhrMove(1)">+1</button><button onclick="uhrMove(5)">+5</button><button onclick="uhrMove(60)">+1 h</button></div>';
+  h+='<div class="uhr-ctrl"><button onclick="uhrNow()">🕐 '+uhrU('now')+'</button><button onclick="uhrRand()">'+uhrU('rand')+'</button><button onclick="uhrFast()">'+(uhrFastT?uhrU('stop'):uhrU('fast'))+'</button><input type="time" value="'+uhrD24(H,M)+'" onchange="uhrSetInput(this.value)" aria-label="time"></div>';
+  h+='<div class="uhr-way">'+uhrEsc(uhrU('way1'))+'</div><div class="tom-say"><div class="s">'+uhrEsc(a)+'</div></div><div class="tom-btns">'+uhrSpkBtns(a)+'</div>';
+  if(b!==a) h+='<div class="uhr-way">'+uhrEsc(uhrU('way2'))+'</div><div class="tom-say alt"><div class="s">'+uhrEsc(b)+'</div></div><div class="tom-btns">'+uhrSpkBtns(b)+'</div>';
+  return h;
+}
+function uhrMove(d){ uhrT=((uhrT+d)%1440+1440)%1440; uhrUpd(); }
+function uhrNow(){ const n=new Date(); uhrT=n.getHours()*60+n.getMinutes(); uhrUpd(); }
+function uhrRand(){ uhrT=Math.floor(Math.random()*288)*5; uhrUpd(); }
+function uhrSetInput(v){ if(!v) return; const p=v.split(':'); uhrT=(+p[0])*60+(+p[1]); uhrUpd(); }
+function uhrDayline(){
+  // eigener Tagesstrahl 0–24 Uhr
+  const W=340, x=hh=>14+hh*(W-28)/24;
+  let s='<svg viewBox="0 0 '+W+' 96" class="uhr-day">';
+  s+='<defs><linearGradient id="uhrSky" x1="0" x2="1"><stop offset="0" stop-color="#1e3a8a"/><stop offset=".25" stop-color="#93c5fd"/><stop offset=".5" stop-color="#fde68a"/><stop offset=".75" stop-color="#fb923c"/><stop offset="1" stop-color="#1e3a8a"/></linearGradient></defs>';
+  s+='<rect x="14" y="38" width="'+(W-28)+'" height="12" rx="6" fill="url(#uhrSky)"/>';
+  [0,3,6,9,12,15,18,21,24].forEach(hh=>{ s+='<line x1="'+x(hh)+'" y1="34" x2="'+x(hh)+'" y2="54" class="uhr-tick l"/><text x="'+x(hh)+'" y="28" font-size="10" text-anchor="middle" class="uhr-num">'+(hh===24?'0':hh)+':00</text><text x="'+x(hh)+'" y="66" font-size="10" text-anchor="middle" class="uhr-lbl">'+(hh%12===0?12:hh%12)+'</text>'; });
+  s+='<text x="'+x(0)+'" y="12" font-size="12" text-anchor="start">🌙</text><text x="'+x(12)+'" y="12" font-size="12" text-anchor="middle">☀️</text><text x="'+x(24)+'" y="12" font-size="12" text-anchor="end">🌙</text>';
+  s+='<path d="M'+x(0)+' 72 Q'+x(0)+' 80 '+x(1)+' 80 L'+x(11)+' 80 Q'+x(12)+' 80 '+x(12)+' 72" class="uhr-brace a"/><text x="'+x(6)+'" y="93" font-size="12" font-weight="700" text-anchor="middle" fill="#2563eb">a.m.</text>';
+  s+='<path d="M'+x(12)+' 72 Q'+x(12)+' 80 '+x(13)+' 80 L'+x(23)+' 80 Q'+x(24)+' 80 '+x(24)+' 72" class="uhr-brace p"/><text x="'+x(18)+'" y="93" font-size="12" font-weight="700" text-anchor="middle" fill="#ea580c">p.m.</text>';
+  return s+'</svg><div class="uhr-daylbl"><span>midnight</span><span>noon / midday</span><span>midnight</span></div>';
+}
+
+/* ---- Übung ---- */
+function uhrRndTime(){
+  const h=Math.floor(Math.random()*24);
+  const m=Math.random()<0.75? Math.floor(Math.random()*12)*5 : Math.floor(Math.random()*60);
+  return [h,m];
+}
+function uhrShuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function uhrOpts(right, cands){ const o=[right]; cands.forEach(c=>{ if(o.length<4 && c && o.indexOf(c)<0) o.push(c); }); return uhrShuffle(o); }
+function uhrMakeQ(){
+  const [h,m]=uhrRndTime(); const type=Math.floor(Math.random()*4);
+  const H12=uhrH12(h);
+  if(type===0){ // Uhr → Satz
+    const right=uhrSay(h,m);
+    const c=[uhrSay(h,(60-m)%60), uhrSay(h+1,m), uhrSay(h-1,m), uhrSay(h,(m+5)%60), uhrSay(h,(m+55)%60), uhrSay(h+1,(60-m)%60)];
+    if(m===30) c.unshift("It's half past "+uhrNum(uhrH12(h+1))+".");
+    return {type,h,m,right,opts:uhrOpts(right,uhrShuffle(c))};
+  }
+  if(type===1){ // Satz → Uhrzeit (mit Vorlesen)
+    const right=uhrDig(h,m);
+    const c=[uhrDig(h,(60-m)%60), uhrDig(h+1,m), uhrDig(h-1,m), uhrDig(h+1,(60-m)%60), uhrDig(h,(m+5)%60)];
+    if(m===30) c.unshift(uhrDig(h-1,30));
+    return {type,h,m,say:(Math.random()<.5?uhrSay(h,m):uhrSay2(h,m)),right,opts:uhrOpts(right,uhrShuffle(c))};
+  }
+  if(type===2){ // 24h → 12h
+    const right=uhrAP(h,m);
+    const c=[uhrDig(h,m)+(h<12?' p.m.':' a.m.'), uhrAP((h+2)%24,m), uhrDig((h+10)%24,m)+(h<12?' a.m.':' p.m.'), uhrAP((h+12)%24,m)];
+    return {type,h,m,ask:uhrD24(h,m),right,opts:uhrOpts(right,uhrShuffle(c))};
+  }
+  // 12h + Tageszeit → 24h
+  const right=uhrD24(h,m);
+  const c=[uhrD24((h+12)%24,m), uhrD24((h+2)%24,m), uhrD24((h+22)%24,m), uhrD24((h+10)%24,m)];
+  return {type,h,m,ask:uhrAP(h,m),sub:uhrPart(h,m),right,opts:uhrOpts(right,uhrShuffle(c))};
+}
+function uhrQuizStart(){ uhrQ={i:0,score:0,qs:Array.from({length:10},uhrMakeQ),done:null}; uhrQuizUpd(); }
+function uhrBest(){ try{ return +(localStorage.getItem('ela_uhr_best')||0); }catch(e){ return 0; } }
+function uhrQuizHtml(){
+  const d=uhrIsRtl()?' dir="rtl"':'';
+  if(!uhrQ){ const b=uhrBest(); return '<div class="tom-intro"'+d+'>'+uhrU('quizIntro')+(b?' · '+uhrU('best')+': '+b+'/10':'')+'</div><button class="uhr-go" onclick="uhrQuizStart()">'+uhrU('start')+'</button>'; }
+  if(uhrQ.i>=uhrQ.qs.length){
+    const sc=uhrQ.score; try{ if(sc>uhrBest()) localStorage.setItem('ela_uhr_best',sc); }catch(e){}
+    const em=sc>=9?'🏆':sc>=7?'🎉':sc>=5?'👍':'💪';
+    return '<div class="uhr-res"><div style="font-size:40px">'+em+'</div><b>'+uhrU('res')+': '+sc+' / 10</b><div class="tom-intro">'+uhrU('best')+': '+Math.max(sc,uhrBest())+'/10</div><button class="uhr-go" onclick="uhrQuizStart()">'+uhrU('again')+'</button></div>';
+  }
+  const q=uhrQ.qs[uhrQ.i];
+  let h='<div class="uhr-qhead"><span>'+(uhrQ.i+1)+' / 10</span><span>⭐ '+uhrQ.score+'</span></div>';
+  h+='<div class="uhr-qq"'+d+'>'+uhrU('q'+(q.type+1))+'</div>';
+  if(q.type===0) h+='<div class="uhr-qclock">'+uhrClock(q.h,q.m,true)+'</div>';
+  if(q.type===1) h+='<div class="tom-say"><div class="s">'+uhrEsc(q.say)+'</div></div><div class="tom-btns">'+uhrSpkBtns(q.say)+'</div>';
+  if(q.type>=2) h+='<div class="uhr-ask">'+uhrEsc(q.ask)+(q.sub?'<small>'+uhrEsc(q.sub)+'</small>':'')+'</div>';
+  q.opts.forEach((o,k)=>{
+    let cls='tom-quiz-opt';
+    if(uhrQ.done!==null){ if(o===q.right) cls+=' ok'; else if(k===uhrQ.done) cls+=' bad'; }
+    h+='<button class="'+cls+'" '+(uhrQ.done!==null?'disabled':'')+' onclick="uhrAns('+k+')">'+uhrEsc(o)+'</button>';
+  });
+  if(uhrQ.done!==null){
+    const ok=q.opts[uhrQ.done]===q.right;
+    const full=uhrSay(q.h,q.m);
+    h+='<div class="uhr-fb '+(ok?'ok':'bad')+'"'+d+'>'+(ok?uhrU('right'):uhrU('wrong')+' <b dir="ltr">'+uhrEsc(q.right)+'</b>')+'</div>';
+    h+='<div class="uhr-eg">'+uhrD24(q.h,q.m)+' = '+uhrAP(q.h,q.m)+' → '+uhrEsc(full)+' '+uhrSpkBtns(full)+'</div>';
+    h+='<button class="uhr-go" onclick="uhrNext()">'+uhrU('next')+'</button>';
+  }
+  return h;
+}
+function uhrAns(k){ if(!uhrQ||uhrQ.done!==null) return; uhrQ.done=k; const q=uhrQ.qs[uhrQ.i]; if(q.opts[k]===q.right) uhrQ.score++; uhrQuizUpd(); }
+function uhrNext(){ uhrQ.i++; uhrQ.done=null; uhrQuizUpd(); }
+
+if (document.readyState !== 'loading') uhrRender(); else document.addEventListener('DOMContentLoaded', uhrRender);
+
+/* ===== ☀️ MEIN TAG – Daily Routine & Present Simple (3. Person -s) – 23.11.2026 =====
+   Aufbau ist datengetrieben, damit neue Unterrichtsinhalte leicht dazukommen:
+   - Neue Abschnitte: einfach ein Objekt an TAG_SECS anhängen (type: 'table' | 'rules' | 'routine' | 'times' | 'words' | 'note').
+   - Neue Übungssätze: an TAG_QV (Verbform) oder TAG_QX (freie Fragen) anhängen.
+*/
+const TAG_UI = {
+  de:{title:"☀️ My Day – Tagesablauf & Present Simple",intro:"Was machst du jeden Tag? Im Present Simple bekommt das Verb bei he / she / it ein -s. Tippe 🔊 zum Anhören.",
+    toggleI:"👤 I (ich)",toggleHe:"👨 He (er)",toggleShe:"👩 She (sie)",tapHint:"Tippe oben auf I / He / She – das Verb ändert sich.",
+    quizT:"✏️ Übung",quizIntro:"10 Fragen: richtige Verbform, am/is/are, has/have, in/at, stummes b und neue Wörter.",start:"▶ Übung starten",again:"🔁 Nochmal",next:"Weiter →",
+    right:"✅ Richtig!",wrong:"❌ Leider falsch. Richtig ist:",res:"Ergebnis",best:"Bester Wert",
+    qv:"Welche Form ist richtig?",qbe:"am, is oder are?",qhave:"have oder has?",qprep:"Welche Präposition passt?",qpart:"Welche Tageszeit ist das?",qsil:"Welcher Buchstabe ist stumm (man hört ihn nicht)?",qword:"Was bedeutet das?",
+    hint3:"he / she / it → Verb + s",hintNo:"I / you / we / they → Verb ohne s",colVerb:"Verb",check:"✔ Prüfen",solution:"💡 Lösung zeigen",reset:"🔁 Neu",readAll:"Ganze Geschichte vorlesen",toTom:"Present Continuous bei „Tenses mit Tom“ ansehen"},
+  ar:{title:"☀️ يومي – الروتين اليومي و Present Simple",intro:"ماذا تفعل كل يوم؟ في Present Simple يأخذ الفعل ‎-s‎ مع he / she / it. اضغط 🔊 للاستماع.",
+    toggleI:"👤 I (أنا)",toggleHe:"👨 He (هو)",toggleShe:"👩 She (هي)",tapHint:"اضغط على I / He / She في الأعلى – يتغيّر الفعل.",
+    quizT:"✏️ تمرين",quizIntro:"10 أسئلة: صيغة الفعل الصحيحة، am/is/are، has/have، in/at، حرف b الصامت وكلمات جديدة.",start:"▶ ابدأ التمرين",again:"🔁 مرة أخرى",next:"التالي ←",
+    right:"✅ صحيح!",wrong:"❌ للأسف خطأ. الصحيح:",res:"النتيجة",best:"أفضل نتيجة",
+    qv:"أي صيغة صحيحة؟",qbe:"am أو is أو are؟",qhave:"have أو has؟",qprep:"أي حرف جر مناسب؟",qpart:"أي وقت من اليوم هذا؟",qsil:"أي حرف صامت (لا يُنطق)؟",qword:"ماذا تعني هذه الكلمة؟",
+    hint3:"he / she / it ← الفعل + s",hintNo:"I / you / we / they ← الفعل بدون s",colVerb:"الفعل",check:"✔ تحقّق",solution:"💡 أظهر الحل",reset:"🔁 من جديد",readAll:"اقرأ القصة كاملة",toTom:"شاهد Present Continuous في «الأزمنة مع توم»"},
+  ka:{title:"☀️ ჩემი დღე – დღის რეჟიმი და Present Simple",intro:"რას აკეთებ ყოველდღე? Present Simple-ში he / she / it-თან ზმნას ემატება -s. დააჭირე 🔊 მოსასმენად.",
+    toggleI:"👤 I (მე)",toggleHe:"👨 He (ის – კაცი)",toggleShe:"👩 She (ის – ქალი)",tapHint:"დააჭირე ზემოთ I / He / She – ზმნა იცვლება.",
+    quizT:"✏️ სავარჯიშო",quizIntro:"10 კითხვა: ზმნის სწორი ფორმა, am/is/are, has/have, in/at, უხმო b და ახალი სიტყვები.",start:"▶ დაწყება",again:"🔁 თავიდან",next:"შემდეგი →",
+    right:"✅ სწორია!",wrong:"❌ სამწუხაროდ, არასწორია. სწორია:",res:"შედეგი",best:"საუკეთესო შედეგი",
+    qv:"რომელი ფორმაა სწორი?",qbe:"am, is თუ are?",qhave:"have თუ has?",qprep:"რომელი წინდებული ჯდება?",qpart:"დღის რომელი ნაწილია?",qsil:"რომელი ასო არის უხმო (არ ისმის)?",qword:"რას ნიშნავს?",
+    hint3:"he / she / it → ზმნა + s",hintNo:"I / you / we / they → ზმნა s-ის გარეშე",colVerb:"ზმნა",check:"✔ შემოწმება",solution:"💡 პასუხის ჩვენება",reset:"🔁 თავიდან",readAll:"მთელი ისტორიის წაკითხვა",toTom:"Present Continuous ნახე „დროები ტომთან“-ში"}
+};
+
+/* ---- Abschnitte (in dieser Reihenfolge angezeigt) ---- */
+const TAG_SECS = [
+ {type:'table', open:true,
+  t:{de:"📋 Konjugation: I / you / he-she-it / we / they",ar:"📋 التصريف: I / you / he-she-it / we / they",ka:"📋 უღლება: I / you / he-she-it / we / they"},
+  note:{de:"Nur bei <b>he / she / it</b> (3. Person Singular) ändert sich das Verb. be, have und do sind unregelmäßig.",
+        ar:"فقط مع <b>he / she / it</b> (الغائب المفرد) يتغيّر الفعل. الأفعال be و have و do شاذّة.",
+        ka:"ზმნა იცვლება მხოლოდ <b>he / she / it</b>-თან (მესამე პირი, მხოლობითი). be, have და do არაწესიერია."},
+  pron:['I','you','he / she / it','we','they'],
+  verbs:[
+   ['work', ['work','work','work<b>s</b>','work','work']],
+   ['live', ['live','live','live<b>s</b>','live','live']],
+   ['study',['study','study','stud<b>ies</b>','study','study']],
+   ['be',   ['<b>am</b>','<b>are</b>','<b>is</b>','<b>are</b>','<b>are</b>']],
+   ['have', ['have','have','<b>has</b>','have','have']],
+   ['do',   ['do','do','do<b>es</b>','do','do']]
+  ]},
+ {type:'rules',
+  t:{de:"📘 Regeln für he / she / it",ar:"📘 قواعد he / she / it",ka:"📘 წესები he / she / it-ისთვის"},
+  items:[
+   ["+ s",{de:"Die meisten Verben bekommen einfach <b>-s</b>.",ar:"معظم الأفعال تأخذ <b>‎-s‎</b> فقط.",ka:"ზმნების უმეტესობას უბრალოდ ემატება <b>-s</b>."},"work → works · live → lives · comb → combs · leave → leaves · arrive → arrives"],
+   ["+ es",{de:"Nach <b>sh, ch, s, x, o</b> kommt <b>-es</b>.",ar:"بعد <b>sh, ch, s, x, o</b> نضيف <b>‎-es‎</b>.",ka:"<b>sh, ch, s, x, o</b>-ს შემდეგ ემატება <b>-es</b>."},"wash → washes · brush → brushes · watch → watches · go → goes · do → does"],
+   ["y → ies",{de:"Konsonant + <b>y</b> → <b>-ies</b>. Aber Vokal + y → nur -s.",ar:"حرف ساكن + <b>y</b> ← <b>‎-ies‎</b>. لكن حرف علّة + y ← ‎-s‎ فقط.",ka:"თანხმოვანი + <b>y</b> → <b>-ies</b>. ხმოვანი + y → მხოლოდ -s."},"study → studies · fly → flies · BUT play → plays"],
+   ["be · have",{de:"Unregelmäßig: <b>be → is</b>, <b>have → has</b>.",ar:"شاذّة: <b>be ← is</b>، <b>have ← has</b>.",ka:"არაწესიერი: <b>be → is</b>, <b>have → has</b>."},"He is tired. · She has two kids."],
+   ["wake up → wakes up",{de:"Bei Verben aus zwei Wörtern kommt das -s an das <b>Verb</b>, nicht an das kleine Wort.",ar:"في الأفعال المكوّنة من كلمتين، تُضاف ‎-s‎ إلى <b>الفعل</b> وليس إلى الكلمة الصغيرة.",ka:"ორსიტყვიან ზმნებში -s ემატება <b>ზმნას</b> და არა პატარა სიტყვას."},"He wakes up. ✅  ·  He wake ups. ❌"],
+   ["I / you / we / they",{de:"Hier gibt es <b>kein -s</b>!",ar:"هنا <b>لا توجد ‎-s‎</b>!",ka:"აქ <b>-s არ არის</b>!"},"I work. · They live in Berlin. · We study English."]
+  ]},
+ {type:'routine', open:true,
+  t:{de:"🌅 Mein Tagesablauf (Daily Routine)",ar:"🌅 روتيني اليومي (Daily Routine)",ka:"🌅 ჩემი დღის რეჟიმი (Daily Routine)"},
+  // [Verb (Grundform), Verb (3. Person), Rest des Satzes ({p} = my/his/her), Bedeutung de/ar/ka, Emoji]
+  items:[
+   ['wake','wakes',' up at six o\'clock in the morning.',{de:"aufwachen",ar:"يستيقظ",ka:"გაღვიძება"},'⏰'],
+   ['get','gets',' up at ten past six.',{de:"aufstehen",ar:"ينهض من السرير",ka:"ადგომა"},'🛏️'],
+   ['wash','washes',' {p} face.',{de:"(sich) das Gesicht waschen",ar:"يغسل وجهه",ka:"პირის დაბანა"},'🚿'],
+   ['brush','brushes',' {p} teeth.',{de:"(sich) die Zähne putzen",ar:"ينظّف أسنانه بالفرشاة",ka:"კბილების გახეხვა"},'🪥'],
+   ['get','gets',' dressed.',{de:"sich anziehen",ar:"يرتدي ملابسه",ka:"ჩაცმა"},'👕'],
+   ['comb','combs',' {p} hair.',{de:"(sich) die Haare kämmen",ar:"يمشّط شعره",ka:"თმის დავარცხნა"},'💇'],
+   ['have','has',' breakfast at half past six.',{de:"frühstücken",ar:"يتناول الفطور",ka:"საუზმობა"},'🍳'],
+   ['leave','leaves',' home at seven.',{de:"das Haus verlassen",ar:"يغادر المنزل",ka:"სახლიდან გასვლა"},'🚪'],
+   ['drop','drops',' off {p} son at school.',{de:"(jemanden) hinbringen / absetzen",ar:"يُوصِل (شخصًا إلى مكان)",ka:"მიყვანა (ვინმეს სადმე)"},'🚗'],
+   ['arrive','arrives',' at work at eight.',{de:"ankommen",ar:"يصل",ka:"მისვლა"},'🏢'],
+   ['work','works',' until four in the afternoon.',{de:"arbeiten",ar:"يعمل",ka:"მუშაობა"},'💼'],
+   ['pick','picks',' up {p} son at five.',{de:"(jemanden) abholen",ar:"يُقِلّ / يأخذ (شخصًا من مكان)",ka:"წამოყვანა (ვინმეს სადმე)"},'🧒'],
+   ['work','works',' out at the gym in the evening.',{de:"trainieren (im Fitnessstudio)",ar:"يتمرّن (في النادي)",ka:"ვარჯიში (დარბაზში)"},'🏋️'],
+   ['do','does',' {p} homework in the evening.',{de:"Hausaufgaben machen",ar:"يحلّ الواجب",ka:"საშინაო დავალების კეთება"},'📚'],
+   ['go','goes',' to bed at eleven at night.',{de:"ins Bett gehen",ar:"يذهب إلى النوم",ka:"დასაძინებლად წასვლა"},'😴']
+  ]},
+ {type:'times',
+  t:{de:"🌗 Tageszeiten: in the … / at night",ar:"🌗 أوقات اليوم: in the … / at night",ka:"🌗 დღის ნაწილები: in the … / at night"},
+  note:{de:"<b>in</b> the morning / afternoon / evening – aber <b>at</b> night (ohne „the“)!",ar:"<b>in</b> the morning / afternoon / evening – لكن <b>at</b> night (بدون the)!",ka:"<b>in</b> the morning / afternoon / evening – მაგრამ <b>at</b> night (the-ს გარეშე)!"},
+  // [Ausdruck, von, bis, 24h, Bedeutung, Beispiel, Emoji]
+  items:[
+   ['in the morning','12 a.m.','11:59 a.m.','0:00 – 11:59',{de:"morgens / vormittags",ar:"في الصباح",ka:"დილით"},'I wake up at six in the morning.','🌅'],
+   ['in the afternoon','12 p.m.','5:59 p.m.','12:00 – 17:59',{de:"nachmittags",ar:"بعد الظهر",ka:"შუადღის შემდეგ"},'She works until four in the afternoon.','☀️'],
+   ['in the evening','6 p.m.','8:59 p.m.','18:00 – 20:59',{de:"abends",ar:"في المساء",ka:"საღამოს"},'He works out in the evening.','🌇'],
+   ['at night','9 p.m.','11:59 p.m.','21:00 – 23:59',{de:"nachts / spät abends",ar:"في الليل",ka:"ღამით"},'They go to bed at eleven at night.','🌙']
+  ]},
+ {type:'words',
+  t:{de:"🤫 Stummes b: comb, climb, bomb, lamb",ar:"🤫 حرف b الصامت: comb, climb, bomb, lamb",ka:"🤫 უხმო b: comb, climb, bomb, lamb"},
+  note:{de:"Steht <b>b nach m am Wortende</b>, spricht man es nicht: comb = /kəʊm/.",ar:"إذا جاء <b>b بعد m في آخر الكلمة</b> لا يُنطق: comb = /kəʊm/.",ka:"თუ <b>b სიტყვის ბოლოს m-ის შემდეგ</b> დგას, არ გამოითქმის: comb = /kəʊm/."},
+  items:[
+   ['comb','/kəʊm/',{de:"der Kamm / kämmen",ar:"مشط / يمشّط",ka:"სავარცხელი / დავარცხნა"},'I comb my hair every morning.'],
+   ['climb','/klaɪm/',{de:"klettern / steigen",ar:"يتسلّق",ka:"ცოცვა / ასვლა"},'He climbs the stairs to his office.'],
+   ['bomb','/bɒm/',{de:"die Bombe",ar:"قنبلة",ka:"ბომბი"},'The police found an old bomb.'],
+   ['lamb','/læm/',{de:"das Lamm",ar:"حَمَل (خروف صغير)",ka:"ბატკანი"},'We eat lamb on holidays.'],
+   ['thumb','/θʌm/',{de:"der Daumen",ar:"الإبهام",ka:"ცერა თითი"},'She shows a thumbs up. 👍']
+  ]},
+ {type:'words',
+  t:{de:"🏃 Neue Verben: exercise, work out, drop off, pick up",ar:"🏃 أفعال جديدة: exercise, work out, drop off, pick up",ka:"🏃 ახალი ზმნები: exercise, work out, drop off, pick up"},
+  items:[
+   ['to exercise','/ˈeksəsaɪz/',{de:"Sport treiben / sich bewegen",ar:"يمارس الرياضة",ka:"ვარჯიში / მოძრაობა"},'She exercises every morning.'],
+   ['to work out','/wɜːk aʊt/',{de:"trainieren (z. B. im Fitnessstudio)",ar:"يتمرّن (في النادي الرياضي)",ka:"ვარჯიში (სპორტდარბაზში)"},'He works out three times a week.'],
+   ['to drop off','/drɒp ɒf/',{de:"(jemanden/etwas) hinbringen, absetzen",ar:"يُوصِل شخصًا (بالسيارة) إلى مكان",ka:"ვინმეს მიყვანა / ჩამოსმა (მანქანით)"},'I drop off my daughter at school at 8.'],
+   ['to pick up','/pɪk ʌp/',{de:"(jemanden) abholen",ar:"يُقِلّ / يأخذ شخصًا من مكان",ka:"ვინმეს წამოყვანა"},'She picks up the kids at 4 p.m.']
+  ]},
+ /* ===== 23.11 (2): Arbeitsblatt „Use the pictures to write about this person's daily routine“ ===== */
+ {type:'story',
+  t:{de:"📖 Bildergeschichte: Sams Tag",ar:"📖 قصة مصوّرة: يوم سام",ka:"📖 ისტორია სურათებში: სემის დღე"},
+  note:{de:"Zuerst die Person vorstellen (<i>Remember to introduce the person</i>), dann Bild für Bild mit Uhrzeit erzählen. Die Uhrzeiten sind Beispiele.",
+        ar:"أولًا قدّم الشخص (<i>Remember to introduce the person</i>)، ثم احكِ صورة بعد صورة مع الوقت. الأوقات أمثلة فقط.",
+        ka:"ჯერ წარადგინე ადამიანი (<i>Remember to introduce the person</i>), მერე მოყევი სურათ-სურათ, დროის მითითებით. დრო მაგალითია."},
+  intro:"This is Sam. He is twelve years old and he is a student. Here is his daily routine.",
+  // [Emoji, Stunde, Minute, Satz, Bedeutung de/ar/ka]
+  items:[
+   ['⏰😮‍💨',6,45,"Sam wakes up at a quarter to seven.",{de:"Sam wacht um Viertel vor sieben auf.",ar:"يستيقظ سام في السابعة إلا ربعًا.",ka:"სემს ეღვიძება 6:45-ზე."}],
+   ['🛏️➡️',6,50,"He gets up at ten to seven.",{de:"Er steht um zehn vor sieben auf.",ar:"ينهض في السابعة إلا عشر دقائق.",ka:"ის დგება 6:50-ზე."}],
+   ['🚿💧',7,0,"He washes his face at seven o'clock.",{de:"Er wäscht sich um sieben Uhr das Gesicht.",ar:"يغسل وجهه في الساعة السابعة.",ka:"ის პირს იბანს 7:00-ზე."}],
+   ['🪥😁',7,5,"He brushes his teeth at five past seven.",{de:"Er putzt sich um fünf nach sieben die Zähne.",ar:"ينظّف أسنانه في السابعة وخمس دقائق.",ka:"ის კბილებს იხეხავს 7:05-ზე."}],
+   ['👕👖',7,10,"He gets dressed at ten past seven.",{de:"Er zieht sich um zehn nach sieben an.",ar:"يرتدي ملابسه في السابعة وعشر دقائق.",ka:"ის იცვამს 7:10-ზე."}],
+   ['💇🪮',7,15,"He combs his hair at a quarter past seven.",{de:"Er kämmt sich um Viertel nach sieben die Haare.",ar:"يمشّط شعره في السابعة والربع.",ka:"ის თმას ივარცხნის 7:15-ზე."}],
+   ['🥣🥛',7,20,"He has breakfast at twenty past seven.",{de:"Er frühstückt um zwanzig nach sieben.",ar:"يتناول الفطور في السابعة وعشرين دقيقة.",ka:"ის საუზმობს 7:20-ზე."}],
+   ['🚪🎒',7,45,"He leaves home at a quarter to eight.",{de:"Er verlässt um Viertel vor acht das Haus.",ar:"يغادر المنزل في الثامنة إلا ربعًا.",ka:"ის სახლიდან გადის 7:45-ზე."}],
+   ['🏫🚶',8,0,"He arrives at school at eight o'clock.",{de:"Er kommt um acht Uhr in der Schule an.",ar:"يصل إلى المدرسة في الساعة الثامنة.",ka:"ის სკოლაში მიდის 8:00-ზე."}],
+   ['🏠👋',14,30,"He goes home at half past two in the afternoon.",{de:"Er geht um halb drei nachmittags nach Hause.",ar:"يعود إلى البيت في الثانية والنصف بعد الظهر.",ka:"ის სახლში ბრუნდება 14:30-ზე."}],
+   ['📝✏️',16,0,"He does his homework at four o'clock in the afternoon.",{de:"Er macht um vier Uhr nachmittags seine Hausaufgaben.",ar:"يحلّ واجباته في الساعة الرابعة بعد الظهر.",ka:"ის საშინაო დავალებას აკეთებს 16:00-ზე."}],
+   ['🍽️🍝',18,30,"He has dinner at half past six in the evening.",{de:"Er isst um halb sieben abends zu Abend.",ar:"يتناول العشاء في السادسة والنصف مساءً.",ka:"ის ვახშმობს 18:30-ზე."}]
+  ]},
+ {type:'tips',
+  t:{de:"💡 Tipps zu deinem Arbeitsblatt",ar:"💡 نصائح لورقة العمل",ka:"💡 რჩევები შენი სამუშაო ფურცლისთვის"},
+  note:{de:"Sehr gut gemacht! Fast alles stimmt. So habe ich deine Handschrift gelesen – hier sind kleine Verbesserungen:",
+        ar:"أحسنت! تقريبًا كل شيء صحيح. هكذا قرأتُ خطّ يدك – وهذه تحسينات صغيرة:",
+        ka:"ძალიან კარგია! თითქმის ყველაფერი სწორია. ასე წავიკითხე შენი ხელნაწერი – აქ არის პატარა გასწორებები:"},
+  ok:["He wakes up.","He gets up.","He washes his face.","He gets dressed.","He has dinner."],
+  // [dein Satz, richtig, Erklärung]
+  items:[
+   ["He brushes","He brushes his teeth.",{de:"brush braucht ein Objekt: Was putzt er? → his teeth.",ar:"الفعل brush يحتاج مفعولًا: ماذا ينظّف؟ ← his teeth.",ka:"brush-ს სჭირდება დამატება: რას იხეხავს? → his teeth."}],
+   ["He brushes (Bild 6)","He combs his hair.",{de:"Auf dem Bild ist ein Kamm: comb = kämmen (b ist stumm!). „brushes his hair“ wäre mit einer Bürste.",ar:"في الصورة مشط: comb = يمشّط (حرف b صامت!). ‎brushes his hair‎ تكون بالفرشاة.",ka:"სურათზე სავარცხელია: comb = დავარცხნა (b არ ისმის!). „brushes his hair“ იქნებოდა ჯაგრისით."}],
+   ["to have his breakfast","He has breakfast.",{de:"Ein Satz braucht Person + Verb: He has … (he → has, nicht have). Bei Mahlzeiten meist ohne „his“: have breakfast / lunch / dinner.",ar:"الجملة تحتاج فاعلًا + فعلًا: He has … (مع he نقول has وليس have). مع الوجبات عادة بدون his: have breakfast / lunch / dinner.",ka:"წინადადებას სჭირდება პირი + ზმნა: He has … (he → has, არა have). კვებასთან ჩვეულებრივ his-ის გარეშე: have breakfast / lunch / dinner."}],
+   ["He leavs home","He leaves home.",{de:"leave + s = leaves. Das e bleibt.",ar:"leave + s = leaves. حرف e يبقى.",ka:"leave + s = leaves. e რჩება."}],
+   ["He arries at shool","He arrives at school.",{de:"arrive + s = arrives. school schreibt man mit ch.",ar:"arrive + s = arrives. وكلمة school تُكتب بـ ch.",ka:"arrive + s = arrives. school იწერება ch-ით."}],
+   ["He does Homework","He does his homework.",{de:"homework klein schreiben (kein Nomen-Großschreiben wie im Deutschen), am besten mit „his“.",ar:"homework تُكتب بحرف صغير، والأفضل مع his.",ka:"homework პატარა ასოთი იწერება, უმჯობესია his-ით."}],
+   ["He goes Home","He goes home.",{de:"home klein schreiben. Und ohne „to“: go home (nicht go to home).",ar:"home بحرف صغير. وبدون to: go home (وليس go to home).",ka:"home პატარა ასოთი. და to-ს გარეშე: go home (არა go to home)."}]
+  ]},
+ {type:'build',
+  t:{de:"🧩 Satz bauen",ar:"🧩 كوّن الجملة",ka:"🧩 ააწყვე წინადადება"},
+  note:{de:"Tippe die Wörter in der richtigen Reihenfolge an. Tippe ein Wort oben an, um es zurückzulegen.",ar:"اضغط على الكلمات بالترتيب الصحيح. اضغط على كلمة في الأعلى لإرجاعها.",ka:"დააჭირე სიტყვებს სწორი თანმიმდევრობით. ზემოთ სიტყვაზე დაჭერით დააბრუნებ."}},
+ /* ===== 23.11 (3): Arbeitsblatt „Present Continuous – Fill in the Blanks“ ===== */
+ {type:'pcintro',
+  t:{de:"🎬 Present Continuous: am / is / are + -ing",ar:"🎬 Present Continuous: am / is / are + ‎-ing",ka:"🎬 Present Continuous: am / is / are + -ing"},
+  items:[
+   ["Bildung",{de:"I <b>am</b> + -ing · he/she/it <b>is</b> + -ing · you/we/they <b>are</b> + -ing. Verneinung: am <b>not</b> / is<b>n't</b> / are<b>n't</b>. Frage: <b>Is</b> she working? <b>What are</b> you doing?",ar:"I <b>am</b> + ‎-ing‎ · he/she/it <b>is</b> + ‎-ing‎ · you/we/they <b>are</b> + ‎-ing‎. النفي: am <b>not</b> / is<b>n't</b> / are<b>n't</b>. السؤال: <b>Is</b> she working? <b>What are</b> you doing?",ka:"I <b>am</b> + -ing · he/she/it <b>is</b> + -ing · you/we/they <b>are</b> + -ing. უარყოფა: am <b>not</b> / is<b>n't</b> / are<b>n't</b>. კითხვა: <b>Is</b> she working? <b>What are</b> you doing?"},"I'm reading. · She isn't listening. · Why are you laughing?"],
+   ["Wann?",{de:"① <b>Jetzt gerade</b> (now, right now, Look!, Listen!) ② <b>Vorübergehend</b> (this week, these days, at the moment) ③ <b>Veränderung / Trend</b> (more and more, getting colder) ④ <b>Fester Plan</b> (tonight, tomorrow).",ar:"① <b>الآن</b> (now, right now, Look!, Listen!) ② <b>مؤقّتًا</b> (this week, these days, at the moment) ③ <b>تغيّر / اتجاه</b> (more and more, getting colder) ④ <b>خطة مؤكّدة</b> (tonight, tomorrow).",ka:"① <b>ახლა</b> (now, right now, Look!, Listen!) ② <b>დროებით</b> (this week, these days, at the moment) ③ <b>ცვლილება / ტენდენცია</b> (more and more, getting colder) ④ <b>დაგეგმილი</b> (tonight, tomorrow)."},"Look! It's raining. · I'm learning to drive these days. · I'm meeting friends tonight."],
+   ["-ing Schreibung",{de:"Meist einfach + ing. Stummes e fällt weg: make → making. Kurzer Vokal + Konsonant → doppelt: get → getting, sit → sitting (britisch auch travel → travelling). y bleibt: study → studying.",ar:"غالبًا نضيف ing فقط. حرف e الصامت يُحذف: make ← making. حرف علّة قصير + ساكن ← نضاعف: get ← getting، sit ← sitting (بالبريطاني travel ← travelling). y تبقى: study ← studying.",ka:"ჩვეულებრივ უბრალოდ + ing. უხმო e იკარგება: make → making. მოკლე ხმოვანი + თანხმოვანი → ორმაგდება: get → getting, sit → sitting (ბრიტანულად travel → travelling). y რჩება: study → studying."},"make → making · get → getting · travel → travelling · study → studying"],
+   ["≠ Present Simple",{de:"Present Simple = <b>immer / Gewohnheit</b> (Mein Tag: He gets up at seven <i>every day</i>). Present Continuous = <b>jetzt / gerade</b>: He is getting up <i>now</i>.",ar:"Present Simple = <b>دائمًا / عادة</b> (يومي: He gets up at seven <i>every day</i>). Present Continuous = <b>الآن</b>: He is getting up <i>now</i>.",ka:"Present Simple = <b>ყოველთვის / ჩვევა</b> (ჩემი დღე: He gets up at seven <i>every day</i>). Present Continuous = <b>ახლა</b>: He is getting up <i>now</i>."},"Sam has breakfast every day. → Look! Sam is having breakfast now."]
+  ]},
+ {type:'fill',
+  t:{de:"✍️ Present Continuous – Fill in the Blanks (25 Sätze)",ar:"✍️ Present Continuous – املأ الفراغات (25 جملة)",ka:"✍️ Present Continuous – შეავსე გამოტოვებული (25 წინადადება)"},
+  note:{de:"Schreib die richtige Form in die Lücke. Kurzformen (isn't, 'm …) sind auch richtig.",ar:"اكتب الصيغة الصحيحة في الفراغ. الصيغ المختصرة (isn't, 'm …) صحيحة أيضًا.",ka:"ჩაწერე სწორი ფორმა. შემოკლებული ფორმებიც (isn't, 'm …) სწორია."},
+  // Satz mit ___ (eine oder zwei Lücken), (Verb), Lösungen je Lücke (Alternativen mit |)
+  items:[
+   ["Sarah ___ for her English exam at the moment.","study",["is studying|'s studying"]],
+   ["Look! The children ___ football in the garden.","play",["are playing"]],
+   ["I ___ TV right now. I'm reading a book.","not / watch",["am not watching|'m not watching"]],
+   ["What ___ you ___ at the moment?","do",["are","doing"]],
+   ["My parents ___ dinner in the kitchen.","prepare",["are preparing"]],
+   ["Listen! Someone ___ in the bathroom.","sing",["is singing|'s singing"]],
+   ["We ___ at a hotel while our house is being renovated.","stay",["are staying|'re staying"]],
+   ["Why ___ your brother ___ a jacket? It's very warm today.","wear",["is","wearing"]],
+   ["They ___ this week because they are on holiday.","not / work",["are not working|aren't working|'re not working"]],
+   ["The teacher ___ a difficult grammar rule right now.","explain",["is explaining|'s explaining"]],
+   ["Be quiet! The baby ___.","sleep",["is sleeping|'s sleeping"]],
+   ["I ___ how to drive these days.","learn",["am learning|'m learning"]],
+   ["What ___ the students ___ in the classroom?","discuss",["are","discussing"]],
+   ["My best friend ___ for a new apartment at the moment.","look",["is looking|'s looking"]],
+   ["It ___ heavily outside, so we can't go for a walk.","rain",["is raining|'s raining"]],
+   ["You ___ a lot of noise! I'm trying to concentrate.","make",["are making|'re making"]],
+   ["Tom and Lisa ___ around Europe this month.","travel",["are travelling|are traveling"]],
+   ["She ___ to music. She's talking on the phone.","not / listen",["is not listening|isn't listening|'s not listening"]],
+   ["Why ___ you ___? Is something funny?","laugh",["are","laughing"]],
+   ["The company ___ a new product this year.","develop",["is developing|'s developing"]],
+   ["I ___ some friends after work tonight.","meet",["am meeting|'m meeting"]],
+   ["More and more people ___ electric cars nowadays.","use",["are using"]],
+   ["Where ___ your neighbours ___? They are carrying suitcases.","go",["are","going"]],
+   ["We ___ lunch right now. We're still working.","not / have",["are not having|aren't having|'re not having"]],
+   ["The weather ___ colder, so I think winter is coming.","get",["is getting|'s getting"]]
+  ]}
+];
+
+/* ---- Übung: Verbform (Grundform, he/she/it-Form, Satzende; {p} = Possessiv) ---- */
+const TAG_QV = [
+ ['wake','wakes',' up at six.'],['get','gets',' dressed.'],['wash','washes',' {p} face.'],['brush','brushes',' {p} teeth.'],
+ ['comb','combs',' {p} hair.'],['leave','leaves',' home at seven.'],['arrive','arrives',' at work at eight.'],['go','goes',' to bed at eleven.'],
+ ['do','does',' {p} homework.'],['study','studies',' English.'],['work','works',' in an office.'],['live','lives',' in Berlin.'],
+ ['watch','watches',' TV in the evening.'],['pick','picks',' up the kids.'],['drop','drops',' off the kids at school.'],
+ ['exercise','exercises',' in the morning.'],['work','works',' out at the gym.'],['fly','flies',' to Tbilisi every summer.'],['play','plays',' football on Sunday.']
+];
+const TAG_SUBJ = [['He','his',1],['She','her',1],['My brother','his',1],['Anna','her',1],['I','my',0],['You','your',0],['We','our',0],['They','their',0],['My parents','their',0]];
+/* ---- Übung: feste Fragen [Typ, Satz, richtig, falsche…] ---- */
+const TAG_QX = [
+ ['qbe','She ___ a teacher.','is','am','are'],['qbe','I ___ from Syria.','am','is','are'],['qbe','They ___ at work.','are','is','am'],['qbe','My father ___ tired in the evening.','is','are','am'],['qbe','We ___ students.','are','is','am'],
+ ['qhave','He ___ two children.','has','have'],['qhave','I ___ breakfast at seven.','have','has'],['qhave','She ___ a shower in the morning.','has','have'],['qhave','They ___ English on Monday.','have','has'],
+ ['qprep','I get up at 6 ___ the morning.','in','at','on'],['qprep','We go to bed late ___ night.','at','in','on'],['qprep','He works out ___ the evening.','in','at','on'],['qprep','She picks up the kids ___ the afternoon.','in','at','on'],
+ ['qpart','07:30','in the morning','in the afternoon','in the evening','at night'],['qpart','15:00','in the afternoon','in the morning','in the evening','at night'],
+ ['qpart','19:45','in the evening','in the afternoon','at night','in the morning'],['qpart','22:30','at night','in the evening','in the afternoon','in the morning'],
+ ['qpart','11:15','in the morning','in the afternoon','in the evening','at night'],['qpart','17:50','in the afternoon','in the evening','at night','in the morning'],
+ ['qsil','comb','b','c','o','m'],['qsil','climb','b','c','l','m'],['qsil','lamb','b','l','a','m'],['qsil','thumb','b','t','h','m']
+];
+
+let tagWho = 'he', tagQ = null;
+function tagL(){ return (typeof tomLang==='function')?tomLang():'de'; }
+function tagU(k){ const l=tagL(); return (TAG_UI[l]||TAG_UI.de)[k]||TAG_UI.de[k]; }
+function tagTr(o){ return o? (o[tagL()]||o.de) : ''; }
+function tagD(){ return tagL()==='ar'?' dir="rtl"':''; }
+function tagEsc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function tagJs(s){ return tagEsc(String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'")); }
+function tagSpk(t,slow){ if(typeof tomSpeak==='function') tomSpeak(t,!!slow); else if(window.speechSynthesis){const u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=slow?.6:.9;speechSynthesis.speak(u);} }
+function tagBtns(t){ return '<button class="tom-btn" onclick="tagSpk(\''+tagJs(t)+'\')">🔊</button><button class="tom-btn" onclick="tagSpk(\''+tagJs(t)+'\',1)">🐢</button>'; }
+function tagShuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+function tagSent(it, who){
+  const subj = who==='i'?'I':(who==='she'?'She':'He'), p = who==='i'?'my':(who==='she'?'her':'his');
+  const v = who==='i'? it[0] : it[1];
+  const rest = it[2].replace('{p}',p);
+  return {plain: subj+' '+v+rest, html: subj+' '+(who==='i'?tagEsc(v):'<span class="tag-v">'+tagEsc(v)+'</span>')+tagEsc(rest)};
+}
+
+function tagSecHtml(s, idx){
+  const d=tagD();
+  let h='<details class="uhr-sec"'+(s.open?' open':'')+'><summary>'+tagTr(s.t)+'</summary>';
+  if(s.note) h+='<div class="gram-note"'+d+'>'+tagTr(s.note)+'</div>';
+  if(s.type==='table'){
+    h+='<div class="tag-tblwrap"><table class="tag-tbl"><tr><th></th>'+s.verbs.map(v=>'<th>(to) '+v[0]+'</th>').join('')+'</tr>';
+    s.pron.forEach((p,r)=>{ h+='<tr'+(r===2?' class="tag-3p"':'')+'><td class="pr">'+p+'</td>'+s.verbs.map(v=>'<td>'+v[1][r]+'</td>').join('')+'</tr>'; });
+    h+='<tr><td></td>'+s.verbs.map(v=>{ const t=s.pron.map((p,r)=>(r===2?'he ':p+' ')+v[1][r].replace(/<\/?b>/g,'')).join(', '); return '<td><button class="tom-btn" onclick="tagSpk(\''+tagJs(t)+'\',1)">🔊</button></td>'; }).join('')+'</tr></table></div>';
+  }
+  if(s.type==='rules'){
+    s.items.forEach(r=>{ h+='<div class="uhr-rule"><b class="k">'+tagEsc(r[0])+'</b><div'+d+'>'+tagTr(r[1])+'</div><div class="uhr-eg">'+tagEsc(r[2])+'</div></div>'; });
+  }
+  if(s.type==='routine'){
+    h+='<div class="tag-who">'+['i','he','she'].map(w=>'<button class="'+(tagWho===w?'on':'')+'" onclick="tagSetWho(\''+w+'\')">'+tagU(w==='i'?'toggleI':(w==='he'?'toggleHe':'toggleShe'))+'</button>').join('')+'</div>';
+    h+='<div class="tom-intro"'+d+'>'+tagU('tapHint')+' <b>'+tagU(tagWho==='i'?'hintNo':'hint3')+'</b></div>';
+    s.items.forEach(it=>{ const x=tagSent(it,tagWho); h+='<div class="tom-ex"><div class="tag-em">'+it[4]+'</div><div class="e"><b>'+x.html+'</b><span'+d+'>'+tagEsc(tagTr(it[3]))+'</span></div>'+tagBtns(x.plain)+'</div>'; });
+  }
+  if(s.type==='times'){
+    s.items.forEach(it=>{ h+='<div class="tag-time"><div class="tag-em">'+it[6]+'</div><div class="e"><b>'+tagEsc(it[0]).replace(/^(in|at)/,'<u>$1</u>')+'</b> <span class="tag-rng">'+it[1]+' → '+it[2]+' · '+it[3]+'</span><span'+d+'>'+tagEsc(tagTr(it[4]))+'</span><i>'+tagEsc(it[5])+'</i></div>'+tagBtns(it[0]+'. '+it[5])+'</div>'; });
+  }
+  if(s.type==='words'){
+    s.items.forEach(it=>{ h+='<div class="tom-ex"><div class="e"><b>'+tagEsc(it[0])+'</b> <small class="tag-ph">'+tagEsc(it[1])+'</small><span'+d+'>'+tagEsc(tagTr(it[2]))+'</span><i>'+tagEsc(it[3])+'</i></div>'+tagBtns(it[0].replace(/^to /,'')+'. '+it[3])+'</div>'; });
+  }
+  h+=tagSecHtml2(s);
+  return h+'</details>';
+}
+
+/* ---- 23.11 (2)+(3): Bildergeschichte, Satz bauen, Present Continuous ---- */
+let tagB = null, tagF = {v:{}, chk:false, show:false};
+function tagOpenTom(){ if(typeof openGramRef==='function'){ tomSel=null; openGramRef('gs0'); if(typeof tomPick==='function') tomPick('prc'); } }
+function tagStorySent(){ const s=TAG_SECS.find(x=>x.type==='story'); return s? s.items.map(it=>it[3]) : []; }
+function tagBNew(){ const all=tagStorySent(); const prev=tagB?tagB.s:''; let s; do{ s=all[Math.floor(Math.random()*all.length)]; }while(s===prev && all.length>1);
+  const w=s.replace(/\.$/,'').split(' '); let pool; do{ pool=tagShuffle(w.map((x,i)=>i)); }while(pool.every((x,i)=>x===i));
+  tagB={s,w,pool,got:[],res:null,n:(tagB?tagB.n:0),ok:(tagB?tagB.ok:0)}; }
+function tagBHtml(){
+  if(!tagB) tagBNew();
+  const d=tagD(), st=TAG_SECS.find(x=>x.type==='story'), it=st.items.find(x=>x[3]===tagB.s);
+  let h='<div class="tag-bpic"><span class="tag-big">'+it[0]+'</span>'+(typeof uhrClock==='function'?uhrClock(it[1],it[2],false):'')+'</div>';
+  h+='<div class="tag-bline">'+(tagB.got.length?tagB.got.map((k,j)=>'<button class="tag-chip in" onclick="tagBBack('+j+')">'+tagEsc(tagB.w[k])+'</button>').join(''):'<span class="tag-ph">…</span>')+'</div>';
+  h+='<div class="tag-bpool">'+tagB.pool.map(k=>tagB.got.indexOf(k)>=0?'':'<button class="tag-chip" onclick="tagBAdd('+k+')">'+tagEsc(tagB.w[k])+'</button>').join('')+'</div>';
+  if(tagB.res!==null){
+    h+='<div class="uhr-fb '+(tagB.res?'ok':'bad')+'"'+d+'>'+(tagB.res?tagU('right'):tagU('wrong')+' <b dir="ltr">'+tagEsc(tagB.s)+'</b>')+'</div>';
+    h+='<div class="tom-btns">'+tagBtns(tagB.s)+'</div><button class="uhr-go" onclick="tagBNew();tagBUpd()">'+tagU('next')+'</button>';
+  } else if(tagB.got.length===tagB.w.length) h+='<button class="uhr-go" onclick="tagBCheck()">'+tagU('check')+'</button>';
+  h+='<div class="tom-intro" style="margin-top:6px">⭐ '+tagB.ok+' / '+tagB.n+'</div>';
+  return h;
+}
+function tagBAdd(k){ if(tagB.res!==null) return; tagB.got.push(k); tagBUpd(); }
+function tagBBack(j){ if(tagB.res!==null) return; tagB.got.splice(j,1); tagBUpd(); }
+function tagBCheck(){ const a=tagB.got.map(k=>tagB.w[k]).join(' '); tagB.res = (a===tagB.w.join(' ')); tagB.n++; if(tagB.res) tagB.ok++; tagBUpd(); }
+
+function tagNorm(x){ return String(x||'').toLowerCase().replace(/[’`´]/g,"'").replace(/\s+/g,' ').trim(); }
+function tagFillOk(i,j,v){ const it=TAG_SECS.find(x=>x.type==='fill').items[i]; return it[2][j].split('|').some(a=>tagNorm(a)===tagNorm(v)); }
+function tagFillFull(it){ let k=0; return it[0].replace(/___/g,()=>it[2][k++].split('|')[0]); }
+function tagFillHtml(s){
+  const d=tagD(); let h='', score=0;
+  s.items.forEach((it,i)=>{
+    let k=0, allOk=true;
+    const line=tagEsc(it[0]).replace(/___/g,()=>{ const j=k++, val=tagF.v[i+'_'+j]||'', ok=tagFillOk(i,j,val);
+      if(!ok) allOk=false;
+      const cls=tagF.chk?(ok?' ok':' bad'):'';
+      return '<input class="tag-gap'+cls+'" value="'+tagEsc(val)+'" oninput="tagF.v[\''+i+'_'+j+'\']=this.value" autocapitalize="off" autocomplete="off" spellcheck="false" size="'+Math.max(6,it[2][j].split('|')[0].length)+'">'+(tagF.show&&!ok?'<span class="tag-sol">'+tagEsc(it[2][j].split('|')[0])+'</span>':''); });
+    if(allOk) score++;
+    const full=tagFillFull(it);
+    h+='<div class="tag-fill"><span class="n">'+(i+1)+'.</span><div class="e">'+line+' <span class="tag-verb">('+tagEsc(it[1])+')</span>'+(tagF.chk?(allOk?' ✅':' ❌'):'')+'</div>'+tagBtns(full)+'</div>';
+  });
+  h+='<div class="tag-fbar"><button class="uhr-go" onclick="tagFCheck()">'+tagU('check')+'</button><button class="uhr-go alt" onclick="tagF.show=true;tagF.chk=true;tagFUpd()">'+tagU('solution')+'</button><button class="uhr-go alt" onclick="tagF={v:{},chk:false,show:false};tagFUpd()">'+tagU('reset')+'</button></div>';
+  if(tagF.chk) h+='<div class="uhr-fb '+(score>=20?'ok':'bad')+'"'+d+'>'+tagU('res')+': '+score+' / '+s.items.length+'</div>';
+  return h;
+}
+function tagFUpd(){ const el=document.getElementById('tag-fillbox'); if(el){ const s=TAG_SECS.find(x=>x.type==='fill'); el.innerHTML=tagFillHtml(s); } }
+function tagFCheck(){ tagF.chk=true; tagFUpd(); try{ const s=TAG_SECS.find(x=>x.type==='fill'); let n=0; s.items.forEach((it,i)=>{ if(it[2].every((a,j)=>tagFillOk(i,j,tagF.v[i+'_'+j]))) n++; }); if(n>+(localStorage.getItem('ela_tag_pc_best')||0)) localStorage.setItem('ela_tag_pc_best',n); }catch(e){} }
+
+function tagSecHtml2(s){
+  const d=tagD(); let h='';
+  if(s.type==='story'){
+    h+='<div class="tom-say"><div class="s">'+tagEsc(s.intro)+'</div></div><div class="tom-btns">'+tagBtns(s.intro)+'</div><button class="uhr-go" id="tag-playbtn" onclick="tagPlay()">'+tagU(tagPlayT?'stopPlay':'play')+'</button><div class="uhr-exgrid">';
+    s.items.forEach((it,i)=>{ h+='<div class="uhr-excard tag-scard"><div class="tag-snum">'+(i+1)+'</div><div class="tag-spic"><span class="tag-big">'+it[0]+'</span>'+(typeof uhrClock==='function'?uhrClock(it[1],it[2],false):'')+'</div><div class="uhr-exr"><div class="uhr-dg">'+(typeof uhrAP==='function'?uhrAP(it[1],it[2]):it[1]+':'+String(it[2]).padStart(2,'0'))+'</div><div class="s">'+tagEsc(it[3])+'</div><div class="s2"'+d+'>'+tagEsc(tagTr(it[4]))+'</div><div class="tom-btns">'+tagBtns(it[3])+'</div></div></div>'; });
+    h+='</div>';
+    const all=s.intro+' '+s.items.map(x=>x[3]).join(' ');
+    h+='<div class="tom-btns" style="margin-top:8px"><button class="tom-btn" onclick="tagSpk(\''+tagJs(all)+'\')">🔊 '+tagU('readAll')+'</button></div>';
+  }
+  if(s.type==='tips'){
+    h+='<div class="tag-okl">'+s.ok.map(x=>'<span>✅ '+tagEsc(x)+'</span>').join('')+'</div>';
+    s.items.forEach(it=>{ h+='<div class="uhr-rule"><div class="tag-fix"><s>'+tagEsc(it[0])+'</s> → <b>'+tagEsc(it[1])+'</b> '+tagBtns(it[1])+'</div><div'+d+'>'+tagTr(it[2])+'</div></div>'; });
+  }
+  if(s.type==='build') h+='<div id="tag-build">'+tagBHtml()+'</div>';
+  if(s.type==='pcintro'){
+    s.items.forEach(r=>{ h+='<div class="uhr-rule"><b class="k">'+tagEsc(r[0])+'</b><div'+d+'>'+tagTr(r[1])+'</div><div class="uhr-eg">'+tagEsc(r[2])+'</div> '+tagBtns(r[2].replace(/ → /g,'. ').replace(/ · /g,'. '))+'</div>'; });
+    h+='<button class="uhr-go alt" onclick="tagOpenTom()">🧍 '+tagU('toTom')+'</button>';
+  }
+  if(s.type==='fill') h+='<div id="tag-fillbox">'+tagFillHtml(s)+'</div>';
+  return h;
+}
+
+function tagRender(){
+  const box=document.getElementById('tag-box'); if(!box) return;
+  let h='<h3>'+tagU('title')+'</h3><div class="tom-intro"'+tagD()+'>'+tagU('intro')+'</div>';
+  TAG_SECS.forEach((s,i)=>{ h+=tagSecHtml(s,i); });
+  h+='<details class="uhr-sec"'+(tagQ?' open':'')+'><summary>'+tagU('quizT')+'</summary><div id="tag-quiz">'+tagQuizHtml()+'</div></details>';
+  box.innerHTML=h;
+}
+function tagSetWho(w){ tagWho=w; tagRender(); }
+
+/* ---- Übung ---- */
+function tagWrongForms(b,t){ const w=[b,t,b+'s']; if(!/e$/.test(b)) w.push(b+'es'); if(/y$/.test(b)) w.push(b.slice(0,-1)+'ies'); return w.filter((x,i,a)=>a.indexOf(x)===i); }
+function tagMakeV(){
+  const it=TAG_QV[Math.floor(Math.random()*TAG_QV.length)], su=TAG_SUBJ[Math.floor(Math.random()*TAG_SUBJ.length)];
+  const right = su[2]? it[1] : it[0];
+  const opts=[right]; tagShuffle(tagWrongForms(it[0],it[1])).forEach(x=>{ if(opts.length<3 && opts.indexOf(x)<0) opts.push(x); });
+  const sent=su[0]+' ___'+it[2].replace('{p}',su[1]);
+  return {k:'qv',sent,right,opts:tagShuffle(opts),full:sent.replace('___',right),hint:tagU(su[2]?'hint3':'hintNo')};
+}
+function tagMakeX(type){
+  const pool=TAG_QX.filter(q=>q[0]===type), q=pool[Math.floor(Math.random()*pool.length)];
+  const right=q[2], opts=tagShuffle(q.slice(2));
+  let full = q[1].indexOf('___')>=0? q[1].replace('___',right) : (type==='qpart'? q[1]+' → '+right : q[1]+' = /'+({comb:'kəʊm',climb:'klaɪm',lamb:'læm',thumb:'θʌm'}[q[1]]||'')+'/');
+  return {k:type,sent:q[1],right,opts,full};
+}
+function tagMakeW(){
+  const all=[]; TAG_SECS.forEach(s=>{ if(s.type==='words') s.items.forEach(it=>all.push(it)); });
+  const it=all[Math.floor(Math.random()*all.length)], right=tagTr(it[2]);
+  const opts=[right]; tagShuffle(all.slice()).forEach(o=>{ const t=tagTr(o[2]); if(opts.length<4 && opts.indexOf(t)<0) opts.push(t); });
+  return {k:'qword',sent:it[0],right,opts:tagShuffle(opts),full:it[3],tr:1};
+}
+function tagQuizStart(){
+  const plan=tagShuffle(['qv','qv','qv','qv','qbe','qhave','qprep','qpart','qsil','qword']);
+  const used={}; const qs=plan.map(k=>{ let q,n=0; do{ q = k==='qv'?tagMakeV():(k==='qword'?tagMakeW():tagMakeX(k)); n++; } while(used[q.sent] && n<20); used[q.sent]=1; return q; });
+  tagQ={i:0,score:0,qs,done:null}; tagQuizUpd();
+}
+function tagQuizUpd(){ const el=document.getElementById('tag-quiz'); if(el) el.innerHTML=tagQuizHtml(); }
+function tagBest(){ try{ return +(localStorage.getItem('ela_tag_best')||0); }catch(e){ return 0; } }
+function tagQuizHtml(){
+  const d=tagD();
+  if(!tagQ){ const b=tagBest(); return '<div class="tom-intro"'+d+'>'+tagU('quizIntro')+(b?' · '+tagU('best')+': '+b+'/10':'')+'</div><button class="uhr-go" onclick="tagQuizStart()">'+tagU('start')+'</button>'; }
+  if(tagQ.i>=tagQ.qs.length){
+    const sc=tagQ.score; try{ if(sc>tagBest()) localStorage.setItem('ela_tag_best',sc); }catch(e){}
+    const em=sc>=9?'🏆':sc>=7?'🎉':sc>=5?'👍':'💪';
+    return '<div class="uhr-res"><div style="font-size:40px">'+em+'</div><b>'+tagU('res')+': '+sc+' / 10</b><div class="tom-intro">'+tagU('best')+': '+Math.max(sc,tagBest())+'/10</div><button class="uhr-go" onclick="tagQuizStart()">'+tagU('again')+'</button></div>';
+  }
+  const q=tagQ.qs[tagQ.i];
+  let h='<div class="uhr-qhead"><span>'+(tagQ.i+1)+' / 10</span><span>⭐ '+tagQ.score+'</span></div>';
+  h+='<div class="uhr-qq"'+d+'>'+tagU(q.k)+'</div>';
+  h+='<div class="tom-say"><div class="s">'+tagEsc(q.sent)+'</div></div>';
+  q.opts.forEach((o,k)=>{
+    let cls='tom-quiz-opt';
+    if(tagQ.done!==null){ if(o===q.right) cls+=' ok'; else if(k===tagQ.done) cls+=' bad'; }
+    h+='<button class="'+cls+'"'+(q.tr?d:'')+' '+(tagQ.done!==null?'disabled':'')+' onclick="tagAns('+k+')">'+tagEsc(o)+'</button>';
+  });
+  if(tagQ.done!==null){
+    const ok=q.opts[tagQ.done]===q.right;
+    h+='<div class="uhr-fb '+(ok?'ok':'bad')+'"'+d+'>'+(ok?tagU('right'):tagU('wrong')+' <b>'+tagEsc(q.right)+'</b>')+'</div>';
+    h+='<div class="uhr-eg">'+tagEsc(q.full)+(q.hint?' · '+tagEsc(q.hint):'')+'</div> '+(q.k!=='qpart'?tagBtns(q.k==='qsil'?q.sent:q.full):'');
+    h+='<div><button class="uhr-go" onclick="tagNext()">'+tagU('next')+'</button></div>';
+  }
+  return h;
+}
+function tagAns(k){ if(!tagQ||tagQ.done!==null) return; tagQ.done=k; const q=tagQ.qs[tagQ.i]; if(q.opts[k]===q.right) tagQ.score++; tagQuizUpd(); }
+function tagNext(){ tagQ.i++; tagQ.done=null; tagQuizUpd(); }
+
+/* ===== Animierte Uhren + „Zeit laut lesen“ (23.11.2026) ===== */
+Object.assign(UHR_UI.de,{fast:"⏩ Zeitraffer",stop:"⏸ Stopp",sayT:"🎤 Zeit laut lesen",sayIntro:"Die Uhr dreht sich zu einer neuen Zeit. Lies die Zeit laut auf Englisch vor. Mit 🎤 prüft die App, was du sagst (geht in Chrome/Android; sonst sag es selbst und hör dir die Lösung an).",sayMic:"🎤 Sprechen",sayHear:"👂 Lösung hören",sayNew:"🔄 Neue Uhrzeit",sayListen:"Ich höre zu …",sayHeard:"Gehört:",sayOk:"✅ Super, richtig gesagt!",sayTry:"❌ Noch nicht ganz. So sagt man es:",sayNoMic:"🎤 geht in diesem Browser nicht. Sag die Zeit laut und tippe dann auf „Lösung hören“.",sayErr:"Mikrofon nicht erlaubt oder nichts gehört. Nochmal versuchen.",sayShow:"Lösung"});
+Object.assign(UHR_UI.ar,{fast:"⏩ تسريع الوقت",stop:"⏸ إيقاف",sayT:"🎤 اقرأ الوقت بصوت عالٍ",sayIntro:"تدور الساعة إلى وقت جديد. اقرأ الوقت بصوت عالٍ بالإنجليزية. مع 🎤 يتحقّق التطبيق مما تقوله (في Chrome/Android؛ وإلا قل الوقت بنفسك واستمع إلى الحل).",sayMic:"🎤 تكلّم",sayHear:"👂 استمع إلى الحل",sayNew:"🔄 وقت جديد",sayListen:"أستمع …",sayHeard:"سمعت:",sayOk:"✅ رائع، صحيح!",sayTry:"❌ ليس تمامًا. هكذا يُقال:",sayNoMic:"🎤 لا يعمل في هذا المتصفح. قل الوقت بصوت عالٍ ثم اضغط «استمع إلى الحل».",sayErr:"الميكروفون غير مسموح أو لم يُسمع شيء. حاول مرة أخرى.",sayShow:"الحل"});
+Object.assign(UHR_UI.ka,{fast:"⏩ სწრაფად",stop:"⏸ გაჩერება",sayT:"🎤 წაიკითხე დრო ხმამაღლა",sayIntro:"საათი ახალ დროზე ტრიალდება. წაიკითხე დრო ხმამაღლა ინგლისურად. 🎤-ით აპი ამოწმებს, რას ამბობ (Chrome/Android-ში; სხვაგან თვითონ თქვი და მოუსმინე პასუხს).",sayMic:"🎤 ლაპარაკი",sayHear:"👂 პასუხის მოსმენა",sayNew:"🔄 ახალი დრო",sayListen:"გისმენ …",sayHeard:"გავიგე:",sayOk:"✅ შესანიშნავია, სწორია!",sayTry:"❌ ჯერ არა. ასე ამბობენ:",sayNoMic:"🎤 ამ ბრაუზერში არ მუშაობს. თქვი დრო ხმამაღლა და დააჭირე „პასუხის მოსმენა“.",sayErr:"მიკროფონი არ არის ნებადართული ან ვერაფერი გავიგე. სცადე თავიდან.",sayShow:"პასუხი"});
+Object.assign(TAG_UI.de,{play:"▶ Tag abspielen",stopPlay:"⏸ Stopp"});
+Object.assign(TAG_UI.ar,{play:"▶ شغّل اليوم",stopPlay:"⏸ إيقاف"});
+Object.assign(TAG_UI.ka,{play:"▶ დღის ჩართვა",stopPlay:"⏸ გაჩერება"});
+
+/* Zeiger einer Uhr auf Minute t (0..1439, auch darüber) setzen */
+function uhrSetHands(svg,t){
+  if(!svg) return;
+  const hh=svg.querySelector('.uhr-hh'), mh=svg.querySelector('.uhr-mh'); const c=svg.getAttribute('data-c');
+  if(!hh||!mh||c===null) return;
+  const ha=((t/60)%12)*30, ma=(t%60)*6;
+  hh.setAttribute('transform','rotate('+ha.toFixed(2)+' '+c+' '+c+')');
+  mh.setAttribute('transform','rotate('+ma.toFixed(2)+' '+c+' '+c+')');
+}
+/* Uhr von fromT nach toT drehen (kürzester Weg, max. 12 h) */
+function uhrAnim(svg,fromT,toT,dur){
+  if(!svg) return;
+  let d=toT-fromT; d=((d%1440)+1440)%1440; if(d>720) d-=1440;
+  if(svg._raf) cancelAnimationFrame(svg._raf);
+  const ms=dur||Math.min(1600,350+Math.abs(d)*2.2), t0=performance.now();
+  const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce||d===0){ uhrSetHands(svg,toT); return; }
+  const step=now=>{ let k=Math.min(1,(now-t0)/ms); k=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+    uhrSetHands(svg,fromT+d*k); if(k<1) svg._raf=requestAnimationFrame(step); };
+  uhrSetHands(svg,fromT); svg._raf=requestAnimationFrame(step);
+}
+
+/* Live-Uhr: drehen statt springen */
+let uhrShownT=null, uhrFastT=null;
+function uhrUpd(){
+  const el=document.getElementById('uhr-live'); if(!el) return;
+  const from=(uhrShownT===null)?uhrT:uhrShownT;
+  el.innerHTML=uhrLiveHtml(); uhrShownT=uhrT;
+  uhrAnim(el.querySelector('.uhr-svg'),from,uhrT);
+}
+function uhrFast(){
+  if(uhrFastT){ clearInterval(uhrFastT); uhrFastT=null; uhrUpd(); return; }
+  uhrFastT=setInterval(()=>{ if(!document.getElementById('uhr-live')||!document.getElementById('gs6').classList.contains('active')){ clearInterval(uhrFastT); uhrFastT=null; return; } uhrMove(5); },420);
+  uhrUpd();
+}
+
+/* Übung: Uhr dreht zur Frage-Uhrzeit */
+let uhrQLastT=0;
+function uhrQuizUpd(){
+  const el=document.getElementById('uhr-quiz'); if(!el) return;
+  el.innerHTML=uhrQuizHtml();
+  if(uhrQ&&uhrQ.i<uhrQ.qs.length){ const q=uhrQ.qs[uhrQ.i]; if(q.type===0){ const T=q.h*60+q.m; if(uhrQ.done===null) uhrAnim(el.querySelector('.uhr-svg'),uhrQLastT,T); else uhrSetHands(el.querySelector('.uhr-svg'),T); uhrQLastT=T; } }
+}
+
+/* ---- Zeit laut lesen ---- */
+let uhrSp={h:9,m:20,prev:9*60,res:null,heard:'',show:false};
+function uhrSpNorm(s){
+  s=String(s).toLowerCase().replace(/[’`]/g,"'").replace(/\b(it's|it is|its)\b/g,' ').replace(/o'clock|o clock|oclock/g,' oclock ')
+   .replace(/\ba\.?m\.?\b|\bp\.?m\.?\b/g,' ').replace(/\ba quarter\b/g,'quarter').replace(/\bhalf an?\b/g,'half');
+  s=s.replace(/(\d{1,2})[:.](\d{2})/g,(x,a,b)=>' '+uhrNum(+a%12||12)+' '+(+b===0?'oclock':(+b<10?'oh '+uhrNum(+b):uhrNum(+b)))+' ');
+  s=s.replace(/\b(\d{1,2})\b/g,(x,a)=>' '+uhrNum(+a)+' ');
+  s=s.replace(/-/g,' ').replace(/\b(minutes?)\b/g,' ').replace(/[^a-z ]/g,' ').replace(/\bzero\b/g,'oh').replace(/\s+/g,' ').trim();
+  return s;
+}
+function uhrSpAccept(h,m){
+  const a=[uhrSay(h,m),uhrSay2(h,m)];
+  if(m===0) a.push(uhrNum(uhrH12(h)));
+  if(m===30) a.push('half '+uhrNum(uhrH12(h)));
+  return a.map(uhrSpNorm);
+}
+function uhrSpNew(){ uhrSp.prev=uhrSp.h*60+uhrSp.m; const r=uhrRndTime(); uhrSp.h=r[0]; uhrSp.m=r[1]; uhrSp.res=null; uhrSp.heard=''; uhrSp.show=false; uhrSpUpd(true); }
+function uhrSpHtml(){
+  const d=uhrIsRtl()?' dir="rtl"':'', a=uhrSay(uhrSp.h,uhrSp.m), b=uhrSay2(uhrSp.h,uhrSp.m);
+  let h='<div class="tom-intro"'+d+'>'+uhrU('sayIntro')+'</div><div class="uhr-qclock">'+uhrClock(uhrSp.h,uhrSp.m,true)+'</div>';
+  h+='<div class="uhr-ctrl"><button onclick="uhrSpMic()">'+uhrU('sayMic')+'</button><button onclick="uhrSpHear()">'+uhrU('sayHear')+'</button><button onclick="uhrSpNew()">'+uhrU('sayNew')+'</button></div>';
+  if(uhrSp.res==='listen') h+='<div class="uhr-fb"'+d+'>'+uhrU('sayListen')+'</div>';
+  if(uhrSp.res==='nomic'||uhrSp.res==='err') h+='<div class="uhr-fb bad"'+d+'>'+uhrU(uhrSp.res==='nomic'?'sayNoMic':'sayErr')+'</div>';
+  if(uhrSp.res==='ok'||uhrSp.res==='bad') h+='<div class="uhr-fb '+uhrSp.res+'"'+d+'>'+uhrU('sayHeard')+' „<span dir="ltr">'+uhrEsc(uhrSp.heard)+'</span>“<br>'+uhrU(uhrSp.res==='ok'?'sayOk':'sayTry')+'</div>';
+  if(uhrSp.show||uhrSp.res==='ok'||uhrSp.res==='bad'){
+    h+='<div class="uhr-way">'+uhrEsc(uhrU('way1'))+'</div><div class="tom-say"><div class="s">'+uhrEsc(a)+'</div></div><div class="tom-btns">'+uhrSpkBtns(a)+'</div>';
+    if(b!==a) h+='<div class="uhr-way">'+uhrEsc(uhrU('way2'))+'</div><div class="tom-say alt"><div class="s">'+uhrEsc(b)+'</div></div><div class="tom-btns">'+uhrSpkBtns(b)+'</div>';
+    h+='<div class="uhr-eg">'+uhrD24(uhrSp.h,uhrSp.m)+' = '+uhrAP(uhrSp.h,uhrSp.m)+' · '+uhrEsc(uhrPart(uhrSp.h,uhrSp.m))+'</div>';
+  }
+  return h;
+}
+function uhrSpUpd(anim){ const el=document.getElementById('uhr-say'); if(!el) return; el.innerHTML=uhrSpHtml(); const svg=el.querySelector('.uhr-svg'), T=uhrSp.h*60+uhrSp.m; if(anim) uhrAnim(svg,uhrSp.prev,T); else uhrSetHands(svg,T); }
+function uhrSpHear(){ uhrSp.show=true; uhrSpUpd(false); const a=uhrSay(uhrSp.h,uhrSp.m), b=uhrSay2(uhrSp.h,uhrSp.m); if(typeof tomSpeakPair==='function'&&a!==b) tomSpeakPair(a,b); else uhrSpk(a); }
+function uhrSpMic(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){ uhrSp.res='nomic'; uhrSpUpd(false); return; }
+  let rec; try{ rec=new SR(); }catch(e){ uhrSp.res='nomic'; uhrSpUpd(false); return; }
+  rec.lang='en-GB'; rec.interimResults=false; rec.maxAlternatives=5;
+  uhrSp.res='listen'; uhrSpUpd(false);
+  rec.onresult=ev=>{
+    const alts=Array.from(ev.results[0]).map(x=>x.transcript), acc=uhrSpAccept(uhrSp.h,uhrSp.m);
+    const hit=alts.find(x=>{ const n=uhrSpNorm(x); return acc.some(a=>n===a); });
+    uhrSp.heard=hit||alts[0]||''; uhrSp.res=hit?'ok':'bad'; uhrSpUpd(false);
+  };
+  rec.onerror=()=>{ uhrSp.res='err'; uhrSpUpd(false); };
+  rec.onend=()=>{ if(uhrSp.res==='listen'){ uhrSp.res='err'; uhrSpUpd(false); } };
+  try{ rec.start(); }catch(e){ uhrSp.res='err'; uhrSpUpd(false); }
+}
+
+/* ---- Sams Tag abspielen ---- */
+let tagPlayT=null, tagPlayI=-1;
+function tagPlay(){
+  if(tagPlayT){ tagStopPlay(); return; }
+  const st=TAG_SECS.find(x=>x.type==='story'); if(!st) return;
+  const cards=document.querySelectorAll('#tag-box .tag-scard'); if(!cards.length) return;
+  tagPlayI=-1; let prevT=st.items[0][1]*60+st.items[0][2]-30;
+  const btn=document.getElementById('tag-playbtn'); if(btn) btn.textContent=tagU('stopPlay');
+  const next=()=>{
+    tagPlayI++; document.querySelectorAll('#tag-box .tag-scard.on').forEach(c=>c.classList.remove('on'));
+    if(tagPlayI>=st.items.length||!document.getElementById('tag-playbtn')){ tagStopPlay(); return; }
+    const it=st.items[tagPlayI], c=cards[tagPlayI], T=it[1]*60+it[2];
+    c.classList.add('on'); try{ c.scrollIntoView({behavior:'smooth',block:'center'}); }catch(e){}
+    uhrAnim(c.querySelector('.uhr-svg'),prevT,T,1300); prevT=T;
+    setTimeout(()=>{ if(tagPlayT) tagSpk(it[3]); },1350);
+    tagPlayT=setTimeout(next,4800);
+  };
+  tagPlayT=1; next();
+}
+function tagStopPlay(){ if(tagPlayT&&tagPlayT!==1) clearTimeout(tagPlayT); tagPlayT=null; const b=document.getElementById('tag-playbtn'); if(b) b.textContent=tagU('play'); document.querySelectorAll('#tag-box .tag-scard.on').forEach(c=>c.classList.remove('on')); try{ speechSynthesis.cancel(); }catch(e){} }
+/* Satz bauen: Uhr dreht vom letzten Satz */
+let tagBLastT=null;
+function tagBUpd(){
+  const el=document.getElementById('tag-build'); if(!el) return; el.innerHTML=tagBHtml();
+  const st=TAG_SECS.find(x=>x.type==='story'), it=st&&st.items.find(x=>x[3]===tagB.s); if(!it) return;
+  const T=it[1]*60+it[2]; uhrAnim(el.querySelector('.uhr-svg'),tagBLastT===null?T-60:tagBLastT,T); tagBLastT=T;
+}
+
+if (document.readyState !== 'loading') tagRender(); else document.addEventListener('DOMContentLoaded', tagRender);
+
 </script>
