@@ -218,6 +218,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 .tag-bline{min-height:46px;border:2px dashed var(--border);border-radius:12px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}
 .tag-bpool{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
 .tag-chip{padding:8px 12px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg-2);color:var(--fg);font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font)}
+.tag-chip.bad{background:#f8d7da;border-color:#dc2626;color:#721c24}
 .tag-chip.in{background:var(--accent-lt);border-color:var(--accent);color:var(--accent)}
 .tag-fill{display:flex;gap:6px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);font-size:15px;color:var(--fg);line-height:2}
 .tag-fill .n{font-weight:800;color:var(--accent);min-width:24px}.tag-fill .e{flex:1}
@@ -679,6 +680,9 @@ details.tov{margin-top:18px;border:1px solid var(--border);border-radius:12px;pa
                 <option value="nov16">🇮🇳 16.11 – International India</option>
                 <option value="nov17">✉️ 17.11 – Emails &amp; Airport</option>
                 <option value="nov19">💼 19.11 – Jobs &amp; Work</option>
+                <option value="nov24c">📢 24.11 – Announcements (Durchsagen)</option>
+                <option value="nov24b">📋 24.11 – Meetings: Updates &amp; action (3.4)</option>
+                <option value="nov24">📱 24.11 – Face to face? (8.1)</option>
                 <option value="nov23b">☀️ 23.11 – Daily Routine</option>
                 <option value="nov23">🕐 23.11 – What time is it?</option>
                 <option value="nov20">📝 20.11 – Progress Test &amp; Tenses</option>
@@ -780,6 +784,9 @@ details.tov{margin-top:18px;border:1px solid var(--border);border-radius:12px;pa
       <button class="gram-tab" onclick="showGramSec('gs5',this)">📌 Sonstiges</button>
       <button class="gram-tab" id="gtab-gs6" onclick="showGramSec('gs6',this)">🕐 Uhrzeit</button>
       <button class="gram-tab" id="gtab-gs7" onclick="showGramSec('gs7',this)">☀️ Mein Tag</button>
+      <button class="gram-tab" id="gtab-gs8" onclick="showGramSec('gs8',this)">📱 8.1 Face to face?</button>
+      <button class="gram-tab" id="gtab-gs9" onclick="showGramSec('gs9',this)">📋 3.4 Meetings</button>
+      <button class="gram-tab" id="gtab-gs10" onclick="showGramSec('gs10',this)">📢 Announcements</button>
     </div>
 
     <!-- ALLE TENSES (20.11.2026) -->
@@ -1035,6 +1042,21 @@ details.tov{margin-top:18px;border:1px solid var(--border);border-radius:12px;pa
     <!-- MEIN TAG / DAILY ROUTINE (23.11.2026) -->
     <div class="gram-sec" id="gs7">
       <div id="tag-box"></div>
+    </div>
+
+    <!-- LEKTION 8.1 FACE TO FACE? (24.11.2026) -->
+    <div class="gram-sec" id="gs8">
+      <div id="ftf-box"></div>
+    </div>
+
+    <!-- LEKTION 3.4 MEETINGS: UPDATES AND ACTION (24.11.2026) -->
+    <div class="gram-sec" id="gs9">
+      <div id="mtg-box"></div>
+    </div>
+
+    <!-- LISTENING ANNOUNCEMENTS (24.11.2026) -->
+    <div class="gram-sec" id="gs10">
+      <div id="ann-box"></div>
     </div>
 
     <div class="gram-sec active" id="gsq">
@@ -2679,6 +2701,112 @@ const VOKABELN = [
   {w:'faulty',ph:'/ˈfɔːlti/',t:'defekt / fehlerhaft',ta:'معطوب',tka:'დეფექტური / გაუმართავი',ex:'"The machine was faulty and had to be repaired."',cat:'nov18'},
   {w:'concern',ph:'/kənˈsɜːn/',t:'die Sorge / das Anliegen',ta:'قلق / مخاوف',tka:'შეშფოთება / საზრუნავი',ex:'"Alex understood Tony\'s concerns about the deadline."',cat:'nov18'},
   {w:'apprentice',ph:'/əˈprentɪs/',t:'der Auszubildende',ta:'متدرب',tka:'შეგირდი / სტაჟიორი',ex:'"The apprentices are responsible for cleaning the workshop."',cat:'nov18'},
+  {w:'face to face',ph:'/ˌfeɪs tə ˈfeɪs/',t:'persönlich / von Angesicht zu Angesicht',ta:'وجهًا لوجه',tka:'პირისპირ',ex:'"I prefer to talk to my boss face to face."',cat:'nov24'},
+  {w:'office communication',ph:'/ˈɒfɪs kəˌmjuːnɪˈkeɪʃn/',t:'die Kommunikation im Büro',ta:'التواصل في المكتب',tka:'კომუნიკაცია ოფისში',ex:'"Good office communication saves time."',cat:'nov24'},
+  {w:'text message',ph:'/tekst ˈmesɪdʒ/',t:'die Textnachricht / SMS',ta:'رسالة نصية',tka:'ტექსტური შეტყობინება (SMS)',ex:'"I sent her a text message."',cat:'nov24'},
+  {w:'to text (somebody)',ph:'/tekst/',t:'(jemandem) eine Nachricht schreiben',ta:'يرسل رسالة نصية (لشخص)',tka:'(ვინმესთვის) მესიჯის მიწერა',ex:'"Text me when you arrive."',cat:'nov24'},
+  {w:'text messaging',ph:'/tekst ˈmesɪdʒɪŋ/',t:'das Schreiben von Nachrichten',ta:'المراسلة بالرسائل النصية',tka:'მესიჯებით მიმოწერა',ex:'"Text messaging is convenient."',cat:'nov24'},
+  {w:'phone call',ph:'/fəʊn kɔːl/',t:'der Anruf',ta:'مكالمة هاتفية',tka:'სატელეფონო ზარი',ex:'"I have to make a phone call."',cat:'nov24'},
+  {w:'video call',ph:'/ˈvɪdiəʊ kɔːl/',t:'der Videoanruf',ta:'مكالمة فيديو',tka:'ვიდეოზარი',ex:'"We have a video call with the team every Monday."',cat:'nov24'},
+  {w:'convenient',ph:'/kənˈviːniənt/',t:'praktisch / bequem',ta:'عملي / مريح',tka:'მოსახერხებელი',ex:'"Email is convenient for work."',cat:'nov24'},
+  {w:'time-waster',ph:'/ˈtaɪm ˌweɪstə/',t:'die Zeitverschwendung',ta:'مضيعة للوقت',tka:'დროის ფუჭად კარგვა',ex:'"Long meetings are a time-waster."',cat:'nov24'},
+  {w:'annoying',ph:'/əˈnɔɪɪŋ/',t:'nervig / lästig',ta:'مزعج',tka:'გამაღიზიანებელი',ex:'"The noise is really annoying."',cat:'nov24'},
+  {w:'interruption',ph:'/ˌɪntəˈrʌpʃn/',t:'die Unterbrechung',ta:'مقاطعة',tka:'შეწყვეტა / ხელის შეშლა',ex:'"Phone calls are an annoying interruption."',cat:'nov24'},
+  {w:'to receive',ph:'/rɪˈsiːv/',t:'erhalten / bekommen',ta:'يتلقّى / يستلم',tka:'მიღება',ex:'"I receive about fifty emails a day."',cat:'nov24'},
+  {w:'way too many',ph:'/weɪ tuː ˈmeni/',t:'viel zu viele',ta:'أكثر بكثير من اللازم',tka:'ზედმეტად ბევრი',ex:'"I receive way too many emails."',cat:'nov24'},
+  {w:'manageable',ph:'/ˈmænɪdʒəbl/',t:'überschaubar / zu bewältigen',ta:'يمكن التحكّم به',tka:'სამართავი / ადვილად გასაკეთებელი',ex:'"Ten emails a day is a manageable number."',cat:'nov24'},
+  {w:'very few',ph:'/ˈveri fjuː/',t:'sehr wenige',ta:'قليل جدًا',tka:'ძალიან ცოტა',ex:'"I get very few phone calls."',cat:'nov24'},
+  {w:'possession',ph:'/pəˈzeʃn/',t:'der Besitz / Gegenstand, den man besitzt',ta:'مُقتنى / شيء يملكه الشخص',tka:'ქონება / კუთვნილება',ex:'"My phone is one of my most important possessions."',cat:'nov24'},
+  {w:'useful',ph:'/ˈjuːsfl/',t:'nützlich',ta:'مفيد',tka:'სასარგებლო',ex:'"My phone is useful, but I don\'t use it very often."',cat:'nov24'},
+  {w:'I\'d rather …',ph:'/aɪd ˈrɑːðə/',t:'ich würde lieber …',ta:'أفضّل أن …',tka:'მირჩევნია …',ex:'"I\'d rather talk face to face."',cat:'nov24'},
+  {w:'frequently',ph:'/ˈfriːkwəntli/',t:'häufig',ta:'بشكل متكرّر',tka:'ხშირად',ex:'"People in an office frequently use email."',cat:'nov24'},
+  {w:'employee',ph:'/ɪmˈplɔɪiː/',t:'der/die Angestellte',ta:'موظّف',tka:'თანამშრომელი',ex:'"The company has two hundred employees."',cat:'nov24'},
+  {w:'after hours',ph:'/ˈɑːftər aʊəz/',t:'nach Feierabend / nach der Arbeitszeit',ta:'بعد ساعات العمل',tka:'სამუშაო საათების შემდეგ',ex:'"I don\'t check my email after hours."',cat:'nov24'},
+  {w:'to check your email',ph:'/tʃek jɔːr ˈiːmeɪl/',t:'seine E-Mails checken',ta:'يتفقّد بريده الإلكتروني',tka:'ელფოსტის შემოწმება',ex:'"He checks his email at the weekend."',cat:'nov24'},
+  {w:'to balance',ph:'/ˈbæləns/',t:'ausgleichen / in Balance bringen',ta:'يوازن',tka:'დაბალანსება',ex:'"It\'s important to balance work and family."',cat:'nov24'},
+  {w:'atmosphere',ph:'/ˈætməsfɪə/',t:'die Stimmung / Atmosphäre',ta:'الأجواء',tka:'ატმოსფერო',ex:'"The atmosphere in the office is friendly."',cat:'nov24'},
+  {w:'experiment',ph:'/ɪkˈsperɪmənt/',t:'das Experiment',ta:'تجربة',tka:'ექსპერიმენტი',ex:'"The experiment was a success."',cat:'nov24'},
+  {w:'to get to know',ph:'/ɡet tə nəʊ/',t:'kennenlernen',ta:'يتعرّف على',tka:'გაცნობა',ex:'"The workers got to know their colleagues better."',cat:'nov24'},
+  {w:'communication technology',ph:'/kəˌmjuːnɪˈkeɪʃn tekˈnɒlədʒi/',t:'die Kommunikationstechnik',ta:'تكنولوجيا الاتصال',tka:'საკომუნიკაციო ტექნოლოგია',ex:'"Could you stop using communication technology for a week?"',cat:'nov24'},
+  {w:'digital communication',ph:'/ˈdɪdʒɪtl kəˌmjuːnɪˈkeɪʃn/',t:'die digitale Kommunikation',ta:'التواصل الرقمي',tka:'ციფრული კომუნიკაცია',ex:'"Digital communication makes work faster."',cat:'nov24'},
+  {w:'to reply (to)',ph:'/rɪˈplaɪ/',t:'antworten (auf)',ta:'يردّ (على)',tka:'პასუხის გაცემა',ex:'"I don\'t reply to messages before breakfast."',cat:'nov24'},
+  {w:'to catch up on',ph:'/kætʃ ʌp ɒn/',t:'nachholen / aufarbeiten',ta:'يتابع ما فاته / يلحق بـ',tka:'დაწეული საქმის მოწესრიგება',ex:'"I catch up on my emails when I arrive at the office."',cat:'nov24'},
+  {w:'overnight',ph:'/ˌəʊvəˈnaɪt/',t:'über Nacht',ta:'خلال الليل',tka:'ღამით / ღამის განმავლობაში',ex:'"A lot of email arrives overnight."',cat:'nov24'},
+  {w:'to overload',ph:'/ˌəʊvəˈləʊd/',t:'überlasten / überhäufen',ta:'يُثقِل / يُغرِق بالعمل',tka:'გადატვირთვა',ex:'"Emails from management often overload me."',cat:'nov24'},
+  {w:'overloaded',ph:'/ˌəʊvəˈləʊdɪd/',t:'überlastet',ta:'مُثقَل / مُرهَق بكثرة العمل',tka:'გადატვირთული',ex:'"Are you overloaded by communication?"',cat:'nov24'},
+  {w:'internal',ph:'/ɪnˈtɜːnl/',t:'intern (innerhalb der Firma)',ta:'داخلي',tka:'შიდა',ex:'"These internal emails are a real problem."',cat:'nov24'},
+  {w:'reply all',ph:'/rɪˈplaɪ ɔːl/',t:'allen antworten',ta:'الردّ على الجميع',tka:'ყველას პასუხი',ex:'"Some people choose \'reply all\'."',cat:'nov24'},
+  {w:'master',ph:'/ˈmɑːstə/',t:'der Herr / Meister (der bestimmt)',ta:'سيّد',tka:'ბატონი',ex:'"Are you the master of technology?"',cat:'nov24'},
+  {w:'servant',ph:'/ˈsɜːvənt/',t:'der Diener',ta:'خادم',tka:'მსახური',ex:'"I worry that I am the servant of technology."',cat:'nov24'},
+  {w:'depressing',ph:'/dɪˈpresɪŋ/',t:'deprimierend',ta:'محبِط',tka:'დამთრგუნველი',ex:'"That\'s a depressing thought."',cat:'nov24'},
+  {w:'to consider yourself',ph:'/kənˈsɪdə jɔːˈself/',t:'sich halten für',ta:'يعتبر نفسه',tka:'თავის მიჩნევა (ვინმედ)',ex:'"Do you consider yourself a master of technology?"',cat:'nov24'},
+  {w:'survey',ph:'/ˈsɜːveɪ/',t:'die Umfrage',ta:'استطلاع رأي',tka:'გამოკითხვა',ex:'"We did a communication survey in class."',cat:'nov24'},
+  {w:'pros and cons',ph:'/prəʊz ən kɒnz/',t:'Vor- und Nachteile',ta:'المزايا والعيوب',tka:'დადებითი და უარყოფითი მხარეები',ex:'"What are the pros and cons of email?"',cat:'nov24'},
+  {w:'to estimate',ph:'/ˈestɪmeɪt/',t:'schätzen',ta:'يقدّر (تقريبيًا)',tka:'შეფასება / დაახლოებით გამოთვლა',ex:'"Estimate how many minutes per day you spend on your phone."',cat:'nov24'},
+  {w:'to concentrate',ph:'/ˈkɒnsəntreɪt/',t:'sich konzentrieren',ta:'يركّز',tka:'კონცენტრირება',ex:'"I receive messages all the time, so it\'s hard to concentrate."',cat:'nov24'},
+  {w:'on average',ph:'/ɒn ˈævərɪdʒ/',t:'im Durchschnitt',ta:'في المتوسط',tka:'საშუალოდ',ex:'"On average, people spend three hours per day talking."',cat:'nov24'},
+  {w:'to chat',ph:'/tʃæt/',t:'plaudern / chatten',ta:'يدردش',tka:'ჭორაობა / ჩატი',ex:'"Sometimes people chat too much."',cat:'nov24'},
+  {w:'update (n)',ph:'/ˈʌpdeɪt/',t:'das Update / der neueste Stand',ta:'تحديث / آخر المستجدّات',tka:'განახლება / უახლესი ინფორმაცია',ex:'"Can you give me an update on the plans?"',cat:'nov24b'},
+  {w:'to update someone (on)',ph:'/ʌpˈdeɪt/',t:'jemanden auf den neuesten Stand bringen',ta:'يُطلِع شخصًا على آخر المستجدّات',tka:'ვინმესთვის ახალი ინფორმაციის მიწოდება',ex:'"I\'ll update you on the project tomorrow."',cat:'nov24b'},
+  {w:'action item',ph:'/ˈækʃn ˈaɪtəm/',t:'die Aufgabe / der To-do-Punkt (aus einem Meeting)',ta:'مهمة (من اجتماع)',tka:'შესასრულებელი დავალება (შეხვედრიდან)',ex:'"My action item is to call the supplier."',cat:'nov24b'},
+  {w:'to action something',ph:'/ˈækʃn/',t:'etwas erledigen / umsetzen',ta:'يُنفّذ شيئًا',tka:'რამის შესრულება',ex:'"I\'ll action that by Friday."',cat:'nov24b'},
+  {w:'follow-up',ph:'/ˈfɒləʊ ʌp/',t:'die Nachbereitung / Folge-',ta:'متابعة',tka:'შემდგომი (მოქმედება)',ex:'"We need a follow-up meeting next week."',cat:'nov24b'},
+  {w:'procedure',ph:'/prəˈsiːdʒə/',t:'das Verfahren / der Ablauf',ta:'إجراء',tka:'პროცედურა',ex:'"The team leader explains a new procedure for meetings."',cat:'nov24b'},
+  {w:'aim',ph:'/eɪm/',t:'das Ziel',ta:'هدف',tka:'მიზანი',ex:'"What is the aim of the meeting?"',cat:'nov24b'},
+  {w:'to take place',ph:'/teɪk pleɪs/',t:'stattfinden',ta:'يُقام / يحدث',tka:'ჩატარება / გამართვა',ex:'"The meetings take place every morning."',cat:'nov24b'},
+  {w:'participant',ph:'/pɑːˈtɪsɪpənt/',t:'der Teilnehmer / die Teilnehmerin',ta:'مشارك',tka:'მონაწილე',ex:'"Three participants give their information."',cat:'nov24b'},
+  {w:'team leader',ph:'/tiːm ˈliːdə/',t:'der Teamleiter / die Teamleiterin',ta:'قائد الفريق',tka:'გუნდის ლიდერი',ex:'"The team leader starts the meeting at nine."',cat:'nov24b'},
+  {w:'impediment',ph:'/ɪmˈpedɪmənt/',t:'das Hindernis',ta:'عائق',tka:'დაბრკოლება',ex:'"Are there any problems or impediments?"',cat:'nov24b'},
+  {w:'deadline',ph:'/ˈdedlaɪn/',t:'die Frist / der Abgabetermin',ta:'الموعد النهائي',tka:'ვადა',ex:'"What\'s happening with the deadlines?"',cat:'nov24b'},
+  {w:'to redraft',ph:'/ˌriːˈdrɑːft/',t:'neu entwerfen / überarbeiten',ta:'يُعيد صياغة',tka:'ხელახლა შედგენა',ex:'"How are we doing with the redrafting of the contract?"',cat:'nov24b'},
+  {w:'contract',ph:'/ˈkɒntrækt/',t:'der Vertrag',ta:'عقد',tka:'კონტრაქტი / ხელშეკრულება',ex:'"We signed the contract yesterday."',cat:'nov24b'},
+  {w:'schedule',ph:'/ˈʃedjuːl/',t:'der Zeitplan',ta:'الجدول الزمني',tka:'განრიგი',ex:'"What\'s the latest on the new schedule?"',cat:'nov24b'},
+  {w:'to bring someone up to speed (on)',ph:'/brɪŋ ʌp tə spiːd/',t:'jemanden auf den neuesten Stand bringen',ta:'يُطلِع شخصًا على كل المستجدّات',tka:'ვინმესთვის ყველაფრის გაცნობა',ex:'"Can you bring me up to speed on the factory shutdown?"',cat:'nov24b'},
+  {w:'to bring someone up to date (on)',ph:'/brɪŋ ʌp tə deɪt/',t:'jemanden informieren / aktualisieren',ta:'يُطلِع شخصًا على آخر الأخبار',tka:'ვინმესთვის ახალი ამბების მიწოდება',ex:'"When will you be able to bring me up to date on the programme?"',cat:'nov24b'},
+  {w:'What\'s the latest on …?',ph:'/wɒts ðə ˈleɪtɪst ɒn/',t:'Was gibt es Neues zu …?',ta:'ما آخر الأخبار عن …؟',tka:'რა არის ახალი … -ზე?',ex:'"What\'s the latest on the new logo?"',cat:'nov24b'},
+  {w:'factory shutdown',ph:'/ˈfæktəri ˈʃʌtdaʊn/',t:'die Werksschließung',ta:'إغلاق المصنع',tka:'ქარხნის დახურვა',ex:'"The factory shutdown starts in December."',cat:'nov24b'},
+  {w:'to be on track',ph:'/ɒn træk/',t:'im Plan liegen',ta:'يسير وفق الخطة',tka:'გეგმის მიხედვით მიმდინარეობა',ex:'"It\'s going well. We\'re on track."',cat:'nov24b'},
+  {w:'behind schedule',ph:'/bɪˈhaɪnd ˈʃedjuːl/',t:'hinter dem Zeitplan',ta:'متأخّر عن الجدول',tka:'განრიგს ჩამორჩენილი',ex:'"We\'re a bit behind schedule."',cat:'nov24b'},
+  {w:'to get back to someone',ph:'/ɡet bæk tə/',t:'sich (später) bei jemandem melden',ta:'يعود إلى شخص (بالرد لاحقًا)',tka:'ვინმესთვის მოგვიანებით პასუხის გაცემა',ex:'"I\'ll get back to you on that."',cat:'nov24b'},
+  {w:'to attend',ph:'/əˈtend/',t:'teilnehmen an / besuchen',ta:'يحضر',tka:'დასწრება',ex:'"I attend a team meeting every Monday."',cat:'nov24b'},
+  {w:'to work on',ph:'/wɜːk ɒn/',t:'an etwas arbeiten',ta:'يعمل على',tka:'რაიმეზე მუშაობა',ex:'"Today my plan is to work on the summary."',cat:'nov24b'},
+  {w:'in progress',ph:'/ɪn ˈprəʊɡres/',t:'in Arbeit / läuft gerade',ta:'قيد التنفيذ',tka:'მიმდინარე / პროცესში',ex:'"The draft contract is in progress."',cat:'nov24b'},
+  {w:'draft',ph:'/drɑːft/',t:'der Entwurf',ta:'مسوّدة',tka:'მონახაზი / პროექტი',ex:'"I\'ll send you the first draft today."',cat:'nov24b'},
+  {w:'sub-supplier',ph:'/sʌb səˈplaɪə/',t:'der Unterlieferant',ta:'مورّد فرعي',tka:'ქვემომწოდებელი',ex:'"I had a meeting with a sub-supplier."',cat:'nov24b'},
+  {w:'to agree (deadlines)',ph:'/əˈɡriː/',t:'(Fristen) vereinbaren',ta:'يتّفق على (مواعيد)',tka:'(ვადებზე) შეთანხმება',ex:'"We agreed some new deadlines."',cat:'nov24b'},
+  {w:'to follow up (with)',ph:'/ˈfɒləʊ ʌp/',t:'nachfassen / anschließen (mit)',ta:'يُتابع (بـ)',tka:'გაგრძელება / შემდგომი ნაბიჯი',ex:'"We followed up the meeting with a nice lunch."',cat:'nov24b'},
+  {w:'summary',ph:'/ˈsʌməri/',t:'die Zusammenfassung',ta:'ملخّص',tka:'შეჯამება',ex:'"I\'m writing a summary of yesterday\'s meeting."',cat:'nov24b'},
+  {w:'agenda',ph:'/əˈdʒendə/',t:'die Tagesordnung',ta:'جدول الأعمال',tka:'დღის წესრიგი',ex:'"We are working on the agenda at the moment."',cat:'nov24b'},
+  {w:'budget',ph:'/ˈbʌdʒɪt/',t:'das Budget',ta:'الميزانية',tka:'ბიუჯეტი',ex:'"The final budget is expected by Friday."',cat:'nov24b'},
+  {w:'sufficient',ph:'/səˈfɪʃnt/',t:'ausreichend',ta:'كافٍ',tka:'საკმარისი',ex:'"The budget may not be sufficient."',cat:'nov24b'},
+  {w:'department head',ph:'/dɪˈpɑːtmənt hed/',t:'der Abteilungsleiter / die Abteilungsleiterin',ta:'رئيس القسم',tka:'დეპარტამენტის ხელმძღვანელი',ex:'"Discussions with department heads are happening today."',cat:'nov24b'},
+  {w:'volunteer',ph:'/ˌvɒlənˈtɪə/',t:'der/die Freiwillige',ta:'متطوّع',tka:'მოხალისე',ex:'"We still need volunteers to answer the telephones."',cat:'nov24b'},
+  {w:'to deal with',ph:'/diːl wɪð/',t:'sich kümmern um',ta:'يتعامل مع',tka:'საქმის დაჭერა / მოგვარება',ex:'"We need someone to deal with the delivery company."',cat:'nov24b'},
+  {w:'delivery',ph:'/dɪˈlɪvəri/',t:'die Lieferung',ta:'التسليم / التوصيل',tka:'მიწოდება',ex:'"The delivery date is Wednesday next week."',cat:'nov24b'},
+  {w:'to inform',ph:'/ɪnˈfɔːm/',t:'informieren',ta:'يُبلِغ',tka:'ინფორმირება',ex:'"We need to inform all departments."',cat:'nov24b'},
+  {w:'to be away on a course',ph:'/əˈweɪ ɒn ə kɔːs/',t:'auf einer Fortbildung sein',ta:'في دورة تدريبية خارج العمل',tka:'კურსზე ყოფნა',ex:'"Jonathan is away on a course."',cat:'nov24b'},
+  {w:'announcement',ph:'/əˈnaʊnsmənt/',t:'die Durchsage / Ansage',ta:'إعلان',tka:'განცხადება',ex:'"This is a platform announcement."',cat:'nov24c'},
+  {w:'platform',ph:'/ˈplætfɔːm/',t:'der Bahnsteig / das Gleis',ta:'رصيف (المحطة)',tka:'ბაქანი',ex:'"The train will now depart from Platform 9."',cat:'nov24c'},
+  {w:'carriage',ph:'/ˈkærɪdʒ/',t:'der Wagen (im Zug)',ta:'عربة (القطار)',tka:'ვაგონი',ex:'"First class is in the rear carriage."',cat:'nov24c'},
+  {w:'rear',ph:'/rɪə/',t:'hinten / hinterer',ta:'خلفي',tka:'უკანა',ex:'"Please move towards the rear doors."',cat:'nov24c'},
+  {w:'first class',ph:'/fɜːst klɑːs/',t:'die erste Klasse',ta:'الدرجة الأولى',tka:'პირველი კლასი',ex:'"First class is at the front of the train."',cat:'nov24c'},
+  {w:'to call at',ph:'/kɔːl æt/',t:'halten in (Zug)',ta:'يتوقّف في (القطار)',tka:'გაჩერება (სადგურზე)',ex:'"The train is calling at Reading and Oxford."',cat:'nov24c'},
+  {w:'service',ph:'/ˈsɜːvɪs/',t:'die Verbindung / der Zug (Linie)',ta:'رحلة / خدمة (قطار)',tka:'რეისი / მარშრუტი',ex:'"The 12.20 service to Bristol is delayed."',cat:'nov24c'},
+  {w:'passenger',ph:'/ˈpæsɪndʒə/',t:'der Fahrgast / Passagier',ta:'مسافر / راكب',tka:'მგზავრი',ex:'"Passengers for Bristol, please go to Platform 9."',cat:'nov24c'},
+  {w:'delayed (by)',ph:'/dɪˈleɪd/',t:'verspätet (um)',ta:'متأخّر (بمقدار)',tka:'დაგვიანებული',ex:'"This train is delayed by approximately 8 minutes."',cat:'nov24c'},
+  {w:'approximately',ph:'/əˈprɒksɪmətli/',t:'ungefähr / etwa',ta:'تقريبًا',tka:'დაახლოებით',ex:'"The flight takes approximately two hours."',cat:'nov24c'},
+  {w:'to depart (from)',ph:'/dɪˈpɑːt/',t:'abfahren (von)',ta:'يغادر (من)',tka:'გასვლა (საიდან)',ex:'"The train departs from Platform 2."',cat:'nov24c'},
+  {w:'to make your way to',ph:'/meɪk jɔː weɪ tə/',t:'sich begeben zu / gehen zu',ta:'يتوجّه إلى',tka:'მიბრძანება / გადასვლა (სადმე)',ex:'"Please make your way to Gate 13."',cat:'nov24c'},
+  {w:'gate',ph:'/ɡeɪt/',t:'das Gate / der Flugsteig',ta:'بوابة (المطار)',tka:'გეითი / გასასვლელი',ex:'"Flight EB380 is boarding at Gate 13."',cat:'nov24c'},
+  {w:'boarding',ph:'/ˈbɔːdɪŋ/',t:'das Einsteigen / Boarding',ta:'الصعود إلى الطائرة',tka:'ჩასხდომა',ex:'"Gate 13 for boarding."',cat:'nov24c'},
+  {w:'boarding pass',ph:'/ˈbɔːdɪŋ pɑːs/',t:'die Bordkarte',ta:'بطاقة الصعود',tka:'ჩასხდომის ბარათი',ex:'"Please have your boarding passes ready."',cat:'nov24c'},
+  {w:'to board',ph:'/bɔːd/',t:'einsteigen (Flugzeug, Zug)',ta:'يصعد (إلى الطائرة/القطار)',tka:'ჩაჯდომა (თვითმფრინავში)',ex:'"Your flight is ready to board."',cat:'nov24c'},
+  {w:'the Underground',ph:'/ˈʌndəɡraʊnd/',t:'die U-Bahn (London)',ta:'مترو الأنفاق (لندن)',tka:'მეტრო (ლონდონი)',ex:'"This is a London Underground service."',cat:'nov24c'},
+  {w:'upon arrival',ph:'/əˈpɒn əˈraɪvl/',t:'bei der Ankunft',ta:'عند الوصول',tka:'ჩასვლისას',ex:'"Upon arrival, the first set of doors will not open."',cat:'nov24c'},
+  {w:'to change (here) for',ph:'/tʃeɪndʒ/',t:'(hier) umsteigen in',ta:'يُبدّل (هنا) إلى',tka:'(აქ) გადაჯდომა',ex:'"Change here for the Central Line."',cat:'nov24c'},
+  {w:'Mind the gap!',ph:'/maɪnd ðə ɡæp/',t:'Vorsicht, Lücke / Spalt am Bahnsteig!',ta:'انتبه للفجوة!',tka:'ფრთხილად, ღრიჭო!',ex:'"Please mind the gap between the train and the platform."',cat:'nov24c'},
+  {w:'to terminate (at)',ph:'/ˈtɜːmɪneɪt/',t:'enden in (Endstation)',ta:'ينتهي في (المحطة الأخيرة)',tka:'მოძრაობის დასრულება (სადგურზე)',ex:'"This train terminates at Redbridge."',cat:'nov24c'},
+  {w:'suburban',ph:'/səˈbɜːbən/',t:'Vorort- / vorstädtisch',ta:'ضواحٍ / تابع للضواحي',tka:'საგარეუბნო',ex:'"Change here for suburban rail services."',cat:'nov24c'},
   {w:'daily routine',ph:'/ˈdeɪli ruːˈtiːn/',t:'der Tagesablauf',ta:'الروتين اليومي',tka:'დღის რეჟიმი',ex:'"My daily routine starts at six o\'clock."',cat:'nov23b'},
   {w:'to wake up',ph:'/weɪk ʌp/',t:'aufwachen',ta:'يستيقظ',tka:'გაღვიძება',ex:'"He wakes up at six in the morning."',cat:'nov23b'},
   {w:'to get up',ph:'/ɡet ʌp/',t:'aufstehen',ta:'ينهض (من السرير)',tka:'ადგომა (საწოლიდან)',ex:'"She gets up at ten past six."',cat:'nov23b'},
@@ -4062,6 +4190,9 @@ function addCustomVok() {
 /* ========== VOKABELN ========== */
 // Gruppen-Definitionen: Reihenfolge neueste zuerst
 const VOK_GROUPS = [
+  { key:'nov24c', label:'📢 24.11 – Announcements (Durchsagen)', date:'24.11' },
+  { key:'nov24b', label:'📋 24.11 – Meetings: Updates & action (3.4)', date:'24.11' },
+  { key:'nov24', label:'📱 24.11 – Face to face? (8.1)', date:'24.11' },
   { key:'nov23b', label:'☀️ 23.11 – Daily Routine', date:'23.11' },
   { key:'nov23', label:'🕐 23.11 – What time is it?', date:'23.11' },
   { key:'nov20', label:'📝 20.11 – Progress Test & Tenses', date:'20.11' },
@@ -5568,9 +5699,9 @@ const SP_INFO = {
   {x:{de:"Present Simple (immer, Gewohnheit) vs. Present Continuous (jetzt gerade).",ar:"Present Simple (دائمًا، عادة) مقابل Present Continuous (الآن).",ka:"Present Simple (ყოველთვის, ჩვევა) და Present Continuous (ახლა)."},l:[['gram:gs7','☀️ Mein Tag'],['tom:prc','🧍 Tom: Present Continuous'],['tom:prs','🧍 Tom: Present Simple']]},
   {x:{de:"Meinung sagen und begründen: I think … because …, In my opinion …",ar:"التعبير عن الرأي وتعليله: I think … because …، In my opinion …",ka:"აზრის გამოთქმა და დასაბუთება: I think … because …, In my opinion …"},l:[['vok:nov06','💬 Vokabeln: Giving Opinions']]}],
  '2026-11-24':[
-  {x:{de:"Hausaufgabe besprechen + Vokabel-Thema (Wahl 1).",ar:"تصحيح الواجب + مفردات (اختيار 1).",ka:"დავალების გასწორება + ლექსიკა (არჩევანი 1)."}},
-  {x:{de:"Kommunikation (Wahl 1) – wird im Kurs festgelegt.",ar:"مهارات التواصل (اختيار 1) – يُحدَّد في الدرس.",ka:"კომუნიკაცია (არჩევანი 1) – გაკვეთილზე განისაზღვრება."},soon:true},
-  {x:{de:"Hören: einfache Alltagsgespräche verstehen.",ar:"الاستماع: فهم محادثات يومية بسيطة.",ka:"მოსმენა: მარტივი ყოველდღიური საუბრების გაგება."},l:[['gram:gs6','🕐 Uhrzeit (mit Vorlesen)']]}],
+  {x:{de:"Hausaufgabe besprechen + Vokabeln: Lektion 8.1 „Face to face?“ – Kommunikation im Büro (Textnachrichten, E-Mail, Telefon).",ar:"تصحيح الواجب + مفردات: الدرس 8.1 „Face to face?“ – التواصل في المكتب (رسائل نصية، بريد إلكتروني، هاتف).",ka:"დავალების გასწორება + ლექსიკა: გაკვეთილი 8.1 „Face to face?“ – კომუნიკაცია ოფისში (მესიჯები, ელფოსტა, ტელეფონი)."},l:[['gram:gs8','📱 8.1 Face to face?'],['vok:nov24','📚 Vokabeln 8.1']]},
+  {x:{de:"Kommunikation (Wahl 1): Business Skills 3.4 „Meetings: Updates and action“ – nach dem Stand fragen, Updates geben, Aufgaben besprechen.",ar:"التواصل (اختيار 1): Business Skills 3.4 „Meetings: Updates and action“ – السؤال عن المستجدّات، إعطاء تحديثات، مناقشة المهام.",ka:"კომუნიკაცია (არჩევანი 1): Business Skills 3.4 „Meetings: Updates and action“ – მდგომარეობის კითხვა, განახლებები, დავალებები."},l:[['gram:gs9','📋 3.4 Meetings'],['vok:nov24b','📚 Vokabeln 3.4']]},
+  {x:{de:"Hören: einfache Alltagsgespräche verstehen.",ar:"الاستماع: فهم محادثات يومية بسيطة.",ka:"მოსმენა: მარტივი ყოველდღიური საუბრების გაგება."},l:[['gram:gs10','📢 Announcements (Durchsagen)'],['vok:nov24c','📚 Vokabeln Durchsagen'],['gram:gs6','🕐 Uhrzeit (mit Vorlesen)']]}],
  '2026-11-25':[
   {x:{de:"Vokabeln: Reisen und Verkehr (Bus, Zug, Flughafen, Tickets).",ar:"مفردات: السفر والمواصلات (حافلة، قطار، مطار، تذاكر).",ka:"ლექსიკა: მოგზაურობა და ტრანსპორტი (ავტობუსი, მატარებელი, აეროპორტი, ბილეთები)."},l:[['vok:transport','🚗 Transport'],['vok:travel','✈️ Reise/Hotel'],['vok:nov17','✉️ Emails & Airport']]},
   {x:{de:"Präsentation vorbereiten 1: Was wird erwartet? Aufbau, Länge, Bewertung.",ar:"التحضير للعرض 1: ما المطلوب؟ البنية، المدة، التقييم.",ka:"პრეზენტაციის მომზადება 1: რას ელიან? სტრუქტურა, ხანგრძლივობა, შეფასება."},l:[['go:praesi','📊 Meine Präsentationen']]},
@@ -6738,7 +6869,7 @@ let pruefState = {
 const PRUEF_VOK_LEVEL = {
   A1: ['questions','time','nov23','nov23b','transport','restaurant','school','appear','irregular','nov10','nov15','travel','kitchen'],
   A2: ['general','tourism','feelings','adverbs','verbs','food_adj','nov04','nov02b','nov12','nov09','nov06','music','phrasal','comm'],
-  B1: ['tech','env','trend','money','present','media','future','unit6a','nov02','generations','unit8b','nov09b','nov13','nov17','nov19','nov18','nov20'],
+  B1: ['tech','env','trend','money','present','media','future','unit6a','nov02','generations','unit8b','nov09b','nov13','nov17','nov19','nov18','nov20','nov24','nov24b','nov24c'],
   B2: ['nov11','nov16','money','media','trend','generations','nov13','nov17','nov18','unit8b','nov20']
 };
 // Welche Vokabel-Niveaus und Grammatik-Niveaus pro Prüfungslevel
@@ -7126,6 +7257,9 @@ function showGramSec(id,btn){
   btn.classList.add('active');
   if(id==='gs6'&&typeof uhrRender==='function')uhrRender();
   if(id==='gs7'&&typeof tagRender==='function')tagRender();
+  if(id==='gs8'&&typeof ftfRender==='function')ftfRender();
+  if(id==='gs9'&&typeof mtgRender==='function')mtgRender();
+  if(id==='gs10'&&typeof annRender==='function')annRender();
 }
 
 /* ========== PINNWAND (Supabase) ========== */
@@ -8688,4 +8822,694 @@ function tagBUpd(){
 
 if (document.readyState !== 'loading') tagRender(); else document.addEventListener('DOMContentLoaded', tagRender);
 
+</script>
+<script>
+/* ===== Lektion 8.1 „Face to face?“ – Office communication (24.11.2026) ===== */
+const FTF_UI = {
+ de:{title:"📱 8.1 Face to face? – Kommunikation im Büro",intro:"Lernziel: Wörter für Kommunikation im Büro (Text, E-Mail, Telefon) benutzen. Tippe einen Teil an, um ihn zu öffnen.",
+  wordsT:"📖 Wichtige Wörter der Lektion",toVok:"📚 Alle Wörter als Karteikarten",
+  leadT:"1A Lead-in: Wähle das Ende, das für DICH stimmt",leadN:"Tippe eine Antwort an. Dein Satz erscheint unten zum Anhören. Du kannst auch eine eigene Antwort schreiben.",own:"Eigene Antwort …",yours:"Dein Satz",
+  moreT:"1B Mehr erzählen: Satzanfänge mit Beispielen",moreN:"Sag deinem Partner mehr zu jeder Antwort. Nimm einen Satzanfang und mach ihn fertig.",
+  dontT:"🚫 „I don't …“ – Sätze mit Verneinung",dontN:"<b>I / you / we / they + don't + Verb</b> · <b>he / she / it + doesn't + Verb</b> (ohne -s!). Beispiel: She doesn't <u>use</u> email. (nicht: uses)",
+  mineT:"✍️ Dein eigener Satz",minePh:"z. B. I don't use text messages very often.",read:"🔊 Vorlesen",checkS:"✔ Prüfen",
+  okS:"👍 Sieht gut aus! Lies ihn laut vor.",sWarn:"⚠️ Nach don't / doesn't kommt das Verb OHNE -s:",empty:"Schreib zuerst einen Satz.",
+  vidT:"🎬 2A Video: Vorher überlegen",vidN:"Das Video 8.1.1 ist nicht in der App – du siehst es im Kurs. Hier Beispielantworten für die Fragen VOR dem Video.",
+  notesT:"📝 3 Notizen zum Video",notesN:"Schreib deine Notizen im Kurs hier hinein. Sie werden auf deinem Handy gespeichert.",
+  tfT:"✅❌ 4 True or False?",tfN:"Tippe T oder F. Die Lösung kommt im Kurs – schick mir ein Foto, dann trage ich sie ein. Falsche Sätze kannst du darunter korrigieren.",corr:"Korrektur …",
+  discT:"💬 5 Diskussion",discN:"Für Frage 2 brauchst du den 2. Konditional: <b>If I couldn't …, I would …</b> (Wenn ich nicht … könnte, würde ich …).",phr:"Nützliche Sätze",ex:"Beispielantworten"},
+ ar:{title:"📱 8.1 Face to face? – التواصل في المكتب",intro:"الهدف: استخدام كلمات التواصل في المكتب (رسائل، بريد إلكتروني، هاتف). اضغط على جزء لفتحه.",
+  wordsT:"📖 كلمات الدرس المهمة",toVok:"📚 كل الكلمات كبطاقات",
+  leadT:"1A تمهيد: اختر النهاية المناسبة لك",leadN:"اضغط على إجابة. تظهر جملتك في الأسفل للاستماع. يمكنك أيضًا كتابة إجابتك.",own:"إجابتك …",yours:"جملتك",
+  moreT:"1B قل أكثر: بدايات جمل مع أمثلة",moreN:"أخبر زميلك بالمزيد عن كل إجابة. خذ بداية جملة وأكملها.",
+  dontT:"🚫 „I don't …“ – جمل النفي",dontN:"<b>I / you / we / they + don't + الفعل</b> · <b>he / she / it + doesn't + الفعل</b> (بدون -s!). مثال: She doesn't <u>use</u> email.",
+  mineT:"✍️ جملتك الخاصة",minePh:"مثال: I don't use text messages very often.",read:"🔊 اقرأ",checkS:"✔ تحقّق",
+  okS:"👍 تبدو جيدة! اقرأها بصوت عالٍ.",sWarn:"⚠️ بعد don't / doesn't يأتي الفعل بدون -s:",empty:"اكتب جملة أولًا.",
+  vidT:"🎬 2A فيديو: فكّر قبل المشاهدة",vidN:"الفيديو 8.1.1 غير موجود في التطبيق – تشاهده في الدرس. هنا أمثلة إجابات للأسئلة قبل الفيديو.",
+  notesT:"📝 3 ملاحظات عن الفيديو",notesN:"اكتب ملاحظاتك هنا أثناء الدرس. تُحفظ على هاتفك.",
+  tfT:"✅❌ 4 صحيح أم خطأ؟",tfN:"اضغط T أو F. الحل يأتي في الدرس. يمكنك تصحيح الجمل الخاطئة تحتها.",corr:"التصحيح …",
+  discT:"💬 5 نقاش",discN:"للسؤال 2 تحتاج الشرط الثاني: <b>If I couldn't …, I would …</b> (لو لم أستطع …، لكنتُ …).",phr:"جمل مفيدة",ex:"أمثلة إجابات"},
+ ka:{title:"📱 8.1 Face to face? – კომუნიკაცია ოფისში",intro:"მიზანი: ოფისში კომუნიკაციის სიტყვების გამოყენება (მესიჯი, ელფოსტა, ტელეფონი). შეეხე ნაწილს, რომ გახსნა.",
+  wordsT:"📖 გაკვეთილის მთავარი სიტყვები",toVok:"📚 ყველა სიტყვა ბარათებად",
+  leadT:"1A შესავალი: აირჩიე დასასრული, რომელიც შენთვის სწორია",leadN:"შეეხე პასუხს. შენი წინადადება ქვემოთ გამოჩნდება მოსასმენად. შეგიძლია საკუთარი პასუხიც დაწერო.",own:"შენი პასუხი …",yours:"შენი წინადადება",
+  moreT:"1B მეტი თქვი: წინადადების დასაწყისები მაგალითებით",moreN:"უთხარი პარტნიორს მეტი თითოეულ პასუხზე. აიღე დასაწყისი და დაასრულე.",
+  dontT:"🚫 „I don't …“ – უარყოფითი წინადადებები",dontN:"<b>I / you / we / they + don't + ზმნა</b> · <b>he / she / it + doesn't + ზმნა</b> (-s-ის გარეშე!). მაგ.: She doesn't <u>use</u> email.",
+  mineT:"✍️ შენი წინადადება",minePh:"მაგ.: I don't use text messages very often.",read:"🔊 წაკითხვა",checkS:"✔ შემოწმება",
+  okS:"👍 კარგად გამოიყურება! წაიკითხე ხმამაღლა.",sWarn:"⚠️ don't / doesn't-ის შემდეგ ზმნა -s-ის გარეშეა:",empty:"ჯერ დაწერე წინადადება.",
+  vidT:"🎬 2A ვიდეო: იფიქრე ყურებამდე",vidN:"ვიდეო 8.1.1 აპში არ არის – გაკვეთილზე ნახავ. აქ არის პასუხების მაგალითები ვიდეომდე კითხვებზე.",
+  notesT:"📝 3 ჩანაწერები ვიდეოზე",notesN:"გაკვეთილზე აქ ჩაწერე შენი ჩანაწერები. ისინი შენს ტელეფონში შეინახება.",
+  tfT:"✅❌ 4 სწორია თუ არა?",tfN:"შეეხე T-ს ან F-ს. პასუხები გაკვეთილზე იქნება. არასწორი წინადადებები ქვემოთ შეასწორე.",corr:"შესწორება …",
+  discT:"💬 5 დისკუსია",discN:"მე-2 კითხვისთვის გჭირდება მეორე პირობითი: <b>If I couldn't …, I would …</b> (რომ ვერ შევძლო …, მე …).",phr:"სასარგებლო ფრაზები",ex:"პასუხების მაგალითები"}
+};
+const FTF_LEAD = [
+ {s:'Text messaging is',o:[['convenient',{de:'praktisch',ar:'عملي ومريح',ka:'მოსახერხებელი'}],['a time-waster',{de:'Zeitverschwendung',ar:'مضيعة للوقت',ka:'დროის კარგვა'}],['an annoying interruption',{de:'eine nervige Unterbrechung',ar:'مقاطعة مزعجة',ka:'გამაღიზიანებელი ხელის შეშლა'}],['something I never use',{de:'etwas, das ich nie benutze',ar:'شيء لا أستخدمه أبدًا',ka:'რაღაც, რასაც არასდროს ვიყენებ'}]]},
+ {s:'I receive ___ emails.',o:[['way too many',{de:'viel zu viele',ar:'أكثر بكثير من اللازم',ka:'ზედმეტად ბევრ'}],['a manageable number of',{de:'eine überschaubare Zahl',ar:'عددًا يمكن التحكّم به',ka:'სამართავი რაოდენობით'}],['very few',{de:'sehr wenige',ar:'قليلًا جدًا',ka:'ძალიან ცოტა'}],['no',{de:'keine',ar:'لا أتلقّى أي',ka:'არცერთ'}]]},
+ {s:'My phone is',o:[['one of my most important possessions',{de:'einer meiner wichtigsten Gegenstände',ar:'من أهم ممتلكاتي',ka:'ჩემი ერთ-ერთი ყველაზე მნიშვნელოვანი ნივთი'}],["useful, but I don't use it very often",{de:'nützlich, aber ich benutze es nicht oft',ar:'مفيد، لكنّي لا أستخدمه كثيرًا',ka:'სასარგებლოა, მაგრამ ხშირად არ ვიყენებ'}],['an annoying interruption',{de:'eine nervige Unterbrechung',ar:'مقاطعة مزعجة',ka:'გამაღიზიანებელი ხელის შეშლა'}],['something I almost never use',{de:'etwas, das ich fast nie benutze',ar:'شيء لا أستخدمه تقريبًا أبدًا',ka:'რაღაც, რასაც თითქმის არასდროს ვიყენებ'}]]}
+];
+const FTF_MORE = [
+ {s:'I use text messages with my friends, to make plans. We usually …',e:[["We usually meet at the weekend.",{de:'Wir treffen uns meistens am Wochenende.',ar:'عادةً نلتقي في عطلة نهاية الأسبوع.',ka:'ჩვეულებრივ, შაბათ-კვირას ვხვდებით.'}],["We usually decide where to eat.",{de:'Wir entscheiden meistens, wo wir essen.',ar:'عادةً نقرّر أين نأكل.',ka:'ჩვეულებრივ, ვწყვეტთ, სად ვჭამოთ.'}]]},
+ {s:'I use email a lot for work. Every day, I have to write …',e:[["Every day, I have to write about twenty emails.",{de:'Jeden Tag muss ich etwa zwanzig E-Mails schreiben.',ar:'كل يوم يجب أن أكتب حوالي عشرين رسالة.',ka:'ყოველდღე დაახლოებით ოცი წერილი უნდა დავწერო.'}],["Every day, I have to write emails to customers and colleagues.",{de:'Jeden Tag muss ich E-Mails an Kunden und Kollegen schreiben.',ar:'كل يوم يجب أن أكتب رسائل للزبائن والزملاء.',ka:'ყოველდღე წერილები უნდა მივწერო კლიენტებს და კოლეგებს.'}]]},
+ {s:"I usually carry my phone with me, but I don't use it too much. I'd rather …",e:[["I'd rather talk to people face to face.",{de:'Ich spreche lieber persönlich mit Leuten.',ar:'أفضّل أن أتحدّث مع الناس وجهًا لوجه.',ka:'მირჩევნია ხალხს პირისპირ ველაპარაკო.'}],["I'd rather read a book on the train.",{de:'Ich lese lieber ein Buch im Zug.',ar:'أفضّل أن أقرأ كتابًا في القطار.',ka:'მირჩევნია მატარებელში წიგნი წავიკითხო.'}]]}
+];
+const FTF_DONT = [
+ ["I don't use text messages very often. I'd rather call.",{de:'Ich schreibe nicht oft Nachrichten. Ich rufe lieber an.',ar:'لا أستخدم الرسائل النصية كثيرًا. أفضّل الاتصال.',ka:'ხშირად არ ვწერ მესიჯებს. მირჩევნია დავრეკო.'}],
+ ["I don't receive many emails – maybe three or four a day.",{de:'Ich bekomme nicht viele E-Mails – vielleicht drei oder vier am Tag.',ar:'لا أتلقّى رسائل كثيرة – ربما ثلاثًا أو أربعًا في اليوم.',ka:'ბევრ წერილს არ ვიღებ – დღეში სამს ან ოთხს.'}],
+ ["I don't check my email after hours.",{de:'Nach Feierabend checke ich keine E-Mails.',ar:'لا أتفقّد بريدي بعد ساعات العمل.',ka:'სამუშაოს შემდეგ ელფოსტას არ ვამოწმებ.'}],
+ ["I don't like phone calls at work. They are an annoying interruption.",{de:'Ich mag keine Anrufe bei der Arbeit. Sie sind eine nervige Unterbrechung.',ar:'لا أحب المكالمات في العمل. إنها مقاطعة مزعجة.',ka:'სამსახურში ზარები არ მიყვარს. ისინი გამაღიზიანებლად მიშლის ხელს.'}],
+ ["I don't use my phone much at the weekend.",{de:'Am Wochenende benutze ich mein Handy kaum.',ar:'لا أستخدم هاتفي كثيرًا في عطلة نهاية الأسبوع.',ka:'შაბათ-კვირას ტელეფონს ბევრს არ ვიყენებ.'}],
+ ["My boss doesn't like long emails.",{de:'Mein Chef mag keine langen E-Mails. (doesn\'t + like, ohne -s!)',ar:'مديري لا يحب الرسائل الطويلة. (doesn\'t + like بدون -s)',ka:'ჩემს უფროსს გრძელი წერილები არ უყვარს. (doesn\'t + like, -s-ის გარეშე)'}]
+];
+const FTF_VID = [
+ {q:'What types of communication do you think people in an office use frequently?',e:[["I think they use email, phone calls and text messages.",{de:'Ich glaube, sie benutzen E-Mail, Anrufe und Textnachrichten.',ar:'أعتقد أنهم يستخدمون البريد الإلكتروني والمكالمات والرسائل.',ka:'ვფიქრობ, იყენებენ ელფოსტას, ზარებს და მესიჯებს.'}],["They also have video calls and face-to-face meetings.",{de:'Sie haben auch Videoanrufe und persönliche Meetings.',ar:'لديهم أيضًا مكالمات فيديو واجتماعات وجهًا لوجه.',ka:'ასევე აქვთ ვიდეოზარები და პირისპირ შეხვედრები.'}]]},
+ {q:'What kinds of problems with communication in an office do you think people might have?',e:[["People receive way too many emails.",{de:'Die Leute bekommen viel zu viele E-Mails.',ar:'يتلقّى الناس رسائل أكثر بكثير من اللازم.',ka:'ხალხი ზედმეტად ბევრ წერილს იღებს.'}],["Messages and calls are an annoying interruption.",{de:'Nachrichten und Anrufe sind eine nervige Unterbrechung.',ar:'الرسائل والمكالمات مقاطعة مزعجة.',ka:'მესიჯები და ზარები ხელს უშლის.'}],["People misunderstand short emails.",{de:'Leute verstehen kurze E-Mails falsch.',ar:'يسيء الناس فهم الرسائل القصيرة.',ka:'ხალხი მოკლე წერილებს არასწორად იგებს.'}],["Some people check their email after hours.",{de:'Manche checken nach Feierabend ihre E-Mails.',ar:'بعض الناس يتفقّدون بريدهم بعد ساعات العمل.',ka:'ზოგი სამუშაოს შემდეგაც ამოწმებს ელფოსტას.'}]]}
+];
+const FTF_NOTES = ['the type of communication that is causing problems','what employees were not allowed to do','the type of communication employees must use in the office',"the employees' feelings about the changes",'the two things Cary Cooper wants employees to balance','the atmosphere in the office after the experiment'];
+const FTF_TF = ["Mike Brogan feels that it's important for his employees to work after hours.","One employee says he checks his email on holiday and at the weekends.","Cary Cooper doesn't want the employees to use email at all – even with customers or people outside of the office.","Cooper says there is no connection between what happens at work and what happens at home.","Most of the employees couldn't stop working after hours.","One result of the experiment was that the workers got to know their colleagues better.","The experiment was a success."];
+const FTF_DISC = [
+ {q:'Would you be happy to stop using communication technology for a day? A week? A month? Why / Why not?',p:["For a day, maybe. But a month? No way!","It depends on …","I'd be happy to …, because …","I wouldn't be happy, because …"],e:[["I'd be happy to stop for a day, but not for a month, because I need my phone for work.",{de:'Einen Tag würde ich gern aufhören, aber keinen Monat, weil ich mein Handy für die Arbeit brauche.',ar:'سأكون سعيدًا بالتوقّف ليوم، لكن ليس لشهر، لأنني أحتاج هاتفي للعمل.',ka:'ერთი დღით სიამოვნებით შევწყვეტდი, მაგრამ არა ერთი თვით, რადგან ტელეფონი სამსახურისთვის მჭირდება.'}],["No, I wouldn't. My family lives in another country, and I call them every day.",{de:'Nein. Meine Familie lebt in einem anderen Land und ich rufe sie jeden Tag an.',ar:'لا. عائلتي تعيش في بلد آخر وأتصل بهم كل يوم.',ka:'არა. ჩემი ოჯახი სხვა ქვეყანაში ცხოვრობს და ყოველდღე ვურეკავ.'}]]},
+ {q:"How would it change your life if you couldn't use communication technology? What would become more difficult? Would anything become easier?",p:["If I couldn't use my phone, I would …","It would be more difficult to …","It would be easier to …","I would have more time for …"],e:[["If I couldn't use my phone, it would be more difficult to talk to my family.",{de:'Wenn ich mein Handy nicht benutzen könnte, wäre es schwieriger, mit meiner Familie zu sprechen.',ar:'لو لم أستطع استخدام هاتفي، لكان التحدّث مع عائلتي أصعب.',ka:'ტელეფონს რომ ვერ ვიყენებდე, ოჯახთან ლაპარაკი უფრო რთული იქნებოდა.'}],["It would be easier to relax, and I would have more time for my hobbies.",{de:'Es wäre leichter, mich zu entspannen, und ich hätte mehr Zeit für meine Hobbys.',ar:'سيكون الاسترخاء أسهل، وسيكون لدي وقت أكثر لهواياتي.',ka:'დასვენება უფრო ადვილი იქნებოდა და ჰობისთვის მეტი დრო მექნებოდა.'}],["I would talk to my colleagues face to face.",{de:'Ich würde mit meinen Kollegen persönlich sprechen.',ar:'كنتُ سأتحدّث مع زملائي وجهًا لوجه.',ka:'კოლეგებს პირისპირ დაველაპარაკებოდი.'}]]}
+];
+
+let ftfSel = {}, ftfOwn = {}, ftfMine = '', ftfMineFb = '';
+function ftfStore(){ try{ return JSON.parse(localStorage.getItem('ela_ftf')||'{}'); }catch(e){ return {}; } }
+function ftfSave(k,v){ try{ const s=ftfStore(); s[k]=v; localStorage.setItem('ela_ftf',JSON.stringify(s)); }catch(e){} }
+function ftfL(){ return (typeof tomLang==='function')?tomLang():'de'; }
+function ftfU(k){ const l=ftfL(); return (FTF_UI[l]||FTF_UI.de)[k]||FTF_UI.de[k]; }
+function ftfTr(o){ return o?(o[ftfL()]||o.de):''; }
+function ftfD(){ return ftfL()==='ar'?' dir="rtl"':''; }
+function ftfEsc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function ftfJs(s){ return ftfEsc(String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'")); }
+function ftfSpk(t,slow){ if(typeof tomSpeak==='function') tomSpeak(t,!!slow); else if(window.speechSynthesis){const u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=slow?.6:.9;speechSynthesis.speak(u);} }
+function ftfBtns(t){ return '<button class="tom-btn" onclick="ftfSpk(\''+ftfJs(t)+'\')">🔊</button><button class="tom-btn" onclick="ftfSpk(\''+ftfJs(t)+'\',1)">🐢</button>'; }
+function ftfLine(en,tr){ return '<div class="tom-ex"><div class="e"><b>'+ftfEsc(en)+'</b>'+(tr?'<span'+ftfD()+'>'+ftfEsc(ftfTr(tr))+'</span>':'')+'</div>'+ftfBtns(en)+'</div>'; }
+function ftfLeadSent(i){ const it=FTF_LEAD[i]; const a=(ftfOwn[i]||'').trim() || (ftfSel[i]!=null? it.o[ftfSel[i]][0] : ''); if(!a) return ''; return it.s.indexOf('___')>=0? it.s.replace('___',a) : it.s+' '+a.replace(/\.$/,'')+'.'; }
+function ftfOpen(id){ const s=ftfStore(); return (s.open&&s.open[id])?' open':''; }
+function ftfTog(id,el){ const s=ftfStore(); s.open=s.open||{}; s.open[id]=el.open; ftfSave('open',s.open); }
+function ftfSec(id,title,body){ return '<details class="uhr-sec"'+ftfOpen(id)+' ontoggle="ftfTog(\''+id+'\',this)"><summary>'+title+'</summary>'+body+'</details>'; }
+
+function ftfWordsHtml(){
+  const d=ftfD(); let h='';
+  (typeof VOKABELN!=='undefined'?VOKABELN:[]).filter(v=>v.cat==='nov24').forEach(v=>{
+    const tr = ftfL()==='ar'?(v.ta||v.t):(ftfL()==='ka'?(v.tka||v.t):v.t);
+    h+='<div class="tom-ex"><div class="e"><b>'+ftfEsc(v.w)+'</b> <small class="tag-ph">'+ftfEsc(v.ph||'')+'</small><span'+d+'>'+ftfEsc(tr)+'</span><i>'+ftfEsc((v.ex||'').replace(/^"|"$/g,''))+'</i></div>'+ftfBtns(v.w.replace(/^to /,'')+'. '+(v.ex||'').replace(/^"|"$/g,''))+'</div>';
+  });
+  return h+'<button class="uhr-go alt" onclick="spGoLink(\'vok:nov24\')">'+ftfU('toVok')+'</button>';
+}
+function ftfLeadHtml(){
+  const d=ftfD(); let h='<div class="gram-note"'+d+'>'+ftfU('leadN')+'</div>';
+  FTF_LEAD.forEach((it,i)=>{
+    h+='<div class="uhr-rule"><b>'+(i+1)+'. '+ftfEsc(it.s.replace('___','…'))+'</b><div class="tag-bpool" style="margin-top:6px">';
+    it.o.forEach((o,j)=>{ h+='<button class="tag-chip'+(ftfSel[i]===j&&!ftfOwn[i]?' in':'')+'" onclick="ftfPick('+i+','+j+')">'+String.fromCharCode(97+j)+') '+ftfEsc(o[0])+'</button>'; });
+    h+='</div><input class="tag-gap" style="width:100%;margin-top:6px" placeholder="'+ftfEsc(ftfU('own'))+'" value="'+ftfEsc(ftfOwn[i]||'')+'" onchange="ftfOwnSet('+i+',this.value)" autocapitalize="off" autocomplete="off">';
+    const s=ftfLeadSent(i);
+    if(s){ const tr = (!ftfOwn[i] && ftfSel[i]!=null)? ftfTr(it.o[ftfSel[i]][1]) : ''; h+='<div class="tom-say alt"><div class="s">'+ftfEsc(s)+(tr?'<div style="font-size:13px;font-weight:400;color:var(--fg-muted)"'+d+'>'+ftfEsc(tr)+'</div>':'')+'</div>'+ftfBtns(s)+'</div>'; }
+    h+='</div>';
+  });
+  return h;
+}
+function ftfPick(i,j){ ftfSel[i]=j; ftfOwn[i]=''; ftfSave('sel',ftfSel); ftfSave('own',ftfOwn); ftfUpd('ftf-lead',ftfLeadHtml); }
+function ftfOwnSet(i,v){ ftfOwn[i]=v; ftfSave('own',ftfOwn); ftfUpd('ftf-lead',ftfLeadHtml); }
+function ftfMoreHtml(){
+  const d=ftfD(); let h='<div class="gram-note"'+d+'>'+ftfU('moreN')+'</div>';
+  FTF_MORE.forEach(it=>{ h+='<div class="tom-say"><div class="s">'+ftfEsc(it.s)+'</div>'+ftfBtns(it.s)+'</div>'; it.e.forEach(e=>{ h+=ftfLine(e[0],e[1]); }); });
+  return h;
+}
+function ftfMineCheck(){
+  const s=(ftfMine||'').trim(); if(!s){ ftfMineFb='<div class="uhr-fb bad"'+ftfD()+'>'+ftfU('empty')+'</div>'; return; }
+  const bad=[]; s.replace(/\b(?:don'?t|doesn'?t|do not|does not)\s+([a-z]+)/gi,(m,w)=>{ if(/[^s]s$/i.test(w) && !/^(?:discuss|miss|pass|focus|guess|access|process|press|kiss|cross|dress|express|bless|stress)$/i.test(w)) bad.push(w); return m; });
+  ftfMineFb = bad.length? '<div class="uhr-fb bad"'+ftfD()+'>'+ftfU('sWarn')+' <b dir="ltr">'+bad.map(w=>ftfEsc(w)+' → '+ftfEsc(w.replace(/ies$/i,'y').replace(/(sh|ch|x|o)es$/i,'$1').replace(/s$/i,''))).join(', ')+'</b></div>' : '<div class="uhr-fb ok"'+ftfD()+'>'+ftfU('okS')+'</div>';
+  ftfSave('mine',s);
+}
+function ftfDontHtml(){
+  const d=ftfD(); let h='<div class="gram-note"'+d+'>'+ftfU('dontN')+'</div>';
+  FTF_DONT.forEach(e=>{ h+=ftfLine(e[0],e[1]); });
+  h+='<div class="uhr-rule"><b'+d+'>'+ftfU('mineT')+'</b><input id="ftf-mine" class="tag-gap" style="width:100%;margin-top:6px" placeholder="'+ftfEsc(ftfU('minePh'))+'" value="'+ftfEsc(ftfMine)+'" oninput="ftfMine=this.value" autocomplete="off">';
+  h+='<div class="tag-fbar"><button class="uhr-go" onclick="ftfMineCheck();ftfUpd(\'ftf-dont\',ftfDontHtml)">'+ftfU('checkS')+'</button><button class="uhr-go alt" onclick="if(ftfMine.trim())ftfSpk(ftfMine)">'+ftfU('read')+'</button><button class="uhr-go alt" onclick="if(ftfMine.trim())ftfSpk(ftfMine,1)">🐢</button></div>'+ftfMineFb+'</div>';
+  return h;
+}
+function ftfVidHtml(){
+  const d=ftfD(); let h='<div class="gram-note"'+d+'>'+ftfU('vidN')+'</div>';
+  FTF_VID.forEach((it,i)=>{ h+='<div class="tom-say"><div class="s">'+(i+1)+'. '+ftfEsc(it.q)+'</div>'+ftfBtns(it.q)+'</div>'; it.e.forEach(e=>{ h+=ftfLine(e[0],e[1]); }); });
+  return h;
+}
+function ftfNotesHtml(){
+  const d=ftfD(), n=ftfStore().notes||{}; let h='<div class="gram-note"'+d+'>'+ftfU('notesN')+'</div>';
+  FTF_NOTES.forEach((q,i)=>{ h+='<div class="uhr-rule"><b>'+(i+1)+'. '+ftfEsc(q)+'</b><input class="tag-gap" style="width:100%;margin-top:4px" value="'+ftfEsc(n[i]||'')+'" onchange="ftfNote('+i+',this.value)" autocomplete="off"></div>'; });
+  return h;
+}
+function ftfNote(i,v){ const n=ftfStore().notes||{}; n[i]=v; ftfSave('notes',n); }
+function ftfTfHtml(){
+  const d=ftfD(), st=ftfStore(), a=st.tf||{}, c=st.tfc||{}; let h='<div class="gram-note"'+d+'>'+ftfU('tfN')+'</div>';
+  FTF_TF.forEach((s,i)=>{
+    h+='<div class="uhr-rule"><div style="display:flex;gap:8px;align-items:flex-start"><div style="flex:1"><b>'+(i+1)+'.</b> '+ftfEsc(s)+'</div>'+ftfBtns(s)+'</div><div class="tag-bpool" style="margin-top:4px">'+['T','F'].map(x=>'<button class="tag-chip'+(a[i]===x?' in':'')+'" onclick="ftfTf('+i+',\''+x+'\')">'+x+'</button>').join('')+'</div>';
+    if(a[i]==='F') h+='<input class="tag-gap" style="width:100%;margin-top:4px" placeholder="'+ftfEsc(ftfU('corr'))+'" value="'+ftfEsc(c[i]||'')+'" onchange="ftfTfc('+i+',this.value)" autocomplete="off">';
+    h+='</div>';
+  });
+  return h;
+}
+function ftfTf(i,x){ const a=ftfStore().tf||{}; a[i]=(a[i]===x?'':x); ftfSave('tf',a); ftfUpd('ftf-tf',ftfTfHtml); }
+function ftfTfc(i,v){ const c=ftfStore().tfc||{}; c[i]=v; ftfSave('tfc',c); }
+function ftfDiscHtml(){
+  const d=ftfD(); let h='<div class="gram-note"'+d+'>'+ftfU('discN')+'</div>';
+  FTF_DISC.forEach((it,i)=>{
+    h+='<div class="tom-say"><div class="s">'+(i+1)+'. '+ftfEsc(it.q)+'</div>'+ftfBtns(it.q)+'</div>';
+    h+='<div class="tom-intro"'+d+'><b>'+ftfU('phr')+':</b></div><div class="tag-okl">'+it.p.map(x=>'<span onclick="ftfSpk(\''+ftfJs(x.replace(/…/g,''))+'\')" style="cursor:pointer">💬 '+ftfEsc(x)+'</span>').join('')+'</div>';
+    h+='<div class="tom-intro"'+d+' style="margin-top:8px"><b>'+ftfU('ex')+':</b></div>';
+    it.e.forEach(e=>{ h+=ftfLine(e[0],e[1]); });
+  });
+  return h;
+}
+function ftfUpd(id,fn){ const el=document.getElementById(id); if(el) el.innerHTML=fn(); }
+function ftfRender(){
+  const box=document.getElementById('ftf-box'); if(!box) return;
+  const st=ftfStore(); ftfSel=st.sel||{}; ftfOwn=st.own||{}; if(!ftfMine) ftfMine=st.mine||'';
+  let h='<h3>'+ftfU('title')+'</h3><div class="tom-intro"'+ftfD()+'>'+ftfU('intro')+'</div>';
+  h+=ftfSec('w',ftfU('wordsT'),'<div id="ftf-words">'+ftfWordsHtml()+'</div>');
+  h+=ftfSec('lead',ftfU('leadT'),'<div id="ftf-lead">'+ftfLeadHtml()+'</div>');
+  h+=ftfSec('more',ftfU('moreT'),'<div id="ftf-more">'+ftfMoreHtml()+'</div>');
+  h+=ftfSec('dont',ftfU('dontT'),'<div id="ftf-dont">'+ftfDontHtml()+'</div>');
+  h+=ftfSec('vid',ftfU('vidT'),'<div id="ftf-vid">'+ftfVidHtml()+'</div>');
+  h+=ftfSec('notes',ftfU('notesT'),'<div id="ftf-notes">'+ftfNotesHtml()+'</div>');
+  h+=ftfSec('tf',ftfU('tfT'),'<div id="ftf-tf">'+ftfTfHtml()+'</div>');
+  h+=ftfSec('disc',ftfU('discT'),'<div id="ftf-disc">'+ftfDiscHtml()+'</div>');
+  h+=ftfSec('g6',ftf2U('g6T'),'<div id="ftf-g6">'+ftfG6Html()+'</div>');
+  h+=ftfSec('g7',ftf2U('g7T'),'<div id="ftf-g7">'+ftfG7Html()+'</div>');
+  h+=ftfSec('p8',ftf2U('p8T'),'<div id="ftf-p8">'+ftfP8Html()+'</div>');
+  box.innerHTML=h; ftfBind('ftf-g6',ftf6); ftfBind('ftf-g7',ftf7);
+}
+/* ---- 8.1 Seite 2: Vocabulary Digital communication (6, 7) + Project Communication survey (8) ---- */
+const FTF2_UI = {
+ de:{g6T:"🧩 6 Digital communication: Lückentext",g6N:"Setze die Wörter aus dem Kasten ein. Jedes Wort passt einmal.",
+  g7T:"❓ 7 Fragen ergänzen und beantworten",g7N:"Ergänze die Fragen mit Wörtern aus Übung 6. Dann beantworte sie – unten findest du Beispielantworten.",
+  check:"✔ Prüfen",sol:"💡 Lösung",reset:"↺ Neu",res:"Richtig",readAll:"Ganzen Text vorlesen",
+  p8T:"📊 8 Projekt: Communication survey",
+  p8A:"<b>8A Notizen:</b> 3 Kommunikationswege, die du (fast) jeden Tag benutzt. Für jeden: Minuten pro Tag, 1–3 Vorteile (pros), 1–3 Nachteile (cons).",
+  meth:"Weg (z. B. WhatsApp)",min:"Min./Tag",pros:"Vorteile (pros)",cons:"Nachteile (cons)",
+  p8B:"<b>8B Wh-Fragen für die Umfrage</b> (5 Minuten Zeit). Tippe 🔊 zum Üben:",
+  p8C:"<b>8C</b> Frag deine Mitschüler und notiere ihre Antworten.",
+  p8D:"<b>8D Ergebnisse präsentieren</b> – Beispiel aus dem Buch und Satzbausteine:",
+  ideas:"Ideen für pros / cons"},
+ ar:{g6T:"🧩 6 التواصل الرقمي: املأ الفراغات",g6N:"ضع الكلمات من الصندوق. كل كلمة تُستخدم مرة واحدة.",
+  g7T:"❓ 7 أكمل الأسئلة وأجب عنها",g7N:"أكمل الأسئلة بكلمات من التمرين 6. ثم أجب عنها – في الأسفل أمثلة إجابات.",
+  check:"✔ تحقّق",sol:"💡 الحل",reset:"↺ من جديد",res:"صحيح",readAll:"اقرأ النص كاملًا",
+  p8T:"📊 8 مشروع: استطلاع عن التواصل",
+  p8A:"<b>8A ملاحظات:</b> 3 وسائل تواصل تستخدمها (تقريبًا) كل يوم. لكل وسيلة: دقائق في اليوم، 1–3 مزايا (pros)، 1–3 عيوب (cons).",
+  meth:"الوسيلة (مثل WhatsApp)",min:"دقيقة/يوم",pros:"المزايا (pros)",cons:"العيوب (cons)",
+  p8B:"<b>8B أسئلة Wh للاستطلاع</b> (5 دقائق). اضغط 🔊 للتدرّب:",
+  p8C:"<b>8C</b> اسأل زملاءك وسجّل إجاباتهم.",
+  p8D:"<b>8D عرض النتائج</b> – مثال من الكتاب وعبارات مفيدة:",
+  ideas:"أفكار للمزايا / العيوب"},
+ ka:{g6T:"🧩 6 ციფრული კომუნიკაცია: შეავსე ტექსტი",g6N:"ჩასვი სიტყვები ყუთიდან. თითო სიტყვა ერთხელ გამოიყენება.",
+  g7T:"❓ 7 შეავსე კითხვები და უპასუხე",g7N:"შეავსე კითხვები მე-6 სავარჯიშოს სიტყვებით. მერე უპასუხე – ქვემოთ არის მაგალითები.",
+  check:"✔ შემოწმება",sol:"💡 პასუხი",reset:"↺ თავიდან",res:"სწორია",readAll:"მთელი ტექსტის წაკითხვა",
+  p8T:"📊 8 პროექტი: გამოკითხვა კომუნიკაციაზე",
+  p8A:"<b>8A ჩანაწერები:</b> 3 კომუნიკაციის საშუალება, რომელსაც (თითქმის) ყოველდღე იყენებ. თითოეულისთვის: წუთები დღეში, 1–3 პლუსი (pros), 1–3 მინუსი (cons).",
+  meth:"საშუალება (მაგ. WhatsApp)",min:"წთ/დღე",pros:"პლუსები (pros)",cons:"მინუსები (cons)",
+  p8B:"<b>8B Wh-კითხვები გამოკითხვისთვის</b> (5 წუთი). შეეხე 🔊-ს სავარჯიშოდ:",
+  p8C:"<b>8C</b> ჰკითხე თანაკურსელებს და ჩაიწერე პასუხები.",
+  p8D:"<b>8D შედეგების წარდგენა</b> – მაგალითი წიგნიდან და ფრაზები:",
+  ideas:"იდეები pros / cons-ისთვის"}
+};
+function ftf2U(k){ const l=ftfL(); return (FTF2_UI[l]||FTF2_UI.de)[k]||FTF2_UI.de[k]; }
+const FTF_BOX6 = ['catch','check','internal','master','overloaded','reply','servant','technology'];
+// Teile des Textes; Zahl = Lücke (Index in Lösung)
+const FTF_G6 = {parts:["I usually ",0," my email first thing in the morning, on my phone. But I don't ",1," to any messages before I've had breakfast. I properly ",2," up on my emails when I arrive at the office, first thing in the workday. I have customers all over the world, so a lot of email arrives overnight. Those are usually manageable. But emails from my colleagues and from company management have often ",3," me. These ",4," emails are a real problem. Sometimes, people write three different emails, each with one question. Some people choose 'reply all' and I receive a copy of a message that is of no interest to me. ",5," is great and makes a lot of useful communication possible. But sometimes I worry that I am the ",6," of technology rather than the ",7,". And that's a depressing thought."],
+  sol:['check','reply','catch','overloaded','internal','Technology','servant','master']};
+const FTF_G7 = [
+ {q:["Do you more often ",0," to messages immediately, or take some time before answering?"],a:['reply'],e:[["I usually reply immediately, because my customers are waiting.",{de:'Ich antworte meistens sofort, weil meine Kunden warten.',ar:'عادةً أردّ فورًا لأن زبائني ينتظرون.',ka:'ჩვეულებრივ, მაშინვე ვპასუხობ, რადგან კლიენტები მელოდებიან.'}],["I take some time before answering. I'd rather think first.",{de:'Ich lasse mir etwas Zeit. Ich denke lieber zuerst nach.',ar:'آخذ بعض الوقت قبل الرد. أفضّل أن أفكّر أولًا.',ka:'პასუხამდე დროს ვიღებ. მირჩევნია ჯერ ვიფიქრო.'}]]},
+ {q:["How often do you ",0," your social media?"],a:['check'],e:[["I check my social media about ten times a day – way too often!",{de:'Ich checke Social Media etwa zehnmal am Tag – viel zu oft!',ar:'أتفقّد وسائل التواصل حوالي عشر مرات يوميًا – كثير جدًا!',ka:'სოციალურ ქსელებს დღეში ათჯერ ვამოწმებ – ზედმეტად ხშირად!'}],["I only check it in the evening, after work.",{de:'Ich checke es nur abends, nach der Arbeit.',ar:'أتفقّدها فقط في المساء بعد العمل.',ka:'მხოლოდ საღამოს ვამოწმებ, სამსახურის შემდეგ.'}]]},
+ {q:["Do you consider yourself a ",0," of technology, or its servant? Explain."],a:['master'],e:[["I think I'm the master of technology, because I can switch off my phone.",{de:'Ich glaube, ich bin der Herr der Technik, weil ich mein Handy ausschalten kann.',ar:'أعتقد أنني سيّد التكنولوجيا لأنني أستطيع إطفاء هاتفي.',ka:'ვფიქრობ, ტექნოლოგიის ბატონი ვარ, რადგან ტელეფონის გამორთვა შემიძლია.'}],["Sometimes I feel like its servant, because I answer every message.",{de:'Manchmal fühle ich mich wie ihr Diener, weil ich jede Nachricht beantworte.',ar:'أحيانًا أشعر أنني خادمها لأنني أردّ على كل رسالة.',ka:'ზოგჯერ მისი მსახური მგონია თავი, რადგან ყველა მესიჯს ვპასუხობ.'}]]},
+ {q:["Do you have a special time when you ",0," up on emails and other messages, or do you look at them as they come in?"],a:['catch'],e:[["I catch up on my emails in the morning, when I arrive at the office.",{de:'Ich arbeite meine E-Mails morgens im Büro auf.',ar:'أتابع رسائلي صباحًا عندما أصل إلى المكتب.',ka:'ელფოსტას დილით ვარჩევ, როცა ოფისში მივდივარ.'}],["I look at them as they come in. That's an annoying interruption!",{de:'Ich schaue sie sofort an, wenn sie kommen. Das ist eine nervige Unterbrechung!',ar:'أنظر إليها فور وصولها. هذه مقاطعة مزعجة!',ka:'როგორც კი მოდის, ვუყურებ. ეს ძალიან ხელს მიშლის!'}]]},
+ {q:["Are you ",0," by communication?"],a:['overloaded'],e:[["Yes, I am. I receive way too many messages every day.",{de:'Ja. Ich bekomme jeden Tag viel zu viele Nachrichten.',ar:'نعم. أتلقّى رسائل كثيرة جدًا كل يوم.',ka:'კი. ყოველდღე ზედმეტად ბევრ მესიჯს ვიღებ.'}],["No, I'm not. I get a manageable number of emails.",{de:'Nein. Ich bekomme eine überschaubare Zahl an E-Mails.',ar:'لا. أتلقّى عددًا معقولًا من الرسائل.',ka:'არა. სამართავი რაოდენობის წერილებს ვიღებ.'}]]}
+];
+const FTF_P8 = {
+ pros:["It's convenient.","I don't have to talk.","It's cheap.","It's a fast way to share my thoughts.","I can see the other person's face."],
+ cons:["I communicate even when I don't have anything to say.","I receive messages all the time, so it's hard to concentrate.","It is easy to make mistakes in typing.","It's a time-waster."],
+ qs:["What methods of communication do you use every day?","How many minutes per day do you spend on each method?","What are the pros of each method?","What are the cons of each method?","Which method do you like best? Why?","Who do you communicate with most often?"],
+ model:"The most common method of communication is speaking face to face. On average, people spend three hours per day in face-to-face communication. People say that it's easy to understand other people's feelings in face-to-face communication, but sometimes, people chat too much, and it's a waste of time.",
+ frames:[["The most common method of communication is …",{de:'Der häufigste Kommunikationsweg ist …',ar:'أكثر وسيلة تواصل شيوعًا هي …',ka:'კომუნიკაციის ყველაზე გავრცელებული საშუალებაა …'}],["On average, people spend … minutes per day …",{de:'Im Durchschnitt verbringen die Leute … Minuten pro Tag …',ar:'في المتوسط، يقضي الناس … دقيقة يوميًا …',ka:'საშუალოდ, ხალხი დღეში … წუთს ხარჯავს …'}],["Most people say that … / Some people think that …",{de:'Die meisten sagen, dass … / Manche denken, dass …',ar:'معظم الناس يقولون إن … / بعض الناس يعتقدون أن …',ka:'უმეტესობა ამბობს, რომ … / ზოგი ფიქრობს, რომ …'}],["Nobody in our group uses …",{de:'Niemand in unserer Gruppe benutzt …',ar:'لا أحد في مجموعتنا يستخدم …',ka:'ჩვენს ჯგუფში არავინ იყენებს …'}],["The biggest problem with … is that …",{de:'Das größte Problem bei … ist, dass …',ar:'أكبر مشكلة في … هي أن …',ka:'…-ის ყველაზე დიდი პრობლემა ისაა, რომ …'}]]
+};
+let ftf6 = {v:{},chk:false,show:false}, ftf7 = {v:{},chk:false,show:false};
+function ftfGap(st,key,sol,width){ const val=st.v[key]||'', ok=ftfNorm(val)===ftfNorm(sol); const cls=st.chk?(ok?' ok':' bad'):''; return '<input class="tag-gap'+cls+'" value="'+ftfEsc(val)+'" data-k="'+key+'" autocapitalize="off" autocomplete="off" spellcheck="false" size="'+(width||9)+'">'+(st.show&&!ok?'<span class="tag-sol">'+ftfEsc(sol)+'</span>':''); }
+function ftfNorm(x){ return String(x||'').toLowerCase().replace(/\s+/g,' ').trim(); }
+function ftfBind(id,st){ const el=document.getElementById(id); if(!el) return; el.querySelectorAll('input[data-k]').forEach(i=>i.oninput=()=>{ st.v[i.dataset.k]=i.value; }); }
+function ftfG6Full(){ return FTF_G6.parts.map(p=>typeof p==='number'?FTF_G6.sol[p]:p).join(''); }
+function ftfG6Html(){
+  const d=ftfD(); let h='<div class="gram-note"'+d+'>'+ftf2U('g6N')+'</div><div class="tag-okl">'+FTF_BOX6.map(w=>'<span>'+w+'</span>').join('')+'</div><div class="uhr-rule" style="line-height:2">';
+  let n=0; FTF_G6.parts.forEach(p=>{ if(typeof p==='number'){ h+='<sup>'+(p+1)+'</sup>'+ftfGap(ftf6,'g'+p,FTF_G6.sol[p]); } else h+=ftfEsc(p); });
+  FTF_G6.sol.forEach((s,i)=>{ if(ftfNorm(ftf6.v['g'+i])===ftfNorm(s)) n++; });
+  h+='</div><div class="tag-fbar"><button class="uhr-go" onclick="ftf6.chk=true;ftf6Save();ftfUpd(\'ftf-g6\',ftfG6Html);ftfBind(\'ftf-g6\',ftf6)">'+ftf2U('check')+'</button><button class="uhr-go alt" onclick="ftf6.chk=true;ftf6.show=true;ftfUpd(\'ftf-g6\',ftfG6Html);ftfBind(\'ftf-g6\',ftf6)">'+ftf2U('sol')+'</button><button class="uhr-go alt" onclick="ftf6={v:{},chk:false,show:false};ftfUpd(\'ftf-g6\',ftfG6Html);ftfBind(\'ftf-g6\',ftf6)">'+ftf2U('reset')+'</button></div>';
+  if(ftf6.chk) h+='<div class="uhr-fb '+(n===8?'ok':'bad')+'"'+d+'>'+ftf2U('res')+': '+n+' / 8</div>';
+  h+='<div class="tom-btns" style="margin-top:6px"><button class="tom-btn" onclick="ftfSpk(ftfG6Full())">🔊 '+ftf2U('readAll')+'</button><button class="tom-btn" onclick="ftfSpk(ftfG6Full(),1)">🐢</button></div>';
+  return h;
+}
+function ftf6Save(){ try{ let n=0; FTF_G6.sol.forEach((s,i)=>{ if(ftfNorm(ftf6.v['g'+i])===ftfNorm(s)) n++; }); if(n>+(localStorage.getItem('ela_ftf6_best')||0)) localStorage.setItem('ela_ftf6_best',n); }catch(e){} }
+function ftfG7Html(){
+  const d=ftfD(); let h='<div class="gram-note"'+d+'>'+ftf2U('g7N')+'</div><div class="tag-okl">'+['catch','check','master','overloaded','reply'].map(w=>'<span>'+w+'</span>').join('')+'</div>';
+  let n=0;
+  FTF_G7.forEach((it,i)=>{ const full=it.q.map(p=>typeof p==='number'?it.a[p]:p).join(''); const ok=ftfNorm(ftf7.v['q'+i])===ftfNorm(it.a[0]); if(ok) n++;
+    h+='<div class="tom-say"><div class="s" style="font-size:16px;line-height:1.8">'+(i+1)+'. '+it.q.map(p=>typeof p==='number'?ftfGap(ftf7,'q'+i,it.a[p]):ftfEsc(p)).join('')+(ftf7.chk?(ok?' ✅':' ❌'):'')+'</div>'+ftfBtns(full)+'</div>';
+    it.e.forEach(e=>{ h+=ftfLine(e[0],e[1]); }); });
+  h+='<div class="tag-fbar"><button class="uhr-go" onclick="ftf7.chk=true;ftfUpd(\'ftf-g7\',ftfG7Html);ftfBind(\'ftf-g7\',ftf7)">'+ftf2U('check')+'</button><button class="uhr-go alt" onclick="ftf7.chk=true;ftf7.show=true;ftfUpd(\'ftf-g7\',ftfG7Html);ftfBind(\'ftf-g7\',ftf7)">'+ftf2U('sol')+'</button><button class="uhr-go alt" onclick="ftf7={v:{},chk:false,show:false};ftfUpd(\'ftf-g7\',ftfG7Html);ftfBind(\'ftf-g7\',ftf7)">'+ftf2U('reset')+'</button></div>';
+  if(ftf7.chk) h+='<div class="uhr-fb '+(n===5?'ok':'bad')+'"'+d+'>'+ftf2U('res')+': '+n+' / 5</div>';
+  return h;
+}
+function ftfP8Html(){
+  const d=ftfD(), sv=ftfStore().survey||{}; let h='<div class="gram-note"'+d+'>'+ftf2U('p8A')+'</div>';
+  for(let i=0;i<3;i++){ h+='<div class="uhr-rule"><b>'+(i+1)+'.</b> '+['meth','min','pros','cons'].map(k=>'<input class="tag-gap" style="width:'+(k==='min'?'30%':'100%')+';margin-top:4px" placeholder="'+ftfEsc(ftf2U(k))+'" value="'+ftfEsc(sv[i+k]||'')+'" onchange="ftfSurv(\''+i+k+'\',this.value)" autocomplete="off">').join('')+'</div>'; }
+  h+='<div class="tom-intro"'+d+' style="margin-top:8px"><b>'+ftf2U('ideas')+':</b></div><div class="tag-okl">'+FTF_P8.pros.map(x=>'<span onclick="ftfSpk(\''+ftfJs(x)+'\')" style="cursor:pointer">👍 '+ftfEsc(x)+'</span>').join('')+'</div><div class="tag-okl">'+FTF_P8.cons.map(x=>'<span onclick="ftfSpk(\''+ftfJs(x)+'\')" style="cursor:pointer;background:#f8d7da;color:#721c24">👎 '+ftfEsc(x)+'</span>').join('')+'</div>';
+  h+='<div class="gram-note"'+d+' style="margin-top:10px">'+ftf2U('p8B')+'</div>';
+  FTF_P8.qs.forEach(q=>{ h+=ftfLine(q); });
+  h+='<div class="gram-note"'+d+' style="margin-top:10px">'+ftf2U('p8C')+'</div><textarea class="tag-gap" style="width:100%;min-height:70px" onchange="ftfSurv(\'c\',this.value)">'+ftfEsc(sv.c||'')+'</textarea>';
+  h+='<div class="gram-note"'+d+' style="margin-top:10px">'+ftf2U('p8D')+'</div><div class="tom-say alt"><div class="s" style="font-size:15px">'+ftfEsc(FTF_P8.model)+'</div>'+ftfBtns(FTF_P8.model)+'</div>';
+  FTF_P8.frames.forEach(f=>{ h+=ftfLine(f[0],f[1]); });
+  return h;
+}
+function ftfSurv(k,v){ const s=ftfStore().survey||{}; s[k]=v; ftfSave('survey',s); }
+
+if (document.readyState !== 'loading') ftfRender(); else document.addEventListener('DOMContentLoaded', ftfRender);
+</script>
+<script>
+/* ===== Lektion 3.4 Business Skills „Meetings: Updates and action“ (24.11.2026) ===== */
+const MTG_UI = {
+ de:{title:"📋 3.4 Meetings: Updates and action",intro:"Lernziel: In Meetings nach dem Stand fragen, Updates geben und Aufgaben (action items) besprechen. Tippe einen Teil an, um ihn zu öffnen.",
+  defT:"📘 1 Die 4 Schlüsselwörter",defN:"Achtung: <b>update</b> und <b>action</b> sind Verb UND Nomen.",
+  leadT:"💬 1A/B Lead-in: Fragen mit Beispielantworten",
+  lisT:"🎧 2–6 Hören: Notizen",lisN:"Die Audios 3.04–3.06 sind nicht in der App – du hörst sie im Kurs. Schreib deine Antworten hier hinein, sie werden gespeichert. Schick mir gern ein Foto der Lösungen.",
+  t3:"3A Tabelle: Was sagen die drei?",yest:"Yesterday",today:"Today",prob:"Problems",
+  helpT:"🗣️ Hilfe für Übung 4: So gibst du ein Update",helpN:"Ein kurzes Update hat drei Teile: <b>gestern</b> (Past Simple), <b>heute</b> (going to / Present Continuous) und <b>Probleme</b>.",
+  matchT:"🧩 7 Zuordnen: Nach einem Update fragen",matchN:"Wähle für jeden Anfang (1–7) das passende Ende (a–g). Dann „Prüfen“.",
+  check:"✔ Prüfen",sol:"💡 Lösung",reset:"↺ Neu",res:"Richtig",
+  ansT:"✅ Auf eine Update-Frage antworten",ansN:"Nützliche Antworten, wenn dein Chef nach dem Stand fragt:",
+  toVok:"📚 Alle Wörter als Karteikarten",wordsT:"📖 Wichtige Wörter der Lektion"},
+ ar:{title:"📋 3.4 الاجتماعات: التحديثات والمهام",intro:"الهدف: السؤال عن آخر المستجدّات في الاجتماعات، وإعطاء تحديثات، ومناقشة المهام (action items). اضغط على جزء لفتحه.",
+  defT:"📘 1 الكلمات الأربع المهمة",defN:"انتبه: <b>update</b> و <b>action</b> فعل واسم في نفس الوقت.",
+  leadT:"💬 1A/B تمهيد: أسئلة مع أمثلة إجابات",
+  lisT:"🎧 2–6 الاستماع: ملاحظات",lisN:"التسجيلات 3.04–3.06 غير موجودة في التطبيق – تسمعها في الدرس. اكتب إجاباتك هنا، تُحفظ على هاتفك.",
+  t3:"3A الجدول: ماذا يقول الثلاثة؟",yest:"Yesterday",today:"Today",prob:"Problems",
+  helpT:"🗣️ مساعدة للتمرين 4: كيف تعطي تحديثًا",helpN:"التحديث القصير له ثلاثة أجزاء: <b>أمس</b> (Past Simple)، <b>اليوم</b> (going to / Present Continuous) و<b>المشاكل</b>.",
+  matchT:"🧩 7 وصّل: السؤال عن آخر المستجدّات",matchN:"اختر لكل بداية (1–7) النهاية المناسبة (a–g). ثم „تحقّق“.",
+  check:"✔ تحقّق",sol:"💡 الحل",reset:"↺ من جديد",res:"صحيح",
+  ansT:"✅ الرد على سؤال التحديث",ansN:"إجابات مفيدة عندما يسألك مديرك عن الوضع:",
+  toVok:"📚 كل الكلمات كبطاقات",wordsT:"📖 كلمات الدرس المهمة"},
+ ka:{title:"📋 3.4 შეხვედრები: განახლებები და დავალებები",intro:"მიზანი: შეხვედრებზე მდგომარეობის კითხვა, განახლების მიცემა და დავალებების (action items) განხილვა. შეეხე ნაწილს, რომ გახსნა.",
+  defT:"📘 1 ოთხი მთავარი სიტყვა",defN:"ყურადღება: <b>update</b> და <b>action</b> ზმნაცაა და არსებითი სახელიც.",
+  leadT:"💬 1A/B შესავალი: კითხვები პასუხების მაგალითებით",
+  lisT:"🎧 2–6 მოსმენა: ჩანაწერები",lisN:"აუდიოები 3.04–3.06 აპში არ არის – გაკვეთილზე მოისმენ. აქ ჩაწერე პასუხები, ისინი შეინახება.",
+  t3:"3A ცხრილი: რას ამბობენ სამივე?",yest:"Yesterday",today:"Today",prob:"Problems",
+  helpT:"🗣️ დახმარება მე-4 სავარჯიშოსთვის: როგორ მისცე განახლება",helpN:"მოკლე განახლებას სამი ნაწილი აქვს: <b>გუშინ</b> (Past Simple), <b>დღეს</b> (going to / Present Continuous) და <b>პრობლემები</b>.",
+  matchT:"🧩 7 დააკავშირე: განახლების კითხვა",matchN:"აირჩიე თითოეული დასაწყისისთვის (1–7) სწორი დასასრული (a–g). მერე „შემოწმება“.",
+  check:"✔ შემოწმება",sol:"💡 პასუხი",reset:"↺ თავიდან",res:"სწორია",
+  ansT:"✅ განახლების კითხვაზე პასუხი",ansN:"სასარგებლო პასუხები, როცა უფროსი მდგომარეობას გეკითხება:",
+  toVok:"📚 ყველა სიტყვა ბარათებად",wordsT:"📖 გაკვეთილის მთავარი სიტყვები"}
+};
+const MTG_DEF = [
+ ['to update someone','verb','to tell someone the most recent information about a situation',{de:'jemanden auf den neuesten Stand bringen',ar:'يُطلِع شخصًا على آخر المعلومات',ka:'ვინმესთვის უახლესი ინფორმაციის მიწოდება'},"Can you update me on the project?"],
+ ['an update','noun','the most recent information about a situation',{de:'der neueste Stand / die Aktualisierung',ar:'آخر المستجدّات / تحديث',ka:'განახლება / უახლესი ინფორმაცია'},"I'll give you a quick update."],
+ ['to action something','verb','to do a specific thing that needs to be done, especially after discussing it',{de:'etwas erledigen / umsetzen (nach einer Besprechung)',ar:'يُنفّذ شيئًا (بعد مناقشته)',ka:'რამის შესრულება (განხილვის შემდეგ)'},"I'll action that by Friday."],
+ ['an action item','noun','the thing that needs to be done',{de:'die Aufgabe / der To-do-Punkt',ar:'مهمة يجب تنفيذها',ka:'შესასრულებელი დავალება'},"My action item is to call the supplier."]
+];
+const MTG_LEAD = [
+ {q:'What kinds of updates do you give and receive in a typical week?',e:[["I give my boss an update on my projects every Monday.",{de:'Ich gebe meinem Chef jeden Montag ein Update zu meinen Projekten.',ar:'أعطي مديري تحديثًا عن مشاريعي كل يوم اثنين.',ka:'ყოველ ორშაბათს ჩემს უფროსს პროექტებზე განახლებას ვაძლევ.'}],["I receive updates from my colleagues by email.",{de:'Ich bekomme Updates von meinen Kollegen per E-Mail.',ar:'أتلقّى تحديثات من زملائي عبر البريد الإلكتروني.',ka:'კოლეგებისგან განახლებებს ელფოსტით ვიღებ.'}]]},
+ {q:'What action items do you have at the moment?',e:[["At the moment, I have to finish my presentation for next week.",{de:'Im Moment muss ich meine Präsentation für nächste Woche fertig machen.',ar:'حاليًا يجب أن أُنهي عرضي التقديمي للأسبوع القادم.',ka:'ამჟამად შემდეგი კვირის პრეზენტაცია უნდა დავასრულო.'}],["My action items are to answer three customers and update the schedule.",{de:'Meine Aufgaben: drei Kunden antworten und den Zeitplan aktualisieren.',ar:'مهامي: الرد على ثلاثة زبائن وتحديث الجدول.',ka:'ჩემი დავალებებია: სამ კლიენტს ვუპასუხო და განრიგი განვაახლო.'}]]},
+ {q:'What kinds of meetings do you attend, or have you attended?',e:[["We have a short team meeting every morning.",{de:'Wir haben jeden Morgen ein kurzes Teammeeting.',ar:'لدينا اجتماع فريق قصير كل صباح.',ka:'ყოველ დილით მოკლე გუნდური შეხვედრა გვაქვს.'}],["I sometimes have a one-to-one meeting with my manager.",{de:'Manchmal habe ich ein Einzelgespräch mit meiner Chefin.',ar:'أحيانًا لدي اجتماع فردي مع مديري.',ka:'ზოგჯერ მენეჯერთან პირისპირ შეხვედრა მაქვს.'}],["I have attended online meetings with customers.",{de:'Ich habe an Online-Meetings mit Kunden teilgenommen.',ar:'حضرتُ اجتماعات عبر الإنترنت مع الزبائن.',ka:'კლიენტებთან ონლაინ შეხვედრებს დავსწრებივარ.'}]]}
+];
+const MTG_2B = ['How long does she expect the meeting to take?','What is the aim of the meeting?','How often will the meetings take place?','What time will the meetings start?','What is the ball for?','What information will each person give?','What will happen after the meeting?'];
+const MTG_HELP = [
+ ["Yesterday I finished the report for the sales team.",{de:'Gestern habe ich den Bericht für das Vertriebsteam fertig gemacht.',ar:'أمس أنهيتُ التقرير لفريق المبيعات.',ka:'გუშინ გაყიდვების გუნდისთვის ანგარიში დავასრულე.'}],
+ ["Today I'm going to call two new customers.",{de:'Heute werde ich zwei neue Kunden anrufen.',ar:'اليوم سأتصل بزبونين جديدين.',ka:'დღეს ორ ახალ კლიენტს დავურეკავ.'}],
+ ["Today I'm working on the new schedule.",{de:'Heute arbeite ich am neuen Zeitplan.',ar:'اليوم أعمل على الجدول الجديد.',ka:'დღეს ახალ განრიგზე ვმუშაობ.'}],
+ ["The only problem is that I'm waiting for an answer from IT.",{de:'Das einzige Problem: Ich warte auf eine Antwort von der IT.',ar:'المشكلة الوحيدة أنني أنتظر ردًا من قسم تكنولوجيا المعلومات.',ka:'ერთადერთი პრობლემა ისაა, რომ IT-ს პასუხს ველოდები.'}],
+ ["No problems at the moment.",{de:'Im Moment keine Probleme.',ar:'لا مشاكل حاليًا.',ka:'ამჟამად პრობლემები არ არის.'}]
+];
+const MTG_BEG = ['How are we doing with the','What\'s happening with','And where are','Can you bring me up','What\'s the latest','Can you give','When will you be able to bring me up to'];
+const MTG_END = ['me an update on the plans?','redrafting of the China contract?','to date on the programme for today?','the deadlines?','speed on the factory shutdown?','on the new schedule?','we with the logo?'];
+const MTG_SOL = [1,3,6,4,5,0,2]; // 1b 2d 3g 4e 5f 6a 7c
+const MTG_Q7TR = [
+ {de:'Wie kommen wir mit der Überarbeitung des China-Vertrags voran?',ar:'كيف نتقدّم في إعادة صياغة عقد الصين؟',ka:'როგორ მივდივართ ჩინეთის კონტრაქტის ხელახალ შედგენაში?'},
+ {de:'Was ist mit den Fristen?',ar:'ما الجديد بخصوص المواعيد النهائية؟',ka:'რა ხდება ვადებთან დაკავშირებით?'},
+ {de:'Und wie weit sind wir mit dem Logo?',ar:'وأين وصلنا في الشعار؟',ka:'და სად ვართ ლოგოსთან დაკავშირებით?'},
+ {de:'Kannst du mich zur Werksschließung auf den neuesten Stand bringen?',ar:'هل يمكنك إطلاعي على آخر المستجدّات بخصوص إغلاق المصنع؟',ka:'შეგიძლია ქარხნის დახურვის შესახებ ინფორმაცია მომაწოდო?'},
+ {de:'Was gibt es Neues zum neuen Zeitplan?',ar:'ما آخر الأخبار عن الجدول الجديد؟',ka:'რა არის ახალი ახალ განრიგზე?'},
+ {de:'Kannst du mir ein Update zu den Plänen geben?',ar:'هل يمكنك أن تعطيني تحديثًا عن الخطط؟',ka:'შეგიძლია გეგმების შესახებ განახლება მომცე?'},
+ {de:'Wann kannst du mich über das heutige Programm informieren?',ar:'متى ستتمكّن من إطلاعي على برنامج اليوم؟',ka:'როდის შეძლებ დღევანდელი პროგრამის შესახებ ინფორმაციის მოწოდებას?'}
+];
+const MTG_ANS = [
+ ["It's going well. We're on track.",{de:'Es läuft gut. Wir liegen im Plan.',ar:'الأمور تسير جيدًا. نحن على المسار الصحيح.',ka:'კარგად მიდის. გეგმის მიხედვით ვართ.'}],
+ ["We're a bit behind schedule, but we'll finish by Friday.",{de:'Wir sind etwas hinter dem Zeitplan, aber bis Freitag sind wir fertig.',ar:'نحن متأخرون قليلًا عن الجدول، لكننا سننتهي بحلول الجمعة.',ka:'ცოტა ჩამოვრჩებით განრიგს, მაგრამ პარასკევისთვის დავასრულებთ.'}],
+ ["We've nearly finished. Just one more thing to do.",{de:'Wir sind fast fertig. Nur noch eine Sache.',ar:'انتهينا تقريبًا. بقي شيء واحد فقط.',ka:'თითქმის დავასრულეთ. მხოლოდ ერთი რამ დარჩა.'}],
+ ["I'm not sure. I'll get back to you on that.",{de:'Ich bin nicht sicher. Ich melde mich dazu bei dir.',ar:'لستُ متأكدًا. سأعود إليك بخصوص ذلك.',ka:'დარწმუნებული არ ვარ. ამაზე მოგვიანებით გიპასუხებ.'}],
+ ["I'll action that today and send you an update tomorrow.",{de:'Ich erledige das heute und schicke dir morgen ein Update.',ar:'سأنفّذ ذلك اليوم وأرسل لك تحديثًا غدًا.',ka:'დღესვე შევასრულებ და ხვალ განახლებას გამოგიგზავნი.'}]
+];
+let mtgM = {v:{},chk:false,show:false};
+function mtgU(k){ const l=ftfL(); return (MTG_UI[l]||MTG_UI.de)[k]||MTG_UI.de[k]; }
+function mtgStore(){ try{ return JSON.parse(localStorage.getItem('ela_mtg')||'{}'); }catch(e){ return {}; } }
+function mtgSave(k,v){ try{ const s=mtgStore(); s[k]=v; localStorage.setItem('ela_mtg',JSON.stringify(s)); }catch(e){} }
+function mtgNote(k,v){ const n=mtgStore().notes||{}; n[k]=v; mtgSave('notes',n); }
+function mtgDefHtml(){
+  const d=ftfD(); let h='<div class="gram-note"'+d+'>'+mtgU('defN')+'</div>';
+  MTG_DEF.forEach(x=>{ h+='<div class="uhr-rule"><b class="k">'+ftfEsc(x[0])+'</b> <small class="tag-ph">('+x[1]+')</small><div><i>'+ftfEsc(x[2])+'</i></div><div'+d+'>'+ftfEsc(ftfTr(x[3]))+'</div><div class="uhr-eg">'+ftfEsc(x[4])+'</div> '+ftfBtns(x[0]+'. '+x[4])+'</div>'; });
+  return h;
+}
+function mtgLeadHtml(){ let h=''; MTG_LEAD.forEach((it,i)=>{ h+='<div class="tom-say"><div class="s">'+(i<2?'1A.'+(i+1):'1B')+' '+ftfEsc(it.q)+'</div>'+ftfBtns(it.q)+'</div>'; it.e.forEach(e=>{ h+=ftfLine(e[0],e[1]); }); }); return h; }
+function mtgInp(k,ph,w){ const n=mtgStore().notes||{}; return '<input class="tag-gap" style="width:'+(w||'100%')+';margin-top:4px" placeholder="'+ftfEsc(ph||'')+'" value="'+ftfEsc(n[k]||'')+'" onchange="mtgNote(\''+k+'\',this.value)" autocomplete="off">'; }
+function mtgLisHtml(){
+  const d=ftfD(), n=mtgStore().notes||{}; let h='<div class="gram-note"'+d+'>'+mtgU('lisN')+'</div>';
+  h+='<div class="uhr-rule"><b>2A 🔊3.04</b> Listen to a team leader explaining a new procedure for meetings. What type of meeting is it?'+mtgInp('2a')+'</div>';
+  h+='<div class="uhr-rule"><b>2B</b> Listen again and answer the questions.</div>';
+  MTG_2B.forEach((q,i)=>{ h+='<div class="uhr-rule"><div style="display:flex;gap:8px;align-items:flex-start"><div style="flex:1"><b>'+(i+1)+'.</b> '+ftfEsc(q)+'</div>'+ftfBtns(q)+'</div>'+mtgInp('2b'+i)+'</div>'; });
+  h+='<div class="uhr-rule"><b>'+mtgU('t3')+' 🔊3.05</b>';
+  ['Jack','Sal','Tom'].forEach(p=>{ h+='<div style="margin-top:6px"><b>'+p+'</b>'+mtgInp('3'+p+'y',mtgU('yest'))+mtgInp('3'+p+'t',mtgU('today'))+mtgInp('3'+p+'p',mtgU('prob'))+'</div>'; });
+  h+='</div>';
+  h+='<div class="uhr-rule"><b>3B</b> Which of the three speakers was the most difficult to understand? Why?'+mtgInp('3b')+'</div>';
+  h+='<div class="uhr-rule"><b>4</b> Rewrite what the third speaker said. Practise reading your version out loud.<textarea class="tag-gap" style="width:100%;min-height:70px;margin-top:4px" onchange="mtgNote(\'4\',this.value)">'+ftfEsc(n['4']||'')+'</textarea><button class="uhr-go alt" onclick="const t=(mtgStore().notes||{})[\'4\'];if(t)ftfSpk(t)">🔊</button></div>';
+  h+='<div class="uhr-rule"><b>5</b> Who will the team leader speak to after the meeting? What follow-up action items will they discuss?'+mtgInp('5')+'</div>';
+  h+='<div class="uhr-rule"><b>6 🔊3.06</b> The team leader\'s boss asks her some questions. Try to answer each question yourself first.<textarea class="tag-gap" style="width:100%;min-height:60px;margin-top:4px" onchange="mtgNote(\'6\',this.value)">'+ftfEsc(n['6']||'')+'</textarea></div>';
+  return h;
+}
+function mtgHelpHtml(){ let h='<div class="gram-note"'+ftfD()+'>'+mtgU('helpN')+'</div>'; MTG_HELP.forEach(e=>{ h+=ftfLine(e[0],e[1]); }); return h; }
+function mtgMatchHtml(){
+  const d=ftfD(); let h='<div class="gram-note"'+d+'>'+mtgU('matchN')+'</div><div class="uhr-rule">'+MTG_END.map((e,j)=>'<div><b>'+String.fromCharCode(97+j)+'</b> '+ftfEsc(e)+'</div>').join('')+'</div>';
+  let n=0;
+  MTG_BEG.forEach((b,i)=>{
+    const v=mtgM.v[i], ok=(v!==undefined&&+v===MTG_SOL[i]); if(ok) n++;
+    const full=b+' '+MTG_END[MTG_SOL[i]];
+    h+='<div class="uhr-rule"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b>'+(i+1)+'</b> '+ftfEsc(b)+' <select class="tag-gap'+(mtgM.chk?(ok?' ok':' bad'):'')+'" onchange="mtgM.v['+i+']=this.value"><option value="">…</option>'+MTG_END.map((e,j)=>'<option value="'+j+'"'+(v!==undefined&&v!==''&&+v===j?' selected':'')+'>'+String.fromCharCode(97+j)+') '+ftfEsc(e)+'</option>').join('')+'</select>'+(mtgM.chk?(ok?' ✅':' ❌'):'')+'</div>';
+    if(mtgM.show||ok) h+='<div class="tom-ex"><div class="e"><b>'+ftfEsc(full)+'</b><span'+d+'>'+ftfEsc(ftfTr(MTG_Q7TR[i]))+'</span></div>'+ftfBtns(full)+'</div>';
+    h+='</div>';
+  });
+  h+='<div class="tag-fbar"><button class="uhr-go" onclick="mtgM.chk=true;mtgCheckSave();ftfUpd(\'mtg-match\',mtgMatchHtml)">'+mtgU('check')+'</button><button class="uhr-go alt" onclick="mtgM.chk=true;mtgM.show=true;ftfUpd(\'mtg-match\',mtgMatchHtml)">'+mtgU('sol')+'</button><button class="uhr-go alt" onclick="mtgM={v:{},chk:false,show:false};ftfUpd(\'mtg-match\',mtgMatchHtml)">'+mtgU('reset')+'</button></div>';
+  if(mtgM.chk) h+='<div class="uhr-fb '+(n===7?'ok':'bad')+'"'+d+'>'+mtgU('res')+': '+n+' / 7</div>';
+  return h;
+}
+function mtgCheckSave(){ try{ let n=0; MTG_BEG.forEach((b,i)=>{ if(mtgM.v[i]!==undefined&&mtgM.v[i]!==''&&+mtgM.v[i]===MTG_SOL[i]) n++; }); if(n>+(localStorage.getItem('ela_mtg7_best')||0)) localStorage.setItem('ela_mtg7_best',n); }catch(e){} }
+function mtgAnsHtml(){ let h='<div class="gram-note"'+ftfD()+'>'+mtgU('ansN')+'</div>'; MTG_ANS.forEach(e=>{ h+=ftfLine(e[0],e[1]); }); return h; }
+function mtgWordsHtml(){
+  const d=ftfD(); let h='';
+  (typeof VOKABELN!=='undefined'?VOKABELN:[]).filter(v=>v.cat==='nov24b').forEach(v=>{
+    const tr = ftfL()==='ar'?(v.ta||v.t):(ftfL()==='ka'?(v.tka||v.t):v.t), ex=(v.ex||'').replace(/^"|"$/g,'');
+    h+='<div class="tom-ex"><div class="e"><b>'+ftfEsc(v.w)+'</b> <small class="tag-ph">'+ftfEsc(v.ph||'')+'</small><span'+d+'>'+ftfEsc(tr)+'</span><i>'+ftfEsc(ex)+'</i></div>'+ftfBtns(v.w.replace(/^to /,'')+'. '+ex)+'</div>';
+  });
+  return h+'<button class="uhr-go alt" onclick="spGoLink(\'vok:nov24b\')">'+mtgU('toVok')+'</button>';
+}
+function mtgRender(){
+  const box=document.getElementById('mtg-box'); if(!box) return;
+  let h='<h3>'+mtgU('title')+'</h3><div class="tom-intro"'+ftfD()+'>'+mtgU('intro')+'</div>';
+  h+=ftfSec('m_w',mtgU('wordsT'),'<div id="mtg-words">'+mtgWordsHtml()+'</div>');
+  h+=ftfSec('m_def',mtgU('defT'),'<div id="mtg-def">'+mtgDefHtml()+'</div>');
+  h+=ftfSec('m_lead',mtgU('leadT'),'<div id="mtg-lead">'+mtgLeadHtml()+'</div>');
+  h+=ftfSec('m_lis',mtgU('lisT'),'<div id="mtg-lis">'+mtgLisHtml()+'</div>');
+  h+=ftfSec('m_help',mtgU('helpT'),'<div id="mtg-help">'+mtgHelpHtml()+'</div>');
+  h+=ftfSec('m_match',mtgU('matchT'),'<div id="mtg-match">'+mtgMatchHtml()+'</div>');
+  h+=ftfSec('m_s8',mtg2U('s8T'),'<div id="mtg-s8">'+mtgS8Html()+'</div>');
+  h+=ftfSec('m_b8',mtg2U('b8T'),'<div id="mtg-b8">'+mtgB8Html()+'</div>');
+  h+=ftfSec('m_s9',mtg2U('s9T'),'<div id="mtg-s9">'+mtgS9Html()+'</div>');
+  h+=ftfSec('m_ans',mtgU('ansT'),'<div id="mtg-ans">'+mtgAnsHtml()+'</div>');
+  h+=ftfSec('m_t10',mtg2U('t10T'),'<div id="mtg-t10">'+mtgT10Html()+'</div>');
+  box.innerHTML=h; ftfBind('mtg-s8',mtg8);
+}
+/* ---- 3.4 Seite 2: 8A/B, 9, Task 10 ---- */
+const MTG2_UI = {
+ de:{s8T:"✏️ 8A Sätze aus dem Audio ergänzen",s8N:"Setze die Wörter aus dem Kasten ein (jedes Wort einmal).",
+  b8T:"🗂️ 8B Welcher Satz macht was?",b8N:"a) Update zu etwas Vergangenem · b) geplante Aufgaben · c) ein Hindernis (Problem). Wähle für jeden Satz a, b oder c.",
+  ca:"a) Vergangenes",cb:"b) Geplantes",cc:"c) Problem",
+  s9T:"🔁 9 Fragen aus Übung 7 beantworten",s9N:"Mögliche Antworten auf die Update-Fragen. Übe zu zweit: einer fragt, einer antwortet.",
+  t10T:"🎯 10 Task: Updates zu 3 Situationen",t10N:"Aufbau wie im Audio: <b>1. Was ist passiert?</b> (Past Simple / Present Perfect) → <b>2. Was ist geplant?</b> (going to / Present Continuous) → <b>3. Gibt es Probleme?</b> Danach Aufgaben (action items) besprechen.",
+  notes:"Notizen",upd:"Beispiel-Update",act:"Mögliche action items",readUpd:"🔊 Ganzes Update vorlesen",
+  t10C:"<b>10C Nach der Diskussion:</b> Was lief gut? Was war schwierig? Wer gab das klarste Update – mit welchen Sätzen?"},
+ ar:{s8T:"✏️ 8A أكمل الجمل من التسجيل",s8N:"ضع الكلمات من الصندوق (كل كلمة مرة واحدة).",
+  b8T:"🗂️ 8B ماذا تفعل كل جملة؟",b8N:"a) تحديث عن شيء ماضٍ · b) مهام مخطَّطة · c) عائق (مشكلة). اختر a أو b أو c لكل جملة.",
+  ca:"a) ماضٍ",cb:"b) مخطَّط",cc:"c) مشكلة",
+  s9T:"🔁 9 أجب عن أسئلة التمرين 7",s9N:"إجابات ممكنة لأسئلة التحديث. تدرّبا معًا: واحد يسأل والآخر يجيب.",
+  t10T:"🎯 10 مهمة: تحديثات عن 3 مواقف",t10N:"البنية كما في التسجيل: <b>1. ماذا حدث؟</b> → <b>2. ما المخطَّط؟</b> → <b>3. هل هناك مشاكل؟</b> ثم ناقشوا المهام (action items).",
+  notes:"الملاحظات",upd:"مثال تحديث",act:"مهام ممكنة",readUpd:"🔊 اقرأ التحديث كاملًا",
+  t10C:"<b>10C بعد النقاش:</b> ما الذي سار جيدًا؟ ما الصعب؟ من أعطى أوضح تحديث – وبأي جمل؟"},
+ ka:{s8T:"✏️ 8A შეავსე წინადადებები აუდიოდან",s8N:"ჩასვი სიტყვები ყუთიდან (თითო სიტყვა ერთხელ).",
+  b8T:"🗂️ 8B რას აკეთებს თითოეული წინადადება?",b8N:"a) განახლება წარსულზე · b) დაგეგმილი დავალებები · c) დაბრკოლება (პრობლემა). აირჩიე a, b ან c.",
+  ca:"a) წარსული",cb:"b) დაგეგმილი",cc:"c) პრობლემა",
+  s9T:"🔁 9 უპასუხე მე-7 სავარჯიშოს კითხვებს",s9N:"შესაძლო პასუხები განახლების კითხვებზე. ივარჯიშეთ წყვილებში: ერთი კითხულობს, მეორე პასუხობს.",
+  t10T:"🎯 10 დავალება: განახლებები 3 სიტუაციაზე",t10N:"სტრუქტურა როგორც აუდიოში: <b>1. რა მოხდა?</b> → <b>2. რა არის დაგეგმილი?</b> → <b>3. არის პრობლემები?</b> შემდეგ განიხილეთ დავალებები (action items).",
+  notes:"ჩანაწერები",upd:"განახლების მაგალითი",act:"შესაძლო დავალებები",readUpd:"🔊 მთელი განახლების წაკითხვა",
+  t10C:"<b>10C დისკუსიის შემდეგ:</b> რა იყო კარგი? რა იყო რთული? ვინ მისცა ყველაზე ნათელი განახლება – რომელი ფრაზებით?"}
+};
+function mtg2U(k){ const l=ftfL(); return (MTG2_UI[l]||MTG2_UI.de)[k]||MTG2_UI.de[k]; }
+const MTG_BOX8 = ['agreed','finish','followed up','impediment','progress','see','spent','worked','work on'];
+const MTG_S8 = [
+ ["Yesterday I ___ on the new contract for the China project.",'worked','a'],
+ ["So the draft contract is in ___, and I expect to complete it today.",'progress','b'],
+ ["The only ___ I see is time.",'impediment','c'],
+ ["I had a meeting with a sub-supplier in the morning, where we ___ some new deadlines.",'agreed','a'],
+ ["We ___ the meeting with a nice lunch.",'followed up','a'],
+ ["Today my plan is to ___ writing a summary of yesterday's meeting.",'work on','b'],
+ ["I don't ___ any impediments at the moment.",'see','c'],
+ ["I'm planning to ___ the designs for the new logo.",'finish','b'],
+ ["Yesterday I ___ most of the day discussing ideas for the new logo.",'spent','a']
+];
+const MTG_S9 = [
+ ["How are we doing with the redrafting of the China contract?","It's going well. The draft is in progress and I expect to finish it today."],
+ ["What's happening with the deadlines?","We agreed some new deadlines with the sub-supplier yesterday."],
+ ["And where are we with the logo?","I spent most of yesterday discussing ideas. Today I'm planning to finish the designs."],
+ ["Can you bring me up to speed on the factory shutdown?","Sure. The dates are agreed, and I'm talking to the department heads today."],
+ ["What's the latest on the new schedule?","The new schedule is nearly finished. I'll send it to you this afternoon."],
+ ["Can you give me an update on the plans?","Of course. We're on track. The only impediment I see is time."],
+ ["When will you be able to bring me up to date on the programme for today?","I'll give you an update after the meeting, at about eleven."]
+];
+const MTG_T10 = [
+ {t:'1 TH37 PROJECT',n:["The project team has now been agreed.","The first project meeting is planned for next week. We are working on the agenda at the moment.","The final budget is expected by Friday this week, but it may not be sufficient."],
+  u:["Let me give you an update on the TH37 project.","We've agreed the project team.","The first project meeting is planned for next week, and at the moment we're working on the agenda.","We expect the final budget by Friday.","The only impediment I see is the budget. It may not be sufficient."],
+  a:["Finish the agenda by Monday.","Check the budget on Friday and talk to finance if it isn't enough.","Send the meeting invitation to the team."]},
+ {t:'2 HOLIDAY PLANS',n:["The agreed dates for the factory shutdown will be 16 Dec – 4 Jan.","Discussions with department heads are happening today.","We still need to find volunteers to answer the telephones during the shutdown."],
+  u:["Here's the latest on the holiday plans.","We've agreed the dates for the factory shutdown: the sixteenth of December to the fourth of January.","Today I'm talking to the department heads.","The problem is that we still need volunteers to answer the telephones during the shutdown."],
+  a:["Send an email to all staff and ask for volunteers.","Make a telephone schedule for the shutdown.","Update the boss after the meeting with the department heads."]},
+ {t:'3 DELIVERY OF NEW OFFICE FURNITURE',n:["The delivery dates were changed yesterday. The new date is Wednesday next week.","We need to inform all departments and make sure this date is OK with everyone.","We need to find someone to deal with the delivery company. (Normally Jonathan, but he is away on a course.)"],
+  u:["Can I bring you up to speed on the new office furniture?","The delivery company changed the dates yesterday. The new date is Wednesday next week.","Today I'm going to inform all departments and check that the date is OK with everyone.","There's one impediment: Jonathan normally deals with the delivery company, but he's away on a course. So we need to find someone else."],
+  a:["Inform all departments today.","Find someone to deal with the delivery company instead of Jonathan.","Confirm the new date with the delivery company."]}
+];
+let mtg8 = {v:{},chk:false,show:false}, mtg8b = {v:{},chk:false};
+function mtgS8Html(){
+  const d=ftfD(); let h='<div class="gram-note"'+d+'>'+mtg2U('s8N')+'</div><div class="tag-okl">'+MTG_BOX8.map(w=>'<span>'+w+'</span>').join('')+'</div>'; let n=0;
+  MTG_S8.forEach((it,i)=>{ const ok=ftfNorm(mtg8.v['s'+i])===it[1]; if(ok) n++; const full=it[0].replace('___',it[1]);
+    h+='<div class="tag-fill"><span class="n">'+(i+1)+'.</span><div class="e">'+ftfEsc(it[0]).replace('___',ftfGap(mtg8,'s'+i,it[1],11))+(mtg8.chk?(ok?' ✅':' ❌'):'')+'</div>'+ftfBtns(full)+'</div>'; });
+  h+='<div class="tag-fbar"><button class="uhr-go" onclick="mtg8.chk=true;mtg8Upd()">'+mtgU('check')+'</button><button class="uhr-go alt" onclick="mtg8.chk=true;mtg8.show=true;mtg8Upd()">'+mtgU('sol')+'</button><button class="uhr-go alt" onclick="mtg8={v:{},chk:false,show:false};mtg8Upd()">'+mtgU('reset')+'</button></div>';
+  if(mtg8.chk) h+='<div class="uhr-fb '+(n===9?'ok':'bad')+'"'+d+'>'+mtgU('res')+': '+n+' / 9</div>';
+  return h;
+}
+function mtg8Upd(){ ftfUpd('mtg-s8',mtgS8Html); ftfBind('mtg-s8',mtg8); }
+function mtgB8Html(){
+  const d=ftfD(); let h='<div class="gram-note"'+d+'>'+mtg2U('b8N')+'</div>'; let n=0;
+  MTG_S8.forEach((it,i)=>{ const v=mtg8b.v[i], ok=v===it[2]; if(ok) n++;
+    h+='<div class="uhr-rule"><div><b>'+(i+1)+'.</b> '+ftfEsc(it[0].replace('___',it[1]))+(mtg8b.chk?(ok?' ✅':' ❌ → '+it[2]):'')+'</div><div class="tag-bpool">'+['a','b','c'].map(c=>'<button class="tag-chip'+(v===c?' in':'')+'" onclick="mtg8b.v['+i+']=\''+c+'\';ftfUpd(\'mtg-b8\',mtgB8Html)">'+mtg2U('c'+c)+'</button>').join('')+'</div></div>'; });
+  h+='<div class="tag-fbar"><button class="uhr-go" onclick="mtg8b.chk=true;ftfUpd(\'mtg-b8\',mtgB8Html)">'+mtgU('check')+'</button><button class="uhr-go alt" onclick="mtg8b={v:{},chk:false};ftfUpd(\'mtg-b8\',mtgB8Html)">'+mtgU('reset')+'</button></div>';
+  if(mtg8b.chk) h+='<div class="uhr-fb '+(n===9?'ok':'bad')+'"'+d+'>'+mtgU('res')+': '+n+' / 9 · a) 1, 4, 5, 9 · b) 2, 6, 8 · c) 3, 7</div>';
+  return h;
+}
+function mtgS9Html(){ let h='<div class="gram-note"'+ftfD()+'>'+mtg2U('s9N')+'</div>'; MTG_S9.forEach((it,i)=>{ h+='<div class="tom-say"><div class="s" style="font-size:16px">'+(i+1)+'. '+ftfEsc(it[0])+'</div>'+ftfBtns(it[0])+'</div>'+ftfLine('→ '+it[1]); }); return h; }
+function mtgT10Html(){
+  const d=ftfD(), nt=mtgStore().notes||{}; let h='<div class="gram-note"'+d+'>'+mtg2U('t10N')+'</div>';
+  MTG_T10.forEach((sc,i)=>{
+    const all=sc.u.join(' ');
+    h+='<div class="uhr-rule"><b class="k">'+ftfEsc(sc.t)+'</b><div class="uhr-eg" style="display:block;font-family:inherit">'+sc.n.map(ftfEsc).join('<br>')+'</div>';
+    h+='<div class="tom-intro" style="margin-top:8px"'+d+'><b>'+mtg2U('upd')+':</b></div>';
+    sc.u.forEach(x=>{ h+=ftfLine(x); });
+    h+='<button class="uhr-go alt" onclick="ftfSpk(\''+ftfJs(all)+'\')">'+mtg2U('readUpd')+'</button>';
+    h+='<div class="tom-intro" style="margin-top:8px"'+d+'><b>'+mtg2U('act')+':</b></div><div class="tag-okl">'+sc.a.map(x=>'<span onclick="ftfSpk(\''+ftfJs(x)+'\')" style="cursor:pointer">☑️ '+ftfEsc(x)+'</span>').join('')+'</div>';
+    h+='<textarea class="tag-gap" style="width:100%;min-height:50px" placeholder="'+ftfEsc(mtg2U('notes'))+'" onchange="mtgNote(\'t10_'+i+'\',this.value)">'+ftfEsc(nt['t10_'+i]||'')+'</textarea></div>';
+  });
+  h+='<div class="gram-note"'+d+' style="margin-top:8px">'+mtg2U('t10C')+'</div><textarea class="tag-gap" style="width:100%;min-height:50px" onchange="mtgNote(\'t10c\',this.value)">'+ftfEsc(nt['t10c']||'')+'</textarea>';
+  return h;
+}
+
+if (document.readyState !== 'loading') mtgRender(); else document.addEventListener('DOMContentLoaded', mtgRender);
+</script>
+<script>
+/* ===== Listening „Announcements“ (Durchsagen) 24.11.2026 ===== */
+const ANN_UI = {
+ de:{title:"📢 Listening: Announcements (Durchsagen)",intro:"Durchsagen am Bahnhof, am Flughafen und in der U-Bahn verstehen. Tippe 🔊 – die App liest wie eine Durchsage vor.",
+  wordsT:"📖 Wichtige Wörter",toVok:"📚 Alle Wörter als Karteikarten",
+  trT:"🎧 Die 4 Durchsagen (Transcript A–D)",trN:"Erst nur hören (Text verdeckt), dann lesen. Gelb = wichtigste Information.",show:"👁 Text zeigen",hide:"🙈 Text verdecken",trans:"Übersetzung",
+  qT:"❓ Hast du es verstanden?",qN:"Fragen zu den Durchsagen – tippe die richtige Antwort.",next:"Nächste Frage ➜",right:"✅ Richtig!",wrong:"❌ Leider falsch. Richtig:",
+  phrT:"🗣️ Typische Durchsage-Sätze",
+  solT:"✅ Lösungen vom Arbeitsblatt",solN:"Alle Lösungen auf einen Blick. Zum Üben oben: Preparation, Task 1 und Task 2 mit „Prüfen“.",prep:"Preparation task",t1:"Task 1",t2:"Task 2",
+  t2N:"3 Halte (Reading, Oxford, Bristol Parkway) · 8 Minuten Verspätung · Gleis 9 · Gate 13"},
+ ar:{title:"📢 استماع: الإعلانات",intro:"فهم الإعلانات في محطة القطار والمطار والمترو. اضغط 🔊 – يقرأ التطبيق مثل الإعلان.",
+  wordsT:"📖 كلمات مهمة",toVok:"📚 كل الكلمات كبطاقات",
+  trT:"🎧 الإعلانات الأربعة (النص A–D)",trN:"استمع أولًا (النص مخفي)، ثم اقرأ. الأصفر = أهم معلومة.",show:"👁 أظهر النص",hide:"🙈 أخفِ النص",trans:"الترجمة",
+  qT:"❓ هل فهمت؟",qN:"أسئلة عن الإعلانات – اضغط الإجابة الصحيحة.",next:"السؤال التالي ➜",right:"✅ صحيح!",wrong:"❌ خطأ. الصحيح:",
+  phrT:"🗣️ جمل نموذجية في الإعلانات",
+  solT:"✅ حلول ورقة العمل",solN:"كل الحلول في مكان واحد. للتدرّب في الأعلى: Preparation وTask 1 وTask 2 مع „تحقّق“.",prep:"Preparation task",t1:"Task 1",t2:"Task 2",
+  t2N:"3 محطات (Reading، Oxford، Bristol Parkway) · تأخير 8 دقائق · الرصيف 9 · البوابة 13"},
+ ka:{title:"📢 მოსმენა: განცხადებები",intro:"სადგურზე, აეროპორტში და მეტროში განცხადებების გაგება. შეეხე 🔊-ს – აპი განცხადებასავით კითხულობს.",
+  wordsT:"📖 მთავარი სიტყვები",toVok:"📚 ყველა სიტყვა ბარათებად",
+  trT:"🎧 4 განცხადება (ტექსტი A–D)",trN:"ჯერ მხოლოდ მოისმინე (ტექსტი დამალულია), მერე წაიკითხე. ყვითელი = მთავარი ინფორმაცია.",show:"👁 ტექსტის ჩვენება",hide:"🙈 ტექსტის დამალვა",trans:"თარგმანი",
+  qT:"❓ გაიგე?",qN:"კითხვები განცხადებებზე – შეეხე სწორ პასუხს.",next:"შემდეგი კითხვა ➜",right:"✅ სწორია!",wrong:"❌ არასწორია. სწორი:",
+  phrT:"🗣️ განცხადებების ტიპური ფრაზები",
+  solT:"✅ სამუშაო ფურცლის პასუხები",solN:"ყველა პასუხი ერთად. სავარჯიშოდ ზემოთ: Preparation, Task 1 და Task 2 „შემოწმებით“.",prep:"Preparation task",t1:"Task 1",t2:"Task 2",
+  t2N:"3 გაჩერება (Reading, Oxford, Bristol Parkway) · 8 წუთით დაგვიანება · ბაქანი 9 · გეითი 13"}
+};
+const ANN_TR = [
+ {k:'A',ic:'🚆',hl:["Platform 2 for the 12.20 to Bristol.","First class is in the rear carriage."],
+  t:"The next train to arrive at Platform 2 is the 12.20 to Bristol Temple Meads, calling at Reading, Oxford and Bristol Parkway. Platform 2 for the 12.20 to Bristol. First class is in the rear carriage.",
+  tr:{de:"Der nächste Zug an Gleis 2 ist der Zug um 12:20 Uhr nach Bristol Temple Meads, mit Halt in Reading, Oxford und Bristol Parkway. Gleis 2 für den Zug um 12:20 nach Bristol. Die erste Klasse ist im hinteren Wagen.",
+   ar:"القطار التالي الذي سيصل إلى الرصيف 2 هو قطار الساعة 12:20 إلى Bristol Temple Meads، ويتوقّف في Reading وOxford وBristol Parkway. الرصيف 2 لقطار 12:20 إلى Bristol. الدرجة الأولى في العربة الخلفية.",
+   ka:"მე-2 ბაქანზე შემდეგი მატარებელია 12:20-ის მატარებელი Bristol Temple Meads-მდე, გაჩერებებით Reading-ში, Oxford-სა და Bristol Parkway-ში. მე-2 ბაქანი 12:20-ის მატარებლისთვის Bristol-მდე. პირველი კლასი უკანა ვაგონშია."}},
+ {k:'B',ic:'⏱️',hl:["This train is delayed by approximately 8 minutes."],
+  t:"This is a platform announcement for passengers for the 12.20 service to Bristol Temple Meads. This train is delayed by approximately 8 minutes. The train will now depart from Platform 9. Passengers for the 12.20 train to Bristol, please make your way to Platform 9.",
+  tr:{de:"Dies ist eine Bahnsteigdurchsage für Fahrgäste des Zuges um 12:20 Uhr nach Bristol Temple Meads. Dieser Zug hat etwa 8 Minuten Verspätung. Der Zug fährt jetzt von Gleis 9 ab. Fahrgäste für den Zug um 12:20 nach Bristol, bitte gehen Sie zu Gleis 9.",
+   ar:"هذا إعلان على الرصيف للمسافرين على قطار الساعة 12:20 إلى Bristol Temple Meads. هذا القطار متأخّر حوالي 8 دقائق. سيغادر القطار الآن من الرصيف 9. المسافرون على قطار 12:20 إلى Bristol، يُرجى التوجّه إلى الرصيف 9.",
+   ka:"ეს არის ბაქნის განცხადება 12:20-ის მატარებლის მგზავრებისთვის Bristol Temple Meads-მდე. მატარებელი დაახლოებით 8 წუთით აგვიანებს. მატარებელი ახლა მე-9 ბაქნიდან გავა. 12:20-ის მატარებლის მგზავრებო Bristol-მდე, გთხოვთ, გადადით მე-9 ბაქანზე."}},
+ {k:'C',ic:'✈️',hl:["Passengers for Flight EB380"],
+  t:"Passengers for Flight EB380 to Paris please make your way to Gate 13 for boarding. Gate 13 for flight EB380 to Paris. Please have your passports and boarding passes ready. Your flight is ready to board.",
+  tr:{de:"Passagiere des Fluges EB380 nach Paris, bitte begeben Sie sich zum Einsteigen zu Gate 13. Gate 13 für Flug EB380 nach Paris. Bitte halten Sie Ihre Reisepässe und Bordkarten bereit. Ihr Flug ist bereit zum Einsteigen.",
+   ar:"المسافرون على الرحلة EB380 إلى باريس، يُرجى التوجّه إلى البوابة 13 للصعود إلى الطائرة. البوابة 13 للرحلة EB380 إلى باريس. يُرجى تجهيز جوازات السفر وبطاقات الصعود. رحلتكم جاهزة للصعود.",
+   ka:"EB380 რეისის მგზავრებო პარიზში, გთხოვთ, ჩასასხდომად მიბრძანდეთ მე-13 გეითთან. გეითი 13 რეისისთვის EB380 პარიზში. გთხოვთ, მოამზადოთ პასპორტები და ჩასხდომის ბარათები. თქვენი რეისი მზადაა ჩასხდომისთვის."}},
+ {k:'D',ic:'🚇',hl:["Upon arrival, the first set of doors will not open.","please move towards the rear doors to leave","Change here for Central Line, Circle Line, Hammersmith & City Line and Metropolitan Line and Main Line Suburban rail services.","This train terminates at Redbridge."],
+  t:"This is a London Underground service to Liverpool Street. The next station is Liverpool Street. Upon arrival, the first set of doors will not open. Customers in the first carriage, please move towards the rear doors to leave the train. The next station is Liverpool Street. Change here for Central Line, Circle Line, Hammersmith & City Line and Metropolitan Line and Main Line Suburban rail services. Please mind the gap between the train and the platform. This train terminates at Redbridge.",
+  tr:{de:"Dies ist eine U-Bahn nach Liverpool Street. Die nächste Station ist Liverpool Street. Bei der Ankunft öffnen sich die ersten Türen nicht. Fahrgäste im ersten Wagen, bitte gehen Sie zu den hinteren Türen, um auszusteigen. Die nächste Station ist Liverpool Street. Hier umsteigen in die Central Line, Circle Line, Hammersmith & City Line, Metropolitan Line und in die Vorortzüge. Bitte achten Sie auf den Spalt zwischen Zug und Bahnsteig. Dieser Zug endet in Redbridge.",
+   ar:"هذا قطار مترو لندن إلى Liverpool Street. المحطة التالية هي Liverpool Street. عند الوصول لن تُفتح المجموعة الأولى من الأبواب. الركّاب في العربة الأولى، يُرجى التحرّك نحو الأبواب الخلفية للنزول. المحطة التالية هي Liverpool Street. بدّلوا هنا إلى خطوط Central وCircle وHammersmith & City وMetropolitan وقطارات الضواحي. يُرجى الانتباه إلى الفجوة بين القطار والرصيف. ينتهي هذا القطار في Redbridge.",
+   ka:"ეს არის ლონდონის მეტროს მატარებელი Liverpool Street-მდე. შემდეგი სადგურია Liverpool Street. ჩასვლისას პირველი კარები არ გაიღება. პირველ ვაგონში მყოფო მგზავრებო, გთხოვთ, გადაინაცვლოთ უკანა კარებისკენ გასასვლელად. შემდეგი სადგურია Liverpool Street. აქ გადაჯდომა Central, Circle, Hammersmith & City, Metropolitan ხაზებზე და საგარეუბნო მატარებლებზე. გთხოვთ, ფრთხილად იყოთ მატარებელსა და ბაქანს შორის ღრიჭოსთან. ეს მატარებელი Redbridge-ში ამთავრებს მოძრაობას."}}
+];
+const ANN_Q = [
+ ['A','Which platform does the 12.20 to Bristol arrive at first?',['Platform 2','Platform 9','Platform 13']],
+ ['A','Where is first class?',['in the rear carriage','in the first carriage','in the middle of the train']],
+ ['A','How many stops does the train make before Bristol Temple Meads?',['3','2','8']],
+ ['B','How late is the train?',['about 8 minutes','about 12 minutes','about 20 minutes']],
+ ['B','What should passengers for Bristol do?',['go to Platform 9','wait on Platform 2','take a bus']],
+ ['C','Where is the flight going?',['Paris','Bristol','London']],
+ ['C','What do passengers need to have ready?',['passports and boarding passes','train tickets','their luggage']],
+ ['D','Which doors will NOT open at Liverpool Street?',['the first set of doors','the rear doors','all doors']],
+ ['D','Where does this train terminate (end)?',['Redbridge','Liverpool Street','Bristol Parkway']],
+ ['D','What does "mind the gap" mean?',['be careful of the space between train and platform','please stand in the middle','please wait for the next train']]
+];
+const ANN_PHR = [
+ ["calling at Reading, Oxford and Bristol Parkway",{de:'mit Halt in …',ar:'يتوقّف في …',ka:'გაჩერებებით …'}],
+ ["The train will now depart from Platform 9.",{de:'Der Zug fährt jetzt von Gleis 9 ab.',ar:'سيغادر القطار الآن من الرصيف 9.',ka:'მატარებელი ახლა მე-9 ბაქნიდან გავა.'}],
+ ["Please make your way to Gate 13.",{de:'Bitte gehen Sie zu Gate 13.',ar:'يُرجى التوجّه إلى البوابة 13.',ka:'გთხოვთ, მიბრძანდეთ მე-13 გეითთან.'}],
+ ["Please have your boarding passes ready.",{de:'Bitte halten Sie Ihre Bordkarten bereit.',ar:'يُرجى تجهيز بطاقات الصعود.',ka:'გთხოვთ, მოამზადოთ ჩასხდომის ბარათები.'}],
+ ["Change here for the Central Line.",{de:'Hier umsteigen in die Central Line.',ar:'بدّلوا هنا إلى خط Central.',ka:'აქ გადაჯდომა Central ხაზზე.'}],
+ ["Please mind the gap between the train and the platform.",{de:'Bitte achten Sie auf den Spalt zwischen Zug und Bahnsteig.',ar:'انتبهوا للفجوة بين القطار والرصيف.',ka:'ფრთხილად ღრიჭოსთან მატარებელსა და ბაქანს შორის.'}],
+ ["This train terminates at Redbridge.",{de:'Dieser Zug endet in Redbridge.',ar:'ينتهي هذا القطار في Redbridge.',ka:'ეს მატარებელი Redbridge-ში ამთავრებს მოძრაობას.'}]
+];
+let annShow = {}, annQ = null, annQs = {n:0, ok:0};
+function annU(k){ const l=ftfL(); return (ANN_UI[l]||ANN_UI.de)[k]||ANN_UI.de[k]; }
+function annSpk(t,slow){ if(!window.speechSynthesis) return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t); u.lang='en-GB'; u.rate=slow?0.65:0.88; u.pitch=0.95; try{ if(typeof ttsVoice!=='undefined'&&ttsVoice) u.voice=ttsVoice; }catch(e){} speechSynthesis.speak(u); }
+function annBtns(t){ return '<button class="tom-btn" onclick="annSpk(\''+ftfJs(t)+'\')">📢🔊</button><button class="tom-btn" onclick="annSpk(\''+ftfJs(t)+'\',1)">🐢</button>'; }
+function annMark(it){ let h=ftfEsc(it.t); it.hl.forEach(x=>{ h=h.split(ftfEsc(x)).join('<mark>'+ftfEsc(x)+'</mark>'); }); return h; }
+function annTrHtml(){
+  const d=ftfD(); let h='<div class="gram-note"'+d+'>'+annU('trN')+'</div>';
+  ANN_TR.forEach((it,i)=>{
+    h+='<div class="uhr-rule"><div style="display:flex;gap:8px;align-items:center"><b class="k" style="flex:1">'+it.ic+' '+it.k+'</b>'+annBtns(it.t)+'</div>';
+    if(annShow[i]){ h+='<div style="margin-top:6px;line-height:1.55">'+annMark(it)+'</div><details style="margin-top:6px"><summary class="tom-intro" style="cursor:pointer">'+annU('trans')+'</summary><div'+d+' style="color:var(--fg-muted)">'+ftfEsc(ftfTr(it.tr))+'</div></details>'; }
+    h+='<button class="uhr-go alt" onclick="annShow['+i+']=!annShow['+i+'];ftfUpd(\'ann-tr\',annTrHtml)">'+(annShow[i]?annU('hide'):annU('show'))+'</button></div>';
+  });
+  return h;
+}
+function annNewQ(){ const pool=ANN_Q.map((q,i)=>i).filter(i=>!annQ||i!==annQ.i); const i=pool[Math.floor(Math.random()*pool.length)]; const q=ANN_Q[i]; annQ={i,opts:tagShuffle(q[2].slice()),res:null,pick:null}; }
+function annQHtml(){
+  if(!annQ) annNewQ(); const d=ftfD(), q=ANN_Q[annQ.i];
+  let h='<div class="gram-note"'+d+'>'+annU('qN')+'</div><div class="tom-say"><div class="s" style="font-size:16px">'+q[0]+': '+ftfEsc(q[1])+'</div>'+annBtns(ANN_TR.find(x=>x.k===q[0]).t)+'</div><div class="tag-bpool">';
+  annQ.opts.forEach((o,j)=>{ const cls = annQ.res===null?'':(o===q[2][0]?' in':(annQ.pick===j?' bad':'')); h+='<button class="tag-chip'+cls+'" onclick="annPick('+j+')">'+ftfEsc(o)+'</button>'; });
+  h+='</div>';
+  if(annQ.res!==null){ h+='<div class="uhr-fb '+(annQ.res?'ok':'bad')+'"'+d+'>'+(annQ.res?annU('right'):annU('wrong')+' <b dir="ltr">'+ftfEsc(q[2][0])+'</b>')+'</div><button class="uhr-go" onclick="annNewQ();ftfUpd(\'ann-q\',annQHtml)">'+annU('next')+'</button>'; }
+  h+='<div class="tom-intro" style="margin-top:6px">⭐ '+annQs.ok+' / '+annQs.n+'</div>';
+  return h;
+}
+function annPick(j){ if(annQ.res!==null) return; annQ.pick=j; annQ.res=(annQ.opts[j]===ANN_Q[annQ.i][2][0]); annQs.n++; if(annQ.res) annQs.ok++; try{ if(annQs.ok>+(localStorage.getItem('ela_ann_best')||0)) localStorage.setItem('ela_ann_best',annQs.ok); }catch(e){} ftfUpd('ann-q',annQHtml); }
+function annPhrHtml(){ let h=''; ANN_PHR.forEach(p=>{ h+='<div class="tom-ex"><div class="e"><b>'+ftfEsc(p[0])+'</b><span'+ftfD()+'>'+ftfEsc(ftfTr(p[1]))+'</span></div>'+annBtns(p[0])+'</div>'; }); return h; }
+function annSolHtml(){
+  const d=ftfD(); let h='<div class="gram-note"'+d+'>'+annU('solN')+'</div>';
+  h+='<div class="uhr-rule"><b>'+annU('prep')+':</b> 1e · 2a · 3d · 4c · 5h · 6f · 7b · 8g</div>';
+  h+='<div class="uhr-rule"><b>'+annU('t1')+':</b> 1 False · 2 True · 3 True · 4 False · 5 False · 6 False · 7 True · 8 True</div>';
+  h+='<div class="uhr-rule"><b>'+annU('t2')+':</b> 1 → 3 · 2 → 8 · 3 → 9 · 4 → 13<div class="tom-intro"'+d+' style="margin-top:4px">'+annU('t2N')+'</div></div>';
+  return h;
+}
+function annWordsHtml(){
+  const d=ftfD(); let h='';
+  (typeof VOKABELN!=='undefined'?VOKABELN:[]).filter(v=>v.cat==='nov24c').forEach(v=>{
+    const tr = ftfL()==='ar'?(v.ta||v.t):(ftfL()==='ka'?(v.tka||v.t):v.t), ex=(v.ex||'').replace(/^"|"$/g,'');
+    h+='<div class="tom-ex"><div class="e"><b>'+ftfEsc(v.w)+'</b> <small class="tag-ph">'+ftfEsc(v.ph||'')+'</small><span'+d+'>'+ftfEsc(tr)+'</span><i>'+ftfEsc(ex)+'</i></div>'+ftfBtns(v.w.replace(/^to /,'')+'. '+ex)+'</div>';
+  });
+  return h+'<button class="uhr-go alt" onclick="spGoLink(\'vok:nov24c\')">'+annU('toVok')+'</button>';
+}
+function annRender(){
+  const box=document.getElementById('ann-box'); if(!box) return;
+  let h='<h3>'+annU('title')+'</h3><div class="tom-intro"'+ftfD()+'>'+annU('intro')+'</div>';
+  h+=ftfSec('a_w',annU('wordsT'),'<div id="ann-words">'+annWordsHtml()+'</div>');
+  h+=ftfSec('a_tr',annU('trT'),'<div id="ann-tr">'+annTrHtml()+'</div>');
+  h+=ftfSec('a_prep',ann2U('prepT'),'<div id="ann-prep">'+annPrepHtml()+'</div>');
+  h+=ftfSec('a_t1',ann2U('t1T'),'<div id="ann-t1">'+annT1Html()+'</div>');
+  h+=ftfSec('a_t2',ann2U('t2T'),'<div id="ann-t2">'+annT2Html()+'</div>');
+  h+=ftfSec('a_disc',ann2U('discT'),'<div id="ann-disc">'+annDiscHtml()+'</div>');
+  h+=ftfSec('a_q',annU('qT'),'<div id="ann-q">'+annQHtml()+'</div>');
+  h+=ftfSec('a_phr',annU('phrT'),'<div id="ann-phr">'+annPhrHtml()+'</div>');
+  h+=ftfSec('a_sol',annU('solT'),'<div id="ann-sol">'+annSolHtml()+'</div>');
+  box.innerHTML=h;
+}
+/* ---- Arbeitsblatt „Transport announcements“ (A2): Preparation, Task 1, Task 2, Discussion ---- */
+const ANN2_UI = {
+ de:{prepT:"🧩 Preparation task: Definitionen zuordnen",prepN:"Ordne die Definitionen (1–8) den <b>fett</b> gedruckten Wörtern in den Sätzen (a–h) zu. Am besten VOR dem Hören.",
+  t1T:"✅❌ Task 1: True or False?",t1N:"Hör die Durchsagen und tippe True oder False.",
+  t2T:"🔢 Task 2: Zahlen zuordnen",t2N:"Welche Zahl gehört zu welcher Information? (13 · 9 · 8 · 3)",
+  discT:"💬 Discussion: How often do you travel by plane or train?",discN:"Nützliche Wörter: <b>never · rarely · sometimes · often · once a year · twice a month · every day</b>",ph:"Deine Antwort …",
+  why:"Warum?"},
+ ar:{prepT:"🧩 مهمة التحضير: طابق التعريفات",prepN:"طابق التعريفات (1–8) مع الكلمات <b>الغامقة</b> في الجمل (a–h). الأفضل قبل الاستماع.",
+  t1T:"✅❌ المهمة 1: صحيح أم خطأ؟",t1N:"استمع إلى الإعلانات واضغط True أو False.",
+  t2T:"🔢 المهمة 2: طابق الأرقام",t2N:"أي رقم يناسب أي معلومة؟ (13 · 9 · 8 · 3)",
+  discT:"💬 نقاش: كم مرة تسافر بالطائرة أو القطار؟",discN:"كلمات مفيدة: <b>never · rarely · sometimes · often · once a year · twice a month · every day</b>",ph:"إجابتك …",
+  why:"لماذا؟"},
+ ka:{prepT:"🧩 მოსამზადებელი: დააკავშირე განმარტებები",prepN:"დააკავშირე განმარტებები (1–8) წინადადებების (a–h) <b>მუქ</b> სიტყვებთან. სჯობს მოსმენამდე.",
+  t1T:"✅❌ დავალება 1: სწორია თუ არა?",t1N:"მოუსმინე განცხადებებს და შეეხე True-ს ან False-ს.",
+  t2T:"🔢 დავალება 2: დააკავშირე რიცხვები",t2N:"რომელი რიცხვი რომელ ინფორმაციას ეკუთვნის? (13 · 9 · 8 · 3)",
+  discT:"💬 დისკუსია: რამდენად ხშირად მოგზაურობ თვითმფრინავით ან მატარებლით?",discN:"სასარგებლო სიტყვები: <b>never · rarely · sometimes · often · once a year · twice a month · every day</b>",ph:"შენი პასუხი …",
+  why:"რატომ?"}
+};
+function ann2U(k){ const l=ftfL(); return (ANN2_UI[l]||ANN2_UI.de)[k]||ANN2_UI.de[k]; }
+const ANN_DEF = ['train','a section of a train','to leave','to get on a plane, train or boat','to end','to be careful about','more or less','space'];
+const ANN_SENT = [['Move to the front of the ','carriage','.'],['','Approximately',' five minutes.'],['Your plane is ','boarding',' at Gate 1.'],['Your plane will ','depart',' soon.'],['Some ','rail',' services are delayed.'],['','Mind',' where you walk.'],['There is a ','gap',' between the platform and the train.'],['This train ','terminates',' here.']];
+const ANN_PREP_SOL = [4,0,3,2,7,5,1,6]; // 1e 2a 3d 4c 5h 6f 7b 8g
+const ANN_T1 = [["The Bristol train is at 20.12.",'F',"It's at 12.20, not 20.12."],["First class is at the back of the train.",'T',"First class is in the rear carriage."],["Passengers for Oxford are delayed by 8 minutes.",'T',"The Bristol train calls at Oxford and is delayed by about 8 minutes."],["The Paris flight is EV318.",'F',"It's flight EB380."],["People in the front of the train carriage can get out easily at Liverpool Street.",'F',"The first set of doors will not open."],["The back doors won't open.",'F',"The FIRST doors won't open – people must use the rear doors."],["Liverpool Street has lots of other underground lines.",'T',"Change here for Central, Circle, Hammersmith & City and Metropolitan Line."],["Redbridge is the last stop.",'T',"This train terminates at Redbridge."]];
+const ANN_T2 = [["The number of stops before Bristol Temple Meads.",'3'],["The number of minutes delay to the Bristol train.",'8'],["The new platform for the Bristol train.",'9'],["The gate for the Paris flight.",'13']];
+const ANN_DISC = [
+ ["I travel by train every day. I take the S-Bahn to my course.",{de:'Ich fahre jeden Tag Zug. Ich nehme die S-Bahn zu meinem Kurs.',ar:'أسافر بالقطار كل يوم. آخذ القطار إلى دورتي.',ka:'ყოველდღე მატარებლით დავდივარ. კურსზე S-Bahn-ით მივდივარ.'}],
+ ["I travel by plane about once a year, when I visit my family.",{de:'Ich fliege ungefähr einmal im Jahr, wenn ich meine Familie besuche.',ar:'أسافر بالطائرة حوالي مرة في السنة عندما أزور عائلتي.',ka:'თვითმფრინავით დაახლოებით წელიწადში ერთხელ ვმოგზაურობ, როცა ოჯახს ვსტუმრობ.'}],
+ ["I rarely travel by plane, because it's expensive.",{de:'Ich fliege selten, weil es teuer ist.',ar:'نادرًا ما أسافر بالطائرة لأنها مكلفة.',ka:'იშვიათად ვფრინავ, რადგან ძვირია.'}],
+ ["I prefer the train. It's more relaxing and I can read on the way.",{de:'Ich nehme lieber den Zug. Er ist entspannter und ich kann unterwegs lesen.',ar:'أفضّل القطار. إنه أكثر راحة وأستطيع القراءة في الطريق.',ka:'მატარებელი მირჩევნია. უფრო მშვიდია და გზაში კითხვა შემიძლია.'}],
+ ["Last year my train was delayed by two hours!",{de:'Letztes Jahr hatte mein Zug zwei Stunden Verspätung!',ar:'في العام الماضي تأخّر قطاري ساعتين!',ka:'შარშან ჩემი მატარებელი ორი საათით დაგვიანდა!'}]
+];
+let annP = {v:{},chk:false,show:false}, annT1 = {v:{},chk:false}, annT2 = {v:{},chk:false};
+function annCtl(st,id,fn,showable){ return '<div class="tag-fbar"><button class="uhr-go" onclick="'+st+'.chk=true;ftfUpd(\''+id+'\','+fn+')">'+mtgU('check')+'</button>'+(showable?'<button class="uhr-go alt" onclick="'+st+'.chk=true;'+st+'.show=true;ftfUpd(\''+id+'\','+fn+')">'+mtgU('sol')+'</button>':'')+'<button class="uhr-go alt" onclick="'+st+'={v:{},chk:false,show:false};ftfUpd(\''+id+'\','+fn+')">'+mtgU('reset')+'</button></div>'; }
+function annPrepHtml(){
+  const d=ftfD(); let h='<div class="gram-note"'+d+'>'+ann2U('prepN')+'</div><div class="uhr-rule">'+ANN_SENT.map((s,j)=>'<div><b>'+String.fromCharCode(97+j)+'.</b> '+ftfEsc(s[0])+'<b>'+ftfEsc(s[1])+'</b>'+ftfEsc(s[2])+'</div>').join('')+'</div>'; let n=0;
+  ANN_DEF.forEach((df,i)=>{ const v=annP.v[i], ok=v!==undefined&&v!==''&&+v===ANN_PREP_SOL[i]; if(ok) n++; const s=ANN_SENT[ANN_PREP_SOL[i]];
+    h+='<div class="uhr-rule"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b>'+(i+1)+'.</b> <span style="flex:1">'+ftfEsc(df)+'</span><select class="tag-gap'+(annP.chk?(ok?' ok':' bad'):'')+'" onchange="annP.v['+i+']=this.value"><option value="">…</option>'+ANN_SENT.map((x,j)=>'<option value="'+j+'"'+(v!==undefined&&v!==''&&+v===j?' selected':'')+'>'+String.fromCharCode(97+j)+') '+ftfEsc(x[1])+'</option>').join('')+'</select>'+(annP.chk?(ok?' ✅':' ❌'):'')+'</div>';
+    if(ok||annP.show) h+='<div class="tom-ex"><div class="e"><b>'+ftfEsc(s[1].toLowerCase())+'</b> = '+ftfEsc(df)+'<i>'+ftfEsc(s.join(''))+'</i></div>'+ftfBtns(s.join(''))+'</div>';
+    h+='</div>'; });
+  h+=annCtl('annP','ann-prep','annPrepHtml',true);
+  if(annP.chk) h+='<div class="uhr-fb '+(n===8?'ok':'bad')+'"'+d+'>'+mtgU('res')+': '+n+' / 8</div>';
+  return h;
+}
+function annT1Html(){
+  const d=ftfD(); let h='<div class="gram-note"'+d+'>'+ann2U('t1N')+'</div>'; let n=0;
+  ANN_T1.forEach((it,i)=>{ const v=annT1.v[i], ok=v===it[1]; if(ok) n++;
+    h+='<div class="uhr-rule"><div style="display:flex;gap:8px;align-items:flex-start"><div style="flex:1"><b>'+(i+1)+'.</b> '+ftfEsc(it[0])+(annT1.chk?(ok?' ✅':' ❌'):'')+'</div>'+ftfBtns(it[0])+'</div><div class="tag-bpool">'+[['T','True'],['F','False']].map(x=>'<button class="tag-chip'+(v===x[0]?' in':'')+'" onclick="annT1.v['+i+']=\''+x[0]+'\';ftfUpd(\'ann-t1\',annT1Html)">'+x[1]+'</button>').join('')+'</div>';
+    if(annT1.chk) h+='<div class="tom-intro">'+(it[1]==='T'?'True':'False')+' – '+ftfEsc(it[2])+'</div>';
+    h+='</div>'; });
+  h+=annCtl('annT1','ann-t1','annT1Html',false);
+  if(annT1.chk) h+='<div class="uhr-fb '+(n===8?'ok':'bad')+'"'+d+'>'+mtgU('res')+': '+n+' / 8</div>';
+  return h;
+}
+function annT2Html(){
+  const d=ftfD(); let h='<div class="gram-note"'+d+'>'+ann2U('t2N')+'</div>'; let n=0;
+  ANN_T2.forEach((it,i)=>{ const v=annT2.v[i], ok=v===it[1]; if(ok) n++;
+    h+='<div class="uhr-rule"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b>'+(i+1)+'.</b> <span style="flex:1">'+ftfEsc(it[0])+'</span>'+(annT2.chk?(ok?' ✅':' ❌ → '+it[1]):'')+'</div><div class="tag-bpool">'+['13','9','8','3'].map(x=>'<button class="tag-chip'+(v===x?' in':'')+'" onclick="annT2.v['+i+']=\''+x+'\';ftfUpd(\'ann-t2\',annT2Html)">'+x+'</button>').join('')+'</div></div>'; });
+  h+=annCtl('annT2','ann-t2','annT2Html',false);
+  if(annT2.chk) h+='<div class="uhr-fb '+(n===4?'ok':'bad')+'"'+d+'>'+mtgU('res')+': '+n+' / 4</div>';
+  return h;
+}
+function annDiscHtml(){
+  const d=ftfD(), nt=mtgStore().notes||{}; let h='<div class="gram-note"'+d+'>'+ann2U('discN')+'</div>';
+  ANN_DISC.forEach(e=>{ h+=ftfLine(e[0],e[1]); });
+  h+='<textarea id="ann-disc-mine" class="tag-gap" style="width:100%;min-height:60px;margin-top:8px" placeholder="'+ftfEsc(ann2U('ph'))+'" onchange="mtgNote(\'ann_disc\',this.value)">'+ftfEsc(nt['ann_disc']||'')+'</textarea><button class="uhr-go alt" onclick="const t=document.getElementById(\'ann-disc-mine\').value.trim();if(t)ftfSpk(t)">🔊</button>';
+  return h;
+}
+
+if (document.readyState !== 'loading') annRender(); else document.addEventListener('DOMContentLoaded', annRender);
 </script>
