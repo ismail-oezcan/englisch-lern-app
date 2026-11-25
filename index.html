@@ -3426,7 +3426,9 @@ function setLang(lang) {
 /* ========== NAV ========== */
 const SCREEN_ORDER = ['home','vokabeln','grammatik','challenge','stundenplan','hausaufgaben','praesi','links','translator','pruefung','pinnwand'];
 
+var ELA_BOOT_LANG=(function(){ try{ return localStorage.getItem('ela_lang')||'de'; }catch(e){ return 'de'; } })();
 function go(name) {
+  try{ var _cl=localStorage.getItem('ela_lang')||'de'; if(_cl!==ELA_BOOT_LANG){ ELA_BOOT_LANG=_cl; sessionStorage.setItem('ela_skip_pick','1'); sessionStorage.setItem('ela_go',name); location.reload(); return; } }catch(e){}
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nb').forEach(b => b.classList.remove('active'));
   document.getElementById('sc-' + name).classList.add('active');
@@ -5702,6 +5704,10 @@ function loadHW() {
     const saved = localStorage.getItem(HW_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
+      // Reparatur: falls übersetzter Text gespeichert wurde -> deutsches Original
+      try { let fixed=false; const tv=new Set(); Object.keys(LT_D).forEach(k=>LT_D[k].forEach(v=>{ if(v) tv.add(v); }));
+        parsed.forEach(h=>{ const d=HW_DEFAULT.find(x=>x.id===h.id); ['uebung','notiz','erklaerung'].forEach(f=>{ if(h[f]&&tv.has(h[f])&&!(f in LT_D&&false)){ const orig=d&&d[f]!=null?d[f]:Object.keys(LT_D).find(k=>LT_D[k].indexOf(h[f])>=0); if(orig&&orig!==h[f]){ h[f]=orig; fixed=true; } } }); });
+        if(fixed) localStorage.setItem(HW_KEY, JSON.stringify(parsed)); } catch(e) {}
       // Fehlende Default-Einträge ergänzen
       const existingIds = new Set(parsed.map(h => h.id));
       const missing = HW_DEFAULT.filter(h => !existingIds.has(h.id));
@@ -5897,6 +5903,7 @@ spShowView('cal');
 spCheckPrefillBanner();
 initHausaufgaben();
 renderLinks();
+try{ var _g=sessionStorage.getItem('ela_go'); if(_g){ sessionStorage.removeItem('ela_go'); if(document.getElementById('sc-'+_g)) setTimeout(function(){ go(_g); },0); } }catch(e){}
 // initPDFs wird nach pdf.js-Laden aufgerufen (siehe Script-Tag unten)
 
 // Kursende-Display im Stundenplan initial setzen
@@ -9735,7 +9742,7 @@ var I18N_D={"🔤 Unregelmäßige Verben":["🔤 الأفعال الشاذة", "
   }
   window.i18nApply=function(){ run(document.body); if(obs) obs.takeRecords(); };
   window.i18nOrig=function(el){ return el?(el.getAttribute('data-i18n-o')||el.textContent):''; };
-  if(typeof setLang==='function'){ var _sl=setLang; window.setLang=setLang=function(x){ var _old='de'; try{ _old=localStorage.getItem('ela_lang')||'de'; }catch(e){} _sl(x); if(_old!==x){ try{ sessionStorage.setItem('ela_skip_pick','1'); location.reload(); return; }catch(e){} } ['renderGram','tomRender','uhrRender','tagRender','vfRender','ftfRender','mtgRender','annRender','dirRender','heuteRender'].forEach(function(f){ try{ if(typeof window[f]==='function') window[f](); }catch(e){} }); window.i18nApply(); }; }
+  if(typeof setLang==='function'){ var _sl=setLang; window.setLang=setLang=function(x){ var _old='de'; try{ _old=localStorage.getItem('ela_lang')||'de'; }catch(e){} _sl(x); if(_old!==x){ try{ sessionStorage.setItem('ela_skip_pick','1'); location.reload(); return; }catch(e){} } ['renderGram','tomRender','uhrRender','tagRender','vfRender','ftfRender','mtgRender','annRender','dirRender','heuteRender','renderHW','renderLinks'].forEach(function(f){ try{ if(typeof window[f]==='function') window[f](); }catch(e){} }); window.i18nApply(); }; }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start); else start();
 })();
 </script>
