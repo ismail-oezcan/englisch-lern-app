@@ -282,6 +282,7 @@ html,body{height:100%;width:100%;margin:0;padding:0;font-family:var(--font);font
 .uhr-svg.big{width:100%;max-width:300px}
 .uhr-svg:not(.big){width:110px;flex:none}
 .uhr-past{fill:rgba(22,163,74,.13)}.uhr-to{fill:rgba(234,88,12,.13)}
+.uhr-face{fill:transparent;transition:fill .5s}.uhr-svg.pm .uhr-face{fill:rgba(30,27,75,.22)}.uhr-apb rect{fill:#fef3c7;stroke:#f59e0b;stroke-width:1.5;transition:fill .5s}.uhr-apb text{fill:#92400e;font-weight:800;font-family:var(--font)}.uhr-svg.pm .uhr-apb rect{fill:#312e81;stroke:#312e81}.uhr-svg.pm .uhr-apb text{fill:#fff}
 .uhr-ring{fill:none;stroke:var(--fg);stroke-width:3}
 .uhr-tick{stroke:var(--fg-muted);stroke-width:1}.uhr-tick.l{stroke:var(--fg);stroke-width:2.2}
 .uhr-num{fill:var(--fg);font-weight:800;font-family:var(--font)}
@@ -8853,11 +8854,13 @@ function uhrPart(h,m){
 function uhrPartIcon(h){ return (h>=6&&h<18)?'☀️':(h>=18&&h<22?'🌆':'🌙'); }
 
 // eigene Uhr als SVG
-function uhrClock(h,m,big){
+function uhrClock(h,m,big,noAP){
   const S=big?300:120, c=S/2, R=big?108:54;
   const P=(deg,r)=>{const a=(deg-90)*Math.PI/180;return [c+r*Math.cos(a), c+r*Math.sin(a)];};
   const f=x=>x.toFixed(1);
-  let s='<svg viewBox="0 0 '+S+' '+S+'" class="uhr-svg'+(big?' big':'')+'" data-c="'+c+'" role="img" aria-label="'+uhrDig(h,m)+'">';
+  const pm=((h%24)+24)%24>=12;
+  let s='<svg viewBox="0 0 '+S+' '+S+'" class="uhr-svg'+(big?' big':'')+(noAP?'':(pm?' pm':' am'))+'" data-c="'+c+'" role="img" aria-label="'+uhrDig(h,m)+'">';
+  s+='<circle cx="'+c+'" cy="'+c+'" r="'+R+'" class="uhr-face"/>';
   // Hälften: rechts past (grün), links to (orange)
   const t1=P(0,R), b1=P(180,R);
   s+='<path d="M'+c+' '+c+' L'+f(t1[0])+' '+f(t1[1])+' A'+R+' '+R+' 0 0 1 '+f(b1[0])+' '+f(b1[1])+' Z" class="uhr-past"/>';
@@ -8887,6 +8890,9 @@ function uhrClock(h,m,big){
     s+='<text x="'+(S-6)+'" y="'+c+'" class="uhr-out p" text-anchor="end" dominant-baseline="central">past</text>';
     s+='<text x="6" y="'+c+'" class="uhr-out t" text-anchor="start" dominant-baseline="central">to</text>';
   }
+  // AM ☀ / PM 🌙 Schild (26.11.) – wird beim Drehen in uhrSetHands mitgeändert
+  if(!noAP){ const bw=big?66:36, bh=big?24:14, by=c+R*0.38;
+    s+='<g class="uhr-apb"><rect x="'+f(c-bw/2)+'" y="'+f(by-bh/2)+'" width="'+bw+'" height="'+bh+'" rx="'+(bh/2)+'"/><text x="'+c+'" y="'+f(by)+'" text-anchor="middle" dominant-baseline="central" font-size="'+(big?14:8)+'">'+(pm?'🌙 PM':'☀ AM')+'</text></g>'; }
   // Zeiger
   const ha=((h%12)+m/60)*30, ma=m*6;
   s+='<line x1="'+c+'" y1="'+c+'" x2="'+c+'" y2="'+f(c-R*0.5)+'" transform="rotate('+f(ha)+' '+c+' '+c+')" class="uhr-hh" stroke-width="'+(big?7:4.5)+'"/>';
@@ -8911,7 +8917,7 @@ function uhrRender(){
   // Beispiele
   h+='<details class="uhr-sec"><summary>'+uhrU('exT')+'</summary><div class="uhr-exgrid">';
   UHR_EX.forEach(e=>{ const a=uhrSay(e[0],e[1]), b=uhrSay2(e[0],e[1]);
-    h+='<div class="uhr-excard">'+uhrClock(e[0],e[1],false)+'<div class="uhr-exr"><div class="uhr-dg">'+uhrDig(e[0],e[1])+'</div><div class="s">'+uhrEsc(a)+'</div><div class="s2">('+uhrEsc(b.replace("It's ",'').replace('.',''))+')</div><div class="tom-btns">'+uhrSpkBtns(a)+'</div></div></div>'; });
+    h+='<div class="uhr-excard">'+uhrClock(e[0],e[1],false,true)+'<div class="uhr-exr"><div class="uhr-dg">'+uhrDig(e[0],e[1])+'</div><div class="s">'+uhrEsc(a)+'</div><div class="s2">('+uhrEsc(b.replace("It's ",'').replace('.',''))+')</div><div class="tom-btns">'+uhrSpkBtns(a)+'</div></div></div>'; });
   h+='</div></details>';
   // AM/PM
   h+='<details class="uhr-sec"><summary>'+uhrU('ampmT')+'</summary>'+uhrDayline();
@@ -9426,6 +9432,8 @@ function uhrSetHands(svg,t){
   const ha=((t/60)%12)*30, ma=(t%60)*6;
   hh.setAttribute('transform','rotate('+ha.toFixed(2)+' '+c+' '+c+')');
   mh.setAttribute('transform','rotate('+ma.toFixed(2)+' '+c+' '+c+')');
+  if(svg.classList.contains('am')||svg.classList.contains('pm')){ const pm=Math.floor((((t%1440)+1440)%1440)/60)>=12;
+    svg.classList.toggle('pm',pm); svg.classList.toggle('am',!pm); const tx=svg.querySelector('.uhr-apb text'); if(tx){ const v=pm?'🌙 PM':'☀ AM'; if(tx.textContent!==v) tx.textContent=v; } }
 }
 /* Uhr von fromT nach toT drehen (kürzester Weg, max. 12 h) */
 function uhrAnim(svg,fromT,toT,dur){
