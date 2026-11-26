@@ -5975,7 +5975,7 @@ const HW_DEFAULT = [
   {id:'hw35', datum:'2026-11-25', uebung:'HW: Past Simple vs Present Perfect – Mixed Practice (21 Sätze)', notiz:'Arbeitsblatt vom 25.11. · Hier direkt ausfüllen und prüfen · Mehr Erklärung: Grammatik → 🔧 Verben', done:false, extra:'hwppHtml', links:[['gram:gs4','🔧 Verben (Tafel 25.11.)']],
    erklaerung:'Easy Rule: Past Simple = Wann? (abgeschlossene Zeit: yesterday, last week, in 2019, two years ago). Present Perfect = Erfahrung oder heute noch wahr (ever, never, before, for, since, How long …?). Present Perfect = have/has + V3.',
    beispiele:[{en:'I saw that film last weekend.',de:'Ich habe den Film letztes Wochenende gesehen. (wann? → Past Simple)'},{en:'I have seen that film.',de:'Ich habe den Film (schon) gesehen. (Erfahrung → Present Perfect)'},{en:'I have lived here for five years.',de:'Ich wohne seit fünf Jahren hier. (stimmt noch heute)'}]},
-  {id:'hw36', datum:'2026-11-25', uebung:'HW: Writing – A professional profile (Task 1–3) + Kursbuch: a personal profile (9A–10C)', notiz:'Arbeitsblatt + Kursbuch vom 25.11., besprochen am 26.11. · Hier direkt ausfüllen und prüfen · 10C (eigenes Profil) laut Notiz für nächste Woche', done:false, extra:'hwprofHtml', links:[['vok:nov25d','💼 Vokabeln Professional profile']],
+  {id:'hw36', datum:'2026-11-26', uebung:'HW: Writing – A professional profile (Task 1–3) + Kursbuch: a personal profile (9A–10C)', notiz:'Arbeitsblatt + Kursbuch vom 25.11., besprochen am 26.11. · Hier direkt ausfüllen und prüfen · 10C (eigenes Profil) laut Notiz für nächste Woche', done:false, extra:'hwprofHtml', links:[['vok:nov25d','💼 Vokabeln Professional profile']],
    erklaerung:'Ein berufliches Profil (z. B. LinkedIn) ist kurz, klar und überzeugend: Name + Berufsbezeichnung, kurze Zusammenfassung (Summary), dann Erfahrung (Experience) – neueste Stelle zuerst. Typische Wendungen: I have held various roles in … · I currently lead … · I was responsible for + -ing · to drive engagement · to build brand loyalty · to promote brand awareness. Verbindungswörter: because (Grund), as well as / too / also (ähnliche Idee), for example (Beispiel).',
    beispiele:[{en:'I am currently an editor.',de:'Ich bin zurzeit Redakteur. (am + an vor Vokal)'},{en:"I'm responsible for managing book projects.",de:'Ich bin verantwortlich für die Verwaltung von Buchprojekten. (responsible for + -ing)'},{en:'I enjoy city scenes and travel photography, too.',de:'Ich fotografiere Stadtszenen und mache auch Reisefotografie. (too am Satzende)'}]},
 ];
@@ -5990,7 +5990,7 @@ function loadHW() {
         parsed.forEach(h=>{ const d=HW_DEFAULT.find(x=>x.id===h.id); ['uebung','notiz','erklaerung'].forEach(f=>{ if(h[f]&&tv.has(h[f])&&!(f in LT_D&&false)){ const orig=d&&d[f]!=null?d[f]:Object.keys(LT_D).find(k=>LT_D[k].indexOf(h[f])>=0); if(orig&&orig!==h[f]){ h[f]=orig; fixed=true; } } }); });
         if(fixed) localStorage.setItem(HW_KEY, JSON.stringify(parsed)); } catch(e) {}
       // 26.11.: Notiz hw33 zeigt jetzt auf Vokabeln → Unregelmäßige Verben
-      parsed.forEach(h=>{ if(h.id==='hw33'){ const d=HW_DEFAULT.find(x=>x.id==='hw33'); if(d) h.notiz=d.notiz; } });
+      parsed.forEach(h=>{ if(h.id==='hw33'){ const d=HW_DEFAULT.find(x=>x.id==='hw33'); if(d) h.notiz=d.notiz; } if(h.id==='hw36') h.datum='2026-11-26'; });
       // Fehlende Default-Einträge ergänzen
       const existingIds = new Set(parsed.map(h => h.id));
       const missing = HW_DEFAULT.filter(h => !existingIds.has(h.id));
@@ -6282,7 +6282,8 @@ function docRender(){ const b=document.getElementById('doc-box'); if(b) b.innerH
 function renderHW() {
   const list = loadHW();
   // Sortiert: neueste zuerst
-  list.sort((a, b) => b.datum.localeCompare(a.datum));
+  const hwN = h => { const m = String(h.id||'').match(/(\d+)$/); return m ? +m[1] : 0; };
+  list.sort((a, b) => b.datum.localeCompare(a.datum) || hwN(b) - hwN(a));
   const done = list.filter(h => h.done).length;
   const open = list.filter(h => !h.done).length;
   document.getElementById('hw-count-done').textContent = done;
