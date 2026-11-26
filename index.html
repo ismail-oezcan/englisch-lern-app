@@ -961,7 +961,7 @@ select.kx-in{margin-left:4px}
           </tbody>
         </table></div>
       </div>
-      <button class="uhr-go alt" style="width:100%;margin:4px 0 12px" onclick="spGoLink('verb:irr')">🔤 Unregelmäßige Verben (V1 · V2 · V3) → Vokabeln</button><button class="uhr-go alt" style="width:100%;margin:0 0 12px" onclick="openGramRef('gs4')">📏 -ed-Regeln, for / since, Experiences → Grammatik › Verben</button>
+      <button class="uhr-go alt" style="width:100%;margin:4px 0 12px" onclick="openGramRef('gs4')">📏 -ed-Regeln, for / since, Experiences → Grammatik › Verben</button>
       <div class="gram-note"><strong>Typische Fehler:</strong> ❌ I m reading → ✅ I'm reading · "I" immer groß, Nomen klein (a book, football) · ❌ She didn't went → ✅ She didn't go · ❌ Have you seen it yesterday? → ✅ Did you see it yesterday? · enjoy + -ing: ✅ I'm enjoying playing football.</div>
       </details>
     </div>
@@ -7598,8 +7598,6 @@ function vfListFilter(v){ vfListQ=v; const el=document.getElementById('vf-list')
 function vfRender(){
   const box=document.getElementById('vf-box'); if(!box) return; const d=tagD();
   let h='<h3>'+vfU('title')+'</h3><div class="tom-intro"'+d+'>'+vfU('intro')+'</div>';
-  // 26.11.: Verblisten nur noch im Vokabel-Trainer (keine doppelte Liste hier) – hier nur Knöpfe dorthin
-  h+='<div class="uhr-sec" style="padding:10px 12px"><div class="tom-intro"'+d+'>📋 Die Verblisten (regelmäßig und unregelmäßig, V1 · V2 · V3, mit Suche und 🔊) findest du unter Vokabeln:</div><button class="uhr-go" style="width:100%;margin:6px 0" onclick="spGoLink(\'verb:irr\')">🔤 Unregelmäßige Verben</button><button class="uhr-go alt" style="width:100%;margin:0" onclick="spGoLink(\'verb:reg\')">🔡 Regelmäßige Verben</button></div>';
   h+='<div class="tom-intro"'+d+'>'+vfU('note')+'</div>';
   h+='<details class="uhr-sec"><summary'+d+'>'+vfU('rulesT')+'</summary>';
   VF_RULES.forEach(r=>{ h+='<div class="uhr-rule"><div'+d+'>'+tagEsc(vfTr(r[1]))+'</div><div class="uhr-eg">'+tagEsc(r[0])+'</div> '+tagBtns(r[0].replace(' → ',', '))+'</div>'; });
