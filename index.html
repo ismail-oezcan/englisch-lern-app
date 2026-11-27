@@ -7195,7 +7195,7 @@ function nyRender(){ const b=document.getElementById('ny-box'); if(b) b.innerHTM
 
 /* ---------- 27.11.: Präpositionen (Grammatik-Karte, extra prepHtml), Meetings Work skills (in mtgRender), Speaking Test Part One (ks-spk) ---------- */
 const KX_PREP=[{"id": "pp1", "t": "sel", "title": "🧩 Übung 1: Zeit – in, at oder on?", "q": "Wähle die richtige Präposition.", "opts": ["in", "at", "on"], "items": [{"s": "___ 7 o'clock", "a": ["at"], "why": "clock time"}, {"s": "___ the weekend", "a": ["at"], "why": "British English"}, {"s": "___ night", "a": ["at"]}, {"s": "___ midnight", "a": ["at"]}, {"s": "___ Christmas", "a": ["at"], "why": "the holiday period"}, {"s": "___ Christmas Day", "a": ["on"], "why": "one day"}, {"s": "___ the morning", "a": ["in"]}, {"s": "___ January", "a": ["in"]}, {"s": "___ 2026", "a": ["in"]}, {"s": "___ (the) summer", "a": ["in"]}, {"s": "___ ten minutes", "a": ["in"]}, {"s": "___ Monday morning", "a": ["on"], "why": "day + morning → on"}, {"s": "___ the 27th of November", "a": ["on"]}, {"s": "___ my birthday", "a": ["on"]}]}, {"id": "pp2", "t": "sel", "title": "🧩 Übung 2: Ort – in, at oder on?", "q": "Wähle die richtige Präposition.", "opts": ["in", "at", "on"], "items": [{"s": "The laptop is ___ the desk.", "a": ["on"], "why": "surface"}, {"s": "There is a clock ___ the wall.", "a": ["on"]}, {"s": "I read the news ___ the train.", "a": ["on"], "why": "public transport"}, {"s": "We had lunch ___ the beach.", "a": ["on"]}, {"s": "The bank is ___ the left.", "a": ["on"]}, {"s": "My bag is ___ the car.", "a": ["in"], "why": "enclosed space"}, {"s": "Kayseri is ___ Turkey.", "a": ["in"], "why": "country"}, {"s": "I found this word ___ a book.", "a": ["in"]}, {"s": "My father is ___ the hospital.", "a": ["at"], "why": "specific place"}, {"s": "I work ___ home on Fridays.", "a": ["at"]}, {"s": "I was ___ the doctor's this morning.", "a": ["at"]}, {"s": "Let's meet ___ the cinema.", "a": ["at"]}]}, {"id": "pp3", "t": "sel", "title": "➡️ Übung 3: to oder nichts (—)?", "q": "Brauchst du „to“? Wenn nicht, wähle —.", "opts": ["to", "—"], "items": [{"s": "I go ___ work by bus.", "a": ["to"], "why": "direction"}, {"s": "I'm tired. I'm going ___ home.", "a": ["—"], "why": "go home – no 'to'!"}, {"s": "Please give the keys ___ Anna.", "a": ["to"], "why": "receiver"}, {"s": "I'm learning English ___ get a better job.", "a": ["to"], "why": "to + infinitive = purpose"}, {"s": "The shop is open from 9 ___ 6.", "a": ["to"], "why": "from … to"}, {"s": "Let's meet ___ next Monday.", "a": ["—"], "why": "no preposition before next / last / this / every"}, {"s": "We are flying ___ London tomorrow.", "a": ["to"]}, {"s": "I'll call you ___ tomorrow.", "a": ["—"]}], "links": [["kurs:dir", "🧭 Mehr zum Ort: Giving directions (behind, next to …)"]]}];
-function prepHtml(){ return kxHtml(KX_PREP); }
+function prepHtml(){ const b=(typeof tpU==='function')?tpU('card'):'▶ Mit Tom ansehen (Animation)'; return '<div style="margin:8px 0 12px"><button class="tom-chip on" style="font-size:15px" onclick="event.stopPropagation();tpGoTom()">🧍 '+b+'</button></div>'+kxHtml(KX_PREP); }
 const KX_MTGWS=[{"id": "mws1", "t": "sel", "title": "1 – Stages of a meeting (Ablauf eines Meetings)", "q": "Welcher Satz (a–l) passt zu welcher Phase? Phase 1 ist das Beispiel (0).", "legend": [["0", "Good morning, everyone."], ["a", "Could everyone check their sales figures after the meeting and get back to me?"], ["b", "The first item on the agenda is 'Sales trends in Europe'."], ["c", "The main aim today is to review our recent sales performance."], ["d", "Has anyone got any questions?"], ["e", "Gina, would you like to talk about Italy?"], ["f", "Shall we make a start?"], ["g", "We meet again at the same time next week."], ["h", "Thank you very much for your ideas and suggestions."], ["i", "The last item for today is …"], ["j", "That's all for today, I think."], ["k", "Let's introduce ourselves."], ["l", "So let's move on to the next item on the agenda."]], "opts": ["0", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"], "items": [{"s": "Welcoming", "a": ["0"]}, {"s": "Introductions", "a": ["k"]}, {"s": "Starting the meeting", "a": ["f"]}, {"s": "Stating the aim of the meeting", "a": ["c"]}, {"s": "Introducing the first agenda item", "a": ["b"]}, {"s": "Asking people to contribute", "a": ["e"]}, {"s": "Moving to a new item", "a": ["l"]}, {"s": "Introducing the final agenda item", "a": ["i"]}, {"s": "Asking for questions", "a": ["d"]}, {"s": "Confirming action points", "a": ["a"]}, {"s": "Thanking people", "a": ["h"]}, {"s": "Finishing the meeting", "a": ["j"]}, {"s": "Confirming date of next meeting", "a": ["g"]}]}, {"id": "mws2", "t": "lang", "title": "🗣️ Die Sätze für jede Phase (zum Anhören)", "groups": [["Begrüßen und vorstellen", ["Good morning, everyone.", "Let's introduce ourselves."]], ["Beginnen und Ziel nennen", ["Shall we make a start?", "The main aim today is to review our recent sales performance."]], ["Durch die Tagesordnung führen", ["The first item on the agenda is 'Sales trends in Europe'.", "Gina, would you like to talk about Italy?", "So let's move on to the next item on the agenda.", "The last item for today is …"]], ["Fragen und Aufgaben", ["Has anyone got any questions?", "Could everyone check their sales figures after the meeting and get back to me?"]], ["Danken und beenden", ["Thank you very much for your ideas and suggestions.", "That's all for today, I think.", "We meet again at the same time next week."]]], "tip": "Übung 2 ist eine Hörübung (Audio 4.6) – das Audio gibt es nur im Kurs. Die Reihenfolge im Meeting ist 1 bis 13."}, {"id": "mwt1", "t": "mc", "title": "2 – Turn-taking: Was machst du, wenn du etwas sagen willst?", "q": "Du bist in einem Meeting und willst etwas sagen. Machst du das (Do) oder nicht (Don't)?", "items": [{"s": "put your hand up", "o": ["Do", "Don't"], "a": 0, "why": "OK – short and polite (in a big meeting)"}, {"s": "stand up", "o": ["Do", "Don't"], "a": 1}, {"s": "cough", "o": ["Do", "Don't"], "a": 1, "why": "not polite – say 'Excuse me …' instead"}, {"s": "point at someone", "o": ["Do", "Don't"], "a": 1, "why": "rude"}, {"s": "make eye contact with the person who is speaking", "o": ["Do", "Don't"], "a": 0}, {"s": "wait until you are asked", "o": ["Do", "Don't"], "a": 0, "why": "polite – or use 'Could I just say …?'"}]}, {"id": "mwt2", "t": "lang", "title": "🎧 Turn-taking / Interrupting (Audio 8.6)", "groups": [["Das Wort ergreifen und unterbrechen", ["May I?", "Sorry …", "Excuse me …", "Sorry to interrupt, but …", "Could I just say …", "I'd just like to …"]]], "tip": "Die Häkchen (Hörübung) gibt es nur mit dem Audio im Kurs. Lerne alle Ausdrücke – sie sind alle höflich."}, {"id": "mwt3", "t": "note", "title": "3 – Du leitest das Meeting", "q": "Wie lässt du andere sprechen – und wie stoppst du jemanden, der zu viel redet?", "fields": [{"q": "Let other people speak:"}, {"q": "Stop people from talking too much:"}], "model": "<b>Let people speak:</b> Paula, what do you think? · Any comments, Karl? · How about you, Ted? · John?<br><b>Stop someone politely:</b> Sorry, Charles, could you let Paula finish? · Thank you, Charles. Let's hear from Paula now."}, {"id": "mwt4", "t": "lang", "title": "🎧 Turn-giving (Audio 8.7)", "groups": [["Das Wort geben", ["Paula, what do you think?", "Any comments, Karl?", "How about you, Ted?", "John?", "Sorry, Charles, could you let Paula finish?"]]]}, {"id": "mwtq", "t": "mc", "title": "✅ Kurztest: Was sagst du?", "q": "Wähle den passenden Satz.", "items": [{"s": "You want to say something, but Tom is still speaking.", "o": ["Stop talking, Tom!", "Sorry to interrupt, but …", "Be quiet, please."], "a": 1}, {"s": "You lead the meeting. Paula hasn't said anything yet.", "o": ["Why are you so quiet?", "Paula, talk now.", "Paula, what do you think?"], "a": 2}, {"s": "Charles talks too much and doesn't let Paula finish.", "o": ["Sorry, Charles, could you let Paula finish?", "Charles, that's enough!", "Paula, stop."], "a": 0}, {"s": "You want to start the meeting.", "o": ["That's all for today.", "Shall we make a start?", "Any comments, Karl?"], "a": 1}, {"s": "You want to end the meeting.", "o": ["The first item on the agenda is …", "Let's introduce ourselves.", "That's all for today, I think."], "a": 2}, {"s": "You want to add a small point.", "o": ["I'd just like to add …", "I want to talk now.", "Wait!"], "a": 0}, {"s": "You want everyone to do something after the meeting.", "o": ["Has anyone got any questions?", "Could everyone check their sales figures and get back to me?", "We meet again next week."], "a": 1}]}, {"id": "mwt5", "t": "note", "title": "5 – Diskussion: Rules in the workplace", "q": "Eine Person leitet, alle sprechen abwechselnd, alle dürfen unterbrechen. Benutze die Ausdrücke aus 2 und 4.", "fields": [{"q": "My opinion about rules in the workplace:", "rows": 3}], "model": "<b>Leader:</b> Shall we make a start? The main aim today is to talk about rules in the workplace. Paula, what do you think?<br><b>Paula:</b> In my opinion, flexible working hours are very important.<br><b>Ismail:</b> Sorry to interrupt, but could I just say something? I think meetings should always start on time.<br><b>Leader:</b> Thank you, Ismail. Any comments, Karl?<br><b>Karl:</b> I'd just like to add that we need clear rules for emails after work.<br><b>Leader:</b> Thank you very much for your ideas. That's all for today, I think.", "links": [["vok:nov27", "🗣️ Vokabeln 27.11"], ["vok:nov24b", "📋 Vokabeln 3.4 Meetings"]]}];
 const KX_SPK=[{"id": "sp0", "t": "info", "title": "🎤 So läuft Part One ab", "li": ["Der Speaking Test hat drei Teile. Part One dauert etwa 3 Minuten.", "Zuerst kommen allgemeine Fragen: über dich, dein Studium oder deinen Beruf und woher du kommst.", "Danach fragt der Prüfer zu Business-Themen.", "Geprüft wird dein Englisch, nicht dein Wissen über Business."]}, {"id": "sp00", "t": "tips", "title": "⭐ Exam Success – Tipps", "items": [["Listen very carefully to the questions.", "Hör sehr genau auf die Fragen."], ["Answer the question the examiner asks you.", "Beantworte genau die Frage, die der Prüfer stellt."], ["Ask him / her to repeat the question if necessary.", "Bitte um Wiederholung, wenn nötig."], ["Give your opinion and give examples to explain what you mean.", "Sag deine Meinung und erkläre sie mit Beispielen."], ["Try to give more than just the basic answer.", "Antworte ausführlicher als nur mit dem Nötigsten."], ["Never answer with just one word.", "Antworte nie nur mit einem Wort: Meinung + Beispiel!"]]}, {"id": "sp1", "t": "gap", "title": "1 – Fehler korrigieren", "q": "Jeder Satz (0, A–F) hat einen Fehler. Schreib die richtige Form in die Lücke.", "legend": [["0", "My name Pierre."], ["A", "Yes, I am thinking English is very important for this kind of work …"], ["B", "Well, it's a business studies degree and I'm interesting in marketing."], ["C", "I from a small town in northern Switzerland."], ["D", "I'd like work in a marketing department so I've started applying for jobs …"], ["E", "Actually, I'm just finish my degree at the University of Zurich."], ["F", "Since about six years."]], "items": [["(0) My name", ["'s", "is"], " Pierre."], ["(A) Yes, I ", ["think"], " English is very important for this kind of work because everyone uses English in business nowadays."], ["(B) Well, it's a business studies degree and I'm ", ["interested"], " in marketing."], ["(C) ", ["I'm from", "I am from"], " a small town in northern Switzerland."], ["(D) I'd like ", ["to work"], " in a marketing department so I've started applying for jobs with companies in Switzerland."], ["(E) Actually, ", ["I've just finished", "I have just finished", "I'm just finishing", "I am just finishing"], " my degree at the University of Zurich."], ["(F) ", ["For"], " about six years."]]}, {"id": "sp1w", "t": "info", "title": "💡 Warum?", "li": ["A: think (= meinen) ist ein Zustandsverb – keine -ing-Form.", "B: interested = ich bin interessiert · interesting = etwas ist interessant.", "C: Das Verb „am“ fehlt: I'm from …", "D: would like + to + Verb: I'd like to work …", "E: Present Perfect mit just: I've just finished …", "F: for + Zeitdauer (for six years) · since + Zeitpunkt (since 2020)."]}, {"id": "sp2", "t": "sel", "title": "2 – Welche Antwort passt?", "q": "Ordne die Antworten 0, A–F den Fragen des Prüfers zu.", "opts": ["0", "A", "B", "C", "D", "E", "F"], "items": [{"s": "First of all, I'd like to know something about you. What's your name?", "a": ["0"]}, {"s": "And where are you from?", "a": ["C"]}, {"s": "Do you work or are you a student?", "a": ["E"]}, {"s": "OK. So what do you like most about your studies?", "a": ["B"]}, {"s": "What are your plans for the future?", "a": ["D"]}, {"s": "Do you think English will be important to you in your career?", "a": ["A"]}, {"s": "So how long have you been learning English?", "a": ["F"]}]}, {"id": "sp3", "t": "note", "title": "3 – Jetzt du: Antworte auf die Fragen", "q": "Übe zu zweit oder schreib deine Antworten. Mit dem Beispiel kannst du vergleichen.", "fields": [{"q": "What's your name?"}, {"q": "Where are you from?"}, {"q": "Do you work or are you a student?"}, {"q": "What do you like most about your work / studies?"}, {"q": "What are your plans for the future?"}, {"q": "Do you think English will be important to you in your career?"}, {"q": "How long have you been learning English?"}], "model": "<b>Example: Ismail</b><br>(1) My name's Ismail.<br>(2) I'm from Kayseri in Turkey, but I've lived in Berlin for 48 years.<br>(3) I'm an engineer. At the moment I'm also doing an intensive English course.<br>(4) I like building apps most. As a hobby I build apps with AI, for example this English app.<br>(5) I'd like to improve my English to B2 level, and I'm interested in building more apps.<br>(6) Yes, I think English is very important, because I use it every day when I build apps.<br>(7) I've been learning English for many years. This intensive course started on 23rd November."}, {"id": "sp4", "t": "lang", "title": "4 – Typische Business-Themen", "groups": [["Danach fragt der Prüfer oft:", ["Business in your home town or country.", "The importance of English in business.", "The effect of technology on business.", "Present and future changes in working life.", "Training and development in the workplace.", "Ways of selling products or services."]]]}, {"id": "sp5", "t": "chk", "title": "5 – Welche zwei Themen fragt der Prüfer? (Audio 1.3)", "guess": 1, "opts": ["Business in your home town or country", "The importance of English in business", "The effect of technology on business", "Present and future changes in working life", "Training and development in the workplace", "Ways of selling products or services"], "a": [0, 3]}, {"id": "sp6", "t": "gap", "title": "6 – Fehlende Wörter (Audio 1.3)", "guess": 1, "q": "Je drei Wörter – sie stehen in den Useful expressions unten.", "box": ["I suppose that", "could you repeat", "I would think", "In my opinion"], "items": [["Candidate: Err, well, ", ["I suppose that"], " tourism is quite important to the area and there are many small farms so agriculture also."], ["Examiner: How is working life changing in your country? – Candidate: Sorry, ", ["could you repeat"], " the question, please?"], ["Candidate: ", ["I would think"], " more and more people are moving to the cities or they are commuting in every day."], ["", ["In my opinion"], ", the biggest change has come from technology – but then that's probably true everywhere, not just in my country …"]]}, {"id": "sp7", "t": "note", "title": "7 – Eine Frage zu jedem Thema", "q": "Bereite zu jedem der sechs Themen eine Frage vor. Dann tauscht ihr: einmal Prüfer, einmal Kandidat.", "fields": [{"q": "Business in your home town or country"}, {"q": "The importance of English in business"}, {"q": "The effect of technology on business"}, {"q": "Present and future changes in working life"}, {"q": "Training and development in the workplace"}, {"q": "Ways of selling products or services"}], "model": "<b>Questions + example answers (Ismail):</b><br><b>What are the main businesses in your home town?</b><br>Berlin is famous for start-ups and tourism. There are many tech companies, and millions of tourists visit the city every year.<br><br><b>Why is English important in business?</b><br>In my opinion, English is very important because companies work internationally. For example, I use English every day when I build apps with AI.<br><br><b>How has technology changed your job?</b><br>Technology has changed my work a lot. For example, I now build apps with AI – that was impossible ten years ago.<br><br><b>How will working life change in the future?</b><br>I would think more people will work from home, and AI will do many simple tasks.<br><br><b>Does your company offer training for employees?</b><br>I suppose that training is very important. At the moment I'm doing an intensive English course to improve my business English.<br><br><b>What is the best way to sell a product today?</b><br>I think the best way is online, for example with social media and a good website."}, {"id": "sp8", "t": "chk", "title": "8 – Exam self-check", "q": "Hast du … ? Hake ab, was du geschafft hast.", "opts": ["answer the question?", "give full answers (not just one or two words)?", "express your opinion?", "sound interested?"], "a": [0, 1, 2, 3]}, {"id": "sp9", "t": "lang", "title": "💬 Useful expressions for Speaking Part One", "groups": [["Persönliche Fragen beantworten", ["I'm a … / I come from … / I live in …", "I've lived / worked / studied there for … / since …", "At the moment, I'm studying / working on …", "I'm interested in … / I'd like to work in …"]], ["Meinung und Vorlieben ausdrücken", ["I think that …", "In my opinion …", "I think I'd prefer …", "I'd agree with that because …"]], ["Vermutungen äußern", ["I suppose that …", "I would think that …", "I don't know for certain but I'd expect …"]], ["Um Wiederholung bitten", ["Sorry, could you repeat the question, please?", "Sorry, can you say that again?"]]], "tip": "Tipp: Nie nur mit einem Wort antworten. Immer Meinung + Beispiel: „In my opinion, technology has changed a lot. For example, I build apps with AI.“", "links": [["vok:nov27", "🗣️ Vokabeln 27.11"], ["go:pruefung", "📝 Prüfungssimulation"]]}];
 function spkRender(){ const b=document.getElementById('spk-box'); if(b) b.innerHTML=kxHtml(KX_SPK); }
@@ -9047,14 +9047,17 @@ function tomRender(){
   if (!box) return;
   tomSentences = [];
   const l = tomLang();
-  const grp = g => '<div class="tom-grp">'+tomU(g)+'</div><div class="tom-chips">'+TOM_T.filter(x=>x.grp===g).map(x=>'<button class="tom-chip'+(tomSel===x.id?' on':'')+'" onclick="tomPick(\''+x.id+'\')">'+tomEsc(x.name)+'</button>').join('')+'</div>';
+  const grp = (g,extra) => '<div class="tom-grp">'+tomU(g)+'</div><div class="tom-chips">'+TOM_T.filter(x=>x.grp===g).map(x=>'<button class="tom-chip'+(tomSel===x.id?' on':'')+'" onclick="tomPick(\''+x.id+'\')">'+tomEsc(x.name)+'</button>').join('')+(extra||'')+'</div>';
+  const prepChip = (typeof tpU==='function') ? '<button class="tom-chip'+(tomSel==='prep'?' on':'')+'" onclick="tomPick(\'prep\')">'+tpU('chip')+'</button>' : '';
   let h = '<h3>'+tomU('title')+'</h3><div class="tom-intro">'+tomU('intro')+'</div>';
-  h += grp('past')+grp('present')+grp('future')+grp('more');
+  h += grp('past')+grp('present')+grp('future')+grp('more',prepChip);
   h += '<div class="tom-chips" style="margin-top:12px"><button class="tom-chip ex'+(tomSel==='quiz'?' on':'')+'" onclick="tomPick(\'quiz\')">'+tomU('quiz')+'</button></div>';
   if (tomSel==='quiz') h += '<div class="tom-detail" id="tom-quiz">'+tomQuizHtml()+'</div>';
-  else if (tomSel) h += '<div class="tom-detail">'+tomDetail(tomById(tomSel))+'</div>';
+  else if (tomSel==='prep' && typeof tpHtml==='function') h += '<div class="tom-detail">'+tpHtml()+'</div>';
+  else if (tomSel && tomSel!=='prep') h += '<div class="tom-detail">'+tomDetail(tomById(tomSel))+'</div>';
   box.innerHTML = h;
   box.setAttribute('dir','ltr');
+  if (tomSel==='prep' && typeof tpAfter==='function') tpAfter();
 }
 function tomDetail(x){
   if (!x) return '';
@@ -9119,6 +9122,230 @@ function tomAnswer(k){
 document.addEventListener('DOMContentLoaded', tomRender);
 if (document.readyState !== 'loading') tomRender();
 </script>
+<style>
+.tp-big{font-size:30px;font-weight:900;color:#dc2626;text-align:center;margin:6px 0 0;letter-spacing:.02em}
+.tp-tr{display:block;font-size:14px;font-weight:600;color:var(--fg-muted);margin-top:3px}
+.tp-tr[dir=rtl]{text-align:right}
+.tp-opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0}
+.tp-opts .tom-quiz-opt{margin:0;text-align:center;font-size:17px;font-weight:800}
+.tp-stage{margin-top:12px;background:var(--bg-2);border-radius:12px;padding:6px;overflow:hidden}
+</style>
+<script>
+/* ========== 27.11.2026: PRÄPOSITIONEN MIT TOM (Animationen in gs0 „Mehr mit Tom“, tomSel==='prep') ========== */
+const TP_UI={
+ de:{chip:"📍 Präpositionen",title:"🎬 Tom zeigt die Präpositionen",intro:"Tippe auf eine Präposition. Tom zeigt, was sie bedeutet, und sagt den Satz.",place:"📍 Wo? (Ort)",move:"➡️ Wohin? (Bewegung)",time:"⏰ Wann? (Zeit)",replay:"↻ Nochmal",quiz:"🎯 Quiz: Welche Präposition zeigt Tom?",quizQ:"Schau genau hin. Welche Präposition passt?",next:"Nächste Szene →",right:"✅ Richtig!",wrong:"❌ Leider falsch. Richtig ist:",score:"Punkte",card:"▶ Mit Tom ansehen (Animation)",back:"← Zurück zu den Präpositionen"},
+ ar:{chip:"📍 حروف الجر",title:"🎬 توم يشرح حروف الجر",intro:"اضغط على حرف جر. توم يريك معناه ويقول الجملة.",place:"📍 أين؟ (المكان)",move:"➡️ إلى أين؟ (الحركة)",time:"⏰ متى؟ (الزمن)",replay:"↻ مرة أخرى",quiz:"🎯 اختبار: أي حرف جر يُظهره توم؟",quizQ:"انظر جيدًا. أي حرف جر يناسب؟",next:"المشهد التالي ←",right:"✅ صحيح!",wrong:"❌ للأسف خطأ. الصحيح هو:",score:"النقاط",card:"▶ شاهد مع توم (رسوم متحركة)",back:"→ العودة إلى حروف الجر"},
+ ka:{chip:"📍 წინდებულები",title:"🎬 ტომი გაჩვენებს წინდებულებს",intro:"შეეხე წინდებულს. ტომი გაჩვენებს მის მნიშვნელობას და იტყვის წინადადებას.",place:"📍 სად? (ადგილი)",move:"➡️ საით? (მოძრაობა)",time:"⏰ როდის? (დრო)",replay:"↻ თავიდან",quiz:"🎯 ქვიზი: რომელ წინდებულს აჩვენებს ტომი?",quizQ:"კარგად დააკვირდი. რომელი წინდებული ერგება?",next:"შემდეგი სცენა →",right:"✅ სწორია!",wrong:"❌ სამწუხაროდ, არასწორია. სწორია:",score:"ქულები",card:"▶ ნახე ტომთან ერთად (ანიმაცია)",back:"← წინდებულებზე დაბრუნება"},
+ tr:{chip:"📍 Edatlar",title:"🎬 Tom edatları gösteriyor",intro:"Bir edata dokun. Tom ne anlama geldiğini gösterir ve cümleyi söyler.",place:"📍 Nerede? (yer)",move:"➡️ Nereye? (hareket)",time:"⏰ Ne zaman? (zaman)",replay:"↻ Tekrar",quiz:"🎯 Quiz: Tom hangi edatı gösteriyor?",quizQ:"Dikkatle bak. Hangi edat uygun?",next:"Sonraki sahne →",right:"✅ Doğru!",wrong:"❌ Maalesef yanlış. Doğrusu:",score:"Puan",card:"▶ Tom ile izle (animasyon)",back:"← Edatlara geri dön"}
+};
+function tpU(k){ const l=tomLang(); const T=TP_UI[l]||TP_UI.de; return T[k]!==undefined?T[k]:TP_UI.de[k]; }
+
+/* Szenen: k=id, p=Präposition, g=Gruppe, en=Satz, t=Übersetzung, h=Merkhilfe */
+const TP_S=[
+ {k:'in',p:'in',g:'place',en:"Tom is in the house.",t:{de:"Tom ist im Haus.",ar:"توم في البيت.",ka:"ტომი სახლშია.",tr:"Tom evin içinde."},h:{de:"drin – rundherum sind Wände",ar:"في الداخل – الجدران من كل الجهات",ka:"შიგნით – ირგვლივ კედლებია",tr:"içinde – etrafı duvarlarla çevrili"}},
+ {k:'on',p:'on',g:'place',en:"Tom is on the chair.",t:{de:"Tom steht auf dem Stuhl.",ar:"توم على الكرسي.",ka:"ტომი სკამზეა.",tr:"Tom sandalyenin üstünde."},h:{de:"auf einer Fläche – er berührt sie",ar:"على سطح – يلمسه",ka:"ზედაპირზე – ეხება მას",tr:"bir yüzeyin üstünde – ona değiyor"}},
+ {k:'under',p:'under',g:'place',en:"Tom is under the table.",t:{de:"Tom ist unter dem Tisch.",ar:"توم تحت الطاولة.",ka:"ტომი მაგიდის ქვეშაა.",tr:"Tom masanın altında."},h:{de:"darunter",ar:"أسفل شيء",ka:"რაღაცის ქვეშ",tr:"bir şeyin altında"}},
+ {k:'next',p:'next to',g:'place',en:"Tom is next to the car.",t:{de:"Tom ist neben dem Auto.",ar:"توم بجانب السيارة.",ka:"ტომი მანქანის გვერდითაა.",tr:"Tom arabanın yanında."},h:{de:"direkt daneben",ar:"بجانبه مباشرة",ka:"პირდაპირ გვერდით",tr:"hemen yanında"}},
+ {k:'betw',p:'between',g:'place',en:"Tom is between the trees.",t:{de:"Tom ist zwischen den Bäumen.",ar:"توم بين الشجرتين.",ka:"ტომი ხეებს შორისაა.",tr:"Tom ağaçların arasında."},h:{de:"in der Mitte von zwei Dingen",ar:"في الوسط بين شيئين",ka:"ორ საგანს შორის, შუაში",tr:"iki şeyin ortasında"}},
+ {k:'behind',p:'behind',g:'place',en:"Tom is behind the tree.",t:{de:"Tom ist hinter dem Baum.",ar:"توم خلف الشجرة.",ka:"ტომი ხის უკანაა.",tr:"Tom ağacın arkasında."},h:{de:"dahinter – man sieht ihn kaum",ar:"وراء شيء – بالكاد نراه",ka:"უკან – თითქმის არ ჩანს",tr:"arkasında – zor görünüyor"}},
+ {k:'front',p:'in front of',g:'place',en:"Tom is in front of the TV.",t:{de:"Tom steht vor dem Fernseher.",ar:"توم أمام التلفاز.",ka:"ტომი ტელევიზორის წინაა.",tr:"Tom televizyonun önünde."},h:{de:"davor – zwischen dir und dem Ding",ar:"أمام الشيء – بينك وبينه",ka:"წინ – შენსა და საგანს შორის",tr:"önünde – seninle o şey arasında"}},
+ {k:'at',p:'at',g:'place',en:"Tom is at the bus stop.",t:{de:"Tom ist an der Bushaltestelle.",ar:"توم عند موقف الحافلات.",ka:"ტომი ავტობუსის გაჩერებაზეა.",tr:"Tom otobüs durağında."},h:{de:"an einem Punkt / bestimmten Ort",ar:"عند نقطة أو مكان محدد",ka:"კონკრეტულ წერტილში / ადგილას",tr:"belirli bir noktada / yerde"}},
+ {k:'to',p:'to',g:'move',en:"Tom is going to the station.",t:{de:"Tom geht zum Bahnhof.",ar:"توم ذاهب إلى المحطة.",ka:"ტომი სადგურისკენ მიდის.",tr:"Tom istasyona gidiyor."},h:{de:"Richtung, Ziel (Bewegung)",ar:"اتجاه وهدف (حركة)",ka:"მიმართულება, მიზანი (მოძრაობა)",tr:"yön, hedef (hareket)"}},
+ {k:'into',p:'into',g:'move',en:"Tom is going into the house.",t:{de:"Tom geht ins Haus (hinein).",ar:"توم يدخل إلى البيت.",ka:"ტომი სახლში შედის.",tr:"Tom eve giriyor."},h:{de:"von draußen nach drinnen",ar:"من الخارج إلى الداخل",ka:"გარედან შიგნით",tr:"dışarıdan içeriye"}},
+ {k:'outof',p:'out of',g:'move',en:"Tom is coming out of the house.",t:{de:"Tom kommt aus dem Haus (heraus).",ar:"توم يخرج من البيت.",ka:"ტომი სახლიდან გამოდის.",tr:"Tom evden çıkıyor."},h:{de:"von drinnen nach draußen",ar:"من الداخل إلى الخارج",ka:"შიგნიდან გარეთ",tr:"içeriden dışarıya"}},
+ {k:'fromto',p:'from … to',g:'move',en:"Tom goes from home to work.",t:{de:"Tom geht von zu Hause zur Arbeit.",ar:"توم يذهب من البيت إلى العمل.",ka:"ტომი სახლიდან სამსახურში მიდის.",tr:"Tom evden işe gidiyor."},h:{de:"from = Start, to = Ziel",ar:"from = البداية، to = الهدف",ka:"from = საწყისი, to = მიზანი",tr:"from = başlangıç, to = hedef"}},
+ {k:'through',p:'through',g:'move',en:"Tom is walking through the tunnel.",t:{de:"Tom geht durch den Tunnel.",ar:"توم يمشي عبر النفق.",ka:"ტომი გვირაბში გადის.",tr:"Tom tünelin içinden geçiyor."},h:{de:"auf einer Seite rein, auf der anderen raus",ar:"يدخل من جهة ويخرج من الجهة الأخرى",ka:"ერთი მხრიდან შედის, მეორიდან გამოდის",tr:"bir taraftan girip öbür taraftan çıkıyor"}},
+ {k:'over',p:'over',g:'move',en:"Tom jumps over the box.",t:{de:"Tom springt über die Kiste.",ar:"توم يقفز فوق الصندوق.",ka:"ტომი ყუთზე გადახტება.",tr:"Tom kutunun üstünden atlıyor."},h:{de:"über etwas hinweg",ar:"من فوق شيء إلى الجهة الأخرى",ka:"რაღაცის ზემოდან გადასვლა",tr:"bir şeyin üstünden aşarak"}},
+ {k:'up',p:'up',g:'move',en:"Tom is going up the stairs.",t:{de:"Tom geht die Treppe hinauf.",ar:"توم يصعد الدرج.",ka:"ტომი კიბეზე ადის.",tr:"Tom merdivenlerden yukarı çıkıyor."},h:{de:"nach oben",ar:"إلى الأعلى",ka:"ზემოთ",tr:"yukarı"}},
+ {k:'down',p:'down',g:'move',en:"Tom is going down the stairs.",t:{de:"Tom geht die Treppe hinunter.",ar:"توم ينزل الدرج.",ka:"ტომი კიბეზე ჩადის.",tr:"Tom merdivenlerden aşağı iniyor."},h:{de:"nach unten",ar:"إلى الأسفل",ka:"ქვემოთ",tr:"aşağı"}},
+ {k:'tat',p:'at',g:'time',en:"Tom gets up at 7 o'clock.",t:{de:"Tom steht um 7 Uhr auf.",ar:"توم يستيقظ في الساعة السابعة.",ka:"ტომი შვიდ საათზე დგება.",tr:"Tom saat yedide kalkıyor."},h:{de:"at = Uhrzeit, ein genauer Zeitpunkt",ar:"at = الساعة، وقت محدد بدقة",ka:"at = საათი, ზუსტი დრო",tr:"at = saat, kesin bir zaman"}},
+ {k:'ton',p:'on',g:'time',en:"Tom plays football on Saturday.",t:{de:"Tom spielt am Samstag Fußball.",ar:"توم يلعب كرة القدم يوم السبت.",ka:"ტომი შაბათს ფეხბურთს თამაშობს.",tr:"Tom cumartesi günü futbol oynuyor."},h:{de:"on = Tag oder Datum",ar:"on = يوم أو تاريخ",ka:"on = დღე ან თარიღი",tr:"on = gün veya tarih"}},
+ {k:'tin',p:'in',g:'time',en:"Tom goes on holiday in summer.",t:{de:"Tom macht im Sommer Urlaub.",ar:"توم يسافر في عطلة في الصيف.",ka:"ტომი ზაფხულში შვებულებაში მიდის.",tr:"Tom yazın tatile gidiyor."},h:{de:"in = längere Zeit: Monat, Jahreszeit, Jahr",ar:"in = فترة أطول: شهر، فصل، سنة",ka:"in = ხანგრძლივი პერიოდი: თვე, სეზონი, წელი",tr:"in = daha uzun süre: ay, mevsim, yıl"}}
+];
+let tpSel='in', tpQ=null, tpScore={ok:0,all:0}, tpMode='learn';
+function tpById(k){ return TP_S.find(s=>s.k===k); }
+
+/* Tom-Figur (Füße bei y=186), id für Animation */
+function tpTom(id,x,face,extra){
+  return '<g id="'+id+'"><g transform="translate('+(x-150)+',0)">'
+   +'<circle cx="150" cy="96" r="17" fill="var(--bg)" stroke="var(--fg)" stroke-width="3.5"/>'
+   +'<text x="150" y="104" text-anchor="middle" font-size="22">'+(face||'🙂')+'</text>'
+   +'<line class="tom-st" x1="150" y1="113" x2="150" y2="152"/>'
+   +'<line class="tom-st" x1="150" y1="124" x2="174" y2="138"/><line class="tom-st" x1="150" y1="124" x2="128" y2="140"/>'
+   +'<g class="tp-legs"><line class="tom-st" x1="150" y1="152" x2="136" y2="186"/><line class="tom-st" x1="150" y1="152" x2="164" y2="186"/></g>'
+   +'<text x="150" y="70" text-anchor="middle" class="tom-lbl">Tom</text>'+(extra||'')
+   +'</g></g>';
+}
+function tpHouse(front){
+  if (!front) return '<rect x="250" y="90" width="150" height="100" fill="#fde68a" opacity=".55"/><polygon points="238,92 325,30 412,92" fill="#dc2626"/>';
+  return '<rect x="250" y="90" width="150" height="100" fill="rgba(253,230,138,.45)" stroke="#b45309" stroke-width="4"/><rect x="360" y="110" width="26" height="24" fill="#bfdbfe" stroke="#b45309" stroke-width="2"/>';
+}
+function tpStairs(){ let s=''; for(let i=0;i<4;i++) s+='<rect x="'+(200+i*36)+'" y="'+(175-i*15)+'" width="'+(260-i*36)+'" height="15" fill="#d6d3d1" stroke="#78716c" stroke-width="1.5"/>'; return s; }
+
+/* jede Szene: svg (Inhalt) + a = Animationen [id, keyframes [[x,y,opacity]], Dauer ms, Verzögerung] */
+function tpScene(k){
+  const W='<line x1="0" y1="190" x2="460" y2="190" stroke="#9ca3af" stroke-width="2"/>';
+  let s='', a=[];
+  switch(k){
+   case 'in':
+    s=tpHouse(0)+tpTom('tp-tom',325,'😊')+'<g id="tp-h">'+tpHouse(1)+'<polygon points="238,92 325,30 412,92" fill="none" stroke="#7f1d1d" stroke-width="3"/></g>';
+    a=[['tp-h',[[0,-230,0],[0,-230,1],[0,0,1],[0,-10,1],[0,0,1]],1600,200]]; break;
+   case 'on':
+    s='<rect x="262" y="138" width="72" height="9" rx="2" fill="#92400e"/><rect x="326" y="78" width="8" height="62" fill="#92400e"/><line x1="268" y1="147" x2="268" y2="190" stroke="#92400e" stroke-width="6"/><line x1="328" y1="147" x2="328" y2="190" stroke="#92400e" stroke-width="6"/>'+tpTom('tp-tom',150,'😃');
+    a=[['tp-tom',[[0,0],[60,0],[105,-95],[145,-48],[145,-40],[145,-48]],1700,200]]; break;
+   case 'under':
+    s=tpTom('tp-tom',60,'🙂')+'<rect x="210" y="52" width="200" height="10" rx="3" fill="#92400e"/><line x1="220" y1="62" x2="220" y2="190" stroke="#92400e" stroke-width="7"/><line x1="400" y1="62" x2="400" y2="190" stroke="#92400e" stroke-width="7"/><text x="300" y="46" text-anchor="middle" font-size="26">☕📚</text>';
+    a=[['tp-tom',[[0,0],[250,0]],2200,200]]; break;
+   case 'next':
+    s='<text x="320" y="190" text-anchor="middle" font-size="96">🚗</text>'+tpTom('tp-tom',40,'🙂');
+    a=[['tp-tom',[[0,0],[200,0]],1900,200]]; break;
+   case 'betw':
+    s='<text x="110" y="192" text-anchor="middle" font-size="110">🌳</text><text x="350" y="192" text-anchor="middle" font-size="110">🌳</text>'+tpTom('tp-tom',230,'😊');
+    a=[['tp-tom',[[0,-260,0],[0,-260,1],[0,0,1],[0,-12,1],[0,0,1]],1500,200]]; break;
+   case 'behind':
+    s=tpTom('tp-tom',40,'🙈')+'<text x="300" y="194" text-anchor="middle" font-size="150">🌳</text>';
+    a=[['tp-tom',[[0,0],[285,0]],2200,200]]; break;
+   case 'front':
+    s='<rect class="tom-tv" x="250" y="62" width="150" height="96" rx="6"/><rect x="259" y="71" width="132" height="78" rx="3" fill="#3b82f6" class="tom-flick"/><text x="325" y="118" text-anchor="middle" font-size="26">⚽</text><line class="tom-st" x1="295" y1="158" x2="285" y2="180"/><line class="tom-st" x1="355" y1="158" x2="365" y2="180"/>'+tpTom('tp-tom',40,'😃');
+    a=[['tp-tom',[[0,0],[285,0]],2000,200]]; break;
+   case 'at':
+    s='<line x1="330" y1="60" x2="330" y2="190" stroke="#6b7280" stroke-width="5"/><circle cx="330" cy="48" r="24" fill="#16a34a" stroke="#fff" stroke-width="3"/><text x="330" y="54" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">BUS</text>'+tpTom('tp-tom',40,'🙂')+'<text id="tp-bus" x="530" y="188" font-size="70">🚌</text>';
+    a=[['tp-tom',[[0,0],[255,0]],2000,200],['tp-bus',[[0,0],[-150,0]],1200,2400]]; break;
+   case 'to':
+    s='<rect x="330" y="80" width="120" height="110" fill="#e5e7eb" stroke="#6b7280" stroke-width="3"/><rect x="330" y="62" width="120" height="22" fill="#2563eb"/><text x="390" y="78" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">STATION</text><text x="390" y="150" text-anchor="middle" font-size="40">🚉</text><line id="tp-arr" x1="60" y1="198" x2="320" y2="198" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 6"/><polygon points="318,192 330,198 318,204" fill="#dc2626"/>'+tpTom('tp-tom',40,'🙂');
+    a=[['tp-tom',[[0,0],[250,0]],2400,200]]; break;
+   case 'into':
+    s=tpHouse(0)+tpTom('tp-tom',40,'🙂')+tpHouse(1)+'<line x1="90" y1="198" x2="300" y2="198" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 6"/><polygon points="298,192 310,198 298,204" fill="#dc2626"/>';
+    a=[['tp-tom',[[0,0],[285,0]],2400,200]]; break;
+   case 'outof':
+    s=tpHouse(0)+tpTom('tp-tom',325,'😀')+tpHouse(1)+'<line x1="300" y1="198" x2="90" y2="198" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 6"/><polygon points="92,192 80,198 92,204" fill="#dc2626"/>';
+    a=[['tp-tom',[[0,0],[-245,0]],2400,200]]; break;
+   case 'fromto':
+    s='<text x="55" y="186" text-anchor="middle" font-size="80">🏠</text><text x="410" y="186" text-anchor="middle" font-size="80">🏢</text><text x="55" y="30" text-anchor="middle" class="tom-bt" fill="#dc2626">from home</text><text x="410" y="30" text-anchor="middle" class="tom-bt" fill="#16a34a">to work</text>'+tpTom('tp-tom',100,'🙂');
+    a=[['tp-tom',[[0,0],[255,0]],2600,200]]; break;
+   case 'through':
+    s=tpTom('tp-tom',20,'😮')+'<path d="M170 190 V95 Q230 40 290 95 V190 Z" fill="#78716c" opacity=".82"/><path d="M185 190 V100 Q230 58 275 100 V190" fill="none" stroke="#44403c" stroke-width="5"/><rect x="150" y="80" width="160" height="12" fill="#16a34a" opacity=".7"/>';
+    a=[['tp-tom',[[0,0],[420,0]],3200,200]]; break;
+   case 'over':
+    s='<text x="235" y="190" text-anchor="middle" font-size="64">📦</text>'+tpTom('tp-tom',60,'😃');
+    a=[['tp-tom',[[0,0],[90,0],[175,-85],[260,0],[330,0]],2200,200]]; break;
+   case 'up':
+    s=tpStairs()+tpTom('tp-tom',90,'💪');
+    a=[['tp-tom',[[0,0],[100,0],[128,-15],[164,-30],[200,-45],[236,-60],[300,-60]],2600,200]]; break;
+   case 'down':
+    s=tpStairs()+tpTom('tp-tom',390,'😊');
+    a=[['tp-tom',[[0,-60],[-64,-60],[-118,-45],[-154,-30],[-190,-15],[-226,0],[-300,0]],2600,200]]; break;
+   case 'tat':
+    s='<circle cx="330" cy="100" r="64" fill="var(--bg)" stroke="var(--fg)" stroke-width="5"/>';
+    for(let i=0;i<12;i++){ const an=i*Math.PI/6; s+='<line x1="'+(330+54*Math.sin(an))+'" y1="'+(100-54*Math.cos(an))+'" x2="'+(330+60*Math.sin(an))+'" y2="'+(100-60*Math.cos(an))+'" stroke="var(--fg)" stroke-width="3"/>'; }
+    s+='<text x="330" y="58" text-anchor="middle" font-size="13" class="tom-lbl">12</text><text x="300" y="148" text-anchor="middle" font-size="13" class="tom-lbl">7</text>';
+    s+='<line id="tp-hh" x1="330" y1="100" x2="330" y2="66" stroke="#dc2626" stroke-width="6" stroke-linecap="round" style="transform-box:view-box;transform-origin:330px 100px"/><line id="tp-mh" x1="330" y1="100" x2="330" y2="48" stroke="var(--fg)" stroke-width="4" stroke-linecap="round" style="transform-box:view-box;transform-origin:330px 100px"/><circle cx="330" cy="100" r="5" fill="var(--fg)"/>';
+    s+='<text id="tp-tx" x="330" y="194" text-anchor="middle" class="tom-bt" opacity="0" fill="#dc2626">⏰ 7:00</text>'+tpTom('tp-tom',120,'🥱');
+    a=[['tp-hh','rot',[0,210],2000,200],['tp-mh','rot',[0,2520],2000,200],['tp-tx',[[0,8,0],[0,0,1]],400,2200],['tp-tom',[[0,0],[0,-30],[0,0]],500,2300]]; break;
+   case 'ton':
+    ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach((d,i)=>{ s+='<rect x="'+(200+i*36)+'" y="50" width="32" height="44" rx="5" fill="var(--bg-2)" stroke="#9ca3af"/><text x="'+(216+i*36)+'" y="68" text-anchor="middle" font-size="11" class="tom-lbl">'+d+'</text>'; });
+    s+='<rect id="tp-hl" x="200" y="50" width="32" height="44" rx="5" fill="none" stroke="#dc2626" stroke-width="4"/><text id="tp-ball" x="396" y="90" text-anchor="middle" font-size="18" opacity="0">⚽</text>'+tpTom('tp-tom',120,'😃');
+    a=[['tp-hl',[[0,0],[36,0],[72,0],[108,0],[144,0],[180,0]],1800,200],['tp-ball',[[0,6,0],[0,0,1]],400,2000],['tp-tom',[[0,0],[0,-26],[0,0]],500,2200]]; break;
+   case 'tin':
+    'JFMAMJJASOND'.split('').forEach((m,i)=>{ s+='<rect x="'+(176+i*23)+'" y="56" width="20" height="30" rx="3" fill="var(--bg-2)" stroke="#9ca3af"/><text x="'+(186+i*23)+'" y="76" text-anchor="middle" font-size="11" class="tom-lbl">'+m+'</text>'; });
+    s+='<g id="tp-sum" opacity="0"><rect x="289" y="52" width="70" height="38" rx="6" fill="#f59e0b" opacity=".35" stroke="#f59e0b" stroke-width="3"/><text x="324" y="112" text-anchor="middle" class="tom-bt" fill="#b45309">summer ☀️</text></g><text x="186" y="40" class="tom-lbl" font-size="12">Jan</text><text x="439" y="40" text-anchor="end" class="tom-lbl" font-size="12">Dec</text>'+tpTom('tp-tom',110,'😎');
+    a=[['tp-sum',[[-60,0,0],[0,0,1]],1200,300],['tp-tom',[[0,0],[0,-26],[0,0]],500,1600]]; break;
+  }
+  return {svg:'<svg viewBox="0 0 460 205" role="img" aria-label="Tom">'+s+W+'</svg>',a:a};
+}
+function tpPlayIn(el,k){
+  if(!el) return;
+  const sc=tpScene(k); el.innerHTML=sc.svg;
+  sc.a.forEach(x=>{
+    const n=el.querySelector('#'+x[0]); if(!n||!n.animate) return;
+    let kf,dur,del;
+    if(x[1]==='rot'){ kf=[{transform:'rotate('+x[2][0]+'deg)'},{transform:'rotate('+x[2][1]+'deg)'}]; dur=x[3]; del=x[4]; }
+    else { kf=x[1].map(p=>({transform:'translate('+p[0]+'px,'+p[1]+'px)',opacity:p[2]===undefined?1:p[2]})); dur=x[2]; del=x[3]; }
+    try{ n.animate(kf,{duration:dur,delay:del||0,fill:'both',easing:'ease-in-out'}); }catch(e){}
+    if(x[0]==='tp-tom' && x[1]!=='rot' && x[1].length>=2 && x[1][0][0]!==x[1][x[1].length-1][0]){
+      const lg=n.querySelector('.tp-legs'); if(lg&&lg.animate) try{ lg.animate([{transform:'translateY(0)'},{transform:'translateY(-4px)'},{transform:'translateY(0)'}],{duration:320,iterations:Math.max(1,Math.round(dur/320)),delay:del||0}); }catch(e){}
+    }
+  });
+}
+function tpMark(en,p){
+  const parts=p.split(' … ');
+  let h=tomEsc(en);
+  parts.forEach(w=>{ const re=new RegExp('(^|[^A-Za-z])('+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')(?![A-Za-z])'); h=h.replace(re,(m,a,b)=>a+'<mark class="tsg">'+b+'</mark>'); });
+  return h;
+}
+function tpCaption(x){
+  const l=tomLang(), rtl=l==='ar'?' dir="rtl"':'';
+  let h='<div class="tp-big">'+tomEsc(x.p)+'</div>';
+  h+='<div class="tom-say"><span style="font-size:22px">🧍</span><div class="s">„'+tpMark(x.en,x.p)+'“<span class="tp-tr"'+rtl+'>'+tomEsc(tomTr(x.t))+'</span></div></div>';
+  h+='<div class="tom-why"'+rtl+'>💡 <b>'+tomEsc(x.p)+'</b> = '+tomEsc(tomTr(x.h))+'</div>';
+  h+='<div class="tom-btns" style="margin-top:8px"><button class="tom-btn" onclick="tpReplay()">'+tpU('replay')+'</button></div>';
+  h+=tomSBtns(x.en);
+  return h;
+}
+function tpHtml(){
+  let h='<div class="tp-wrap" onclick="event.stopPropagation()"><div class="tom-row" style="font-weight:800;font-size:16px">'+tpU('title')+'</div><div class="tom-intro">'+tpU('intro')+'</div>';
+  ['place','move','time'].forEach(g=>{
+    h+='<div class="tom-grp">'+tpU(g)+'</div><div class="tom-chips">'+TP_S.filter(x=>x.g===g).map(x=>'<button class="tom-chip tp-c'+(tpMode==='learn'&&tpSel===x.k?' on':'')+'" data-k="'+x.k+'" onclick="tpPick(\''+x.k+'\')">'+tomEsc(x.p)+'</button>').join('')+'</div>';
+  });
+  h+='<div class="tom-chips" style="margin-top:12px"><button class="tom-chip ex'+(tpMode==='quiz'?' on':'')+'" id="tp-qbtn" onclick="tpQuizStart()">'+tpU('quiz')+'</button></div>';
+  h+='<div class="tp-stage tom-scene" id="tp-stage"></div><div id="tp-cap"></div></div>';
+  return h;
+}
+function tpAfter(){
+  if(tpMode==='quiz'){ tpQuizShow(); return; }
+  const x=tpById(tpSel)||TP_S[0];
+  tpPlayIn(document.getElementById('tp-stage'),x.k);
+  const c=document.getElementById('tp-cap'); if(c) c.innerHTML=tpCaption(x);
+}
+function tpMarkChips(){
+  document.querySelectorAll('#tom-box .tp-c').forEach(b=>b.classList.toggle('on',tpMode==='learn'&&b.getAttribute('data-k')===tpSel));
+  const q=document.getElementById('tp-qbtn'); if(q) q.classList.toggle('on',tpMode==='quiz');
+}
+function tpPick(k){
+  tpMode='learn'; tpSel=k; tpMarkChips(); tpAfter();
+  const x=tpById(k); setTimeout(()=>tomSpeak(x.en),700);
+  const st=document.getElementById('tp-stage'); if(st&&st.scrollIntoView) st.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function tpReplay(){ if(tpMode==='quiz'&&tpQ) tpPlayIn(document.getElementById('tp-stage'),tpQ.k); else { tpAfter(); const x=tpById(tpSel); if(x) setTimeout(()=>tomSpeak(x.en),700); } }
+function tpQuizStart(){ tpMode='quiz'; tpQ=null; tpMarkChips(); tpQuizShow(); const st=document.getElementById('tp-stage'); if(st&&st.scrollIntoView) st.scrollIntoView({behavior:'smooth',block:'center'}); }
+function tpNewQ(){
+  const prev=tpQ?tpQ.k:null;
+  let pool=TP_S.filter(x=>x.k!==prev); const x=pool[Math.floor(Math.random()*pool.length)];
+  const labels=[...new Set(TP_S.map(s=>s.p))].filter(p=>p!==x.p);
+  let opts=[];
+  if(x.g==='time') opts=['in','at','on'].filter(p=>p!==x.p).concat([labels.filter(p=>!['in','at','on'].includes(p))[Math.floor(Math.random()*8)]||'to']);
+  else { const sh=labels.sort(()=>Math.random()-.5); opts=sh.slice(0,3); }
+  opts=opts.slice(0,3).concat([x.p]).sort(()=>Math.random()-.5);
+  tpQ={k:x.k,opts:opts,done:false};
+}
+function tpQuizShow(){
+  if(!tpQ||tpQ.done) tpNewQ();
+  tpPlayIn(document.getElementById('tp-stage'),tpQ.k);
+  const c=document.getElementById('tp-cap'); if(!c) return;
+  let h='<div class="tom-row"><b>'+tpU('quizQ')+'</b> <span style="float:right;font-size:13px;color:var(--fg-muted)">'+tpU('score')+': '+tpScore.ok+' / '+tpScore.all+'</span></div>';
+  h+='<div class="tp-opts">'+tpQ.opts.map((p,i)=>'<button class="tom-quiz-opt tp-opt" id="tpo-'+i+'" onclick="tpAnswer('+i+')">'+tomEsc(p)+'</button>').join('')+'</div>';
+  h+='<div class="tom-btns"><button class="tom-btn" onclick="tpReplay()">'+tpU('replay')+'</button></div><div id="tp-qfb"></div>';
+  c.innerHTML=h;
+}
+function tpAnswer(i){
+  if(!tpQ||tpQ.done) return; tpQ.done=true;
+  const x=tpById(tpQ.k), ok=tpQ.opts[i]===x.p;
+  tpScore.all++; if(ok){ tpScore.ok++; if(typeof xpAdd==='function') xpAdd(2); } else if(typeof xpAdd==='function') xpAdd(1);
+  tpQ.opts.forEach((p,j)=>{ const b=document.getElementById('tpo-'+j); if(!b) return; if(p===x.p) b.classList.add('ok'); else if(j===i) b.classList.add('bad'); });
+  const l=tomLang(), rtl=l==='ar'?' dir="rtl"':'';
+  const f=document.getElementById('tp-qfb');
+  if(f) f.innerHTML='<div class="tom-row" style="font-weight:700">'+(ok?tpU('right'):tpU('wrong')+' <b>'+tomEsc(x.p)+'</b>')+'</div><div class="tom-say"><span style="font-size:22px">🧍</span><div class="s">„'+tpMark(x.en,x.p)+'“<span class="tp-tr"'+rtl+'>'+tomEsc(tomTr(x.t))+'</span></div></div><div class="tom-why"'+rtl+'>💡 <b>'+tomEsc(x.p)+'</b> = '+tomEsc(tomTr(x.h))+'</div><div class="tom-btns" style="margin-top:8px"><button class="tom-btn" onclick="tomSpeak(tpById(\''+x.k+'\').en)">'+tomU('listen')+'</button><button class="gram-quiz-btn" onclick="tpNewQ();tpQuizShow()">'+tpU('next')+'</button></div>';
+  tomSpeak(x.en);
+}
+/* Knopf aus der Grammatik-Karte „Prepositions“ → gs0, Mehr mit Tom, Präpositionen */
+function tpGoTom(){
+  tomSel='prep'; tpMode='learn';
+  if(typeof openGramRef==='function') openGramRef('gs0'); else tomRender();
+  setTimeout(()=>{ const d=document.getElementById('tp-stage'); if(d&&d.scrollIntoView) d.scrollIntoView({behavior:'smooth',block:'center'}); },250);
+}
+if(typeof tomRender==='function' && tomSel==='prep') tomRender();
+</script>
+
 <script>
 /* ========== HEUTE LERNEN (tägliche Lerneinheit, 20.11.2026) ========== */
 const HEUTE_KEY = 'ela_heute';
